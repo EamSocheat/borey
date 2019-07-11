@@ -54,7 +54,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-    <strong>Copyright &copy; 2014-2016 <a target="blank" href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+    <strong>Copyright &copy; 2019-2020 Nokor App.</strong> All rights
     reserved.
   </footer>
 
@@ -252,7 +252,8 @@ $(document).ready(function() {
 	
 	//render menu for user
 	getUserMenu();
-	//
+	//set default language to Khmer
+	setCookie("lang", "kh", 100);
 	checkCookieLang();
 	//
 	$("#langDropSelect a").click(function(e){
@@ -310,7 +311,7 @@ function getCookie(cname) {
 }
 
 function checkCookieLang(){
-    var lang=getCookie("lang");
+    var lang = getCookie("lang");
 
     if (lang != "") {
     	changeLang(lang);
