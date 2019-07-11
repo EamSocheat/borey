@@ -417,11 +417,34 @@ function getUserMenu(){
 		async: false,
 		success: function(res) {
 			$("#divMenu").html("");
-			var checkPreant1= false;
-			var checkPreant2= false
+			var checkPreant1= false,checkPreant2= false,menu_tree="";
+			var htmlMenu='',htmlMenu_0= '';
+			
+			var htmlMenu_1 = '';
+			htmlMenu_1 +='<li id="menu_1" class="treeview">';
+			htmlMenu_1 +='  <a href="#" style="color:#00a65a">';
+			htmlMenu_1 +='    <i class="fa fa-cogs"></i> <span>ការកំណត់</span>';
+			htmlMenu_1 +='   <span class="pull-right-container">';
+			htmlMenu_1 +='    <i class="fa fa-angle-left pull-right"></i>';
+			htmlMenu_1 +='  </span>';
+			htmlMenu_1 +='  </a>';
+			htmlMenu_1 +='  <ul class="treeview-menu" style="">';
+
+			var htmlMenu_2 = '';
+			htmlMenu_2 +='<li id="menu_2" class="treeview">';
+			htmlMenu_2 +='  <a href="#" style="color:#149bec">';
+			htmlMenu_2 +='    <i class="fa fa-address-book-o"></i> <span>កំណត់ត្រា</span>';
+			htmlMenu_2 +='   <span class="pull-right-container">';
+			htmlMenu_2 +='    <i class="fa fa-angle-left pull-right"></i>';
+			htmlMenu_2 +='  </span>';
+			htmlMenu_2 +='  </a>';
+			htmlMenu_2 +='  <ul class="treeview-menu" style="">';
+			
 			for(var i=0; i<res["menu_user"].length; i++){
 				
 				var datarow = res["menu_user"][i];
+				
+				/*
 				//-- fix data to add parent menu
 				if(datarow["menu_group"] == "1" && checkPreant1 == false){
 					$("#divMenu").append('<li class="header">MAIN NAVIGATION</li>');
@@ -445,10 +468,46 @@ function getUserMenu(){
 				htmlMenu += '<i class="'+datarow["menu_icon_nm"]+'"></i> <span>'+menuNm+'</span>';
 				htmlMenu += '</a>';
 				htmlMenu += '</li>';
-
-				$("#divMenu").append(htmlMenu);
+				*/
+				var menuActiveId = $("#menu_active").val();
+				var activeClass="";
+				var styleFont="font-weight: 500;";
+				if(menuActiveId == datarow["menu_nm"].replace(/ /g,"")){
+					activeClass = "active";
+					styleFont="font-weight: 600;";
+					menu_tree = datarow["menu_group"];
+					console.log(menu_tree);
+				}
+				
+				if(datarow["menu_group"] == "0"){
+					htmlMenu_0 = '<li class="'+activeClass+'">';
+					htmlMenu_0 += '<a style="'+styleFont+'" href="'+datarow["menu_nm"].replace(/ /g,"")+'">';
+					htmlMenu_0 += '<i class="'+datarow["menu_icon_nm"]+'"></i> <span>'+datarow["menu_nm_kh"]+'</span>';
+					htmlMenu_0 += '</a>';
+					htmlMenu_0 += '</li>';
+				}else if(datarow["menu_group"] == "1"){
+					htmlMenu_1 +='   <li  class="'+activeClass+'"><a  href="'+datarow["menu_nm"].replace(/ /g,"")+'"><i class="'+datarow["menu_icon_nm"]+'"></i> '+datarow["menu_nm_kh"]+'</a></li>';
+				}else if(datarow["menu_group"] == "2"){
+					htmlMenu_2 +='   <li class="'+activeClass+'"><a href="'+datarow["menu_nm"].replace(/ /g,"")+'"><i class="'+datarow["menu_icon_nm"]+'"></i> '+datarow["menu_nm_kh"]+'</a></li>';
+				}else{
+					htmlMenu += '<li class="'+activeClass+'">';
+					htmlMenu += '<a style="'+styleFont+'" href="'+datarow["menu_nm"].replace(/ /g,"")+'">';
+					htmlMenu += '<i class="'+datarow["menu_icon_nm"]+'"></i> <span>'+datarow["menu_nm_kh"]+'</span>';
+					htmlMenu += '</a>';
+					htmlMenu += '</li>';
+				}
 			}
+			htmlMenu_1 +='  </ul>';
+			htmlMenu_1 +='</li>';
+			htmlMenu_2 +='  </ul>';
+			htmlMenu_2 +='</li>';
 			
+			$("#divMenu").append(htmlMenu_0);
+			$("#divMenu").append(htmlMenu_1);
+			$("#divMenu").append(htmlMenu_2);
+			$("#divMenu").append(htmlMenu);
+			$("#menu_"+menu_tree).addClass("menu-open");
+			$("#menu_"+menu_tree+ " ul.treeview-menu").show();
 		},
 		error : function(data) {
 			console.log(data);

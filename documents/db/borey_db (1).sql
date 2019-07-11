@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 10, 2019 at 11:05 AM
+-- Generation Time: Jul 11, 2019 at 09:29 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.0.23
 
@@ -128,8 +128,16 @@ CREATE TABLE IF NOT EXISTS `tbl_category` (
   `upUsr` int(11) NOT NULL,
   `regUsr` int(11) NOT NULL,
   `com_id` int(11) NOT NULL,
+  `cat_photo` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`cat_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `tbl_category`
+--
+
+INSERT INTO `tbl_category` (`cat_id`, `cat_nm`, `cat_nm_kh`, `cat_des`, `regDt`, `upDt`, `useYn`, `upUsr`, `regUsr`, `com_id`, `cat_photo`) VALUES
+(1, 'aaaaa', 'aaaaaaa', 'aaaaaaaa', '2019-07-11 09:02:20', NULL, 'Y', 0, 6, 9, '');
 
 -- --------------------------------------------------------
 
@@ -224,30 +232,31 @@ CREATE TABLE IF NOT EXISTS `tbl_menu` (
   `menu_order` int(11) DEFAULT NULL,
   `menu_group` int(11) DEFAULT NULL,
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_menu`
 --
 
 INSERT INTO `tbl_menu` (`menu_id`, `menu_nm`, `menu_nm_kh`, `regDt`, `menu_icon_nm`, `menu_level`, `menu_order`, `menu_group`) VALUES
-(1, 'Branch', 'សាខាក្រុមហ៊ុន', '2018-08-24 01:02:15', 'fa fa-home', NULL, 2, 1),
+(1, 'Branch', 'គំរោង', '2018-08-24 01:02:15', 'fa fa-home', NULL, 2, 1),
 (3, 'Position', 'តួនាទីបុគ្គលិក', '2018-08-24 02:59:23', 'fa fa-user-plus', NULL, 4, 1),
-(4, 'Staff', 'បុគ្គលិក', '2018-08-24 02:59:23', 'fa fa-users', 0, 5, 1),
-(5, 'User Account', 'គណនី​អ្នកប្រើប្រាស់', '2018-08-24 02:59:23', 'fa fa-user-circle-o', NULL, 6, 1),
+(4, 'Staff', 'បុគ្គលិក', '2018-08-24 02:59:23', 'fa fa-users', 0, 8, 2),
+(5, 'User Account', 'គណនី​អ្នកប្រើប្រាស់', '2018-08-24 02:59:23', 'fa fa-user-circle-o', NULL, 5, 1),
 (6, 'Supplier', 'អ្នកផ្គត់ផ្គង់', '2018-08-24 02:59:23', 'fa fa-address-card-o', NULL, 7, 2),
-(7, 'Category', 'ប្រភេទអចលនទ្រព្យ', '2018-08-24 02:59:23', 'fa fa-tags', NULL, 8, 2),
-(8, 'House', 'អចលនទ្រព្យ', '2018-08-24 02:59:23', 'fa fa-bar-chart', NULL, 9, 2),
-(9, 'Reservation', 'កក់ប្រាក់', '2018-08-24 02:59:23', 'fa fa-truck', NULL, 10, 2),
-(10, 'Sell', 'លក់ចេញ', '2018-08-24 02:59:23', 'fa fa-shopping-cart', NULL, 11, 2),
-(11, 'Installment Payment', 'បង់ប្រាក់ដំណាក់កាល', '2018-08-24 02:59:23', 'fa fa-ship', NULL, 12, 2),
-(12, 'Dashboard', 'ផ្ទាំងគ្រប់គ្រង', '2018-08-24 03:02:26', 'fa fa-dashboard', NULL, 1, 1),
-(13, 'Commission Report', 'កំរៃជើងសារ', '2019-07-10 11:09:02', 'aaa', NULL, 13, 2),
-(14, 'Expend', 'ការចំណាយ', '2019-07-10 11:15:28', 'aaa', NULL, 14, 2),
-(15, 'Payment Report', 'ការបង់អតិថិជន', '2019-07-10 11:15:28', 'aaa', NULL, 15, 2),
-(16, 'Salary', 'ប្រាក់ខែបុគ្គលិក', '2019-07-10 11:15:28', 'aaa', NULL, 16, 2),
-(17, 'Income & Expenses', 'ចំនូល&ចំណាយ សរុប', '2019-07-10 11:15:28', 'aaa', NULL, 17, 2),
-(18, 'Commission Setting', 'កំណត់កំរៃជើងសារ', '2019-07-10 11:18:24', 'aaa', NULL, 18, 2);
+(7, 'Category', 'ប្រភេទ', '2018-08-24 02:59:23', 'fa fa-tags', NULL, 3, 1),
+(8, 'House', 'អចលនទ្រព្យ', '2018-08-24 02:59:23', 'fa fa-building-o', NULL, 10, 2),
+(9, 'Reservation', 'កក់ប្រាក់', '2018-08-24 02:59:23', 'fa fa-credit-card', NULL, 11, 3),
+(10, 'Sell', 'លក់ចេញ', '2018-08-24 02:59:23', 'fa fa-shopping-cart', NULL, 12, 3),
+(11, 'Installment Payment', 'បង់ប្រាក់រំលួស', '2018-08-24 02:59:23', 'fa fa-line-chart', NULL, 13, 3),
+(12, 'Dashboard', 'ផ្ទាំងគ្រប់គ្រង', '2018-08-24 03:02:26', 'fa fa-dashboard', NULL, 1, 0),
+(13, 'Commission Report', 'កំរៃជើងសារ', '2019-07-10 11:09:02', 'fa fa-pie-chart', NULL, 16, 3),
+(14, 'Expend', 'ការចំណាយ', '2019-07-10 11:15:28', 'fa fa-bar-chart', NULL, 14, 3),
+(15, 'Payment Report', 'របាយការណ៏បង់ប្រាក់', '2019-07-10 11:15:28', 'fa fa-area-chart', NULL, 17, 3),
+(16, 'Salary', 'ប្រាក់ខែបុគ្គលិក', '2019-07-10 11:15:28', 'fa fa-university', NULL, 15, 3),
+(17, 'Income Expenses', 'ចំនូល-ចំណាយ', '2019-07-10 11:15:28', 'fa fa-battery-full', NULL, 18, 3),
+(18, 'Commission Setting', 'កំណត់កំរៃជើងសារ', '2019-07-10 11:18:24', 'fa fa-money', NULL, 6, 1),
+(19, 'Customer', 'អតិថិជន', '2019-07-11 14:40:11', 'fa fa-address-card', NULL, 9, 2);
 
 -- --------------------------------------------------------
 
@@ -346,7 +355,8 @@ INSERT INTO `tbl_menu_company` (`menu_id`, `com_id`, `upDt`, `regDt`, `useYn`) V
 (15, 9, NULL, '2019-07-10 11:29:12', 'Y'),
 (16, 9, NULL, '2019-07-10 11:29:12', 'Y'),
 (17, 9, NULL, '2019-07-10 11:29:12', 'Y'),
-(18, 9, NULL, '2019-07-10 11:29:12', 'Y');
+(18, 9, NULL, '2019-07-10 11:29:12', 'Y'),
+(19, 9, '2019-07-11 14:42:50', '2019-07-11 14:42:50', 'Y');
 
 -- --------------------------------------------------------
 
@@ -445,7 +455,8 @@ INSERT INTO `tbl_menu_user` (`menu_id`, `usr_id`, `upDt`, `regDt`, `useYn`) VALU
 (15, 6, NULL, '2019-07-10 11:29:12', 'Y'),
 (16, 6, NULL, '2019-07-10 11:29:12', 'Y'),
 (17, 6, NULL, '2019-07-10 11:29:12', 'Y'),
-(18, 6, NULL, '2019-07-10 11:29:12', 'Y');
+(18, 6, NULL, '2019-07-10 11:29:12', 'Y'),
+(19, 6, '2019-07-11 14:47:29', '2019-07-11 14:47:29', 'Y');
 
 -- --------------------------------------------------------
 

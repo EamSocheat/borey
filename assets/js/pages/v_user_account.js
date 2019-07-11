@@ -22,7 +22,6 @@ var _thisPage = {
 		
 		stock.comm.getPositionSelect("cbxSrchPos");
 		$("#cbxSrchPos").prepend("<option value='' selected='selected'></option>");
-		stock.comm.getBrnachSelect("cbxSrchBranch");
 		$("#cbxSrchBranch").prepend("<option value='' selected='selected'></option>");
 	},event : function(){
 		$("#perPage").change(function(e){

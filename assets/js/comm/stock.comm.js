@@ -569,7 +569,7 @@ if(!stock.comm) {stock.comm={};}
     				
     			}else{
     				console.log(res);
-    				stock.comm.alertMsg("System Error!!! PLease connect again.");
+    				//stock.comm.alertMsg("System Error!!! PLease connect again.");
     			}
     		},
     		error : function(data) {
