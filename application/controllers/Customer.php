@@ -55,7 +55,7 @@ class Customer extends CI_Controller {
 
 		$cusPhoto = "";
 		if(!empty($_FILES['fileCusPhoto']['name'])){
-			$cusPhoto = $this->M_common->uploadImage($_FILES['fileCusPhoto'],'fileCusPhoto','./upload/loan/customer','/loan/customer/');
+			$cusPhoto = $this->M_common->uploadImage($_FILES['fileCusPhoto'],'fileCusPhoto','./upload/borey/customer','/borey/customer/');
 		}else{
 			$cusPhoto = $this->input->post('cusImgPath');
 		}
@@ -73,6 +73,7 @@ class Customer extends CI_Controller {
 			'cus_phone1'	=> $this->input->post('txtPhone1'),
 			'cus_phone2'	=> $this->input->post('txtPhone2'),
 			'cus_email'		=> $this->input->post('txtEmail'),
+			'cus_fb_name'	=> $this->input->post('txtFacebook'),
 			/* 'cus_start_dt'	=> date('Y-m-d',strtotime($this->input->post('txtStartDate'))),
              'cus_end_dt'	=> date('Y-m-d',strtotime($this->input->post('txtStopDate'))), */
 			'cus_des'		=> $this->input->post('txtDes'),
@@ -109,7 +110,8 @@ class Customer extends CI_Controller {
 		$delObj = $this->input->post('delObj');
 		$cntDel = 0;
 		for($i=0; $i<sizeof($delObj); $i++){
-			$cntActive = 0;
+			$cntActiveContract	= 0;
+			$cntActiveSell		= 0;
 			//check contract table using branch or not
 			$dataCol = array(
 				'tbl_nm' 		=> "tbl_contract",
@@ -121,10 +123,23 @@ class Customer extends CI_Controller {
 				'id_val' 		=> $delObj[$i]['cusId'],
 				'com_val' 		=> $_SESSION['comId']
 			);
-			$chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
-			$cntActive +=$chkData[0]->active_rec;
+			$chkData	= $this->M_common->checkActiveRecord($dataCol,$dataVal);
+			$cntActiveContract += $chkData[0]->active_rec;
 
-			if($cntActive >0){
+			$dataCol = array(
+				'tbl_nm' 		=> "tbl_sell",
+				'id_nm' 		=> "cus_id",
+				'com_id' 		=> "com_id"
+			);
+
+			$dataVal = array(
+				'id_val' 		=> $delObj[$i]['cusId'],
+				'com_val' 		=> $_SESSION['comId']
+			);
+			$chkData		= $this->M_common->checkActiveRecord($dataCol,$dataVal);
+			$cntActiveSell += $chkData[0]->active_rec;
+
+			if($cntActiveContract > 0 || $cntActiveSell > 0){
 				continue;
 			}else{
 				$data = array(

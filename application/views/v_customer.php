@@ -40,33 +40,26 @@
 													<div class="form-group">
 														<label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_name">Name</label>
 														<input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="Name">
-
 													</div>
 												</div>
 												<div class="col-sm-3 col-md-3 col-lg-3">
 													<div class="form-group">
 														<label for="txtSrchCusNmKh" class="control-label" data-i18ncd="lb_name_kh">Khmer Name </label>
 														<input type="text" class="form-control input-sm" id="txtSrchCusNmKh" placeholder="Khmer Name ">
-
 													</div>
 												</div>
-
 												<div class="col-sm-3 col-md-3 col-lg-3">
 													<div class="form-group">
 														<label for="txtSrchCusPhone" class="control-label" data-i18ncd="lb_phone">Phone </label>
 														<input type="text" class="form-control input-sm"  id="txtSrchCusPhone" placeholder="Phone">
-
 													</div>
 												</div>
-
 												<div class="col-sm-3 col-md-3 col-lg-3">
 													<div class="form-group">
 														<label for="txtSrchIdentityNmKh" class="control-label" data-i18ncd="lb_identity">Identity</label>
 														<input type="text" class="form-control input-sm"  id="txtSrchIdentityNmKh" placeholder="Identity" maxlength="9">
-
 													</div>
 												</div>
-
 											</div>
 
 											<div class="col-sm-12 col-md-12 col-lg-12">
@@ -90,22 +83,19 @@
 										<button type="button" id="btnDelete" class="btn btn-danger btn-sm" style="margin-right: 5px"><i class="fa fa-trash" aria-hidden="true"></i> <span data-i18ncd="btn_delete">Delete</span></button>
 										<!-- <button type="button" id="btnEdit" class="btn btn-primary btn-sm" style="margin-right: 5px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span data-i18ncd="btn_edit">Edit</span></button> -->
 										<button type="button" id="btnAddNew" class="btn btn-default btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> <span data-i18ncd="btn_add_new">Add New</span></button>
-										<button type="button" id="btnDownExcel" class="btn btn-success btn-sm" style="margin-left: 7px;"><i class="fa fa-download" aria-hidden="true"></i> <span data-i18ncd="btn_excel">Download Excel</span></button>
-										<div style="margin-left: 5px;display: none;">
-											<form method="post" action="<?php echo base_url(); ?>Customer/download_excel" id="btnExcel">
-												<input type="submit" value="Submit">
-												<input type="hidden" name="cusIdArray" class="btn btn-success" value="" id="cusId" />
-											</form>
-										</div>
+<!--										<button type="button" id="btnDownExcel" class="btn btn-success btn-sm" style="margin-left: 7px;"><i class="fa fa-download" aria-hidden="true"></i> <span data-i18ncd="btn_excel">Download Excel</span></button>-->
+<!--										<div style="margin-left: 5px;display: none;">-->
+<!--											<form method="post" action="--><?php //echo base_url(); ?><!--Customer/download_excel" id="btnExcel">-->
+<!--												<input type="submit" value="Submit">-->
+<!--												<input type="hidden" name="cusIdArray" class="btn btn-success" value="" id="cusId" />-->
+<!--											</form>-->
+<!--										</div>-->
 									</div>
-
-
 								</div>
 							</div>
 							<!-- /.button -->
 
 							<div class="col-sm-12">
-
 								<div class="pull-right" style="padding-bottom: 5px;">
 									<form class="form-inline" action="">
 										<label for="limitRow" data-i18ncd="lb_records">Records</label>
@@ -125,19 +115,27 @@
 
 							<div class="box-body table-responsive">
 								<table class="table table-hover" id="tblCustomer">
+									<colgroup>
+										<col style="width:5px;">
+										<col style="width:10px;">
+										<col style="width:150px;">
+										<col style="width:300px;">
+										<col style="width:400px;">
+										<col style="width:200px">
+										<col style="width:100px">
+										<col style="width:5px;">
+									</colgroup>
 									<thead>
 									<tr>
-										<th><input type="checkbox" id="chkAllBox"></th>
+										<th><input type="checkbox" id="chkAllBox" style="display: none;"></th>
 										<th></th>
 										<th data-i18ncd="lb_identity">Identity</th>
-										<th data-i18ncd="lb_name">Name</th>
 										<th data-i18ncd="lb_name_kh">Khmer Name</th>
+										<th data-i18ncd="lb_name">Name</th>
+										<th data-i18ncd="lb_customer_facebook">Facebook</th>
 										<th data-i18ncd="lb_gender">Gender</th>
 										<th data-i18ncd="lb_phone">Phone</th>
-										<!--<th data-i18ncd="lb_email">Email</th>
-                                        <th data-i18ncd="lb_addr">Address</th>
-                                        <th data-i18ncd="lb_des">Description</th>-->
-										<th data-i18ncd="lb_action">Action</th>
+										<th style="text-align: center;" data-i18ncd="lb_action">Action</th>
 									</tr>
 									</thead>
 									<tbody>

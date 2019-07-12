@@ -125,6 +125,7 @@ var _thisPage = {
 function saveData(str){
 	$("#cusId").appendTo("#frmCustomer");
     parent.$("#loading").show();
+
 	$.ajax({
 		type : "POST",
 		url  : $("#base_url").val() +"Customer/save",
@@ -179,6 +180,7 @@ function getDataEdit(cus_id){
 			    $("#txtPhone1").val(res.OUT_REC[0]["cus_phone1"]);
 			    $("#txtPhone2").val(res.OUT_REC[0]["cus_phone2"]);
 			    $("#txtEmail").val(res.OUT_REC[0]["cus_email"]);
+			    $("#txtFacebook").val(res.OUT_REC[0]["cus_fb_name"]);
 			    $("#txtDes").val(res.OUT_REC[0]["cus_des"]);
 			    if(res.OUT_REC[0]["cus_photo"] != null && res.OUT_REC[0]["cus_photo"] != ""){
 			    	$("#cusImgView").attr("src", $("#base_url").val()+"upload"+res.OUT_REC[0]["cus_photo"]);

@@ -47,8 +47,13 @@
                             	<input type="text" class="form-control" id="txtIdentityNmKh" name="txtIdentityNmKh" required="required" maxlength="9" autocomplete="off" />
                             </div>
                 		</div>
-                		
-                		
+
+						<div class="col-xs-8 padding-forms-right">
+							<div class="form-group">
+								<label for="txtDes" data-i18ncd="lb_des">Description</label>
+								<input type="text" class="form-control" id="txtDes" name="txtDes" autocomplete="off" />
+							</div>
+						</div>
                 	</div>
                 
                 	<div class="col-xs-12 row" style="padding:0px">
@@ -74,10 +79,10 @@
                 		</div>
                 		
                 		<div class="col-xs-4 padding-forms-right">
-                			<div class="form-group">
-                				<label for="txtDes" data-i18ncd="lb_des">Description</label>
-                              	<input type="text" class="form-control" id="txtDes" name="txtDes" autocomplete="off" />
-                			</div>
+							<div class="form-group">
+								<label for="txtEmail" data-i18ncd="lb_email">Email</label>
+								<input type="email" class="form-control" id="txtEmail" name="txtEmail" autocomplete="off" />
+							</div>
                 		</div>
                 	</div>
                 	
@@ -95,10 +100,10 @@
                             </div>
                 		</div>
                 		<div class="col-xs-4 padding-forms-right">
-                			<div class="form-group">
-                				<label for="txtEmail" data-i18ncd="lb_email">Email</label>
-                              	<input type="email" class="form-control" id="txtEmail" name="txtEmail" autocomplete="off" />
-                			</div>
+							<div class="form-group">
+								<label for="txtFacebook" data-i18ncd="lb_customer_facebook">Facebook</label>
+								<input type="text" class="form-control" id="txtFacebook" name="txtFacebook" autocomplete="off" />
+							</div>
                 		</div>
                 	</div>
                 	

@@ -38,7 +38,7 @@ var _thisPage = {
 			$("#loading").show();
 			var controllerNm = "PopupFormCustomer";
 			var option = {};
-			option["height"] = "570px";
+			option["height"] = "620px";
 
 			stock.comm.openPopUpForm(controllerNm, option, null, "modal-md");
 		});
@@ -141,28 +141,33 @@ function getData(page_no){
 		data: dat,
 		dataType: "json",
 		success: function(res) {
-			$("#loading").hide();
 			$("#tblCustomer tbody").html("");
+
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
+				$("#chkAllBox").show();
+
 				for(var i=0; i<res.OUT_REC.length;i++){
-					var html = "<tr data-id='"+res.OUT_REC[i]["cus_id"]+"'>";
-					var urlPhoto ="";
+					var urlPhoto = "";
 					if(res.OUT_REC[i]["cus_photo"] != null && res.OUT_REC[i]["cus_photo"] != ""){
 						urlPhoto = $("#base_url").val()+"/upload"+ res.OUT_REC[i]["cus_photo"];
 					}else{
 						urlPhoto = $("#base_url").val()+"/assets/image/default-staff-photo.png";
 					}
-					html += "<td class='chk_box'><input type='checkbox'></td>";
-					html += "<td class='cus_image'><img style='width: 35px;height: 35px;' src='"+ urlPhoto +"' class='img-circle' /></td>";
-					html += "<td class='cus_iden'>"+stock.comm.nullToEmpty(res.OUT_REC[i]["cus_idnt_num"])+"</td>";
-					html += "<td class='cus_nm'>"+res.OUT_REC[i]["cus_nm"]+"</td>";
-					html += "<td class='cus_nm_kh'>"+res.OUT_REC[i]["cus_nm_kh"]+"</td>";
-					html += "<td class='cus_gender'>"+$.i18n.prop("lb_"+res.OUT_REC[i]["cus_gender"])+"</td>";
-					html += "<td class='cus_phone1'>"+res.OUT_REC[i]["cus_phone1"]+"</td>";
-					//html += "<td class='cus_email'>"+res.OUT_REC[i]["cus_email"]+"</td>";
-					//html += "<td class='cus_addr'>"+res.OUT_REC[i]["cus_addr"]+"</td>";
-					//html += "<td class='cus_des'>"+res.OUT_REC[i]["cus_des"]+"</td>";
-					html += "<td class='act_btn text-center'><button onclick='editData("+res.OUT_REC[i]["cus_id"]+")' type='button' class='btn btn-primary btn-xs'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></td>";
+
+				var html  = "<tr class='cust-data' data-id='"+res.OUT_REC[i]["cus_id"]+"' ondblclick='editData("+res.OUT_REC[i]['cus_id']+")'>";
+					html += "	<td class='chk_box'><input type='checkbox'></td>";
+					html += "	<td class='cus_image' style='padding: 0 8px;'><img style='width: 35px;height: 35px;' src='"+ urlPhoto +"' class='img-circle' /></td>";
+					html += "	<td class='cus_iden'><div>"+stock.comm.nullToEmpty(res.OUT_REC[i]["cus_idnt_num"])+"</div></td>";
+					html += "	<td class='cus_nm_kh'><div title='"+res.OUT_REC[i]['cus_nm_kh']+"' class='txt-text-wrap'>"+res.OUT_REC[i]["cus_nm_kh"]+"</div></td>";
+					html += "	<td class='cus_nm'><div title='"+res.OUT_REC[i]['cus_nm']+"' class='txt-text-wrap'>"+res.OUT_REC[i]["cus_nm"]+"</div></td>";
+					html += "	<td class='cus_fb_name'><div title='"+res.OUT_REC[i]['cus_fb_name']+"' class='txt-text-wrap'>"+res.OUT_REC[i]["cus_fb_name"]+"</div></td>";
+					html += "	<td class='cus_gender'><div>"+$.i18n.prop("lb_"+res.OUT_REC[i]["cus_gender"])+"</div></td>";
+					html += "	<td class='cus_phone1'><div>"+res.OUT_REC[i]["cus_phone1"]+"</div></td>";
+					html += "	<td class='act_btn text-center'>";
+					html += "		<button onclick='editData("+res.OUT_REC[i]["cus_id"]+")' type='button' class='btn btn-primary btn-xs'>";
+					html += "			<i class='fa fa-pencil-square-o' aria-hidden='true'></i>";
+					html += "		</button>";
+					html += "	</td>";
 					html += "</tr>";
 
 					$("#tblCustomer tbody").append(html);
@@ -170,16 +175,18 @@ function getData(page_no){
 
 				stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 			}else{
+				$("#chkAllBox").hide();
 				$("#tblCustomer tbody").append("<tr><td colspan='9' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 				//--pagination
 				stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 			}
-
+			$("#loading").hide();
 		},
 		error : function(data) {
 			console.log(data);
-			stock.comm.alertMsg($.i18n.prop("msg_err"));
+			$("#chkAllBox").hide();
 			$("#loading").hide();
+			stock.comm.alertMsg($.i18n.prop("msg_err"));
 		}
 	});
 }
@@ -190,7 +197,7 @@ function editData(cus_id){
 
 	var controllerNm = "PopupFormCustomer";
 	var option = {};
-	option["height"] = "570px";
+	option["height"] = "620px";
 	stock.comm.openPopUpForm(controllerNm,option, data,"modal-md");
 }
 
@@ -203,7 +210,7 @@ function deleteDataArr(dataArr){
 		url: $("#base_url").val() +"Customer/delete",
 		data: dataArr,
 		success: function(res) {
-			console.log(res);
+
 			if(res > 0){
 				stock.comm.alertMsg(res+$.i18n.prop("msg_del_com"));
 				getData(_pageNo);

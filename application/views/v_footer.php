@@ -435,7 +435,7 @@ function getUserMenu(){
 			htmlMenu_2 +='<li id="menu_2" class="treeview">';
 			htmlMenu_2 +='  <a href="#" style="color:#149bec">';
 			htmlMenu_2 +='    <i class="fa fa-address-book-o"></i> <span>កំណត់ត្រា</span>';
-			htmlMenu_2 +='   <span class="pull-right-container">';
+			htmlMenu_2 +='    	<span class="pull-right-container">';
 			htmlMenu_2 +='    <i class="fa fa-angle-left pull-right"></i>';
 			htmlMenu_2 +='  </span>';
 			htmlMenu_2 +='  </a>';
