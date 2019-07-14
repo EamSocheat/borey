@@ -146,29 +146,10 @@
 		}
 		
 		
-		function selectCompanyData(){
-		    $query="*";
-		    $query.=",(select khm_name from tlkplocation where tblcompany.comAddr=tlkplocation.province and tlkplocation.type =2) AS comAddrkh";
-		    $query.=",(select khm_name from tlkplocation where tblcompany.comAddr1=tlkplocation.district and tlkplocation.type =3 and tblcompany.comAddr=tlkplocation.province) AS comAddr1kh";
-		    $query.=",(select khm_name from tlkplocation where tblcompany.comAddr2=tlkplocation.commune and tlkplocation.type =4 and tblcompany.comAddr=tlkplocation.province and tblcompany.comAddr1=tlkplocation.district) AS comAddr2kh";
-		    $query.=",(select khm_name from tlkplocation where tblcompany.comAddr3=tlkplocation.village and tlkplocation.type =5 and tblcompany.comAddr=tlkplocation.province and tblcompany.comAddr1=tlkplocation.district and tblcompany.comAddr2=tlkplocation.commune) AS comAddr3kh";
-		    $query.=",(select eng_name from tlkplocation where tblcompany.comAddr=tlkplocation.province  and tlkplocation.type =2) AS comAddren";
-		    $query.=",(select eng_name from tlkplocation where tblcompany.comAddr1=tlkplocation.district  and tlkplocation.type =3 and  tblcompany.comAddr=tlkplocation.province) AS comAddr1en";
-		    $query.=",(select eng_name from tlkplocation where tblcompany.comAddr2=tlkplocation.commune  and tlkplocation.type =4 and tblcompany.comAddr=tlkplocation.province and tblcompany.comAddr1=tlkplocation.district) AS comAddr2en";
-		    $query.=",(select eng_name from tlkplocation where tblcompany.comAddr3=tlkplocation.village  and tlkplocation.type =5 and  tblcompany.comAddr=tlkplocation.province and tblcompany.comAddr1=tlkplocation.district and tblcompany.comAddr2=tlkplocation.commune) AS comAddr3en";
-		    
-		    $this->db->select($query);
-		    $this->db->from('tblcompany');
-		    $this->db->where('comId', $_SESSION['comId']);
-		    
-		    $result = $this->db->get()->result();
-		    return $result;
-		}
-		
 		public function update($id,$data){
-			$this->db->where('usrId', $id);
-			$this->db->where('comId', $_SESSION['comId']);
-			$this->db->update('tbluser', $data);
+			$this->db->where('usr_id', $id);
+			$this->db->where('com_id', $_SESSION['comId']);
+			$this->db->update('tbl_user', $data);
 		}
 		
 		public function insert($data){

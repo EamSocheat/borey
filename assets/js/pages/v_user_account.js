@@ -46,7 +46,7 @@ var _thisPage = {
 			$("#loading").show();
 			var controllerNm = "PopupFormUserAccount";
 			var option={};
-			option["height"] = "650px";
+			option["height"] = "800px";
 			
 			stock.comm.openPopUpForm(controllerNm,option, null,"modal-md");
 		});
@@ -194,7 +194,7 @@ function editData(sta_id){
 	
 	var controllerNm = "PopupFormUserAccount";
 	var option={};
-	option["height"] = "650px";
+	option["height"] = "800px";
     stock.comm.openPopUpForm(controllerNm,option, data,"modal-md");
 }
 
@@ -223,6 +223,8 @@ function deleteDataArr(dataArr){
         }
 	});
 }
+
+
 
 /**
  * 

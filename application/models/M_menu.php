@@ -26,6 +26,25 @@
 			
 		}
 		
+		function insertMenuUserByMenuId($menuIdArr,$staId){
+	/* 	    $str="";
+		    for($i=0; $i<sizeof($menuIdArr); $i++){
+		        $str.=$menuIdArr[$i]=",";
+		    }
+		    $str = substr($str, 0, -1); */
+		    $sql = 'INSERT tbl_menu_user (menu_id, usr_id, regDt, useYn)
+                           SELECT menu_id, '.$staId.' as com_id , now() as regDt, "Y" as useYn
+                           FROM tbl_menu where menu_id in ('.$menuIdArr.')';
+		    
+		    $this->db->query($sql);
+		    
+		}
+		
+		function removeMenuUser($staId){
+		    $sql ="delete from tbl_menu_user where usr_id =".$staId;
+		    $this->db->query($sql);
+		}
+		
 		function selectMenuUser($usrId){
 			
 			$this->db->select('tbl_menu_user.menu_id, menu_nm, menu_nm_kh, menu_icon_nm, menu_group, menu_order');

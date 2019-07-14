@@ -1,5 +1,7 @@
 var _btnId;
 var _this;
+var menu_id_0;
+var _chkUserNm;
 $(document).ready(function() {
 	_thisPage.init();
 });
@@ -15,13 +17,13 @@ var _thisPage = {
 			parent.$("#loading").hide();
 			clearForm();
 			if($("#frmAct").val() == "U"){
-			    getDataEdit($("#staId").val());
+			    getDataEdit($("#userAccId").val());
 			    $("#popupTitle").html("<i class='fa fa-user-circle-o'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_user_account"));
 			}else{
 			    $("#btnSaveNew").show();
 			    $("#popupTitle").html("<i class='fa fa-user-circle-o'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_user_account"));
 			}
-			$("#frmStaff").show();
+			$("#frmUserAcc").show();
 			$("#braNm").focus();
 			
 			//
@@ -65,11 +67,11 @@ var _thisPage = {
 			$("#txtStopDate").inputmask();
 			//
 			
-			
-			stock.comm.inputPhoneKhmer("txtPhone1");
-			stock.comm.inputPhoneKhmer("txtPhone2");
+		
 			
 			listMenu();
+			getStaff();
+			$("#txtEditYn").val("N");
 		},
 		event : function(){
 			//
@@ -78,7 +80,7 @@ var _thisPage = {
 				parent.stock.comm.closePopUpForm("PopupFormUserAccount",parent.popupStaffCallback);
 			});
 			//
-			$("#frmStaff").submit(function(e){
+			$("#frmUserAcc").submit(function(e){
 				e.preventDefault();
 				if(_btnId == "btnSave"){
 			    	saveData();
@@ -161,39 +163,74 @@ var _thisPage = {
 	            }
 			});
 			
+			//
+			$("#chkAllMenuOth").click(function(e){
+				if($(this).is(":checked")){
+					$(".menu-user3").prop( "checked", true );
+				}else{
+					$(".menu-user3").prop( "checked", false );
+				}
+			});
+			//
+			$("#divMenuOth").on("click", ".menu-user3", function(e) {
+				if($("#divMenuOth .menu-user3").length == $("#divMenuOth .menu-user3:checked").length){
+	                $("#chkAllMenuOth").prop( "checked", true );
+	            }else{
+	                $("#chkAllMenuOth").prop( "checked", false );
+	            }
+			});
+			//
+			$("#txtPwdCon").keyup(function(e){
+				if($("#txtPwd").val() != $("#txtPwdCon").val()){
+					showPwdErr();
+				}else{
+					parent.$("#msgErr").hide();
+					$("#txtPwd").css("border-color","#ced4da");
+					$("#txtPwdCon").css("border-color","#ced4da");
+				}
+			});
+			
+			$("#txtPwd").keyup(function(e){
+				if($("#txtPwd").val() != $("#txtPwdCon").val()){
+					showPwdErr();
+				}else{
+					parent.$("#msgErr").hide();
+					$("#txtPwd").css("border-color","#ced4da");
+					$("#txtPwdCon").css("border-color","#ced4da");
+				}
+			});
+			
+			//
+			$("#chkAddYn").click(function(e){
+				if($(this).is(":checked")){
+					$("#txtAddYn").val("Y");
+				}else{
+					$("#txtAddYn").val("N");
+				}
+			});
+			
+			//
+			$("#chkEditYn").click(function(e){
+				if($(this).is(":checked")){
+					$("#txtEditYn").val("Y");
+				}else{
+					$("#txtEditYn").val("N");
+				}
+			});
+			
+			//
+			$("#divMenuOth,#divMenuPro,#divMenuNav").on("click", ".menu-save", function(e) {
+				parent.$("#msgErr").hide();
+				$(".panel").css("border-color","#ced4da");
+			});
+			
+			///
+			$("#txtUserNm").keyup(function(e){
+				checkUserName($("#txtUserNm").val());	
+			});
+			
 		}
 };
-
-
-function saveData(str){
-	$("#staId").appendTo("#frmStaff");
-    parent.$("#loading").show();
-	$.ajax({
-		type: "POST",
-		url: $("#base_url").val() +"Staff/save",
-		data: new FormData($("#frmStaff")[0]),
-		cache: false,
-        contentType: false,
-        processData: false,
-		success: function(res) {
-			console.log(res);
-		    parent.$("#loading").hide();
-			if(res =="OK"){
-				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
-				if(str == "new"){
-				    clearForm();
-				}else{
-				    //close popup
-				    parent.stock.comm.closePopUpForm("PopupFormUserAccount",parent.popupStaffCallback);
-				}
-			}
-		},
-		error : function(data) {
-			console.log(data);
-			stock.comm.alertMsg($.i18n.prop("msg_err"));
-        }
-	});
-}
 
 function getDataEdit(sta_id){
     //
@@ -201,7 +238,7 @@ function getDataEdit(sta_id){
     $.ajax({
 		type: "POST",
 		url: $("#base_url").val() +"Staff/getStaff",
-		data: {"staId":sta_id},
+		data: {"userAccId":sta_id},
 		dataType: "json",
 		async: false,
 		success: function(res) {
@@ -243,10 +280,14 @@ function getDataEdit(sta_id){
 }
 
 function clearForm(){
-    $("#frmStaff input").val("");
-    $("#frmStaff textarea").val("");
+    $("#frmUserAcc input").val("");
+    $("#frmUserAcc textarea").val("");
     $("#staImgView").attr("src",$("#base_url").val()+"assets/image/default-staff-photo.png");
     $("#txtStaffNm").focus();
+    $("#txtAddYn").val("Y");
+    $("#txtPwd").val("1234");
+	$("#txtPwdCon").val("1234");
+	$("#chkAddYn").prop( "checked", true );
 }
 
 function selectBranchCallback(data){
@@ -275,11 +316,61 @@ function readURL(input) {
 }
 
 
+function saveData(str){
+	//
+	if(_chkUserNm){
+		return;
+	}
+
+	var menuChk=$(".menu-save:checked");
+	var menuArr=[];
+	menuChk.each(function(i){
+		menuArr.push(parseInt($(this).attr("data-id")));
+	});
+	
+	if(menuChk == null || menuChk == undefined || menuChk.length <=0 ){
+		showMenuErr();
+		return;
+	}
+	menuArr.push(menu_id_0);
+	/*
+	console.log($("#frmUserAcc").serialize()+"&menuArr="+menuArr);
+	return;
+	*/
+	$("#userAccId").appendTo("#frmUserAcc");
+    parent.$("#loading").show();
+	$.ajax({
+		type: "POST",
+		url : $("#base_url").val() +"User/save",
+		data: $("#frmUserAcc").serialize()+"&menuArr="+menuArr ,
+		async: false,
+		success: function(res) {
+			
+		    parent.$("#loading").hide();
+			if(res =="OK"){
+				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
+				if(str == "new"){
+				    clearForm();
+				}else{
+				    //close popup
+				    parent.stock.comm.closePopUpForm("PopupFormStaff",parent.popupStaffCallback);
+				}
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg($.i18n.prop("msg_err"));
+        }
+	});
+}
+
+
 function listMenu(){
     $.ajax({
 		type: "POST",
 		url: $("#base_url").val() +"Menu/getMenuCompany",
 		dataType: "json",
+		async: false,
 		success: function(res) {
 			$("#divMenuNav").html("");
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
@@ -288,7 +379,7 @@ function listMenu(){
 			    	var menuId=res.OUT_REC[i]['menu_id'];
 			        var html= '';
 			        html+= '<div class="col-xs-4" data-val="'+menuId+'">';
-			        html+= '<input type="checkbox" id="menuNo'+menuId+'" class="menu-user'+res.OUT_REC[i]['menu_group']+'" />';
+			        html+= '<input type="checkbox" data-id="'+menuId+'" id="menuNo'+menuId+'" class="menu-save menu-user'+res.OUT_REC[i]['menu_group']+'" />';
 			        html+= '<label for="menuNo'+menuId+'" style="cursor:pointer"><span> '+
 			        		(getCookie("lang") == "kh" ? res.OUT_REC[i]['menu_nm_kh'] : res.OUT_REC[i]['menu_nm'])+
 			        		'&nbsp;<i class="'+res.OUT_REC[i]['menu_icon_nm']+'"></i></span><label>';
@@ -296,8 +387,12 @@ function listMenu(){
 	    		
 			    	if(res.OUT_REC[i]['menu_group'] == '1'){
 			    		$("#divMenuNav").append(html);
-			        }else{
+			        }else if(res.OUT_REC[i]['menu_group'] == '2'){
 			        	$("#divMenuPro").append(html);
+			        }else if(res.OUT_REC[i]['menu_group'] == '3'){
+			        	$("#divMenuOth").append(html);
+			        }else{
+			        	menu_id_0 = menuId;
 			        }
 			    }    
 			}
@@ -309,3 +404,77 @@ function listMenu(){
 	});
 	
 } 
+/**
+ * 
+ * @returns
+ */
+function getStaff(){
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"Staff/getStaff",
+		dataType: 'json',
+		async: false,
+		success: function(res) {
+			if(res.OUT_REC.length > 0){
+				$("#cboStaff option").remove();
+				$("#cboStaff").append("<option value=''>សូមជ្រើសរើសបុគ្គលិក</option>");
+				
+				for(var i=0; i<res.OUT_REC.length; i++){
+					var braNm = res.OUT_REC[i]["sta_nm_kh"];
+					$("#cboStaff").append("<option value='"+res.OUT_REC[i]["sta_id"]+"'>"+braNm+"</option>");
+				}
+				
+			}else{
+				console.log(res);
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
+        }
+	});
+}
+function checkUserName(userNm){
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"User/checkUserName",
+		data: {"userNm":userNm},
+		async: false,
+		success: function(res) {
+			if(res == "ERROR"){
+				showUserNameErr();
+				_chkUserNm = true;
+			}else{
+				_chkUserNm = false;
+				parent.$("#msgErr").hide();
+				$("#txtUserNm").css("border-color","#ced4da");
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
+        }
+	});
+}
+
+function showPwdErr(){
+	$("#txtPwd").css("border-color","red");
+	$("#txtPwdCon").css("border-color","red");
+	parent.$("#msgShw").html("ការបញ្ជាក់ពាក្យសំងាត់ មិនត្រឹមត្រូវទេ!!!");
+	parent.$("#msgErr").show();
+	
+}
+
+function showMenuErr(){
+	$(".panel").css("border-color","red");
+	parent.$("#msgShw").html("សូមជ្រើសរើស មីនុយ!!!");
+	parent.$("#msgErr").show();
+	
+}
+
+function showUserNameErr(){
+	$("#txtUserNm").css("border-color","red");
+	parent.$("#msgShw").html("ឈ្មោះគណនីមានរូចហើយ  សូមជ្រើសរើសឈ្មោះគណនីផ្សេង!!!");
+	parent.$("#msgErr").show();
+	
+}

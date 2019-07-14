@@ -152,6 +152,21 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+//parseInt($("#divFilterSrch").css("height"))
+document.addEventListener("DOMContentLoaded", function() {
+    var elements = document.getElementsByTagName("OPTION");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].oninvalid = function(e) {
+            e.target.setCustomValidity("");
+            if (!e.target.validity.valid) {
+                e.target.setCustomValidity($.i18n.prop("msg_err_null"));
+            }
+        };
+        elements[i].oninput = function(e) {
+            e.target.setCustomValidity("");
+        };
+    }
+});
 
 //Date for the calendar events (dummy data)
 var date = new Date()

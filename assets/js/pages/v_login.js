@@ -42,11 +42,11 @@ function login(){
 			if (res == "OK"){
 				window.location.href= $("#base_url").val()+"Dashboard";
 			}else{
-				stock.comm.alertMsg("You put wrong User name or password! Please try again.");
+				stock.comm.alertMsg("ឈ្មោះអ្នកប្រើ ឫ ពាក្យសម្ងាត់ មិនត្រឹមត្រូវ");
 			}
 		},
 		error : function(data) {
-            stock.comm.alertMsg("System Error!!! PLease connect again.");
+            stock.comm.alertMsg("សូមធ្វើការ តភា្ជប់ម្តងទៀត.");
         }
 	});
 }
@@ -67,7 +67,7 @@ function getEmail(){
 		},
 		error : function(data) {
 			console.log(data);
-            stock.comm.alertMsg("System Error!!! PLease connect again.");
+            stock.comm.alertMsg("សូមធ្វើការ តភា្ជប់ម្តងទៀត.");
         }
 	});
 }
@@ -89,7 +89,7 @@ function sendEmail(){
 		},
 		error : function(data) {
 			console.log(data);
-            stock.comm.alertMsg("System Error!!! PLease connect again.");
+            stock.comm.alertMsg("សូមធ្វើការ តភា្ជប់ម្តងទៀត.");
         }
 	});
 }

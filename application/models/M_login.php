@@ -79,14 +79,14 @@ class M_login extends CI_Model{
     
     
     function checkUser($user,$pass){
-   
+ 
     	$this->db->select('*');
     	$this->db->from('tbl_user');
     	$this->db->join('tbl_company', 'tbl_user.com_id = tbl_company.com_id');
 		$this->db->join('tbl_staff', 'tbl_staff.sta_id = tbl_user.sta_id');
 		//$this->db->join('tbl_position', 'tbl_position.pos_id = tbl_staff.pos_id');
 		$this->db->where('usr_nm', $user);
-    	$this->db->where('usr_pwd', $this->encrypt->decode($pass,"PWD_ENCR"));
+    	//$this->db->where('usr_pwd', $this->encrypt->decode($pass,"PWD_ENCR"));
     	$this->db->where('tbl_company.useYn', 'Y');
     	$this->db->where('tbl_user.useYn', 'Y');
     	$this->db->where('tbl_user.usr_str', 'Y');
@@ -94,6 +94,10 @@ class M_login extends CI_Model{
     	$login = $this->db->get()->result();
 		return $login;
     	
+    }
+    
+    function insertUserLogin($data){
+        $this->db->insert('tbluserlogin',$data);
     }
  
 }

@@ -31,26 +31,30 @@ class Login extends CI_Controller {
 		$login = $this->M_login->checkUser($usrNm,$usrPwd);
 		$str=false;
     	foreach($login as $r){
-			$comNm= $r->com_nm;
-    		$usrNm=$r->usr_nm;
-    		$comId = $r->com_id;
-    		$usrId = $r->usr_id;
-			$staffPos= $r->pos_nm;
-    		$staffPhone= $r->sta_phone1;
-    		$staffPhoto= $r->sta_photo;
-    		$staffNm=$r->sta_nm;
-		
-			$this->setSession($usrNm,$comId,$comNm,$usrId,$staffPos,$staffPhone,$staffPhoto,$staffNm);
-			$str=true;
+    	    if($this->encrypt->decode($r->usr_pwd,"PWD_ENCR") == $usrPwd){
+    	        $comNm= $r->com_nm;
+    	        $usrNm=$r->usr_nm;
+    	        $comId = $r->com_id;
+    	        $usrId = $r->usr_id;
+    	        $staffPos= $r->pos_nm;
+    	        $staffPhone= $r->sta_phone1;
+    	        $staffPhoto= $r->sta_photo;
+    	        $staffNm=$r->sta_nm;
+    	        
+    	        $this->setSession($usrNm,$comId,$comNm,$usrId,$staffPos,$staffPhone,$staffPhoto,$staffNm);
+    	        $str=true;
+    	        break;
+    	    }
 			
-			// $data = array(
-				// 'usrId' 	=> $usrId,
-				// 'comId' 	=> $comId,
-				// 'logDate' 	=> date('Y-m-d H:i:s'),
-			// );
 			
-			// $this->M_login->insertUserLogin($data);
+			$data = array(
+			     'usrId' 	=> $usrId,
+				'comId' 	=> $comId,
+				'logDate' 	=> date('Y-m-d H:i:s'),
+			);
 			
+			$this->M_login->insertUserLogin($data);
+
     	}
     	
 		if($str){

@@ -1,9 +1,9 @@
 <?php include 'v_popup_header.php';?>
 		  <!-- general form elements -->
-		  <input type="hidden" id="staId" name="staId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
+		  <input type="hidden" id="userAccId" name="userAccId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
 		  <input type="hidden" id="frmAct" name="frmAct" value="<?php if(isset($_GET["action"])){ echo $_GET["action"]; }?>"/>
 		  <!-- form start -->
-          <form role="form" class="form-horizontal" id="frmStaff" action="" style="display: none">
+          <form role="form" class="form-horizontal" id="frmUserAcc" action="" style="display: none" autocomplete="off">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
               <span aria-hidden="true">&times;</span></button>
@@ -14,45 +14,72 @@
           		<!-- modal body  -->
             	
             	<div class="row">
-            		<div class="col-xs-12 row" style="padding:0px; margin-bottom: 20px;">
+            		<div class="col-xs-12 row" style="padding:0px;">
             		
                 		<div class="col-xs-6 padding-forms-left">
                 			<div class="form-group">
-                				<label for="braNm2" data-i18ncd="lb_branch">Branch Name</label>
-                				<div class="input-group">
-                                	<input type="text" class="form-control input-sm" disabled="disabled" id="txtBraNm" name="txtBraNm">
-                                    <span id="btnPopupBranch" class="input-group-addon label-info" style="cursor: pointer;border-color: #46b8da !important;    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;"><i class="fa fa-search-plus"></i></span>
-                                </div>
-                                <input type="hidden" id="txtBraId" name="txtBraId">
-                			</div>
-                			<!--  -->
-                			<div class="form-group">
-                              <label for="braNm" data-i18ncd="lb_name">Name</label>
-                              <input type="text" class="form-control" id="txtStaffNm" name="txtStaffNm" required="required">
+                              <label for="cboStaff">បុគ្កលិក</label>
+                              <select class="form-control" id="cboStaff" name="cboStaff" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
+	                    			<option value="">សូមជ្រើសរើសបុគ្គលិក </option>
+			                  </select>
                             </div>
                 		</div>
                 		
                 		<div class="col-xs-6 padding-forms-right">
-                			<div class="form-group">
-                              <label for="txtPhone2" data-i18ncd="">User Account Name</label>
-                              <input style="height: 30px;" type="text" class="form-control" id="txtAccNm" name="txtAccNm" />
-                            </div>
                 			<!--  -->
                 			<div class="form-group">
-                               	<label for="txtStaffNmKh" data-i18ncd="lb_name_kh">Khmer Name</label>
-                            	<input type="text" class="form-control" id="txtStaffNmKh" name="txtStaffNmKh" required="required">
+                               	<label for="txtUserNm">ឈ្មោះគណនី</label>
+                            	<input type="text" class="form-control" id="txtUserNm" name="txtUserNm" required="required" >
                             </div>
                 		</div>
                 		
                 		
                 	</div>
+                	
+                	<div class="col-xs-12 row" style="padding:0px;">
+            		
+                		<div class="col-xs-6 padding-forms-left">
+                			<div class="form-group">
+                               	<label for="txtPwd">ពាក្យសំងាត់</label>
+                            	<input type="password" value="1234" class="form-control" id="txtPwd" name="txtPwd" required="required">
+                            </div>
+                		</div>
+                		
+                		<div class="col-xs-6 padding-forms-right">
+                			<!--  -->
+                			<div class="form-group">
+                               	<label for="txtPwdCon">បញ្ជាក់ពាក្យសំងាត់</label>
+                            	<input type="password" value="1234" class="form-control" id="txtPwdCon" name="txtPwdCon" required="required">
+                            </div>
+                		</div>
+                		
+                		
+                	</div>
+                	
+                	<div class="col-xs-12 row" style="padding:0px; margin-bottom: 20px;">
+            		
+                		<div class="col-xs-6 padding-forms-left">
+                		</div>
+                		<div class="col-xs-6 padding-forms-right">
+                			<!--  -->
+                			<div class="form-group">
+                                <div class="checkbox-inline">
+                                  <label><input type="checkbox" checked="checked" id="chkAddYn"> បន្ថែមថ្មី </label>
+                                  <input type="hidden" name ="txtAddYn" id="txtAddYn" value="Y">
+                                </div>
+                                <div class="checkbox-inline">
+                                  <label><input type="checkbox" id="chkEditYn"> កែប្រែនិង លុប </label>
+                                  <input type="hidden" name ="txtEditYn" id="txtEditYn">
+                                </div>
+                            </div>
+                		</div>
+                	</div>
 					
 					<div class="col-xs-12 row" style="padding:0px">
                 		<div class="col-xs-12 padding-forms-left padding-forms-right" style="margin-top: -20px;">
                 			<div class="form-group">
-	                			<div class="panel panel-default">
-							    	<div class="panel-heading"><input type="checkbox" id="chkAllMenuNav" /> <label for="chkAllMenuNav" style="cursor:pointer">MAIN NAVIGATION Menu</label></div>
+	                			<div class="panel panel-success">
+							    	<div class="panel-heading"><input type="checkbox" id="chkAllMenuNav" /> <label for="chkAllMenuNav" style="cursor:pointer">មីនុយការកំណត់</label></div>
 							    	<div class="panel-body">
 			
 								    	<div class="col-xs-12 row" id="divMenuNav"  style="padding: 0;">
@@ -68,11 +95,28 @@
                 	<div class="col-xs-12 row" style="padding:0px">
                 		<div class="col-xs-12 padding-forms-left padding-forms-right" style="margin-top: -20px;">
                 			<div class="form-group">
-	                			<div class="panel panel-default">
-							    	<div class="panel-heading"><input type="checkbox" id="chkAllMenuPro" /> <label for="chkAllMenuPro" style="cursor:pointer">PRODUCT NAVIGATION Menu</label></div>
+	                			<div class="panel panel-info">
+							    	<div class="panel-heading"><input type="checkbox" id="chkAllMenuPro" /> <label for="chkAllMenuPro" style="cursor:pointer">មីនុយកំណត់ត្រា</label></div>
 							    	<div class="panel-body">
 							    	
 							    		<div class="col-xs-12 row" id="divMenuPro" style="padding: 0;">
+								    		
+								    	</div>
+								    	
+							    	</div>
+							    </div>
+							</div>	    
+                		</div>
+                	</div>
+                	
+                	<div class="col-xs-12 row" style="padding:0px">
+                		<div class="col-xs-12 padding-forms-left padding-forms-right" style="margin-top: -20px;    margin-bottom: -45px;">
+                			<div class="form-group">
+	                			<div class="panel panel-default">
+							    	<div class="panel-heading"><input type="checkbox" id="chkAllMenuOth" /> <label for="chkAllMenuOth" style="cursor:pointer">មីនុយទូទៅ</label></div>
+							    	<div class="panel-body">
+							    	
+							    		<div class="col-xs-12 row" id="divMenuOth" style="padding: 0;">
 								    		
 								    	</div>
 								    	

@@ -59,6 +59,7 @@ class Register extends CI_Controller {
             'usr_pwd'	=> $this->encrypt->encode($this->input->post('regPwd'),"PWD_ENCR"),
             'regDt'		=> date('Y-m-d H:i:s'),
             'usr_wri_yn'=> "Y",
+            'usr_edit_yn'=> "Y",
             'useYn'		=> "Y",
 			'usr_str'	=> "Y",
             'com_id'	=> $comId,
