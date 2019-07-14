@@ -24,6 +24,12 @@
         	if($dataSrch['sup_nm_kh'] != null && $dataSrch['sup_nm_kh'] != ""){
         	    $this->db->like('tbl_supplier.sup_nm_kh', $dataSrch['sup_nm_kh']);
         	}
+
+			if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+				$this->db->like('tbl_supplier.sup_nm', $dataSrch['srch_all']);
+				$this->db->or_like('tbl_supplier.sup_nm_kh', $dataSrch['srch_all']);
+				$this->db->or_like('tbl_supplier.sup_phone', $dataSrch['srch_all']);
+			}
         	
         	$this->db->order_by("com_id", "sup_des");
         	return $this->db->get('tbl_supplier',$dataSrch['limit'],$dataSrch['offset'])->result();

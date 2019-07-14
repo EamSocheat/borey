@@ -35,8 +35,9 @@ class Supplier extends CI_Controller{
             'sup_id'    => $this->input->post('sup_id'),
             'sup_nm'    => $this->input->post('suppplyNm'),
             'sup_nm_kh' => $this->input->post('suppplyNmKh'),
+			'offset'    => $this->input->post('offset'),
             'limit'     => $this->input->post('limit'),
-            'offset'    => $this->input->post('offset'),
+            'srch_all'  => $this->input->post('srchAll')
         );
         
         $data["OUT_REC"]     = $this->M_supplier->selectSupplierData($dataSrch);

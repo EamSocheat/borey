@@ -12,8 +12,9 @@ var _thisPage = {
 			parent.$("#loading").hide();
 			supId = $("#supId").val();
 			_this.event();
-			top.$("#modalMdContent").height(463);
-			
+			// top.$("#modalMdContent").height(460);
+			top.$("#modalMdContentPosition").height(463);
+
 			if(supId != ""){
 				_this.fillData(supId);
 			    $("#popupTitle").html("<i class='fa fa-address-card-o'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_supplier"));
@@ -37,8 +38,8 @@ var _thisPage = {
 						$("#suppAddr").val(data.OUT_REC[0]["sup_addr"]);
 						$("#suppDescr").val(data.OUT_REC[0]["sup_des"]);
 					}
-				}, error : function(data) {				    
-				    $("#loading").hide();
+				}, error : function(data) {
+					parent.$("#loading").hide();
 				    parent.stock.comm.alertMsg($.i18n.prop("msg_err"));
 		        }
 			});
@@ -57,7 +58,9 @@ var _thisPage = {
 						    clearForm();
 						    parent._this.loadData();
 						}else{
-							parent.stock.comm.closePopUpForm("PopupFormSupplier", parent.popupSupplierCallback);
+							var parentFrame = $("#parentId").val();
+							var callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupSupplierCallback;
+							parent.stock.comm.closePopUpForm("PopupFormSupplier", callbackFunction);
 						}
 					}
 				},
@@ -68,7 +71,10 @@ var _thisPage = {
 			});
 		}, event : function(){
 			$("#btnClose, #btnExit").click(function(e){
-				parent.stock.comm.closePopUpForm("PopupFormSupplier", parent.popupSupplierCallback);
+				var parentFrame = $("#parentId").val();
+				var callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupSupplierCallback;
+				parent.stock.comm.closePopUpForm("PopupFormSupplier", callbackFunction);
+
 			});
 			$("#btnSave").click(function(){
 				_btnId = $(this).attr("id");

@@ -11,7 +11,7 @@
   
         	$this->db->select('*');
         	//$this->db->from('tbl_staff');
-        	$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_staff.bra_id');
+//        	$this->db->left_join('tbl_branch','tbl_branch.bra_id = tbl_staff.bra_id');
         	$this->db->join('tbl_position','tbl_position.pos_id = tbl_staff.pos_id');
         	$this->db->where('tbl_staff.com_id', $_SESSION['comId']);
         	$this->db->where('tbl_staff.useYn', 'Y');
@@ -49,7 +49,6 @@
         	if($dataSrch['bra_id'] != null && $dataSrch['bra_id'] != ""){
         	    $this->db->where('tbl_staff.bra_id', $dataSrch['bra_id']);
         	}
-        	
         	
         	$this->db->order_by("sta_id", "desc");
         	return $this->db->get('tbl_staff',$dataSrch['limit'],$dataSrch['offset'])->result();
