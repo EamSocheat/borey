@@ -36,7 +36,7 @@ class Expend extends CI_Controller {
 		$dataSrch = array(
 			'limit' 		=> $this->input->post('perPage'),
 			'offset' 		=> $this->input->post('offset'),
-			'epx_id' 		=> $this->input->post('expId'),
+			'exp_id' 		=> $this->input->post('expId'),
 			'sup_nm' 		=> $this->input->post('suppNm'),
 			'bra_nm' 		=> $this->input->post('expPro'),
 			'sta_nm'		=> $this->input->post('expSta'),

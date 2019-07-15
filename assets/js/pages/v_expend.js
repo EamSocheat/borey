@@ -11,7 +11,7 @@ var _thisPage = {
 		_this.event();
 	},
 	onload : function(){
-		// getData();
+		getData();
 		stock.comm.inputNumber("txtSrchBraPhone");
 		stock.comm.checkAllTblChk("chkAllBox","tblExpend","chk_box");
 
@@ -185,14 +185,14 @@ function getData(page_no){
 					}
 
 					strHmtl += '<tr data-id="'+res.OUT_REC[i]["exp_id"]+'">';
-					strHmtl += '	<td><input type="checkbox" /></td>';
+					strHmtl += '	<td><input class="chk_box" type="checkbox" /></td>';
 					strHmtl += '	<td><div>'+res.OUT_REC[i]["sup_nm"]+'</div></td>';
-					strHmtl += '	<td><div style="text-align: right">'+res.OUT_REC[i]["exp_total_price"]+'</div></td>';
+					strHmtl += '	<td><div style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["exp_total_price"])+'</div></td>';
 					strHmtl += '	<td><div>'+res.OUT_REC[i]["bra_nm"]+'</div></td>';
-					strHmtl += '	<td><div>'+res.OUT_REC[i]["exp_date"]+'</div></td>';
+					strHmtl += '	<td><div>'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["exp_date"])+'</div></td>';
 					strHmtl += '	<td><div>'+res.OUT_REC[i]["sta_nm"]+'</div></td>';
 					strHmtl += '	<td class="text-center">';
-					strHmtl += '		<button type="button" class="btn btn-primary btn-xs">';
+					strHmtl += '		<button type="button" class="btn btn-primary btn-xs" onclick="editData('+res.OUT_REC[i]["exp_id"]+')">';
 					strHmtl += '			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
 					strHmtl += '		</button>';
 					strHmtl += '	</td>';
@@ -214,13 +214,14 @@ function getData(page_no){
 			console.log(data);
 			$("#chkAllBox").hide();
 			$("#loading").hide();
+			$("#tblExpend tbody").append("<tr><td colspan='9' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 			stock.comm.alertMsg($.i18n.prop("msg_err"));
 		}
 	});
 }
 
-function editData(cus_id){
-	var data = "id="+cus_id;
+function editData(exp_id){
+	var data = "id="+exp_id;
 	data += "&action=U";
 
 	var controllerNm = "PopupFormExpend";

@@ -160,7 +160,7 @@
 									</tr>
 									</thead>
 									<tbody>
-										<tr>
+										<!--<tr>
 											<td><input type='checkbox'></td>
 											<td><div>supllier 000001</div></td>
 											<td><div style="text-align: right">$100,000</div></td>
@@ -172,7 +172,7 @@
 													<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 												</button>
 											</td>
-										</tr>
+										</tr>-->
 									</tbody>
 
 								</table>

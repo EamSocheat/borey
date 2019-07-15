@@ -13,6 +13,8 @@ var _thisPage = {
 		onload : function(){
 			parent.$("#loading").hide();
 			clearForm();
+			filtProjectCombo();
+			filtStaffCombo();
 			
 			if($("#frmAct").val() == "U"){
 			    getDataEdit($("#expId").val());
@@ -21,7 +23,7 @@ var _thisPage = {
 			    $("#btnSaveNew").show();
 			    $("#popupTitle").html("<i class='fa fa-users'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_expend"));
 			}
-			
+
 			$("#frmExpend").show();
 			
 			$("#txtExpendDate").datepicker({
@@ -35,8 +37,7 @@ var _thisPage = {
 				format: "dd/mm/yyyy",
 			});
 			$("#txtExpendDate").inputmask();
-			filtProjectCombo();
-			filtStaffCombo();
+			stock.comm.inputCurrency("txtTotalExp");
 		},
 		event : function(){
 			$("#btnClose,#btnExit").click(function(e){
@@ -133,15 +134,15 @@ function getDataEdit(exp_id){
 		async	: false,
 		success	: function(res) {
 			if(res.OUT_REC != null && res.OUT_REC.length > 0){
-			    $("#txtSuppNm").val(res.OUT_REC[0]["supp_nm"]);
-			    $("#txtSuppNmVal").val(res.OUT_REC[0]["supp_nm"]);
-			    $("#txtSuppPhone").val(res.OUT_REC[0]["supp_phone"]);
-			    $("#txtSuppPhoneVal").val(res.OUT_REC[0]["supp_phone"]);
-			    $("#projectNm option['"+res.OUT_REC[0]["bra_id"]+"']").attr("selected","selected");
-				$("#txtExpendDate").val(moment(res.OUT_REC[0]["exp_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+			    $("#txtSuppNm").val(res.OUT_REC[0]["sup_nm"]);
+			    $("#txtSuppNmVal").val(res.OUT_REC[0]["sup_nm"]);
+			    $("#txtSuppPhone").val(res.OUT_REC[0]["sup_phone"]);
+			    $("#txtSuppPhoneVal").val(res.OUT_REC[0]["sup_phone"]);
+				$("#projectNm option[value='"+res.OUT_REC[0]["bra_id"]+"']").attr("selected","selected");
+				$("#txtExpendDate").val(stock.comm.formatDateWithoutTime(res.OUT_REC[0]["exp_date"]));
 				$("#cboStaffPay option[value='"+res.OUT_REC[0]["sta_id"]+"']").attr("selected",true);
-			    $("#txtTotalExp").val(res.OUT_REC[0]["exp_total_price"]);
-				$("#txtDes").val(res.OUT_REC[0]["exp_des"]);
+			    $("#txtTotalExp").val(stock.comm.formatCurrency(res.OUT_REC[0]["exp_total_price"]));
+				$("#txtDesc").val(res.OUT_REC[0]["exp_des"]);
 			    if(res.OUT_REC[0]["exp_image"] != null && res.OUT_REC[0]["exp_image"] != ""){
 			    	$("#expendImgView").attr("src", $("#base_url").val()+"upload"+res.OUT_REC[0]["exp_image"]);
 			    	$("#expImgPath").val(res.OUT_REC[0]["exp_image"]);
