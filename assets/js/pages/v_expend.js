@@ -102,7 +102,7 @@ var _thisPage = {
 					var delData = {};
 					var tblTr   = $(this).parent().parent();
 					var data_id = tblTr.attr("data-id");
-					delData["cusId"] = data_id;
+					delData["expId"] = data_id;
 					delArr.push(delData);
 				});
 
@@ -137,7 +137,7 @@ var _thisPage = {
 				objArr.push(Number(data_id));
 			});
 
-			$("#cusId").val(objArr);
+			$("#expId").val(objArr);
 			$("#btnExcel").submit();
 		});
 	}
@@ -157,10 +157,11 @@ function getData(page_no){
 	dat["perPage"] = $("#perPage").val();
 	dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
 	//searching
-	dat["cusNm"]	= $("#txtSrchCusNm").val().trim();
-	dat["cusNmKh"]	= $("#txtSrchCusNmKh").val().trim();
-	dat["cusPhone"] = $("#txtSrchCusPhone").val().trim();
-	dat["cusIdentityNmKh"] = $("#txtSrchIdentityNmKh").val().trim();
+	dat["suppNm"]	= $("#txtSrchSuppNm").val().trim();
+	dat["expPro"]	= $("#txtSrchProNm").val().trim();
+	dat["expSta"] 	= $("#txtSrchStaffNm").val().trim();
+	dat["txtSrchExpendSD"]	= $("#txtSrchExpendSD").val();
+	dat["txtSrchExpendED"]	= $("#txtSrchExpendED").val();
 
 	$("#loading").show();
 	$.ajax({
@@ -168,39 +169,38 @@ function getData(page_no){
 		url : $("#base_url").val() +"Expend/getExpend",
 		data: dat,
 		dataType: "json",
-		success: function(res) {
+		success	: function(res) {
 			$("#tblExpend tbody").html("");
+			var strHmtl  	= "";
 
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				$("#chkAllBox").show();
 
 				for(var i = 0; i < res.OUT_REC.length; i++){
-					var urlPhoto = "";
-					if(res.OUT_REC[i]["cus_photo"] != null && res.OUT_REC[i]["cus_photo"] != ""){
-						urlPhoto = $("#base_url").val()+"/upload"+ res.OUT_REC[i]["cus_photo"];
+					var urlPhoto	= "";
+					if(res.OUT_REC[i]["exp_image"] != null && res.OUT_REC[i]["exp_image"] != ""){
+						urlPhoto = $("#base_url").val()+"/upload"+ res.OUT_REC[i]["exp_image"];
 					}else{
 						urlPhoto = $("#base_url").val()+"/assets/image/default-staff-photo.png";
 					}
 
-				var html  = "<tr class='cust-data' data-id='"+res.OUT_REC[i]["cus_id"]+"' ondblclick='editData("+res.OUT_REC[i]['cus_id']+")'>";
-					html += "	<td class='chk_box'><input type='checkbox'></td>";
-					html += "	<td class='cus_image' style='padding: 0 8px;'><img style='width: 35px;height: 35px;' src='"+ urlPhoto +"' class='img-circle' /></td>";
-					html += "	<td class='cus_iden'><div>"+stock.comm.nullToEmpty(res.OUT_REC[i]["cus_idnt_num"])+"</div></td>";
-					html += "	<td class='cus_nm_kh'><div title='"+res.OUT_REC[i]['cus_nm_kh']+"' class='txt-text-wrap'>"+res.OUT_REC[i]["cus_nm_kh"]+"</div></td>";
-					html += "	<td class='cus_nm'><div title='"+res.OUT_REC[i]['cus_nm']+"' class='txt-text-wrap'>"+res.OUT_REC[i]["cus_nm"]+"</div></td>";
-					html += "	<td class='cus_fb_name'><div title='"+res.OUT_REC[i]['cus_fb_name']+"' class='txt-text-wrap'>"+res.OUT_REC[i]["cus_fb_name"]+"</div></td>";
-					html += "	<td class='cus_gender'><div>"+$.i18n.prop("lb_"+res.OUT_REC[i]["cus_gender"])+"</div></td>";
-					html += "	<td class='cus_phone1'><div>"+res.OUT_REC[i]["cus_phone1"]+"</div></td>";
-					html += "	<td class='act_btn text-center'>";
-					html += "		<button onclick='editData("+res.OUT_REC[i]["cus_id"]+")' type='button' class='btn btn-primary btn-xs'>";
-					html += "			<i class='fa fa-pencil-square-o' aria-hidden='true'></i>";
-					html += "		</button>";
-					html += "	</td>";
-					html += "</tr>";
+					strHmtl += '<tr data-id="'+res.OUT_REC[i]["exp_id"]+'">';
+					strHmtl += '	<td><input type="checkbox" /></td>';
+					strHmtl += '	<td><div>'+res.OUT_REC[i]["sup_nm"]+'</div></td>';
+					strHmtl += '	<td><div style="text-align: right">'+res.OUT_REC[i]["exp_total_price"]+'</div></td>';
+					strHmtl += '	<td><div>'+res.OUT_REC[i]["bra_nm"]+'</div></td>';
+					strHmtl += '	<td><div>'+res.OUT_REC[i]["exp_date"]+'</div></td>';
+					strHmtl += '	<td><div>'+res.OUT_REC[i]["sta_nm"]+'</div></td>';
+					strHmtl += '	<td class="text-center">';
+					strHmtl += '		<button type="button" class="btn btn-primary btn-xs">';
+					strHmtl += '			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
+					strHmtl += '		</button>';
+					strHmtl += '	</td>';
+					strHmtl += '</tr>';
 
-					$("#tblExpend tbody").append(html);
 				}
 
+				$("#tblExpend tbody").append(strHmtl);
 				stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 			}else{
 				$("#chkAllBox").hide();

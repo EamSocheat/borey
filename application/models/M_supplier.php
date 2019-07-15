@@ -26,9 +26,11 @@
         	}
 
 			if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+				$this->db->group_start();
 				$this->db->like('tbl_supplier.sup_nm', $dataSrch['srch_all']);
 				$this->db->or_like('tbl_supplier.sup_nm_kh', $dataSrch['srch_all']);
 				$this->db->or_like('tbl_supplier.sup_phone', $dataSrch['srch_all']);
+				$this->db->group_end();
 			}
         	
         	$this->db->order_by("com_id", "sup_des");

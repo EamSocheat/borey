@@ -152,8 +152,8 @@
 									<tr>
 										<th><input type="checkbox" id="chkAllBox" style="display: none;"></th>
 										<th data-i18ncd="lb_supplier">អ្នកផ្គត់ផ្គង់</th>
-										<th data-i18ncd="lb_project">គម្រោង</th>
 										<th data-i18ncd="lb_total_exp" style="text-align: right;">ការចំណាយសរុប</th>
+										<th data-i18ncd="lb_project">គម្រោង</th>
 										<th data-i18ncd="lb_date_exp">កាលបរិច្ឆេទចំណាយ</th>
 										<th data-i18ncd="lb_staff_expend">បុគ្គលិក(អ្នកទូទាត់)</th>
 										<th style="text-align: center;" data-i18ncd="lb_action">Action</th>
@@ -163,8 +163,8 @@
 										<tr>
 											<td><input type='checkbox'></td>
 											<td><div>supllier 000001</div></td>
-											<td><div>project 000001</div></td>
 											<td><div style="text-align: right">$100,000</div></td>
+											<td><div>project 000001</div></td>
 											<td><div>13-07-2019</div></td>
 											<td><div>សុមិនា</div></td>
 											<td class="text-center">

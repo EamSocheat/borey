@@ -36,12 +36,12 @@ class Expend extends CI_Controller {
 		$dataSrch = array(
 			'limit' 		=> $this->input->post('perPage'),
 			'offset' 		=> $this->input->post('offset'),
-			'cus_id' 		=> $this->input->post('cusId'),
-			'cus_nm' 		=> $this->input->post('cusNm'),
-			'cus_nm_kh' 	=> $this->input->post('cusNmKh'),
-			'cus_idnt_num'	=> $this->input->post('cusIdentityNmKh'),
-			'cus_phone1' 	=> $this->input->post('cusPhone'),
-			'srch_all'		=> $this->input->post('srchAll')
+			'epx_id' 		=> $this->input->post('expId'),
+			'sup_nm' 		=> $this->input->post('suppNm'),
+			'bra_nm' 		=> $this->input->post('expPro'),
+			'sta_nm'		=> $this->input->post('expSta'),
+			'txtSrchExpendSD' 	=> $this->input->post('txtSrchExpendSD'),
+			'txtSrchExpendED'	=> $this->input->post('txtSrchExpendED')
 		);
 		$data["OUT_REC"] = $this->M_expend->selectExpend($dataSrch);
 		$data["OUT_REC_CNT"] = $this->M_expend->countExpend($dataSrch);
@@ -53,37 +53,36 @@ class Expend extends CI_Controller {
 			redirect('/Login');
 		}
 
-		$cusPhoto = "";
-		if(!empty($_FILES['fileCusPhoto']['name'])){
-			$cusPhoto = $this->M_common->uploadImage($_FILES['fileCusPhoto'],'fileCusPhoto','./upload/borey/expend','/borey/expend/');
+		$expPhoto = ""; $expStaffId = "";
+		if(!empty($_FILES['fileExpPhoto']['name'])){
+			$expPhoto = $this->M_common->uploadImage($_FILES['fileExpPhoto'],'fileExpPhoto','./upload/borey/expend','/borey/expend/');
 		}else{
-			$cusPhoto = $this->input->post('cusImgPath');
+			$expPhoto = $this->input->post('expImgPath');
+		}
+
+		if($this->input->post('cboStaffPay') == '0'){
+			$expStaffId = $_SESSION['usrId'];
+		}else{
+			$expStaffId = $this->input->post('cboStaffPay');
 		}
 
 		$data = array(
 			/* 'bra_id' 		=> $this->input->post('txtBraId'),
              'pos_id' 		=> $this->input->post('txtPosId'), */
-			'cus_nm'		=> $this->input->post('txtExpendNm'),
-			'cus_nm_kh'		=> $this->input->post('txtExpendNmKh'),
-			'cus_idnt_num'	=> $this->input->post('txtIdentityNmKh'),
-			'cus_photo'	    => $cusPhoto,
-			'cus_gender'	=> $this->input->post('cboGender'),
-			'cus_dob'		=> date('Y-m-d',strtotime($this->input->post('txtDob'))),
-			'cus_addr'		=> $this->input->post('txtAddr'),
-			'cus_phone1'	=> $this->input->post('txtPhone1'),
-			'cus_phone2'	=> $this->input->post('txtPhone2'),
-			'cus_email'		=> $this->input->post('txtEmail'),
-			'cus_fb_name'	=> $this->input->post('txtFacebook'),
-			/* 'cus_start_dt'	=> date('Y-m-d',strtotime($this->input->post('txtStartDate'))),
-             'cus_end_dt'	=> date('Y-m-d',strtotime($this->input->post('txtStopDate'))), */
-			'cus_des'		=> $this->input->post('txtDes'),
+			'exp_total_price'		=> str_replace(",","",$this->input->post('txtTotalExp')),
+			'exp_date'		=> date('Y-m-d',strtotime($this->input->post('txtExpendDate'))),
+			'exp_des'		=> $this->input->post('txtDesc'),
+			'exp_image'		=> $expPhoto,
+			'sta_id'		=> $expStaffId,
+			'sup_id'		=> $this->input->post('txtSuppIdVal'),
+			'bra_id'		=> $this->input->post('projectNm'),
 			'useYn'			=> "Y",
 			'com_id'		=> $_SESSION['comId']
 		);
 
 		if($this->input->post('cusId') != null && $this->input->post('cusId') != ""){
 			//update data
-			$data['cus_id'] = $this->input->post('cusId');
+			$data['exp_id'] = $this->input->post('expId');
 			$data['upUsr'] = $_SESSION['usrId'];
 			$data['upDt'] = date('Y-m-d H:i:s');
 			$this->M_expend->update($data);
@@ -96,6 +95,7 @@ class Expend extends CI_Controller {
 
 		echo 'OK';
 	}
+
 
 	public function getBranchType(){
 		$data["OUT_REC"] = $this->M_branch->selectBrandType();

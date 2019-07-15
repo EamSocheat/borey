@@ -188,6 +188,9 @@ function filtStaffCombo(){
 function clearForm(){
     $("#frmExpend input").val("");
     $("#frmExpend textarea").val("");
+    $("#projectNm option:eq(0)").attr("selected",true);
+    $("#cboStaffPay option:eq(0)").attr("selected",true);
+
     $("#expendImgView").attr("src",$("#base_url").val()+"assets/image/default-image.jpg");
 }
 

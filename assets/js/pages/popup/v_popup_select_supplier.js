@@ -133,14 +133,15 @@ var _thisPage = {
 		
 		//
 		$("#tblSupplier tbody").on("dblclick", "tr td:not(.radio_box)", function() {
-			var tblTr = $(this).parent().parent();
-			var data={};
-			data["sup_nm"] = tblTr.find("div.sup_nm").html();
+			var tblTr = $(this).parent();
+			var data  = {};
 			data["sup_id"] = tblTr.attr("data-id");
+			data["sup_nm"] = tblTr.parent().find("div.sup_nm").html();
+			data["sup_phone"] = tblTr.parent().find("div.sup_phone").html();
 			
 			var parentFrame = "";
-			var callbackFunction=null;
-			if($("#parentId").val() !="" && $("#parentId").val() !=null){
+			var callbackFunction = null;
+			if($("#parentId").val() != "" && $("#parentId").val() != null){
 				parentFrame = $("#parentId").val();
 				callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.selectSupplierCallback
 			}
