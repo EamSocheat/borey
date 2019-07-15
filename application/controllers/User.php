@@ -52,8 +52,6 @@ class User extends CI_Controller {
 	    $this->M_menu->removeMenuUser($usr_id);
 	    $this->M_menu->insertMenuUserByMenuId($this->input->post('menuArr'),$usr_id);
 	    
-	   echo 'OK';
-	    
 	    if ($this->db->trans_status() === FALSE){
 	        $this->db->trans_rollback();
 	        echo 'ERR';

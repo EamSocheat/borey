@@ -240,6 +240,6 @@ function resetFormSearch(){
 /**
  * 
 */
-function popupStaffCallback(){
+function popupUserAccountCallback(){
     getData(_pageNo);
 }

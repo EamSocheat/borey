@@ -343,9 +343,7 @@ function saveData(str){
 		type: "POST",
 		url : $("#base_url").val() +"User/save",
 		data: $("#frmUserAcc").serialize()+"&menuArr="+menuArr ,
-		async: false,
 		success: function(res) {
-			
 		    parent.$("#loading").hide();
 			if(res =="OK"){
 				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
@@ -353,7 +351,7 @@ function saveData(str){
 				    clearForm();
 				}else{
 				    //close popup
-				    parent.stock.comm.closePopUpForm("PopupFormStaff",parent.popupStaffCallback);
+				    parent.stock.comm.closePopUpForm("PopupFormUserAccount",parent.popupUserAccountCallback);
 				}
 			}
 		},
