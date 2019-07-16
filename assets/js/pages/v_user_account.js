@@ -15,7 +15,7 @@ var _thisPage = {
 		getData(); 
 		//
 		stock.comm.inputNumber("txtSrchBraPhone");
-		stock.comm.checkAllTblChk("chkAllBox","tblStaff","chk_box");
+		stock.comm.checkAllTblChk("chkAllBox","tblUserAcc","chk_box");
 		
 		$("#cbxSrchBraType").prepend("<option value='' selected='selected'></option>");
 		
@@ -53,7 +53,7 @@ var _thisPage = {
 		
 		//
 		$("#btnEdit").click(function(){
-			var chkVal = $('#tblStaff tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblUserAcc tbody tr td.chk_box input[type="checkbox"]:checked');
 			if(chkVal.length != 1){
 				stock.comm.alertMsg($.i18n.prop("msg_con_edit1"));
 				return;
@@ -66,7 +66,7 @@ var _thisPage = {
 		
 		//
 		$("#btnDelete").click(function(e){
-			var chkVal = $('#tblStaff tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblUserAcc tbody tr td.chk_box input[type="checkbox"]:checked');
 			
 			if(chkVal.length <=0){
 				stock.comm.alertMsg($.i18n.prop("msg_con_del"));
@@ -129,14 +129,14 @@ function getData(page_no){
     $("#loading").show();
     $.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"Staff/getStaff",
+		url: $("#base_url").val() +"User/getUserAccount",
 		data: dat,
 		dataType: "json",
 		success: function(res) {
 			$("#loading").hide();
-			$("#tblStaff tbody").html("");
+			$("#tblUserAcc tbody").html("");
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
-			    for(var i=0; i<res.OUT_REC.length;i++){
+			   /* for(var i=0; i<res.OUT_REC.length;i++){
 			        var html = "<tr data-id='"+res.OUT_REC[i]["sta_id"]+"'>";
 			        var urlPhoto ="";
 			        if(res.OUT_REC[i]["sta_photo"] != null && res.OUT_REC[i]["sta_photo"] != ""){
@@ -154,12 +154,12 @@ function getData(page_no){
 			
 			        html += "</tr>";
 			        
-			        $("#tblStaff tbody").append(html);
-			    }    
+			        $("#tblUserAcc tbody").append(html);
+			    } */   
 			    //--pagination
 			    stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 			}else{
-			    $("#tblStaff tbody").append("<tr><td colspan='9' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+			    $("#tblUserAcc tbody").append("<tr><td colspan='9' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 			    //--pagination
 			    stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 			}

@@ -20,6 +20,22 @@ class User extends CI_Controller {
 	    
 	}
 	
+	public function getUserAccount(){
+	    if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	    
+	    $dataSrch = array(
+            'limit' 		=> $this->input->post('perPage'),
+            'offset' 		=> $this->input->post('offset'),
+            'sta_id' 		=> $this->input->post('staId'),
+            'usr_nm' 		=> $this->input->post('usrNm'),
+        );
+        
+	    $data["OUT_REC"] = $this->M_staff->selectStaff($dataSrch);
+	    $data["OUT_REC_CNT"] = $this->M_staff->countStaff($dataSrch);
+	    echo json_encode($data);
+	}
 	
 	public function save(){
 	    $this->db->trans_begin();

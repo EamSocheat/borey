@@ -106,7 +106,7 @@
 				</div>
 				
 				<div class="box-body table-responsive">
-				  <table class="table table-hover" id="">
+				  <table class="table table-hover" id="tblUserAcc">
 				    <thead>  
     					<tr>
     					  <th><input type="checkbox" id="chkAll"></th>

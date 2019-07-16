@@ -31,118 +31,101 @@
     	    $result = $this->db->get()->result();
     	    return $result;
     	}
-    	
-    	function select($usrId,$usrPos){
+	
+    	function selectUser($dataSrch){
   
-        	$this->db->select('*,tblcompany.comNm,(SELECT usrNm from tbluser as usr1 where usr1.usrId=usr.regUsr AND usr1.comId=usr.comId ) AS regNm');
-        	$this->db->from('tbluser AS usr');
-        	$this->db->join('tblcompany', 'usr.comId = tblcompany.comId');
-        	$this->db->order_by("usr.usrId", "desc");
-        	$this->db->where('usr.comId', $_SESSION['comId']);
-        	$this->db->where('usr.useYn', 'Y');
-
-        	$resultRtn;
-        	if(isset($usrId)){
-        		$this->db->where('usrId',$usrId);
-        		
-        		$result = $this->db->get()->result();
-        		
-        		$resultObj = new ArrayObject();
-        		$resultArr = Array();
-        		foreach($result as $item) {
-        			$resultObj['comNm'] 	= $item->comNm;
-        			$resultObj['usrId'] 	= $item->usrId;
-        			$resultObj['usrNm'] 	= $item->usrNm;
-        			$resultObj['usrPwd'] 	= $this->encrypt->decode($item->usrPwd,"PWD_ENCR");
-        			$resultObj['usrPhone'] 	= $item->usrPhone;
-        			$resultObj['usrAddr'] 	= $item->usrAddr;
-        			$resultObj['usrEmail'] 	= $item->usrEmail;
-        			$resultObj['usrDOB'] 	= $item->usrDob;
-        			$resultObj['usrPos'] 	= $item->usrPos;
-        			$resultObj['usrStr'] 	= $item->usrStr;
-        			$resultObj['usrIdNm'] 	= $item->usrIdNm;
-        			$resultObj['regUsr'] 	= $item->regUsr;
-        			
-        			$resultArr[] = $resultObj;
-        		} 
-        		return $resultArr;
-        	}else{
-        		$this->db->where_not_in('usrId', $_SESSION['usrId']);
-        		//
-        		if(isset($usrPos)){
-        			$this->db->where('usr.usrPos', $usrPos);
-        		}
-        		
-        		//agency's seller data
-        		//if($_SESSION['usrPos'] != "Admin"){
-        		    $this->db->where('usr.regUsr', $_SESSION['usrId']);
-        		//}
-        		
-        		$result = $this->db->get()->result();
-        		return $result;
+        	$this->db->select('*');
+        	//$this->db->from('tbl_staff');
+        	$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_staff.bra_id');
+        	$this->db->join('tbl_position','tbl_position.pos_id = tbl_staff.pos_id');
+        	$this->db->where('tbl_staff.com_id', $_SESSION['comId']);
+        	$this->db->where('tbl_staff.useYn', 'Y');
+        	$this->db->where('tbl_user.useYn', 'Y');
+        	//---
+        	if($dataSrch['sta_id'] != null && $dataSrch['sta_id'] != ""){
+        	    $this->db->where('tbl_staff.sta_id', $dataSrch['sta_id']);
+        	}
+        	
+        	//
+        	if($dataSrch['sta_nm'] != null && $dataSrch['sta_nm'] != ""){
+        	    $this->db->like('tbl_staff.sta_nm', $dataSrch['sta_nm']);
+        	}
+        	
+        	//
+        	if($dataSrch['sta_nm_kh'] != null && $dataSrch['sta_nm_kh'] != ""){
+        	    $this->db->like('tbl_staff.sta_nm_kh', $dataSrch['sta_nm_kh']);
+        	}
+        	
+        	//
+        	if($dataSrch['sta_phone'] != null && $dataSrch['sta_phone'] != ""){
+        	    $this->db->like('tbl_staff.sta_nm_kh', $dataSrch['sta_phone']);
+        	}
+        	
+        	//
+        	if($dataSrch['sta_phone'] != null && $dataSrch['sta_phone'] != ""){
+        	    $this->db->like('tbl_staff.sta_nm_kh', $dataSrch['sta_phone']);
+        	}
+        	
+        	//
+        	if($dataSrch['pos_id'] != null && $dataSrch['pos_id'] != ""){
+        	    $this->db->where('tbl_staff.pos_id', $dataSrch['pos_id']);
+        	}
+        	
+        	//
+        	if($dataSrch['bra_id'] != null && $dataSrch['bra_id'] != ""){
+        	    $this->db->where('tbl_staff.bra_id', $dataSrch['bra_id']);
         	}
         	
         	
-   
+        	$this->db->order_by("usr_id", "desc");
+        	return $this->db->get('tbl_user',$dataSrch['limit'],$dataSrch['offset'])->result();
 		}
 		
-		
-		function selectUser($usrId,$usrPos){
-			
-			$this->db->select('*,tblcompany.comNm,(SELECT usrNm from tbluser as usr1 where usr1.usrId=usr.regUsr AND usr1.comId=usr.comId ) AS regNm');
-			$this->db->from('tbluser AS usr');
-			$this->db->join('tblcompany', 'usr.comId = tblcompany.comId');
-			$this->db->order_by("usr.usrId", "desc");
-			$this->db->where('usr.comId', $_SESSION['comId']);
-			$this->db->where('usr.useYn', 'Y');
-			
-			$resultRtn;
-			if(isset($usrId)){
-				$this->db->where('usrId',$usrId);
-				
-				$result = $this->db->get()->result();
-				
-				$resultObj = new ArrayObject();
-				$resultArr = Array();
-				foreach($result as $item) {
-					$resultObj['comNm'] 	= $item->comNm;
-					$resultObj['usrId'] 	= $item->usrId;
-					$resultObj['usrNm'] 	= $item->usrNm;
-					$resultObj['usrPwd'] 	= $this->encrypt->decode($item->usrPwd,"PWD_ENCR");
-					$resultObj['usrPhone'] 	= $item->usrPhone;
-					$resultObj['usrAddr'] 	= $item->usrAddr;
-					$resultObj['usrEmail'] 	= $item->usrEmail;
-					$resultObj['usrDOB'] 	= $item->usrDob;
-					$resultObj['usrPos'] 	= $item->usrPos;
-					$resultObj['usrStr'] 	= $item->usrStr;
-					
-					$resultArr[] = $resultObj;
-				}
-				return $resultArr;
-			}else{
-				//$this->db->where_not_in('usrId', $_SESSION['usrId']);
-				//
-				if(isset($usrPos)){
-					$this->db->where('usr.usrPos', $usrPos);
-				}
-				
-				if($_SESSION['usrPos'] !="Admin"){
-					$this->db->where('usr.usrId', $_SESSION['usrId']);
-				}
-				
-				$result = $this->db->get()->result();
-				return $result;
-			}
-			
-		}
-
-		function selectCompany(){
-		    $this->db->select('*');
-		    $this->db->from('tblcompany');
-		    $this->db->where('comId', $_SESSION['comId']);
-		
-		    $result = $this->db->get()->result();
-		    return $result;
+		function countStaff($dataSrch){
+  
+        	$this->db->select('count(sta_id) as total_rec');
+        	$this->db->from('tbl_staff');
+        	$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_staff.bra_id');
+        	$this->db->where('tbl_staff.com_id', $_SESSION['comId']);
+        	$this->db->where('tbl_staff.useYn', 'Y');
+        	//---
+        	if($dataSrch['sta_id'] != null && $dataSrch['sta_id'] != ""){
+        	    $this->db->where('tbl_staff.sta_id', $dataSrch['sta_id']);
+        	}
+        	
+        	//
+        	if($dataSrch['sta_nm'] != null && $dataSrch['sta_nm'] != ""){
+        	    $this->db->like('tbl_staff.sta_nm', $dataSrch['sta_nm']);
+        	}
+        	
+        	//
+        	if($dataSrch['sta_nm_kh'] != null && $dataSrch['sta_nm_kh'] != ""){
+        	    $this->db->like('tbl_staff.sta_nm_kh', $dataSrch['sta_nm_kh']);
+        	}
+        	
+        	//
+        	if($dataSrch['sta_phone'] != null && $dataSrch['sta_phone'] != ""){
+        	    $this->db->like('tbl_staff.sta_nm_kh', $dataSrch['sta_phone']);
+        	}
+        	
+        	//
+        	if($dataSrch['sta_phone'] != null && $dataSrch['sta_phone'] != ""){
+        	    $this->db->like('tbl_staff.sta_nm_kh', $dataSrch['sta_phone']);
+        	}
+        	
+        	//
+        	if($dataSrch['pos_id'] != null && $dataSrch['pos_id'] != ""){
+        	    $this->db->where('tbl_staff.pos_id', $dataSrch['pos_id']);
+        	}
+        	
+        	//
+        	if($dataSrch['bra_id'] != null && $dataSrch['bra_id'] != ""){
+        	    $this->db->where('tbl_staff.bra_id', $dataSrch['bra_id']);
+        	}
+        	        	
+        	
+        	$this->db->order_by("sta_id", "desc");
+        	return $this->db->get()->result();
 		}
 		
 		
