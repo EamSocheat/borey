@@ -110,11 +110,10 @@
 				    <thead>  
     					<tr>
     					  <th><input type="checkbox" id="chkAll"></th>
-    					  <th data-i18ncd="lb_name">Name</th>
-    					  <th data-i18ncd="lb_name_kh">Khmer Name</th>
-    					  <th data-i18ncd="lb_des">Description</th>
-    					  <th data-i18ncd="lb_docreate">Register Date</th>
-    					  <th data-i18ncd="lb_action">Action</th>
+    					  <th>ឈ្មោះ​គណនី</th>
+    					  <th>បុគ្គលិក</th>
+    					  <th>ថ្ងៃខែ​ឆ្នាំ​បង្កើត</th>
+    					  <th>សកម្មភាព</th>
     					</tr>
 					</thead>
 					<tbody>

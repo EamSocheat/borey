@@ -120,11 +120,9 @@ function getData(page_no){
     dat["perPage"] = $("#perPage").val();
     dat["offset"] = parseInt($("#perPage").val())  * ( pageNo - 1);
     //searching
-    /*dat["staNm"] =      $("#txtSrchStaNm").val().trim();
-    dat["staNmKh"] =    $("#txtSrchStaNmKh").val().trim();
-    dat["staPhone"] =   $("#txtSrchStaPhone").val().trim();
-    dat["braId"] =    	$("#cbxSrchBranch option:selected").val();
-    dat["posId"] =    	$("#cbxSrchPos option:selected").val();*/
+    dat["staId"] =      $("#txtSrchPosNm").val().trim();
+    dat["usrNm"] =    $("#txtSrchPosNm").val().trim();
+
     //
     $("#loading").show();
     $.ajax({
@@ -136,26 +134,20 @@ function getData(page_no){
 			$("#loading").hide();
 			$("#tblUserAcc tbody").html("");
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
-			   /* for(var i=0; i<res.OUT_REC.length;i++){
-			        var html = "<tr data-id='"+res.OUT_REC[i]["sta_id"]+"'>";
-			        var urlPhoto ="";
-			        if(res.OUT_REC[i]["sta_photo"] != null && res.OUT_REC[i]["sta_photo"] != ""){
-			        	urlPhoto = $("#base_url").val()+"/upload"+ res.OUT_REC[i]["sta_photo"];
-			        }
+				console.log(res);
+			   for(var i=0; i<res.OUT_REC.length;i++){
+			        var html = "<tr data-id='"+res.OUT_REC[i]["usr_id"]+"'>";
+			        
 			        html += "<td class='chk_box'><input type='checkbox'></td>";
-			        html += "<td class='sta_image'><img style='width: 20px;height: 20px;' src='"+ urlPhoto +"' class='img-circle' /></td>";
-			        html += "<td class='sta_nm'>"+res.OUT_REC[i]["sta_nm"]+"</td>";
 			        html += "<td class='sta_nm_kh'>"+res.OUT_REC[i]["sta_nm_kh"]+"</td>";
-			        html += "<td class='sta_gender'>"+res.OUT_REC[i]["sta_gender"]+"</td>";
-			        html += "<td class='sta_phone1'>"+res.OUT_REC[i]["sta_phone1"]+"</td>";
-			        html += "<td class='pos_nm'>"+res.OUT_REC[i]["pos_nm"]+"</td>";
-			        html += "<td class='bra_nm'>"+res.OUT_REC[i]["bra_nm"]+"</td>";
+			        html += "<td class='usr_nm'>"+res.OUT_REC[i]["usr_nm"]+"</td>";
+			        html += "<td class='regUsrDt'>"+res.OUT_REC[i]["regUsrDt"]+"</td>";
 			        html += "<td class='act_btn text-center'><button onclick='editData("+res.OUT_REC[i]["sta_id"]+")' type='button' class='btn btn-primary btn-xs'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></td>";
 			
 			        html += "</tr>";
 			        
 			        $("#tblUserAcc tbody").append(html);
-			    } */   
+			    }
 			    //--pagination
 			    stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 			}else{
