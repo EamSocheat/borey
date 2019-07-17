@@ -153,7 +153,7 @@ function getDataEdit(exp_id){
 			    $("#txtSuppPhoneVal").val(res.OUT_REC[0]["sup_phone"]);
 				$("#projectNm option[value='"+res.OUT_REC[0]["bra_id"]+"']").attr("selected","selected");
 				$("#txtExpendDate").val(stock.comm.formatDateWithoutTime(res.OUT_REC[0]["exp_date"]));
-				$("#cboStaffPay option[value='"+res.OUT_REC[0]["sta_id"]+"']").attr("selected",true);
+				$("#cboStaffPay option[value='"+res.OUT_REC[0]["sta_id"]+"']").attr("selected","selected");
 			    $("#txtTotalExp").val(stock.comm.formatCurrency(res.OUT_REC[0]["exp_total_price"]));
 			    $("#txtTotalExp").attr("readonly", true);
 				$("#txtDesc").val(res.OUT_REC[0]["exp_des"]);
