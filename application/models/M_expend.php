@@ -111,8 +111,16 @@ class M_expend extends CI_Model{
 
 		if(($dataSrch['txtSrchExpendSD'] != null && $dataSrch['txtSrchExpendSD'] != "")
 			&& ($dataSrch['txtSrchExpendED'] != null && $dataSrch['txtSrchExpendED'] != "")){
-			$this->db->where('tbl_expend.exp_date <=', $dataSrch['txtSrchExpendSD']);
+			$this->db->where('tbl_expend.exp_date >=', $dataSrch['txtSrchExpendSD']);
 			$this->db->where('tbl_expend.exp_date <=', $dataSrch['txtSrchExpendED']);
+		}else{
+			if(($dataSrch['txtSrchExpendSD'] != null && $dataSrch['txtSrchExpendSD'] != "")){
+				$this->db->where('tbl_expend.exp_date >=', $dataSrch['txtSrchExpendSD']);
+			}
+
+			if(($dataSrch['txtSrchExpendED'] != null && $dataSrch['txtSrchExpendED'] != "")){
+				$this->db->where('tbl_expend.exp_date <=', $dataSrch['txtSrchExpendED']);
+			}
 		}
 
 		return $this->db->get()->result();
