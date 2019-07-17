@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 17, 2019 at 09:09 AM
+-- Generation Time: Jul 17, 2019 at 10:12 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -679,10 +679,12 @@ INSERT INTO `tbl_position` (`pos_id`, `pos_nm`, `pos_nm_kh`, `pos_des`, `regDt`,
 DROP TABLE IF EXISTS `tbl_product`;
 CREATE TABLE IF NOT EXISTS `tbl_product` (
   `pro_id` int(11) NOT NULL AUTO_INCREMENT,
+  `pro_code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `pro_nm` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `pro_nm_kh` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `pro_price` double DEFAULT NULL,
   `pro_sale_price` double DEFAULT NULL,
+  `pro_photo` text COLLATE utf8_unicode_ci,
   `pro_des` text COLLATE utf8_unicode_ci,
   `regDt` datetime DEFAULT NULL,
   `upDt` datetime DEFAULT NULL,
