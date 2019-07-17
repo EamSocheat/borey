@@ -43,8 +43,8 @@
                 		<div class="col-xs-6 padding-forms-left">
                 			<div class="form-group">
                               <label for="projectNm" data-i18ncd="lb_project">គម្រោង</label>
-                              <select class="form-control" id="projectNm" name="projectNm">
-	                    			<option value="0" data-i18ncd="lb_project_choose">ជ្រើសរើស</option>
+                              <select class="form-control" id="projectNm" name="projectNm" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity(' សូមជ្រើសរើស ')" oninput="setCustomValidity('')">
+	                    			<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>
 	                    			<option value="1" data-i18ncd="lb_project_1">គម្រោងទី ១</option>
 	                    			<option value="2" data-i18ncd="lb_project_2">គម្រោងទី ២</option>
 			                  </select>
@@ -67,8 +67,9 @@
 						<div class="col-xs-6 padding-forms-left">
 							<div class="form-group">
 								<label for="cboStaffPay" data-i18ncd="lb_staff_expend">បុគ្គលិក(អ្នកទូទាត់)</label>
-								<select class="form-control" id="cboStaffPay" name="cboStaffPay">
-									<option value="0" data-i18ncd="lb_staff_admin" selected>Admin</option>
+								<select class="form-control" id="cboStaffPay" name="cboStaffPay" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity(' សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
+									<option value="" data-i18ncd="lb_project_choose" selected>សូមជ្រើសរើស</option>
+									<option value="0" data-i18ncd="lb_staff_admin">Admin</option>
 									<option value="1" data-i18ncd="lb_staff_1">សុមិនា</option>
 									<option value="2" data-i18ncd="lb_staff_1">សុធា</option>
 								</select>

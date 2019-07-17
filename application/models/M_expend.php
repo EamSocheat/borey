@@ -27,15 +27,15 @@ class M_expend extends CI_Model{
 		}
 
 		if($dataSrch['sup_nm'] != null && $dataSrch['sup_nm'] != ""){
-			$this->db->like('tbl_supplier.sup_nm', $dataSrch['sup_nm']);
+			$this->db->where_in('tbl_supplier.sup_id', $dataSrch['sup_nm']);
 		}
 
 		if($dataSrch['bra_nm'] != null && $dataSrch['bra_nm'] != ""){
-			$this->db->like('tbl_branch.bra_nm', $dataSrch['bra_nm']);
+			$this->db->where_in('tbl_branch.bra_id', $dataSrch['bra_nm']);
 		}
 
 		if($dataSrch['sta_nm'] != null && $dataSrch['sta_nm'] != ""){
-			$this->db->like('tbl_staff.sta_nm', $dataSrch['sta_nm']);
+			$this->db->where_in('tbl_staff.sta_id', $dataSrch['sta_nm']);
 		}
 
 		if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
@@ -50,6 +50,14 @@ class M_expend extends CI_Model{
 			&& ($dataSrch['txtSrchExpendED'] != null && $dataSrch['txtSrchExpendED'] != "")){
 			$this->db->where('tbl_expend.exp_date >=', $dataSrch['txtSrchExpendSD']);
 			$this->db->where('tbl_expend.exp_date <=', $dataSrch['txtSrchExpendED']);
+		}else{
+			if(($dataSrch['txtSrchExpendSD'] != null && $dataSrch['txtSrchExpendSD'] != "")){
+				$this->db->where('tbl_expend.exp_date >=', $dataSrch['txtSrchExpendSD']);
+			}
+
+			if(($dataSrch['txtSrchExpendED'] != null && $dataSrch['txtSrchExpendED'] != "")){
+				$this->db->where('tbl_expend.exp_date <=', $dataSrch['txtSrchExpendED']);
+			}
 		}
 
 		/*else{

@@ -35,21 +35,39 @@
 										<div class="row" >
 											<div class="col-sm-12 col-md-12 col-lg-12 row" style="
                                             ">
-												<div class="col-sm-3 col-md-3 col-lg-3" style="
+												<div class="col-sm-2 col-md-2 col-lg-2" style="
                                                 ">
 													<div class="form-group form-inline" >
-														<label for="txtSrchSuppNm" class="control-label" data-i18ncd="lb_supp_nm" style="
+														<label for="cboSupNm" class="control-label" data-i18ncd="lb_supp_nm" style="
                                                         margin-bottom: 7px;display: -webkit-box;
                                                     ">អ្នកផ្គត់ផ្គង់</label>
-														<input type="text" class="form-control input-sm" name="txtSrchSuppNm" id="txtSrchSuppNm" placeholder="អ្នកផ្គត់ផ្គង់" style="width: 100%;">
+														<!-- <input type="text" class="form-control input-sm" name="txtSrchSuppNm" id="txtSrchSuppNm" placeholder="អ្នកផ្គត់ផ្គង់" style="width: 100%;">-->
+														<select class="form-control" id="cboSupNm" name="cboSupNm" style="font-size: 14px;" onchange="getData()">
+															<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>
+															<option value="1" data-i18ncd="lb_project_1">static</option>
+														</select>
 													</div>
 												</div>
-												<div class="col-sm-3 col-md-3 col-lg-3" style="">
+												<div class="col-sm-2 col-md-2 col-lg-2" style="">
 													<div class="form-group form-inline">
-														<label for="txtSrchProNm" class="control-label" data-i18ncd="lb_project" style="
+														<label for="projectNm" class="control-label" data-i18ncd="lb_project" style="
                                                         margin-bottom: 7px;display: -webkit-box;
                                                     ">គម្រោង</label>
-														<input type="text" class="form-control input-sm" id="txtSrchProNm" name="txtSrchProNm" placeholder="គម្រោង" style="width: 100%;">
+														<!-- <input type="text" class="form-control input-sm" id="txtSrchProNm" name="txtSrchProNm" placeholder="គម្រោង" style="width: 100%;">-->
+														<select class="form-control" id="projectNm" name="projectNm" style="font-size: 14px;" onchange="getData()">
+															<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>
+															<option value="1" data-i18ncd="lb_project_1">static</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-sm-2 col-md-2 col-lg-2" style="">
+													<div class="form-group form-inline">
+														<label for="cboStaffPay" class="control-label" data-i18ncd="lb_staff_nm" style="margin-bottom: 7px;display: -webkit-box;">បុគ្គលិក(អ្នកទូទាត់)</label>
+														<!-- <input type="text" class="form-control input-sm" id="txtSrchStaffNm" name="txtSrchStaffNm" placeholder="បុគ្គលិក(អ្នកទូទាត់)" style="width: 100%;">-->
+														<select class="form-control" id="cboStaffPay" name="cboStaffPay" style="font-size: 14px;" onchange="getData()">
+															<option value="" data-i18ncd="lb_project_choose" selected>សូមជ្រើសរើស</option>
+															<option value="0" data-i18ncd="lb_staff_admin">static</option>
+														</select>
 													</div>
 												</div>
 												<div class="col-sm-6 col-md-6 col-lg-6" style="display: inline-flex;">
@@ -75,21 +93,8 @@
 										</div>
 
 										<div class="row" >
-											<div class="col-sm-12 col-md-12 col-lg-12 row" style="
-									">
-												<div class="col-sm-3 col-md-3 col-lg-3" style="
-										">
-													<div class="form-group form-inline">
-														<label for="txtSrchStaffNm" class="control-label" data-i18ncd="lb_staff_nm" style="
-												margin-bottom: 7px;
-												display: -webkit-box;
-											">បុគ្គលិក(អ្នកទូទាត់)</label>
-														<input type="text" class="form-control input-sm" id="txtSrchStaffNm" name="txtSrchStaffNm" placeholder="បុគ្គលិក(អ្នកទូទាត់)" style="width: 100%;">
-													</div>
-												</div>
-											</div>
 											<div class="col-sm-12 col-md-12 col-lg-12">
-												<button id="btnSearch" type="button" class="btn btn-success btn-sm pull-right" onclick="_thisPage.loadData(1);"><i class="fa fa-search" aria-hidden="true"></i> <span data-i18ncd="lb_search">Search</span></button>
+												<button id="btnSearch" type="button" class="btn btn-success btn-sm pull-right" onclick="getData(1);"><i class="fa fa-search" aria-hidden="true"></i> <span data-i18ncd="lb_search">Search</span></button>
 												<button id="btnReset" type="button" class="btn btn-warning btn-sm pull-right" style="margin-right: 5px"><i class="fa fa-refresh" aria-hidden="true"></i> <span data-i18ncd="btn_reset">Reset</span></button>
 											</div>
 										</div>

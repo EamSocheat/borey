@@ -22,6 +22,8 @@ var _thisPage = {
 			    $("#btnSaveNew").show();
 			    $("#popupTitle").html("<i class='fa fa-address-card-o'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_supplier"));
 			}
+			stock.comm.inputNumber("phoneNum");
+
 		}, fillData : function(sup_id){
 			$.ajax({
 				type: "POST",

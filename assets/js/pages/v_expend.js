@@ -39,6 +39,9 @@ var _thisPage = {
 		});
 		$("#txtSrchExpendED").inputmask();
 
+		filtSupplierCombo();
+		filtProjectCombo();
+		filtStaffCombo();
 	},event : function(){
 		$("#perPage").change(function(e){
 			_pageNo = 1;
@@ -157,9 +160,9 @@ function getData(page_no){
 	dat["perPage"] = $("#perPage").val();
 	dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
 	//searching
-	dat["suppNm"]	= $("#txtSrchSuppNm").val().trim();
-	dat["expPro"]	= $("#txtSrchProNm").val().trim();
-	dat["expSta"] 	= $("#txtSrchStaffNm").val().trim();
+	dat["suppNm"]	= $("#cboSupNm option:selected").val();
+	dat["expPro"]	= $("#projectNm option:selected").val();
+	dat["expSta"] 	= $("#cboStaffPay option:selected").val();
 	dat["txtSrchExpendSD"]	= $("#txtSrchExpendSD").val();
 	dat["txtSrchExpendED"]	= $("#txtSrchExpendED").val();
 
@@ -171,7 +174,11 @@ function getData(page_no){
 		dataType: "json",
 		success	: function(res) {
 			$("#tblExpend tbody").html("");
-			var strHmtl  	= "";
+			var strHmtl	 = "";
+			var strTotal = "";
+			var totalAmt = 0;
+			var supNmKh  = "";
+			var staNmKh  = "";
 
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				$("#chkAllBox").show();
@@ -184,22 +191,42 @@ function getData(page_no){
 						urlPhoto = $("#base_url").val()+"/assets/image/default-staff-photo.png";
 					}
 
+					if(res.OUT_REC[i]["sup_nm_kh"] != "" && res.OUT_REC[i]["sup_nm_kh"] != null){
+						supNmKh = res.OUT_REC[i]["sup_nm_kh"];
+					}else{
+						supNmKh = res.OUT_REC[i]["sup_nm"];
+					}
+
+					if(res.OUT_REC[i]["sta_nm_kh"] != "" && res.OUT_REC[i]["sta_nm_kh"] != null){
+						staNmKh = res.OUT_REC[i]["sta_nm_kh"];
+					}else{
+						staNmKh = res.OUT_REC[i]["sta_nm"];
+					}
+
 					strHmtl += '<tr data-id="'+res.OUT_REC[i]["exp_id"]+'" class="cur-pointer" ondblclick="editData('+res.OUT_REC[i]['exp_id']+')">';
 					strHmtl += '	<td class="chk_box"><input type="checkbox" /></td>';
-					strHmtl += '	<td><div>'+res.OUT_REC[i]["sup_nm"]+'</div></td>';
+					strHmtl += '	<td><div>'+supNmKh+'</div></td>';
 					strHmtl += '	<td><div style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["exp_total_price"])+'</div></td>';
 					strHmtl += '	<td><div>'+res.OUT_REC[i]["bra_nm"]+'</div></td>';
 					strHmtl += '	<td><div>'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["exp_date"])+'</div></td>';
-					strHmtl += '	<td><div>'+res.OUT_REC[i]["sta_nm"]+'</div></td>';
+					strHmtl += '	<td><div>'+staNmKh+'</div></td>';
 					strHmtl += '	<td class="text-center">';
 					strHmtl += '		<button type="button" class="btn btn-primary btn-xs" onclick="editData('+res.OUT_REC[i]["exp_id"]+')">';
 					strHmtl += '			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
 					strHmtl += '		</button>';
 					strHmtl += '	</td>';
 					strHmtl += '</tr>';
+
+					totalAmt += Number(res.OUT_REC[i]["exp_total_price"]);
 				}
 
+				strTotal +='<tr class="total">';
+				strTotal +='	<td class="" colspan="2" style="text-align: right;">ថ្លៃចំណាយសរុប: </td>';
+				strTotal +='	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalAmt)+'</b></td>';
+				strTotal +='</tr>';
+
 				$("#tblExpend tbody").append(strHmtl);
+				$("#tblExpend tbody").append(strTotal);
 				stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 			}else{
 				$("#chkAllBox").hide();
@@ -256,6 +283,67 @@ function deleteDataArr(dataArr){
 	});
 }
 
+function filtSupplierCombo(){
+	var SUPPLIER_REC = stock.comm.callDataCombo("Supplier","getSupplierData");
+
+	if(!stock.comm.isEmpty(SUPPLIER_REC)){
+		var strHtml = '<option value="" data-i18ncd="lb_sup_choose">សូមជ្រើសរើស</option>';
+		var supStr  = "";
+		$("#cboSupNm").empty();
+		for(var i = 0; i < SUPPLIER_REC.length; i++){
+			if(SUPPLIER_REC[i]["sup_nm_kh"] != "" && SUPPLIER_REC[i]["sup_nm_kh"] != null){
+				supStr = SUPPLIER_REC[i]["sup_nm_kh"];
+			}else{
+				supStr = SUPPLIER_REC[i]["sup_nm"];
+			}
+			strHtml += '<option value="'+SUPPLIER_REC[i]["sup_id"]+'">'+supStr+'</option>';
+		}
+		$("#cboSupNm").html(strHtml);
+	}
+}
+
+function filtProjectCombo(){
+	var PROJECT_REC = stock.comm.callDataCombo("Branch","getBranch");
+
+	if(!stock.comm.isEmpty(PROJECT_REC)){
+		var strHtml = '<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>';
+		var proStr  = "";
+		$("#projectNm").empty();
+		for(var i = 0; i < PROJECT_REC.length; i++){
+			if(PROJECT_REC[i]["bra_nm_kh"] != "" && PROJECT_REC[i]["bra_nm_kh"] != null){
+				proStr = PROJECT_REC[i]["bra_nm_kh"];
+			}else{
+				proStr = PROJECT_REC[i]["bra_nm"];
+			}
+			strHtml += '<option value="'+PROJECT_REC[i]["bra_id"]+'">'+proStr+'</option>';
+		}
+		$("#projectNm").html(strHtml);
+	}
+}
+
+
+function filtStaffCombo(){
+	var Staff_REC = stock.comm.callDataCombo("Staff","getStaff");
+
+	if(!stock.comm.isEmpty(Staff_REC)){
+		var strHtml  = '<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>';
+		strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
+		var staffStr = "";
+		$("#cboStaffPay").empty();
+		for(var i = 0; i < Staff_REC.length; i++){
+			if(Staff_REC[i]["sta_nm_kh"] != "" && Staff_REC[i]["sta_nm_kh"] != null){
+				staffStr = Staff_REC[i]["sta_nm_kh"];
+			}else{
+				staffStr = Staff_REC[i]["sta_nm"];
+			}
+			strHtml += '<option value="'+Staff_REC[i]["sta_id"]+'">'+staffStr+'</option>';
+		}
+		$("#cboStaffPay").html(strHtml);
+	}
+}
+
+
+
 function downloadExcel(dataRec){
 	$.ajax({
 		type: "POST",
@@ -278,11 +366,11 @@ function downloadExcel(dataRec){
  *
  */
 function resetFormSearch(){
-	$("#txtSrchSuppNm").val("");
-	$("#txtSrchProNm").val("");
+	$("#cboSupNm option:eq(0)").attr("selected", true);
+	$("#projectNm option:eq(0)").attr("selected", true);
+	$("#cboStaffPay option:eq(0)").attr("selected", true);
 	$("#txtSrchExpendSD").val("");
 	$("#txtSrchExpendED").val("");
-	$("#txtSrchStaffNm").val("");
 }
 
 /**

@@ -150,6 +150,7 @@ function getDataEdit(exp_id){
 				$("#txtExpendDate").val(stock.comm.formatDateWithoutTime(res.OUT_REC[0]["exp_date"]));
 				$("#cboStaffPay option[value='"+res.OUT_REC[0]["sta_id"]+"']").attr("selected",true);
 			    $("#txtTotalExp").val(stock.comm.formatCurrency(res.OUT_REC[0]["exp_total_price"]));
+			    $("#txtTotalExp").attr("readonly", true);
 				$("#txtDesc").val(res.OUT_REC[0]["exp_des"]);
 			    if(res.OUT_REC[0]["exp_image"] != null && res.OUT_REC[0]["exp_image"] != ""){
 			    	$("#expendImgView").attr("src", $("#base_url").val()+"upload"+res.OUT_REC[0]["exp_image"]);
@@ -172,7 +173,7 @@ function filtProjectCombo(){
 	var PROJECT_REC = stock.comm.callDataCombo("Branch","getBranch");
 
 	if(!stock.comm.isEmpty(PROJECT_REC)){
-		var strHtml = '<option value="0" data-i18ncd="lb_project_choose">ជ្រើសរើស</option>';
+		var strHtml = '<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>';
 		var proStr  = "";
 		$("#projectNm").empty();
 		for(var i = 0; i < PROJECT_REC.length; i++){
@@ -191,7 +192,8 @@ function filtStaffCombo(){
 	var Staff_REC = stock.comm.callDataCombo("Staff","getStaff");
 
 	if(!stock.comm.isEmpty(Staff_REC)){
-		var strHtml = '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
+		var strHtml  = '<option value="" data-i18ncd="lb_sta_choose" selected>សូមជ្រើសរើស</option>';
+			strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
 		var staffStr = "";
 		$("#cboStaffPay").empty();
 		for(var i = 0; i < Staff_REC.length; i++){

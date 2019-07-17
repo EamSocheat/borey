@@ -19,7 +19,6 @@ var _thisPage = {
 		$("#frmSupplier").show();
 		//
 	    getData();
-	    
 	},event : function(){
 		$("#btnClose, #btnExit").click(function(e){
 			parent.parent.stock.comm.closePopUpForm("PopupSelectSupplier");
@@ -171,12 +170,19 @@ function getData(){
 		success: function(res) {
 			$("#tblSupplier tbody").html("");
 			var strHtml = "";
+			var supNmKh = "";
 
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				for(var i=0; i<res.OUT_REC.length;i++){
+					if(res.OUT_REC[i]['sup_nm_kh'] != "" && res.OUT_REC[i]['sup_nm_kh'] != null){
+						supNmKh = res.OUT_REC[i]['sup_nm_kh'];
+					}else{
+						supNmKh = res.OUT_REC[i]['sup_nm'];
+					}
+
 					strHtml += '<tr class="cur-pointer" data-id="'+res.OUT_REC[i]['sup_id']+'">';
 					strHtml += '	<td class="radio_box"><input type="radio" id="chkSupplier"></td>';
-					strHtml += '	<td><div title="'+res.OUT_REC[i]['sup_nm']+'" class="sup_nm">'+res.OUT_REC[i]['sup_nm']+'</div></td>';
+					strHtml += '	<td><div title="'+res.OUT_REC[i]['sup_nm']+'" class="sup_nm">'+supNmKh+'</div></td>';
 					strHtml += '	<td style="display: none"><div class="sup_nm_kh">'+res.OUT_REC[i]['sup_nm_kh']+'</div></td>';
 					strHtml += '	<td><div title="'+res.OUT_REC[i]['sup_phone']+'" class="sup_phone">'+res.OUT_REC[i]['sup_phone']+'</div></td>';
 					// strHtml += '	<td><div title="'+res.OUT_REC[i]['sup_email']+'" class="sup_email">'+res.OUT_REC[i]['sup_email']+'</div></td>';
