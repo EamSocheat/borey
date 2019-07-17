@@ -40,8 +40,8 @@ class Expend extends CI_Controller {
 			'sup_nm' 		=> $this->input->post('suppNm'),
 			'bra_nm' 		=> $this->input->post('expPro'),
 			'sta_nm'		=> $this->input->post('expSta'),
-			'txtSrchExpendSD' 	=> $this->input->post('txtSrchExpendSD'),
-			'txtSrchExpendED'	=> $this->input->post('txtSrchExpendED')
+			'txtSrchExpendSD' 	=> $this->reOrderDate($this->input->post('txtSrchExpendSD')),
+			'txtSrchExpendED'	=> $this->reOrderDate($this->input->post('txtSrchExpendED'))
 		);
 		$data["OUT_REC"] = $this->M_expend->selectExpend($dataSrch);
 		$data["OUT_REC_CNT"] = $this->M_expend->countExpend($dataSrch);
@@ -80,7 +80,7 @@ class Expend extends CI_Controller {
 			'com_id'		=> $_SESSION['comId']
 		);
 
-		if($this->input->post('cusId') != null && $this->input->post('cusId') != ""){
+		if($this->input->post('expId') != null && $this->input->post('expId') != ""){
 			//update data
 			$data['exp_id'] = $this->input->post('expId');
 			$data['upUsr'] = $_SESSION['usrId'];
@@ -110,17 +110,17 @@ class Expend extends CI_Controller {
 		$delObj = $this->input->post('delObj');
 		$cntDel = 0;
 		for($i=0; $i<sizeof($delObj); $i++){
-			$cntActiveContract	= 0;
+			/*$cntActiveContract	= 0;
 			$cntActiveSell		= 0;
 			//check contract table using branch or not
 			$dataCol = array(
 				'tbl_nm' 		=> "tbl_contract",
-				'id_nm' 		=> "cus_id",
+				'id_nm' 		=> "exp_id",
 				'com_id' 		=> "com_id"
 			);
 
 			$dataVal = array(
-				'id_val' 		=> $delObj[$i]['cusId'],
+				'id_val' 		=> $delObj[$i]['expId'],
 				'com_val' 		=> $_SESSION['comId']
 			);
 			$chkData	= $this->M_common->checkActiveRecord($dataCol,$dataVal);
@@ -128,12 +128,12 @@ class Expend extends CI_Controller {
 
 			$dataCol = array(
 				'tbl_nm' 		=> "tbl_sell",
-				'id_nm' 		=> "cus_id",
+				'id_nm' 		=> "exp_id",
 				'com_id' 		=> "com_id"
 			);
 
 			$dataVal = array(
-				'id_val' 		=> $delObj[$i]['cusId'],
+				'id_val' 		=> $delObj[$i]['expId'],
 				'com_val' 		=> $_SESSION['comId']
 			);
 			$chkData		= $this->M_common->checkActiveRecord($dataCol,$dataVal);
@@ -143,7 +143,7 @@ class Expend extends CI_Controller {
 				continue;
 			}else{
 				$data = array(
-					'cus_id'	=> $delObj[$i]['cusId'],
+					'exp_id'	=> $delObj[$i]['expId'],
 					'useYn'		=> "N",
 					'com_id'	=> $_SESSION['comId'],
 					'upDt'		=> date('Y-m-d H:i:s'),
@@ -151,9 +151,28 @@ class Expend extends CI_Controller {
 				);
 				$this->M_expend->update($data);
 				$cntDel+=1;
-			}
+			}*/
+
+			$data = array(
+				'exp_id'	=> $delObj[$i]['expId'],
+				'useYn'		=> "N",
+				'com_id'	=> $_SESSION['comId'],
+				'upDt'		=> date('Y-m-d H:i:s'),
+				'upUsr'		=> $_SESSION['usrId']
+			);
+			$this->M_expend->update($data);
+			$cntDel+=1;
 		}
 		echo $cntDel;
+	}
+
+	public function reOrderDate($input_date){
+		$output_date = "";
+		if($input_date != "" && $input_date != ""){
+			$output_date = explode("-",$input_date)[2]."-".explode("-",$input_date)[1]."-".explode("-",$input_date)[0];
+		}
+//		return explode("-",$input_date)[2]."-".explode("-",$input_date)[1]."-".explode("-",$input_date)[0];
+		return $output_date;
 	}
 
 }

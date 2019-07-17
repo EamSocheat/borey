@@ -134,8 +134,16 @@ function getDataEdit(exp_id){
 		async	: false,
 		success	: function(res) {
 			if(res.OUT_REC != null && res.OUT_REC.length > 0){
-			    $("#txtSuppNm").val(res.OUT_REC[0]["sup_nm"]);
-			    $("#txtSuppNmVal").val(res.OUT_REC[0]["sup_nm"]);
+			    $("#txtSuppIdVal").val(res.OUT_REC[0]["sup_id"]);
+
+			    if(res.OUT_REC[0]["sup_nm_kh"] != "" && res.OUT_REC[0]["sup_nm_kh"] != null){
+					$("#txtSuppNm").val(res.OUT_REC[0]["sup_nm_kh"]);
+					$("#txtSuppNmVal").val(res.OUT_REC[0]["sup_nm_kh"]);
+				}else{
+					$("#txtSuppNm").val(res.OUT_REC[0]["sup_nm"]);
+					$("#txtSuppNmVal").val(res.OUT_REC[0]["sup_nm"]);
+				}
+
 			    $("#txtSuppPhone").val(res.OUT_REC[0]["sup_phone"]);
 			    $("#txtSuppPhoneVal").val(res.OUT_REC[0]["sup_phone"]);
 				$("#projectNm option[value='"+res.OUT_REC[0]["bra_id"]+"']").attr("selected","selected");
@@ -165,9 +173,15 @@ function filtProjectCombo(){
 
 	if(!stock.comm.isEmpty(PROJECT_REC)){
 		var strHtml = '<option value="0" data-i18ncd="lb_project_choose">ជ្រើសរើស</option>';
+		var proStr  = "";
 		$("#projectNm").empty();
 		for(var i = 0; i < PROJECT_REC.length; i++){
-			strHtml += '<option value="'+PROJECT_REC[i]["bra_id"]+'">'+PROJECT_REC[i]["bra_nm"]+'</option>';
+			if(PROJECT_REC[i]["bra_nm_kh"] != "" && PROJECT_REC[i]["bra_nm_kh"] != null){
+				proStr = PROJECT_REC[i]["bra_nm_kh"];
+			}else{
+				proStr = PROJECT_REC[i]["bra_nm"];
+			}
+			strHtml += '<option value="'+PROJECT_REC[i]["bra_id"]+'">'+proStr+'</option>';
 		}
 		$("#projectNm").html(strHtml);
 	}
@@ -178,9 +192,15 @@ function filtStaffCombo(){
 
 	if(!stock.comm.isEmpty(Staff_REC)){
 		var strHtml = '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
+		var staffStr = "";
 		$("#cboStaffPay").empty();
 		for(var i = 0; i < Staff_REC.length; i++){
-			strHtml += '<option value="'+Staff_REC[i]["sta_id"]+'">'+Staff_REC[i]["sta_nm"]+'</option>';
+			if(Staff_REC[i]["sta_nm_kh"] != "" && Staff_REC[i]["sta_nm_kh"] != null){
+				staffStr = Staff_REC[i]["sta_nm_kh"];
+			}else{
+				staffStr = Staff_REC[i]["sta_nm"];
+			}
+			strHtml += '<option value="'+Staff_REC[i]["sta_id"]+'">'+staffStr+'</option>';
 		}
 		$("#cboStaffPay").html(strHtml);
 	}
@@ -198,8 +218,13 @@ function clearForm(){
 function selectSupplierCallback(data){
 	$("#txtSuppIdVal").val(data["sup_id"]);
 
-	$("#txtSuppNm").val(data["sup_nm"]);
-	$("#txtSuppNmVal").val(data["sup_nm"]);
+	if(data["sup_nm_kh"] != "" && data["sup_nm_kh"] != null){
+		$("#txtSuppNm").val(data["sup_nm_kh"]);
+		$("#txtSuppNmVal").val(data["sup_nm_kh"]);
+	}else{
+		$("#txtSuppNm").val(data["sup_nm"]);
+		$("#txtSuppNmVal").val(data["sup_nm"]);
+	}
 	$("#txtSuppPhone").val(data["sup_phone"]);
 	$("#txtSuppPhoneVal").val(data["sup_phone"]);
 }

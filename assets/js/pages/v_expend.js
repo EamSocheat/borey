@@ -106,7 +106,7 @@ var _thisPage = {
 					delArr.push(delData);
 				});
 
-				delObj["delObj"]= delArr;
+				delObj["delObj"] = delArr;
 				deleteDataArr(delObj);
 			});
 		});
@@ -185,7 +185,7 @@ function getData(page_no){
 					}
 
 					strHmtl += '<tr data-id="'+res.OUT_REC[i]["exp_id"]+'">';
-					strHmtl += '	<td><input class="chk_box" type="checkbox" /></td>';
+					strHmtl += '	<td class="chk_box"><input type="checkbox" /></td>';
 					strHmtl += '	<td><div>'+res.OUT_REC[i]["sup_nm"]+'</div></td>';
 					strHmtl += '	<td><div style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["exp_total_price"])+'</div></td>';
 					strHmtl += '	<td><div>'+res.OUT_REC[i]["bra_nm"]+'</div></td>';
@@ -197,13 +197,13 @@ function getData(page_no){
 					strHmtl += '		</button>';
 					strHmtl += '	</td>';
 					strHmtl += '</tr>';
-
 				}
 
 				$("#tblExpend tbody").append(strHmtl);
 				stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 			}else{
 				$("#chkAllBox").hide();
+				$("#tblExpend tbody").html("");
 				$("#tblExpend tbody").append("<tr><td colspan='9' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 				//--pagination
 				stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);

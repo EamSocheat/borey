@@ -26,12 +26,42 @@ class M_expend extends CI_Model{
 			$this->db->where('tbl_expend.exp_id', $dataSrch['exp_id']);
 		}
 
-		if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
-			$this->db->like('tbl_expend.cus_nm', $dataSrch['srch_all']);
-			$this->db->or_like('tbl_expend.cus_nm_kh', $dataSrch['srch_all']);
-			$this->db->or_like('tbl_expend.cus_idnt_num', $dataSrch['srch_all']);
-			$this->db->or_like('tbl_expend.cus_phone1', $dataSrch['srch_all']);
+		if($dataSrch['sup_nm'] != null && $dataSrch['sup_nm'] != ""){
+			$this->db->like('tbl_supplier.sup_nm', $dataSrch['sup_nm']);
 		}
+
+		if($dataSrch['bra_nm'] != null && $dataSrch['bra_nm'] != ""){
+			$this->db->like('tbl_branch.bra_nm', $dataSrch['bra_nm']);
+		}
+
+		if($dataSrch['sta_nm'] != null && $dataSrch['sta_nm'] != ""){
+			$this->db->like('tbl_staff.sta_nm', $dataSrch['sta_nm']);
+		}
+
+		if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+			$this->db->group_start();
+			$this->db->like('tbl_expend.sup_nm', $dataSrch['srch_all']);
+			$this->db->or_like('tbl_expend.bra_nm', $dataSrch['srch_all']);
+			$this->db->or_like('tbl_expend.sta_nm', $dataSrch['srch_all']);
+			$this->db->group_end();
+		}
+
+		if(($dataSrch['txtSrchExpendSD'] != null && $dataSrch['txtSrchExpendSD'] != "")
+			&& ($dataSrch['txtSrchExpendED'] != null && $dataSrch['txtSrchExpendED'] != "")){
+			$this->db->where('tbl_expend.exp_date >=', $dataSrch['txtSrchExpendSD']);
+			$this->db->where('tbl_expend.exp_date <=', $dataSrch['txtSrchExpendED']);
+		}
+
+		/*else{
+			if($dataSrch['txtSrchExpendED'] != null && $dataSrch['txtSrchExpendED'] != ""){
+				$this->db->where('tbl_expend.exp_date <=', date('Y-m-d', strtotime($dataSrch['txtSrchExpendED'])));
+			}
+
+			if($dataSrch['txtSrchExpendSD'] != null && $dataSrch['txtSrchExpendSD'] != ""){
+				$this->db->where('tbl_expend.exp_date >=', date('Y-m-d', strtotime($dataSrch['txtSrchExpendSD'])));
+			}
+
+		}*/
 
 		$this->db->order_by("exp_id", "desc");
 		return $this->db->get('tbl_expend',$dataSrch['limit'],$dataSrch['offset'])->result();
@@ -41,11 +71,40 @@ class M_expend extends CI_Model{
 
 		$this->db->select('count(exp_id) as total_rec');
 		$this->db->from('tbl_expend');
+		$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_expend.sta_id');
+		$this->db->join('tbl_supplier','tbl_supplier.sup_id = tbl_expend.sup_id');
+		$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_expend.bra_id');
 		$this->db->where('tbl_expend.com_id', $_SESSION['comId']);
 		$this->db->where('tbl_expend.useYn', 'Y');
 
 		if($dataSrch['exp_id'] != null && $dataSrch['exp_id'] != ""){
 			$this->db->where('tbl_expend.exp_id', $dataSrch['exp_id']);
+		}
+
+		if($dataSrch['sup_nm'] != null && $dataSrch['sup_nm'] != ""){
+			$this->db->like('tbl_supplier.sup_nm', $dataSrch['sup_nm']);
+		}
+
+		if($dataSrch['bra_nm'] != null && $dataSrch['bra_nm'] != ""){
+			$this->db->like('tbl_branch.bra_nm', $dataSrch['bra_nm']);
+		}
+
+		if($dataSrch['sta_nm'] != null && $dataSrch['sta_nm'] != ""){
+			$this->db->like('tbl_staff.sta_nm', $dataSrch['sta_nm']);
+		}
+
+		if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+			$this->db->group_start();
+			$this->db->like('tbl_expend.sup_nm', $dataSrch['srch_all']);
+			$this->db->or_like('tbl_expend.bra_nm', $dataSrch['srch_all']);
+			$this->db->or_like('tbl_expend.sta_nm', $dataSrch['srch_all']);
+			$this->db->group_end();
+		}
+
+		if(($dataSrch['txtSrchExpendSD'] != null && $dataSrch['txtSrchExpendSD'] != "")
+			&& ($dataSrch['txtSrchExpendED'] != null && $dataSrch['txtSrchExpendED'] != "")){
+			$this->db->where('tbl_expend.exp_date <=', $dataSrch['txtSrchExpendSD']);
+			$this->db->where('tbl_expend.exp_date <=', $dataSrch['txtSrchExpendED']);
 		}
 
 		return $this->db->get()->result();

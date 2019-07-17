@@ -120,6 +120,7 @@ var _thisPage = {
 
 			data["sup_id"] = tblTr.attr("data-id");
 			data["sup_nm"] = tblTr.find("div.sup_nm").html();
+			data["sup_nm_kh"] = tblTr.find("div.sup_nm_kh").html();
 			data["sup_phone"] = tblTr.find("div.sup_phone").html();
 
 			var parentFrame = "";
@@ -137,6 +138,7 @@ var _thisPage = {
 			var data  = {};
 			data["sup_id"] = tblTr.attr("data-id");
 			data["sup_nm"] = tblTr.parent().find("div.sup_nm").html();
+			data["sup_nm_kh"] = tblTr.parent().find("div.sup_nm_kh").html();
 			data["sup_phone"] = tblTr.parent().find("div.sup_phone").html();
 			
 			var parentFrame = "";
@@ -175,6 +177,7 @@ function getData(){
 					strHtml += '<tr class="cur-pointer" data-id="'+res.OUT_REC[i]['sup_id']+'">';
 					strHtml += '	<td class="radio_box"><input type="radio" id="chkSupplier"></td>';
 					strHtml += '	<td><div title="'+res.OUT_REC[i]['sup_nm']+'" class="sup_nm">'+res.OUT_REC[i]['sup_nm']+'</div></td>';
+					strHtml += '	<td style="display: none"><div class="sup_nm_kh">'+res.OUT_REC[i]['sup_nm_kh']+'</div></td>';
 					strHtml += '	<td><div title="'+res.OUT_REC[i]['sup_phone']+'" class="sup_phone">'+res.OUT_REC[i]['sup_phone']+'</div></td>';
 					// strHtml += '	<td><div title="'+res.OUT_REC[i]['sup_email']+'" class="sup_email">'+res.OUT_REC[i]['sup_email']+'</div></td>';
 					strHtml += '	<td><div title="'+res.OUT_REC[i]['sup_addr']+'" class="sup_addr">'+res.OUT_REC[i]['sup_addr']+'</div></td>';
