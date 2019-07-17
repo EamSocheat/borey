@@ -88,6 +88,11 @@ var _thisPage = {
 function saveData(str){
 	$("#expId").appendTo("#frmExpend");
     parent.$("#loading").show();
+    if($("#txtSuppNm").val() == "" || $("#txtSuppIdVal").val() == ""){
+		top.stock.comm.alertMsg($.i18n.prop("msg_choose_sup"));
+		parent.$("#loading").hide();
+		return;
+	}
 
 	$.ajax({
 		type : "POST",

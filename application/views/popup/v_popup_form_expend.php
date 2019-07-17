@@ -22,7 +22,7 @@
                 			<div class="form-group">
 								<label for="txtSuppNm" data-i18ncd="lb_supplier">ឈ្មោះអ្នកផ្គត់ផ្គង់</label>
 								<div class="input-group">
-									<input type="text" class="form-control" id="txtSuppNm" name="txtSuppNm" autocomplete="off" disabled />
+									<input type="text" class="form-control" id="txtSuppNm" name="txtSuppNm" required="required" disabled />
 									<span id="btnPopupSupplier" class="input-group-addon label-info" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
 								</div>
 								<input type="hidden" id="txtSuppNmVal" name="txtSuppNmVal">
