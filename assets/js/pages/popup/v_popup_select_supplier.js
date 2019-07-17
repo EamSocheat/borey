@@ -137,9 +137,9 @@ var _thisPage = {
 			var tblTr = $(this).parent();
 			var data  = {};
 			data["sup_id"] = tblTr.attr("data-id");
-			data["sup_nm"] = tblTr.parent().find("div.sup_nm").html();
-			data["sup_nm_kh"] = tblTr.parent().find("div.sup_nm_kh").html();
-			data["sup_phone"] = tblTr.parent().find("div.sup_phone").html();
+			data["sup_nm"] = tblTr.find("div.sup_nm").html();
+			data["sup_nm_kh"] = tblTr.find("div.sup_nm_kh").html();
+			data["sup_phone"] = tblTr.find("div.sup_phone").html();
 			
 			var parentFrame = "";
 			var callbackFunction = null;
