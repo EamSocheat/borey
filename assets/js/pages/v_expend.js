@@ -184,7 +184,7 @@ function getData(page_no){
 						urlPhoto = $("#base_url").val()+"/assets/image/default-staff-photo.png";
 					}
 
-					strHmtl += '<tr data-id="'+res.OUT_REC[i]["exp_id"]+'">';
+					strHmtl += '<tr data-id="'+res.OUT_REC[i]["exp_id"]+'" class="cur-pointer" ondblclick="editData('+res.OUT_REC[i]['exp_id']+')">';
 					strHmtl += '	<td class="chk_box"><input type="checkbox" /></td>';
 					strHmtl += '	<td><div>'+res.OUT_REC[i]["sup_nm"]+'</div></td>';
 					strHmtl += '	<td><div style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["exp_total_price"])+'</div></td>';

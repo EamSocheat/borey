@@ -62,6 +62,7 @@
 	.txt-text-wrap{ text-overflow: ellipsis;overflow: hidden;white-space: nowrap;width: 12em; }
 
 	 #tblCustomer tbody > tr.cust-data:hover{ cursor: pointer; }
+	.cur-pointer{ cursor: pointer; }
  
   </style>
 </head>
