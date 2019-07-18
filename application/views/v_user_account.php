@@ -38,14 +38,14 @@
 							    <div class="col-sm-12 col-md-12 col-lg-12 row">
 							        <div class="col-sm-4 col-md-4 col-lg-4">
     									<div class="form-group form-inline">
-                                            <label for="txtSrchPosNm" class="control-label" data-i18ncd="lb_name">Name</label>
-                                            <input type="text" class="form-control input-sm" id="txtSrchPosNm" placeholder="Name">
+                                            <label for="txtSrchStaffNm" class="control-label" > បុគ្គលិក</label>
+                                            <input type="text" class="form-control input-sm" id="txtSrchStaffNm">
                                         </div>
     								</div>
     								<div class="col-sm-4 col-md-4 col-lg-4">
     									<div class="form-group form-inline">
-                                            <label for="txtSrchPosNmKh" class="control-label" data-i18ncd="lb_name_kh">Khmer Name</label>
-                                            <input type="text" class="form-control input-sm" id="txtSrchPosNmKh" placeholder="Khmer Name">
+                                            <label for="txtSrchUserNm" class="control-label" >	ឈ្មោះ​គណនី</label>
+                                            <input type="text" class="form-control input-sm" id="txtSrchUserNm" >
                                         </div>
     								</div>
     								<!-- <div class="col-sm-3 col-md-3 col-lg-3">
@@ -92,13 +92,10 @@
 						<form class="form-inline" action="">
                             <label for="limitRow" data-i18ncd="lb_records">Records</label>
                             <select class="form-control input-sm" id="perPage" onchange="_thisPage.loadData(1);">
-                                <option value="1" data-i18ncd="lb_row1">1 rows</option>
-                                <option value="2" data-i18ncd="lb_row2"> 2 rows</option>
-                                <option value="3" data-i18ncd="lb_row3">3 rows</option>
                                 <option value="10" data-i18ncd="lb_row10">10 rows</option>
                                 <option value="20" data-i18ncd="lb_row20">20 rows</option>
                                 <option value="50" data-i18ncd="lb_row50">50 rows</option>
-                                <option value="100" data-i18ncd="lb_row100">100 rows</option>
+                                <option value="1000000" >ទាំងអស់</option>
                             </select>
 						</form>
 					</div>
@@ -109,9 +106,9 @@
 				  <table class="table table-hover" id="tblUserAcc">
 				    <thead>  
     					<tr>
-    					  <th><input type="checkbox" id="chkAll"></th>
-    					  <th>ឈ្មោះ​គណនី</th>
+    					  <th><input type="checkbox" id="chkAllBox"></th>
     					  <th>បុគ្គលិក</th>
+    					  <th>ឈ្មោះ​គណនី</th>
     					  <th>ថ្ងៃខែ​ឆ្នាំ​បង្កើត</th>
     					  <th>សកម្មភាព</th>
     					</tr>

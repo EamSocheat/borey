@@ -31,13 +31,14 @@
     	    $result = $this->db->get()->result();
     	    return $result;
     	}
-	
-    	function selectUser($dataSrch){
+    	
+	function selectUserMenu($dataSrch){
   
-        	$this->db->select('*,tbl_user.regDt as regUsrDt');
+        	$this->db->select('tbl_user.*,tbl_menu_user.menu_id,tbl_staff.sta_id,tbl_staff.sta_nm_kh,tbl_user.regDt as regUsrDt');
         	//$this->db->from('tbl_staff');
         	$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_user.sta_id');
         	$this->db->join('tbl_position','tbl_position.pos_id = tbl_staff.pos_id');
+        	$this->db->join('tbl_menu_user','tbl_menu_user.usr_id = tbl_user.usr_id');
         	$this->db->where('tbl_staff.com_id', $_SESSION['comId']);
         	$this->db->where('tbl_staff.useYn', 'Y');
         	$this->db->where('tbl_user.useYn', 'Y');
@@ -49,6 +50,41 @@
         	//
         	if($dataSrch['usr_nm'] != null && $dataSrch['usr_nm'] != ""){
         	    $this->db->like('tbl_user.user_nm', $dataSrch['usr_nm']);
+        	}
+        	
+    		//---
+        	if($dataSrch['usr_id'] != null && $dataSrch['usr_id'] != ""){
+        	    $this->db->where('tbl_user.usr_id', $dataSrch['usr_id']);
+        	}
+        	
+        	$this->db->order_by("usr_id", "desc");
+        	return $this->db->get('tbl_user',$dataSrch['limit'],$dataSrch['offset'])->result();
+		}
+	
+    	function selectUser($dataSrch){
+  
+        	$this->db->select('tbl_user.*,tbl_staff.sta_id,tbl_staff.sta_nm_kh,tbl_user.regDt as regUsrDt');
+        	//$this->db->from('tbl_staff');
+        	$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_user.sta_id');
+        	$this->db->join('tbl_position','tbl_position.pos_id = tbl_staff.pos_id');
+        	$this->db->where('tbl_staff.com_id', $_SESSION['comId']);
+        	$this->db->where('tbl_staff.useYn', 'Y');
+        	$this->db->where('tbl_user.useYn', 'Y');
+        	$this->db->where_not_in('tbl_staff.sta_nm_kh', null);
+        	$this->db->where_not_in('tbl_staff.sta_nm_kh', 'null');
+        	//---
+        	if($dataSrch['sta_id'] != null && $dataSrch['sta_id'] != ""){
+        	    $this->db->where('tbl_staff.sta_id', $dataSrch['sta_id']);
+        	}
+        	
+        	//
+        	if($dataSrch['usr_nm'] != null && $dataSrch['usr_nm'] != ""){
+        	    $this->db->like('tbl_user.user_nm', $dataSrch['usr_nm']);
+        	}
+        	
+    		//---
+        	if($dataSrch['usr_id'] != null && $dataSrch['usr_id'] != ""){
+        	    $this->db->where('tbl_user.usr_id', $dataSrch['usr_id']);
         	}
         	
         	$this->db->order_by("usr_id", "desc");
@@ -64,6 +100,8 @@
         	$this->db->where('tbl_staff.com_id', $_SESSION['comId']);
         	$this->db->where('tbl_staff.useYn', 'Y');
         	$this->db->where('tbl_user.useYn', 'Y');
+        	$this->db->where_not_in('tbl_staff.sta_nm_kh', null);
+        	$this->db->where_not_in('tbl_staff.sta_nm_kh', 'null');
         	//---
         	if($dataSrch['sta_id'] != null && $dataSrch['sta_id'] != ""){
         	    $this->db->where('tbl_staff.sta_id', $dataSrch['sta_id']);
@@ -73,6 +111,12 @@
         	if($dataSrch['usr_nm'] != null && $dataSrch['usr_nm'] != ""){
         	    $this->db->like('tbl_user.user_nm', $dataSrch['usr_nm']);
         	}
+        	
+			//---
+        	if($dataSrch['usr_id'] != null && $dataSrch['usr_id'] != ""){
+        	    $this->db->where('tbl_user.usr_id', $dataSrch['usr_id']);
+        	}
+        	
         	$this->db->order_by("usr_id", "desc");
         	return $this->db->get()->result();
 		}

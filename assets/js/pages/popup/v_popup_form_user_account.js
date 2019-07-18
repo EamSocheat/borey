@@ -16,6 +16,11 @@ var _thisPage = {
 		onload : function(){
 			parent.$("#loading").hide();
 			clearForm();
+			
+			listMenu();
+			getStaff();
+			$("#txtEditYn").val("N");
+			
 			if($("#frmAct").val() == "U"){
 			    getDataEdit($("#userAccId").val());
 			    $("#popupTitle").html("<i class='fa fa-user-circle-o'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_user_account"));
@@ -69,14 +74,13 @@ var _thisPage = {
 			
 		
 			
-			listMenu();
-			getStaff();
-			$("#txtEditYn").val("N");
+			
 		},
 		event : function(){
 			//
 			$("#btnClose,#btnExit").click(function(e){
 				//parent.$("#modalMd").modal('hide');
+				parent.$("#msgErr").hide();
 				parent.stock.comm.closePopUpForm("PopupFormUserAccount",parent.popupStaffCallback);
 			});
 			//
@@ -232,39 +236,59 @@ var _thisPage = {
 		}
 };
 
-function getDataEdit(sta_id){
+function getDataEdit(usr_id){
     //
     $("#loading").show();
     $.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"Staff/getStaff",
-		data: {"userAccId":sta_id},
+		url: $("#base_url").val() +"User/getUserAccountMenu",
+		data: {"usrId":usr_id},
 		dataType: "json",
 		async: false,
 		success: function(res) {
-			
+			console.log(res);
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
-			    $("#txtBraNm").val(res.OUT_REC[0]["bra_nm"]);
-			    $("#txtBraId").val(res.OUT_REC[0]["bra_id"]);
-			    $("#txtStaffNm").val(res.OUT_REC[0]["sta_nm"]);
-			    $("#txtPosNm").val(res.OUT_REC[0]["pos_nm"]);
-			    $("#txtPosId").val(res.OUT_REC[0]["pos_id"]);
-			    $("#txtStaffNmKh").val(res.OUT_REC[0]["sta_nm_kh"]);
-			    $("#cboGender").val(res.OUT_REC[0]["sta_gender"]);
-			    $("#txtDob").val(moment(res.OUT_REC[0]["sta_dob"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtAddr").val(res.OUT_REC[0]["sta_addr"]);
-			    $("#txtPhone1").val(res.OUT_REC[0]["sta_phone1"]);
-			    $("#txtPhone2").val(res.OUT_REC[0]["sta_phone2"]);
-			    $("#txtEmail").val(res.OUT_REC[0]["sta_email"]);
-			    $("#txtStartDate").val(moment(res.OUT_REC[0]["sta_start_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtEndDate").val(moment(res.OUT_REC[0]["sta_end_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtDes").val(res.OUT_REC[0]["sta_des"]);
-			    if(res.OUT_REC[0]["sta_photo"] != null && res.OUT_REC[0]["sta_photo"] != ""){
-			    	$("#staImgView").attr("src",$("#base_url").val()+"upload"+res.OUT_REC[0]["sta_photo"]);
+				$("#cboStaff").val(res.OUT_REC[0]["sta_id"]);
+			    $('#cboStaff').attr('disabled',true);
+			    $("#txtUserNm").val(res.OUT_REC[0]["usr_nm"]);
+			    $("#oldUserNm").val(res.OUT_REC[0]["usr_nm"]);
+			    $("#txtPwd").val(res.OUT_REC[0]["usr_pwd"]);
+			    $("#txtPwdCon").val(res.OUT_REC[0]["usr_pwd"]);
+			    //
+			    if(res.OUT_REC[0]["usr_wri_yn"] == "Y"){
+			    	$("#chkAddYn").prop( "checked", true );
+			    }else{
+			    	$("#chkAddYn").prop( "checked", false );
 			    }
-			
+			    //
+			    if(res.OUT_REC[0]["usr_edit_yn"] == "Y"){
+			    	$("#chkEditYn").prop( "checked", true );
+			    }else{
+			    	$("#chkEditYn").prop( "checked", false );
+			    }
+				for(var i=0; i<res.OUT_REC.length; i++){
+				    $("#menuNo"+res.OUT_REC[i]["menu_id"]).prop( "checked", true );
+				}
+			    $("#txtUserNm").focus();
 			    
-			    $("#txtStaffNm").focus();
+			    if($("#divMenuNav .menu-user1 ").length == $("#divMenuNav .menu-user1:checked").length){
+	                $("#chkAllMenuNav").prop( "checked", true );
+	            }else{
+	                $("#chkAllMenuNav").prop( "checked", false );
+	            }
+			    
+			    if($("#divMenuPro .menu-user2").length == $("#divMenuPro .menu-user2:checked").length){
+	                $("#chkAllMenuPro").prop( "checked", true );
+	            }else{
+	                $("#chkAllMenuPro").prop( "checked", false );
+	            }
+			    
+			    if($("#divMenuOth .menu-user3").length == $("#divMenuOth .menu-user3:checked").length){
+	                $("#chkAllMenuOth").prop( "checked", true );
+	            }else{
+	                $("#chkAllMenuOth").prop( "checked", false );
+	            }
+			    
 			}else{
 			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -318,10 +342,14 @@ function readURL(input) {
 
 function saveData(str){
 	//
+	
+	checkUserName($("#txtUserNm").val());
 	if(_chkUserNm){
 		return;
 	}
-
+	
+	//
+	
 	var menuChk=$(".menu-save:checked");
 	var menuArr=[];
 	menuChk.each(function(i){
@@ -333,11 +361,10 @@ function saveData(str){
 		return;
 	}
 	menuArr.push(menu_id_0);
-	/*
-	console.log($("#frmUserAcc").serialize()+"&menuArr="+menuArr);
-	return;
-	*/
+	
+	$('#cboStaff').attr('disabled',false);
 	$("#userAccId").appendTo("#frmUserAcc");
+	
     parent.$("#loading").show();
 	$.ajax({
 		type: "POST",
@@ -433,6 +460,9 @@ function getStaff(){
 	});
 }
 function checkUserName(userNm){
+	if($("#txtUserNm").val() == $("#oldUserNm").val()){
+		return;
+	}
 	$.ajax({
 		type: "POST",
 		url: $("#base_url").val() +"User/checkUserName",

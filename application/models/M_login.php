@@ -90,7 +90,7 @@ class M_login extends CI_Model{
     	$this->db->where('tbl_company.useYn', 'Y');
     	$this->db->where('tbl_user.useYn', 'Y');
     	$this->db->where('tbl_user.usr_str', 'Y');
-    	
+    	$this->db->where('tbl_staff.useYn', 'Y');
     	$login = $this->db->get()->result();
 		return $login;
     	

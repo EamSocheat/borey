@@ -61,8 +61,10 @@
     .box-search .box-header h3, .box-search .box-header i{ cursor: pointer; }
 	.txt-text-wrap{ text-overflow: ellipsis;overflow: hidden;white-space: nowrap;width: 12em; }
 
-	 #tblCustomer tbody > tr.cust-data:hover{ cursor: pointer; }
- 
+	#tblCustomer tbody > tr.cust-data:hover{ cursor: pointer; }
+ 	#txtPassword{
+           -webkit-text-security:disc;
+       }
   </style>
 </head>
 <body class="hold-transition skin-black-light sidebar-mini fixed">

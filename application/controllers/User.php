@@ -26,11 +26,29 @@ class User extends CI_Controller {
             'limit' 		=> $this->input->post('perPage'),
             'offset' 		=> $this->input->post('offset'),
             'sta_id' 		=> $this->input->post('staId'),
-            'usr_nm' 		=> $this->input->post('usrNm')
+            'usr_nm' 		=> $this->input->post('usrNm'),
+      		'usr_id' 		=> $this->input->post('usrId')
         );
 	    $data["OUT_REC"] = $this->M_user->selectUser($dataSrch);
 	    $data["OUT_REC_CNT"] = $this->M_user->countUser($dataSrch);
 	    
+	    echo json_encode($data);
+	}
+	
+	public function getUserAccountMenu(){
+		
+      	$dataSrch = array(
+            'limit' 		=> $this->input->post('perPage'),
+            'offset' 		=> $this->input->post('offset'),
+            'sta_id' 		=> $this->input->post('staId'),
+            'usr_nm' 		=> $this->input->post('usrNm'),
+      		'usr_id' 		=> $this->input->post('usrId')
+        );
+	    $dataOut = $this->M_user->selectUserMenu($dataSrch);
+	    foreach($dataOut as $key){
+	    	$key->usr_pwd = $this->encrypt->decode($key->usr_pwd,"PWD_ENCR");
+	    }
+	    $data["OUT_REC"] = $dataOut;
 	    echo json_encode($data);
 	}
 	
@@ -53,8 +71,8 @@ class User extends CI_Controller {
 	        $data['usr_id'] = $this->input->post('userAccId');
 	        $data['upUsr'] = $_SESSION['usrId'];
 	        $data['upDt'] = date('Y-m-d H:i:s');
-	        $usr_id=$this->M_user->update($data, $this->input->post('userAccId'));
-	        
+	        $this->M_user->update($this->input->post('userAccId'),$data);
+	        $usr_id = $this->input->post('userAccId');
 	    }else{
 	        //insert data
 	        $data['regUsr'] = $_SESSION['usrId'];
