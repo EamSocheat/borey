@@ -41,8 +41,10 @@ class Login extends CI_Controller {
 		            $staffPhone= $r->sta_phone1;
 		            $staffPhoto= $r->sta_photo;
 		            $staffNm=$r->sta_nm;
+		            $addYn=$r->usr_wri_yn;
+		            $editYn=$r->usr_edit_yn;
 		            
-		            $this->setSession($usrNm,$comId,$comNm,$usrId,$staffPos,$staffPhone,$staffPhoto,$staffNm);
+		            $this->setSession($usrNm,$comId,$comNm,$usrId,$staffPos,$staffPhone,$staffPhoto,$staffNm,$editYn,$addYn);
 		            $str=true;
 		            break;
 		        }
@@ -112,7 +114,7 @@ class Login extends CI_Controller {
 	}
 	
 	
-	function setSession($userNm,$comId,$comNm,$usrId,$staffPos,$staffPhone,$staffPhoto,$staffNm){
+	function setSession($userNm,$comId,$comNm,$usrId,$staffPos,$staffPhone,$staffPhoto,$staffNm,$editYn,$addYn){
     	
     	$newsession = array(
     			'usrNm'  => $userNm,
@@ -122,7 +124,9 @@ class Login extends CI_Controller {
     			'staffPos' => $staffPos,
 				'staffPhone' => $staffPhone,
     			'staffPhone' => $staffPhoto,
-				'staffNm' => $staffNm
+				'staffNm' => $staffNm,
+    	        'editYn' => $editYn,
+    	        'addYn' => $addYn
     	);
     	
     	$this->session->set_userdata($newsession);

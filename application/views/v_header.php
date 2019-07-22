@@ -79,6 +79,9 @@
 	</div>
 	<input type="hidden" id="menu_active" value="<?php echo $menu_active; ?>"/>
 	<input type="hidden" id="base_url" value="<?php echo base_url() ?>"/>
+	<input type="hidden" id="usr_add_yn" value="<?php echo $_SESSION['addYn']; ?>"/>
+	<input type="hidden" id="usr_edit_yn" value="<?php echo $_SESSION['editYn']; ?>"/>
+	
 	<div class="wrapper">
 	<div class="col-lg-12 col-sm-12 col-md-12" id="loading" style="text-align:center ; position: absolute;top: 0px;padding-left: 8%; padding-top: 23%;background-color: #ffffff; width: 100%;  height: 100%;    z-index: 9999;    opacity: 0.5;">
 	  <p style=""><img style="width: 20px" src="<?php echo base_url('assets/image/loading.gif') ?>"/></p>
@@ -124,31 +127,14 @@
 								<img data-lng="kh" style="width: 28px;" alt="" src="">
 							</a>
 							<ul class="dropdown-menu" style="min-width: 150px; width: 150px;" id="langDropSelect">
-								<li>
-									<!-- inner menu: contains the actual data -->
-									<ul class="menu">
-										<li><!-- Task item -->
-											<a href="#" id="langKh">
-												<img style="width: 28px;" alt="" src="<?php echo base_url('assets/')?>image/khmer.png"> ភាសាខ្មែរ
-											</a>
-										</li>
-										<!-- end task item -->
-										<li><!-- Task item -->
-											<a href="#" id="langEn">
-												<img style="width: 28px;" alt="" src="<?php echo base_url('assets/')?>image/english.png"> English
-											</a>
-										</li>
-										<!-- end task item -->
-
-									</ul>
-								</li>
+								
 							</ul>
 						</li>
 						<!-- User Account: style can be found in dropdown.less -->
 						<li class="dropdown user user-menu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<img src="<?php echo base_url('assets/') ?>dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-								<span class="hidden-xs">Alexander</span>
+								<span class="hidden-xs"><?php echo $_SESSION['usrNm']; ?></span>
 							</a>
 							<ul class="dropdown-menu">
 								<!-- User image -->

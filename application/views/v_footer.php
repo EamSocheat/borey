@@ -264,6 +264,13 @@ $('#adminCalendar').fullCalendar({
 
 $(document).ready(function() {
 	/* onload */
+	if($("#usr_add_yn").val() != "Y"){
+		$("#btnAddNew").remove();
+	}
+	//
+	if($("#usr_edit_yn").val() != "Y"){
+		$("#btnDelete").remove();
+	}
 	
 	//render menu for user
 	getUserMenu();

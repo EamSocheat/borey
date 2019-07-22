@@ -167,6 +167,9 @@ $(document).ready(function() {
 
 
 	/* onload */
+	if(parent.$("#usr_edit_yn").val() != "Y"){
+		$("#btnSave").remove();
+	}
 	
 	//render menu for user
 	getUserMenu();

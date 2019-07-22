@@ -12,7 +12,7 @@
 		</h1>
       	<ol class="breadcrumb">
         	<li><a href="javascript:"><i class="fa fa-dashboard"></i><span data-i18ncd="lb_dasbord">Dashboard</span></a></li>
-			<li class="active" >កំណត់កំរៃជើងសារt</li>
+			<li class="active"> កំណត់កំរៃជើងសារ  </li>
 		</ol>
     </section>
 
