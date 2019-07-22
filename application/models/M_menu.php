@@ -73,4 +73,9 @@
 			
 			return $this->db->get()->result();
 		}
+		
+		public function update($data){
+		    $this->db->where('usr_id', $data['usr_id']);
+		    $this->db->update('tbl_menu_user', $data);
+		}
     }

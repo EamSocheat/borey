@@ -36,6 +36,7 @@ if(!stock.comm) {stock.comm={};}
 	};
 	
 	stock.comm.inputCurrencyByClass = function (parentId,targetClass){
+		alert();
 		$(parentId).on('keydown', targetClass, function (e) {
 		//$("."+targetClass).keydown(function (e) {
 			

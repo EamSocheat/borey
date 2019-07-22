@@ -5,6 +5,7 @@
 
 <!-- modal add edit-->
 <form id="frmAddEdit" action="post" method="#">
+
 <div class="modal fade" id="modalMd">
   <div class="modal-dialog modal-md">
     <div class="modal-content" id="modalMdContent">

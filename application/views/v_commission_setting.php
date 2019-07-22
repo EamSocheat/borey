@@ -6,13 +6,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
 		<h1>
-			<i class="fa fa-user-circle-o"></i>
-			<span data-i18ncd="lb_user_account">User Account</span>
+			<i class="fa fa-money"></i>
+			<span >កំណត់កំរៃជើងសារ</span>
         	<small data-i18ncd="lb_information">Information</small>
 		</h1>
       	<ol class="breadcrumb">
         	<li><a href="javascript:"><i class="fa fa-dashboard"></i><span data-i18ncd="lb_dasbord">Dashboard</span></a></li>
-			<li class="active" data-i18ncd="lb_user_account">User Account</li>
+			<li class="active" >កំណត់កំរៃជើងសារt</li>
 		</ol>
     </section>
 
@@ -38,16 +38,18 @@
 							    <div class="col-sm-12 col-md-12 col-lg-12 row">
 							        <div class="col-sm-4 col-md-4 col-lg-4">
     									<div class="form-group form-inline">
-                                            <label for="cboStaff" class="control-label" > បុគ្គលិក</label>
-                                            <select class="form-control input-sm" id="cboStaff" name="cboStaff" >
+                                            <label for="cboPosition" class="control-label" > បុគ្គលិក</label>
+                                            <select class="form-control input-sm" id="cboPosition" name="cboPosition" >
             	                    			<option value="">សូមជ្រើសរើសបុគ្គលិក </option>
                 			                </select>
                                         </div>
     								</div>
     								<div class="col-sm-4 col-md-4 col-lg-4">
     									<div class="form-group form-inline">
-                                            <label for="txtSrchUserNm" class="control-label" >	ឈ្មោះ​គណនី</label>
-                                            <input type="text" class="form-control input-sm" id="txtSrchUserNm" >
+                                            <label for="cboBranch" class="control-label" > គំរោង</label>
+                                            <select class="form-control input-sm" id="cboBranch" name="cboBranch" >
+            	                    			
+                			                </select>
                                         </div>
     								</div>
     								<!-- <div class="col-sm-3 col-md-3 col-lg-3">
@@ -66,7 +68,7 @@
     								</div> -->
 							    </div>
 								<div class="col-sm-12 col-md-12 col-lg-12">
-								    <button id="btnSearch" type="button" class="btn btn-success btn-sm pull-right" onclick="_thisPage.loadData(1);"><i class="fa fa-search" aria-hidden="true"></i> <span data-i18ncd="lb_search">Search</span></button>
+								    <button id="btnSearch" type="button" class="btn btn-success btn-sm pull-right"><i class="fa fa-search" aria-hidden="true"></i> <span data-i18ncd="lb_search">Search</span></button>
 									<button id="btnReset" type="button" class="btn btn-warning btn-sm pull-right" style="margin-right: 5px"><i class="fa fa-refresh" aria-hidden="true"></i> <span data-i18ncd="btn_reset">Reset</span></button>
 								</div>
 							</div>
@@ -93,7 +95,7 @@
 				    <div class="pull-right" style="padding-bottom: 5px;">
 						<form class="form-inline" action="">
                             <label for="limitRow" data-i18ncd="lb_records">Records</label>
-                            <select class="form-control input-sm" id="perPage" onchange="_thisPage.loadData(1);">
+                            <select class="form-control input-sm" id="perPage">
                                 <option value="10" data-i18ncd="lb_row10">10 rows</option>
                                 <option value="20" data-i18ncd="lb_row20">20 rows</option>
                                 <option value="50" data-i18ncd="lb_row50">50 rows</option>
@@ -105,27 +107,19 @@
 				</div>
 				
 				<div class="box-body table-responsive">
-				  <table class="table table-hover" id="tblUserAcc">
+				  <table class="table table-hover" id="tblCommSet">
 				    <thead>  
     					<tr>
     					  <th><input type="checkbox" id="chkAllBox"></th>
-    					  <th>បុគ្គលិក</th>
-    					  <th>ឈ្មោះ​គណនី</th>
-    					  <th>ថ្ងៃខែ​ឆ្នាំ​បង្កើត</th>
+    					  <th>តួនាទី</th>
+    					  <th>គំរោង</th>
+    					  <th>ប្រាក់ខែ  </th>
+    					  <th>ចំណែកប្រាក់កំរៃជើងសារ  </th>
     					  <th>សកម្មភាព</th>
     					</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td><div>User Account 000001</div></td>
-							<td><div>000001</div></td>
-							<td><div>000001</div></td>
-							<td><div>2018-10-01</div></td>
-							<td class="text-center">
-								<button onclick="" type="button" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-							</td>
-						</tr>
+						
    					</tbody>
 				  </table>
 				</div>
@@ -156,5 +150,5 @@
   <!-- /.content-wrapper -->
 
 <?php echo $footer; ?>
-<script src="<?php echo base_url('assets/') ?>js/pages/v_user_account.js"></script>
+<script src="<?php echo base_url('assets/') ?>js/pages/v_commission_setting.js"></script>
 <?php echo $iframe; ?>

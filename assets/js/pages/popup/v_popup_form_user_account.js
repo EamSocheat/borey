@@ -257,14 +257,18 @@ function getDataEdit(usr_id){
 			    //
 			    if(res.OUT_REC[0]["usr_wri_yn"] == "Y"){
 			    	$("#chkAddYn").prop( "checked", true );
+			    	$("#txtAddYn").val("Y");
 			    }else{
 			    	$("#chkAddYn").prop( "checked", false );
+			    	$("#txtAddYn").val("N");
 			    }
 			    //
 			    if(res.OUT_REC[0]["usr_edit_yn"] == "Y"){
 			    	$("#chkEditYn").prop( "checked", true );
+			    	$("#txtEditYn").val("Y");
 			    }else{
 			    	$("#chkEditYn").prop( "checked", false );
+			    	$("#txtEditYn").val("N");
 			    }
 				for(var i=0; i<res.OUT_REC.length; i++){
 				    $("#menuNo"+res.OUT_REC[i]["menu_id"]).prop( "checked", true );
@@ -312,6 +316,11 @@ function clearForm(){
     $("#txtPwd").val("1234");
 	$("#txtPwdCon").val("1234");
 	$("#chkAddYn").prop( "checked", true );
+	$("#cboStaff").val("");
+	
+	$(".menu-user1").prop( "checked", false );
+	$(".menu-user2").prop( "checked", false );
+	$(".menu-user3").prop( "checked", false );
 }
 
 function selectBranchCallback(data){
@@ -398,6 +407,8 @@ function listMenu(){
 		async: false,
 		success: function(res) {
 			$("#divMenuNav").html("");
+			$("#divMenuPro").html("");
+			$("#divMenuOth").html("");
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				
 			    for(var i=0; i<res.OUT_REC.length;i++){
@@ -459,6 +470,11 @@ function getStaff(){
         }
 	});
 }
+/**
+ * 
+ * @param userNm
+ * @returns
+ */
 function checkUserName(userNm){
 	if($("#txtUserNm").val() == $("#oldUserNm").val()){
 		return;

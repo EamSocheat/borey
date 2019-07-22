@@ -46,7 +46,8 @@ function login(){
 			}
 		},
 		error : function(data) {
-            stock.comm.alertMsg("សូមធ្វើការ តភា្ជប់ម្តងទៀត.");
+			$("#loading").hide();
+			stock.comm.alertMsg("ឈ្មោះអ្នកប្រើ ឫ ពាក្យសម្ងាត់ មិនត្រឹមត្រូវ");
         }
 	});
 }

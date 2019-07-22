@@ -11,12 +11,13 @@ var _thisPage = {
 		_this.event();
 	},
 	onload : function(){
-		getStaff()
+		getPosition();
+		getBranch();
 		//
 		getData(); 
 		//
 		
-		stock.comm.checkAllTblChk("chkAllBox","tblUserAcc","chk_box");
+		stock.comm.checkAllTblChk("chkAllBox","tblCommSet","chk_box");
 		
 		$("#cbxSrchBraType").prepend("<option value='' selected='selected'></option>");
 		
@@ -45,16 +46,16 @@ var _thisPage = {
 		//
 		$("#btnAddNew").click(function(){
 			$("#loading").show();
-			var controllerNm = "PopupFormUserAccount";
+			var controllerNm = "PopupFormCommissionSetting";
 			var option={};
-			option["height"] = "800px";
+			option["height"] = "600px";
 			
-			stock.comm.openPopUpForm(controllerNm,option, null,"modal-md");
+			stock.comm.openPopUpForm(controllerNm,option, null,"modal-lg");
 		});
 		
 		//
 		$("#btnEdit").click(function(){
-			var chkVal = $('#tblUserAcc tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblCommSet tbody tr td.chk_box input[type="checkbox"]:checked');
 			if(chkVal.length != 1){
 				stock.comm.alertMsg($.i18n.prop("msg_con_edit1"));
 				return;
@@ -67,7 +68,7 @@ var _thisPage = {
 		
 		//
 		$("#btnDelete").click(function(e){
-			var chkVal = $('#tblUserAcc tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblCommSet tbody tr td.chk_box input[type="checkbox"]:checked');
 			
 			if(chkVal.length <=0){
 				stock.comm.alertMsg($.i18n.prop("msg_con_del"));
@@ -84,7 +85,7 @@ var _thisPage = {
 					var delData={};
 					var tblTr = $(this).parent().parent();
 					var braId=tblTr.attr("data-id");
-					delData["usrId"] = braId;
+					delData["comsetId"] = braId;
 					delArr.push(delData);
 				});
 				
@@ -106,7 +107,12 @@ var _thisPage = {
 		});
 		
 		//
-		$("#cboStaff").change(function(e){
+		$("#cboPosition").change(function(e){
+			getData();
+		});
+		
+		//
+		$("#cboBranch").change(function(e){
 			getData();
 		});
 		
@@ -128,37 +134,38 @@ function getData(page_no){
     dat["perPage"] = $("#perPage").val();
     dat["offset"] = parseInt($("#perPage").val())  * ( pageNo - 1);
     //searching
-    dat["staId"] = $("#cboStaff").val();
-    dat["usrNm"] = $("#txtSrchUserNm").val().trim();
+    dat["posId"] = $("#cboPosition").val();
+    dat["braId"] = $("#cboBranch").val();
 
     //
     $("#loading").show();
     $.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"User/getUserAccount",
+		url: $("#base_url").val() +"CommissionSetting/getCommissionSetting",
 		data: dat,
 		dataType: "json",
 		success: function(res) {
 			$("#loading").hide();
-			$("#tblUserAcc tbody").html("");
+			$("#tblCommSet tbody").html("");
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 			   for(var i=0; i<res.OUT_REC.length;i++){
-			        var html = "<tr data-id='"+res.OUT_REC[i]["usr_id"]+"'>";
+			        var html = "<tr data-id='"+res.OUT_REC[i]["comset_id"]+"'>";
 			        
 			        html += "<td class='chk_box'><input type='checkbox'></td>";
-			        html += "<td class='sta_nm_kh'>"+res.OUT_REC[i]["sta_nm_kh"]+"</td>";
-			        html += "<td class='usr_nm'>"+res.OUT_REC[i]["usr_nm"]+"</td>";
-			        html += "<td class='regUsrDt'>"+moment(res.OUT_REC[i]["regUsrDt"], "YYYY-MM-DD").format("DD-MM-YYYY")+"</td>";
-			        html += "<td class='act_btn text-center'><button onclick='editData("+res.OUT_REC[i]["usr_id"]+")' type='button' class='btn btn-primary btn-xs'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></td>";
+			        html += "<td class='pos_nm_kh'>"+res.OUT_REC[i]["pos_nm_kh"]+"</td>";
+			        html += "<td class='bra_nm_kh'>"+res.OUT_REC[i]["bra_nm_kh"]+"</td>";
+			        html += "<td class='comset_salary_yn'>"+renderStatusYn(res.OUT_REC[i]["comset_salary_yn"])+"</td>";
+			        html += "<td class='comset_commi_yn'>"+renderStatusYn(res.OUT_REC[i]["comset_commi_yn"])+"</td>";
+			        html += "<td class='act_btn text-center'><button onclick='editData("+res.OUT_REC[i]["comset_id"]+")' type='button' class='btn btn-primary btn-xs'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></td>";
 			
 			        html += "</tr>";
 			        
-			        $("#tblUserAcc tbody").append(html);
+			        $("#tblCommSet tbody").append(html);
 			    }
 			    //--pagination
 			    stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 			}else{
-			    $("#tblUserAcc tbody").append("<tr><td colspan='5' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+			    $("#tblCommSet tbody").append("<tr><td colspan='6' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 			    //--pagination
 			    stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 			}
@@ -179,7 +186,7 @@ function deleteData(sta_id){
 		var delObj={};
 		var delData={};
 		
-		delData["usrId"] = sta_id;
+		delData["comsetId"] = sta_id;
 		delArr.push(delData);
 		delObj["delObj"]= delArr;
 		//
@@ -191,20 +198,19 @@ function editData(sta_id){
 	var data="id="+sta_id;
 	data+="&action=U";
 	
-	var controllerNm = "PopupFormUserAccount";
+	var controllerNm = "PopupFormCommissionSetting";
 	var option={};
-	option["height"] = "800px";
-    stock.comm.openPopUpForm(controllerNm,option, data,"modal-md");
+	option["height"] = "600px";
+    stock.comm.openPopUpForm(controllerNm,option, data,"modal-lg");
 }
 
 /**
  * 
  */
 function deleteDataArr(dataArr){
-
 	$.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"User/delete",
+		url: $("#base_url").val() +"CommissionSetting/delete",
 		data: dataArr,
 		success: function(res) {
 		    if(res > 0){
@@ -227,20 +233,20 @@ function deleteDataArr(dataArr){
  * 
  * @returns
  */
-function getStaff(){
+function getPosition(){
 	$.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"Staff/getStaff",
+		url: $("#base_url").val() +"Position/getPositionData",
 		dataType: 'json',
 		async: false,
 		success: function(res) {
 			if(res.OUT_REC.length > 0){
-				$("#cboStaff option").remove();
-				$("#cboStaff").append("<option value=''>សូមជ្រើសរើសបុគ្គលិក</option>");
+				$("#cboPosition option").remove();
+				$("#cboPosition").append("<option value=''>សូមជ្រើសរើសតួនាទីបុគ្គលិក</option>");
 				
 				for(var i=0; i<res.OUT_REC.length; i++){
-					var braNm = res.OUT_REC[i]["sta_nm_kh"];
-					$("#cboStaff").append("<option value='"+res.OUT_REC[i]["sta_id"]+"'>"+braNm+"</option>");
+					var braNm = res.OUT_REC[i]["pos_nm_kh"];
+					$("#cboPosition").append("<option value='"+res.OUT_REC[i]["pos_id"]+"'>"+braNm+"</option>");
 				}
 				
 			}else{
@@ -249,7 +255,7 @@ function getStaff(){
 		},
 		error : function(data) {
 			console.log(data);
-			stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
+			parent.stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
         }
 	});
 }
@@ -257,16 +263,56 @@ function getStaff(){
 
 /**
  * 
+ * @returns
+ */
+function getBranch(){
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"Branch/getBranch",
+		dataType: 'json',
+		async: false,
+		success: function(res) {
+			if(res.OUT_REC.length > 0){
+				$("#cboBranch option").remove();
+				$("#cboBranch").append("<option value=''>សូមជ្រើសរើសគំរោង</option>");
+				
+				for(var i=0; i<res.OUT_REC.length; i++){
+					var braNm = res.OUT_REC[i]["bra_nm_kh"];
+					$("#cboBranch").append("<option value='"+res.OUT_REC[i]["bra_id"]+"'>"+braNm+"</option>");
+				}
+				
+			}else{
+				console.log(res);
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			parent.stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
+        }
+	});
+}
+
+function renderStatusYn(str){
+	if(str == "Y"){
+		return '<span class="label label-primary">មាន</span>';
+	}else{
+		return '<span class="label label-warning">គ្នាន</span>';
+	}
+}
+
+
+/**
+ * 
  */
 function resetFormSearch(){
-	$("#txtSrchUserNm").val("");
-    $("#cboStaff").val("");
+	$("#cboBranch").val("");
+    $("#cboPosition").val("");
    
 }
 
 /**
  * 
 */
-function popupUserAccountCallback(){
+function popupCommissionSettingCallback(){
     getData(_pageNo);
 }

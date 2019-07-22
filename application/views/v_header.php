@@ -65,6 +65,9 @@
  	#txtPassword{
            -webkit-text-security:disc;
        }
+    body select.form-control{
+        padding: 0px 5px !important;
+    }
   </style>
 </head>
 <body class="hold-transition skin-black-light sidebar-mini fixed">

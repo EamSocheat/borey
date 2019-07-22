@@ -71,6 +71,12 @@
    	.cur-pointer{
    		cursor: pointer;
    	}
+    select.form-control{
+        padding: 0px 5px !important;
+    }
+    .margin-left-5px{
+        margin-left: 5px;
+    }
   </style>
 </head>
 <body>
