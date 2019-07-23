@@ -21,9 +21,9 @@ var _thisPage = {
 		
 		
 		stock.comm.getPositionSelect("cbxSrchPos");
-		$("#cbxSrchPos").prepend("<option value='' selected='selected'></option>");
-		stock.comm.getBrnachSelect("cbxSrchBranch");
-		$("#cbxSrchBranch").prepend("<option value='' selected='selected'></option>");
+		$("#cbxSrchPos").prepend("<option value='' selected='selected'>សូមជ្រើសរើសតួនាទីបុគ្គលិក</option>");
+		//stock.comm.getBrnachSelect("cbxSrchBranch");
+		//$("#cbxSrchBranch").prepend("<option value='' selected='selected'></option>");
 	},event : function(){
 		$("#perPage").change(function(e){
 			_pageNo=1;
@@ -139,7 +139,7 @@ function getData(page_no){
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 			    for(var i=0; i<res.OUT_REC.length;i++){
 			        var html = "<tr data-id='"+res.OUT_REC[i]["sta_id"]+"'>";
-			        var urlPhoto ="";
+			        var urlPhoto =$("#base_url").val()+"/assets/image/default-staff-photo.png";
 			        if(res.OUT_REC[i]["sta_photo"] != null && res.OUT_REC[i]["sta_photo"] != ""){
 			        	urlPhoto = $("#base_url").val()+"/upload"+ res.OUT_REC[i]["sta_photo"];
 			        }
@@ -150,7 +150,7 @@ function getData(page_no){
 			        html += "<td class='sta_gender'>"+res.OUT_REC[i]["sta_gender"]+"</td>";
 			        html += "<td class='sta_phone1'>"+res.OUT_REC[i]["sta_phone1"]+"</td>";
 			        html += "<td class='pos_nm'>"+res.OUT_REC[i]["pos_nm"]+"</td>";
-			        html += "<td class='bra_nm'>"+res.OUT_REC[i]["bra_nm"]+"</td>";
+			        //html += "<td class='bra_nm'>"+res.OUT_REC[i]["bra_nm"]+"</td>";
 			        html += "<td class='act_btn text-center'><button onclick='editData("+res.OUT_REC[i]["sta_id"]+")' type='button' class='btn btn-primary btn-xs'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></td>";
 			
 			        html += "</tr>";
@@ -160,7 +160,7 @@ function getData(page_no){
 			    //--pagination
 			    stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 			}else{
-			    $("#tblStaff tbody").append("<tr><td colspan='9' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+			    $("#tblStaff tbody").append("<tr><td colspan='8' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 			    //--pagination
 			    stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 			}

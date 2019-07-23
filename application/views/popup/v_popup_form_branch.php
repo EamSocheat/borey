@@ -5,7 +5,7 @@
 	  <input type="hidden" id="parentId" name="parentId" value="<?php if(isset($_GET["parentId"])){ echo $_GET["parentId"]; }?>"/>
 	 
 	  <!-- form start -->
-      <form role="form" class="form-horizontal" id="frmBranch" action="" style="display: none">
+      <form role="form" class="form-horizontal" id="frmBranch" action="" style="display: none"  autocomplete="off">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
           <span aria-hidden="true">&times;</span></button>

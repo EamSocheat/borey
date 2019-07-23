@@ -27,8 +27,10 @@
         	
         	//
         	if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
-        		$this->db->like('tbl_position.pos_nm', $dataSrch['srch_all']);
-        	    $this->db->or_like('tbl_position.pos_nm_kh', $dataSrch['srch_all']);
+        		$where = '(tbl_position.pos_nm like "%'.$dataSrch['srch_all'].'%" OR tbl_position.pos_nm_kh like "%'.$dataSrch['srch_all'].'%")';
+       			$this->db->where($where);
+        		//$this->db->or_like('tbl_position.pos_nm', $dataSrch['srch_all']);
+        	    //$this->db->or_like('tbl_position.pos_nm_kh', $dataSrch['srch_all']);
         	}
         	
         	$this->db->order_by("pos_id", "desc");

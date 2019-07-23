@@ -167,8 +167,12 @@ $(document).ready(function() {
 
 
 	/* onload */
-	if(parent.$("#usr_edit_yn").val() != "Y"){
+	if(parent.$("#usr_edit_yn").val() != "Y" && $("#frmAct").val() == "U"){
 		$("#btnSave").remove();
+	}
+
+	if(parent.$("#usr_edit_yn").val() != "Y"){
+		$("#btnDelete").remove();
 	}
 	
 	//render menu for user

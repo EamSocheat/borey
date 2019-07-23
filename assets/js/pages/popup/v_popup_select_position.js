@@ -120,7 +120,7 @@ var _thisPage = {
 			
 			var tblTr = chkVal.parent().parent();
 			var data={};
-			data["pos_nm"] = tblTr.find("td.pos_nm").html();
+			data["pos_nm"] = tblTr.find("td.pos_nm_kh").html();
 			data["pos_id"] = tblTr.attr("data-id");
 			
 			var parentFrame="";

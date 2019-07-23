@@ -9,6 +9,18 @@ var _thisPage = {
 			_this.loadData();
 			_this.event();
 			stock.comm.checkAllTblChk("chkAll","tblCategory","chk_box");
+			
+			 //--pagination
+			$("#paging").on("click", "li a", function(e) {
+				var pageNo = $(this).html();
+				_pageNo = pageNo;
+				_this.loadData(pageNo);
+			});
+			$(".box-footer").on("click", "#btnGoToPage", function(e) {
+				var pageNo = $("#txtGoToPage").val();
+				_this.loadData(pageNo);
+			});
+			
 		}, loadData : function(page_no){
 			var input = {};
 			var pageNo = 1;
@@ -70,6 +82,10 @@ var _thisPage = {
 				    stock.comm.alertMsg($.i18n.prop("msg_err"));
 		        }
 			});
+		    
+		    
+			
+			
 		}, editData : function(cat_id){
 			var data = "id="+cat_id;
 			data += "&action=U";

@@ -43,9 +43,9 @@
       </div>
  
 	  <div class="modal-footer">
-		<button type="submit" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
-        <button type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>
-        <button type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
+		<button type="submit" data-i18ncd="btn_save_new" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
+        <button type="submit" data-i18ncd="btn_save" class="btn btn-primary btn-sm" id="btnSave">Save</button>
+        <button type="button" data-i18ncd="btn_close" class="btn btn-default btn-sm" id="btnClose">Close</button>
       </div>
   </form>
   <!-- form end --> 

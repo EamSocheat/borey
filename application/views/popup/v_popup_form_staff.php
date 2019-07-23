@@ -3,7 +3,7 @@
 		  <input type="hidden" id="staId" name="staId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
 		  <input type="hidden" id="frmAct" name="frmAct" value="<?php if(isset($_GET["action"])){ echo $_GET["action"]; }?>"/>
 		  <!-- form start -->
-          <form role="form" class="form-horizontal" id="frmStaff" action="" style="display: none">
+          <form role="form" class="form-horizontal" id="frmStaff" action="" style="display: none" autocomplete="off">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
               <span aria-hidden="true">&times;</span></button>
@@ -25,15 +25,17 @@
                             	<input type="file" style="display: none" class="form-control" accept="image/*"  id="fileStaPhoto" name="fileStaPhoto">
                             </div>
                 		</div>
+                		
                 		<div class="col-xs-4 padding-forms-right">
-                			<div class="form-group">
-                				<label for="braNm2" data-i18ncd="lb_branch">Branch Name</label>
+                			<div class="form-group" >
+                				<label for="txtPosNm" data-i18ncd="lb_position">Position</label>
                 				<div class="input-group">
-                                	<input type="text" class="form-control input-sm" disabled="disabled" id="txtBraNm" name="txtBraNm">
-                                    <span id="btnPopupBranch" class="input-group-addon label-info" style="border-top-right-radius: 5px;
+                                	<input type="text" class="form-control input-sm" disabled="disabled" id="txtPosNm" name="txtPosNm">
+                                    <span id="btnPopupPosition" class="input-group-addon label-info" style="border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
                                 </div>
-                                <input type="hidden" id="txtBraId" name="txtBraId">
+                                <input type="hidden" id="txtPosId" name="txtPosId">
+                                
                 			</div>
                 			<!--  -->
                 			<div class="form-group">
@@ -43,14 +45,16 @@
                 		</div>
                 		
                 		<div class="col-xs-4 padding-forms-right">
-                			<div class="form-group">
-                				<label for="txtPosNm" data-i18ncd="lb_position">Position</label>
+                			<div class="form-group" style="visibility: hidden;">
+                				
+                				<label for="braNm2" data-i18ncd="lb_branch">Branch Name</label>
                 				<div class="input-group">
-                                	<input type="text" class="form-control input-sm" disabled="disabled" id="txtPosNm" name="txtPosNm">
-                                    <span id="btnPopupPosition" class="input-group-addon label-info" style="border-top-right-radius: 5px;
+                                	<input type="text" class="form-control input-sm" disabled="disabled" id="txtBraNm" name="txtBraNm">
+                                    <span id="btnPopupBranch" class="input-group-addon label-info" style="border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
                                 </div>
-                                <input type="hidden" id="txtPosId" name="txtPosId">
+                                <input type="hidden" id="txtBraId" name="txtBraId">
+                				
                 			</div>
                 			<!--  -->
                 			<div class="form-group">
@@ -65,16 +69,16 @@
                 	<div class="col-xs-12 row" style="padding:0px">
                 		<div class="col-xs-4 padding-forms-left">
                 			<div class="form-group">
-                              <label for="cboGender" data-i18ncd="cboGender">Gender</label>
+                              <label for="cboGender" >ភេទ</label>
                               <select class="form-control" id="cboGender" name="cboGender">
-	                    			<option value="M">Male</option>
-			                    	<option value="F" selected>Female</option>
+	                    			<option value="M">ប្រុស</option>
+			                    	<option value="F" selected>ស្រី</option>
 			                  </select>
                             </div>
                 		</div>
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
-                               	<label for="txtDob" data-i18ncd="staDob">DOB</label>
+                               	<label for="txtDob" data-i18ncd="lb_dob">DOB</label>
 			                	<div class="input-group date">
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 				                    	<i class="fa fa-calendar"></i>
@@ -86,7 +90,7 @@
                 		
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
-                				<label for="txtDes" data-i18ncd="staDes">Description</label>
+                				<label for="txtDes" data-i18ncd="lb_des">Description</label>
                               	<input type="text" class="form-control" id="txtDes" name="txtDes" />
                 			</div>
                 		</div>
@@ -116,7 +120,7 @@
                 	<div class="col-xs-12 row" style="padding:0px">
                 		<div class="col-xs-12 padding-forms-left padding-forms-right">
                 			<div class="form-group">
-                               	<label for="txtAddr" data-i18ncd="txtAddr">Address</label>
+                               	<label for="txtAddr" data-i18ncd="lb_addr">Address</label>
                             	<input type="text" class="form-control" id="txtAddr" name="txtAddr">
                             </div>
                 		</div>
@@ -126,7 +130,7 @@
                 	<div class="col-xs-12 row" style="padding:0px">
                 		<div class="col-xs-4 padding-forms-left">
                 			<div class="form-group">
-                				<label for="txtStartDate" data-i18ncd="staStartDate">Start Date</label>
+                				<label for="txtStartDate" data-i18ncd="staStartDate">ថ្ងៃចូលធ្វើការ</label>
                               	<div class="input-group date">
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 				                    	<i class="fa fa-calendar"></i>
@@ -137,7 +141,7 @@
                 		</div>
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
-                				<label for="txtStopDate" data-i18ncd="staEndDate">Stop Date</label>
+                				<label for="txtStopDate" data-i18ncd="staEndDate">ថ្ងៃលាឈប់ធ្វើការ</label>
                               	<div class="input-group date">
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 				                    	<i class="fa fa-calendar"></i>

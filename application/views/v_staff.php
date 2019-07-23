@@ -60,9 +60,10 @@
         								</div>
         								
         								<div class="col-sm-3 col-md-3 col-lg-3">
-        									<div class="form-group">
-                                                <label for="cbxSrchBraType" class="control-label" data-i18ncd="lb_branch">Branch</label>
-                                                <select class="form-control input-sm" id="cbxSrchBranch" name="cbxSrchBranch">
+        									
+                                            <div class="form-group">
+                                                <label for="cbxSrchPos" class="control-label" data-i18ncd="lb_position">Position</label>
+                                                <select class="form-control input-sm" id="cbxSrchPos" name="cbxSrchPos">
                                                    
                                                 </select>
                                         
@@ -70,17 +71,19 @@
         								</div>        								
         								
 								    </div>
+								    <!-- 
 								    <div class="col-sm-12 col-md-12 col-lg-12 row">
 								    	<div class="col-sm-3 col-md-3 col-lg-3">
         									<div class="form-group">
-                                                <label for="cbxSrchBraType" class="control-label" data-i18ncd="lb_position">Position</label>
-                                                <select class="form-control input-sm" id="cbxSrchPos" name="cbxSrchPos">
+                                                <label for="cbxSrchBraType" class="control-label" data-i18ncd="lb_branch">Branch</label>
+                                                <select class="form-control input-sm" id="cbxSrchBranch" name="cbxSrchBranch">
                                                    
                                                 </select>
                                         
                                             </div>
         								</div> 
 								    </div>
+								     -->
     								<div class="col-sm-12 col-md-12 col-lg-12">
     								    <button id="btnSearch" type="button" class="btn btn-success btn-sm pull-right"><i class="fa fa-search" aria-hidden="true"></i> <span data-i18ncd="lb_search">Search</span></button>
     									<button id="btnReset" type="button" class="btn btn-warning btn-sm pull-right" style="margin-right: 5px"><i class="fa fa-refresh" aria-hidden="true"></i> <span data-i18ncd="btn_reset">Reset</span></button>
@@ -141,7 +144,7 @@
     					  <th data-i18ncd="lb_gender">Gender</th>
     					  <th data-i18ncd="lb_phone">Phone</th>
     					  <th data-i18ncd="lb_position">Position</th>
-    					  <th data-i18ncd="lb_branch">Branch</th>
+    					  <!--<th data-i18ncd="lb_branch">Branch</th>-->
     					  <th data-i18ncd="lb_action">Action</th>
     					</tr>
 					</thead>

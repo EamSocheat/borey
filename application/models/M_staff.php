@@ -11,7 +11,7 @@
   
         	$this->db->select('*');
         	//$this->db->from('tbl_staff');
-        	$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_staff.bra_id');
+        	//$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_staff.bra_id');
         	$this->db->join('tbl_position','tbl_position.pos_id = tbl_staff.pos_id');
         	$this->db->where('tbl_staff.com_id', $_SESSION['comId']);
         	$this->db->where('tbl_staff.useYn', 'Y');
@@ -59,7 +59,8 @@
   
         	$this->db->select('count(sta_id) as total_rec');
         	$this->db->from('tbl_staff');
-        	$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_staff.bra_id');
+        	//$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_staff.bra_id');
+        	$this->db->join('tbl_position','tbl_position.pos_id = tbl_staff.pos_id');
         	$this->db->where('tbl_staff.com_id', $_SESSION['comId']);
         	$this->db->where('tbl_staff.useYn', 'Y');
         	//---

@@ -54,9 +54,9 @@ var _thisPage = {
 							var callbackFunction=null;
 							if($("#parentId").val() !="" && $("#parentId").val() !=null){
 								parentFrame= $("#parentId").val();
-								callbackFunction=parent.$("#"+parentFrame)[0].contentWindow.popupPositionCallback
+								callbackFunction=parent.$("#"+parentFrame)[0].contentWindow.popupPositionCallback;
 							}else{
-								callbackFunction=parent.popupBranchCallback;
+								callbackFunction=parent.popupPositionCallback;
 							}
 							
 							parent.stock.comm.closePopUpForm("PopupFormPosition", callbackFunction);

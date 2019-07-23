@@ -132,6 +132,13 @@ var _thisPage = {
 
 
 function saveData(str){
+	if($("#txtPosId").val() == "" || $("#txtPosId").val() == null){
+		showPositionErr();
+		return;
+	}else{
+		parent.$("#msgErr").hide();
+		$("#txtPosNm").css("border-color","#ced4da");
+	}
 	$("#staId").appendTo("#frmStaff");
     parent.$("#loading").show();
 	$.ajax({
@@ -176,7 +183,7 @@ function getDataEdit(sta_id){
 			    $("#txtBraNm").val(res.OUT_REC[0]["bra_nm"]);
 			    $("#txtBraId").val(res.OUT_REC[0]["bra_id"]);
 			    $("#txtStaffNm").val(res.OUT_REC[0]["sta_nm"]);
-			    $("#txtPosNm").val(res.OUT_REC[0]["pos_nm"]);
+			    $("#txtPosNm").val(res.OUT_REC[0]["pos_nm_kh"]);
 			    $("#txtPosId").val(res.OUT_REC[0]["pos_id"]);
 			    $("#txtStaffNmKh").val(res.OUT_REC[0]["sta_nm_kh"]);
 			    $("#cboGender").val(res.OUT_REC[0]["sta_gender"]);
@@ -213,6 +220,7 @@ function clearForm(){
     $("#frmStaff textarea").val("");
     $("#staImgView").attr("src",$("#base_url").val()+"assets/image/default-staff-photo.png");
     $("#txtStaffNm").focus();
+    $("#txtBraId").val("0");
 }
 
 function selectBranchCallback(data){
@@ -223,6 +231,8 @@ function selectBranchCallback(data){
 function selectPositionCallback(data){
 	$("#txtPosNm").val(data["pos_nm"]);
 	$("#txtPosId").val(data["pos_id"]);
+	parent.$("#msgErr").hide();
+	$("#txtPosNm").css("border-color","#ced4da");
 }
 
 /**
@@ -238,5 +248,12 @@ function readURL(input) {
         }
         reader.readAsDataURL(input.files[0]);
     }
+}
+
+function showPositionErr(){
+	$("#txtPosNm").css("border-color","red");
+	parent.$("#msgShw").html("សូមជ្រើសរើសតួនាទីបុគ្គលិក!!!");
+	parent.$("#msgErr").show();
+	
 }
 
