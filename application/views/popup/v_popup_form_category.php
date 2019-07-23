@@ -2,6 +2,7 @@
 	  <!-- general form elements -->
 	  <input type="hidden" id="cat_id" name="cat_id" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
 	  <input type="hidden" id="frmAct" name="frmAct" value="<?php if(isset($_GET["action"])){ echo $_GET["action"]; }?>"/>
+	  <input type="hidden" id="parentId" name="parentId" value="<?php if(isset($_GET["parentId"])){ echo $_GET["parentId"]; }?>"/>
 	  <!-- form start -->
       <form role="form" class="form-horizontal" id="frmCateg" action="" style="display: none">
       <div class="modal-header">
@@ -18,7 +19,7 @@
         		
         			<div class="col-xs-4 padding-forms-left" style="padding-left:35px;">
             			<div class="image" style="text-align:center">
-                        	<img id="categImgView" src="<?php echo base_url('assets/image/default-staff-photo.png') ?>" class="img-circle" style="width: 150px;" alt="User Image">
+                        	<img id="categImgView" src="<?php echo base_url('assets/image/default-image.jpg') ?>" class="" style="width: 150px;" alt="User Image">
                         </div>
                         <div style="text-align:center;margin-top:5px;">
                         	<button  type="button" class="btn btn-info btn-xs" id="btnSelectPhoto"><i class="fa fa-image" aria-hidden="true"></i> <span data-i18ncd="lb_select_img">Select Image</span></button>
@@ -29,13 +30,13 @@
             			<div class="col-xs-6 padding-forms-right">
                 			<div class="form-group">
                               	<label for="cateNm" data-i18ncd="lb_name">Name</label>
-                              	<input type="text" class="form-control" id="txtCateNm" name="txtCateNm" required="required" placeholder="Enter ">
+                              	<input type="text" class="form-control" id="txtCateNm" name="txtCateNm" placeholder="Enter ">
                             </div>
                         </div>
                         <div class="col-xs-6 padding-forms-right">
                             <div class="form-group">
                                	<label for="txtCateNmKh" data-i18ncd="lb_name_kh">Khmer Name</label>
-                            	<input type="text" class="form-control" id="txtCateNmKh" name="txtCateNmKh" required="required" placeholder="Enter Khmer Name">
+                            	<input type="text" class="form-control" id="txtCateNmKh" name="txtCateNmKh" placeholder="Enter Khmer Name">
                             </div>
                         </div>
                         <div class="col-xs-12 padding-forms-right" style="margin-top:17px;">

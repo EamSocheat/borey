@@ -63,6 +63,7 @@
 
 	 #tblCustomer tbody > tr.cust-data:hover{ cursor: pointer; }
 	.cur-pointer{ cursor: pointer; }
+	.line-height{ line-height: 48px; font-size: 1.2em; }
  
   </style>
 </head>

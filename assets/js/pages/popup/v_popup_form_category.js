@@ -26,7 +26,9 @@ var _thisPage = {
 		},
 		event : function(){
 			$("#btnClose, #btnExit").click(function(){
-				parent.stock.comm.closePopUpForm("PopupFormCategory", parent.popupCategoryCallback);
+				var parentFrame = $("#parentId").val();
+				var callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupCategoryCallback;
+				parent.stock.comm.closePopUpForm("PopupFormCategory", callbackFunction);
 			});
 			$("#frmCateg").submit(function(e){
 				e.preventDefault();
@@ -77,7 +79,9 @@ function saveData(str){
 				if(str == "new"){
 				    clearForm();
 				}else{
-				    parent.stock.comm.closePopUpForm("PopupFormCategory",parent.popupCategoryCallback);
+					var parentFrame = $("#parentId").val();
+					var callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupCategoryCallback;
+					parent.stock.comm.closePopUpForm("PopupFormCategory", callbackFunction);
 				}
 			}
 		},
@@ -125,8 +129,9 @@ function getDataEdit(cat_id){
 function clearForm(){
     $("#frmCateg input").val("");
     $("#frmCateg textarea").val("");
-    
-    $("#txtCateNm").focus();
+	$("#categImgView").attr("src",$("#base_url").val()+"assets/image/default-image.jpg");
+
+	$("#txtCateNm").focus();
 }
 
 /**

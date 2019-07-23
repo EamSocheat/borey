@@ -45,7 +45,7 @@ var _thisPage = {
 				    parent.stock.comm.alertMsg($.i18n.prop("msg_err"));
 		        }
 			});
-		}, savePositionName : function(str){
+		}, saveSupplierData : function(str){
 			parent.$("#loading").show();
 			
 			$.ajax({
@@ -87,9 +87,9 @@ var _thisPage = {
 			$("#frmBranch").submit(function(e){
 				e.preventDefault();
 				if(_btnId == "btnSave"){
-					_this.savePositionName();
+					_this.saveSupplierData();
 				}else{
-					_this.savePositionName('new');
+					_this.saveSupplierData('new');
 				}
 			});
 		}

@@ -1,14 +1,14 @@
 <?php include 'v_popup_header.php';?>
 	  <!-- general form elements -->
-	  <input type="hidden" id="braId" name="braId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
+	  <input type="hidden" id="catId" name="catId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
 	  <input type="hidden" id="frmAct" name="frmAct" value="<?php if(isset($_GET["action"])){ echo $_GET["action"]; }?>"/>
 	  <input type="hidden" id="parentId" name="parentId" value="<?php if(isset($_GET["parentId"])){ echo $_GET["parentId"]; }?>"/>
 	  <!-- form start -->
-      <div role="form" class="form-horizontal" id="frmBranch" action="" style="display: none">
+      <div role="form" class="form-horizontal" id="frmCategory" action="" style="display: none">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
           <span aria-hidden="true">&times;</span></button>
-        <h4  class="modal-title" id="popupTitle"><i class="fa fa-user-plus"></i> <span data-i18ncd="pop_select_product">Choose Product</span></h4>
+        <h4 class="modal-title" id="popupTitle"><i class="fa fa-tags"></i> <span data-i18ncd="pop_select_category">Select Category</span></h4>
       </div>
       
       <div class="modal-body" id="modalMdBody">
@@ -35,20 +35,42 @@
 				</div>
 				<!-- /.button -->
 				<br>
-				<div class="box-body table-responsive fix-header-tbl" style="height: 235px;">
-				  <table class="table table-hover" id="tblProduct">
-				    <thead>  
-    					<tr>
-    					  <th><input type="checkbox" id="chkAllProduct"></th>
-    					  <th data-i18ncd="lb_name">Name</th>
-    					  <th data-i18ncd="lb_name_kh">Khmer Name</th>
-    					  <th data-i18ncd="lb_action">Action</th>
-    					</tr>
-					</thead>
-					<tbody>
-						
-   					</tbody>
-				  </table>
+				<div class="box-body table-responsive fix-header-tbl" style="height: 384px;">
+					<table class="table table-hover" id="tblCategory">
+						<colgroup>
+							<col width="5px">
+							<col width="10px">
+							<col width="100px">
+							<col width="50px">
+							<col width="50px">
+							<col width="50px">
+						</colgroup>
+						<thead>
+						<tr>
+							<th><input type="checkbox" id="chkAll" style="display:none;"></th>
+							<th data-i18ncd="lb_name" colspan="2" style="text-align:center;">Name</th>
+							<th data-i18ncd="lb_name_kh">Khmer Name</th>
+							<th data-i18ncd="lb_des">Description</th>
+<!--							<th data-i18ncd="lb_docreate">Register Date</th>-->
+							<th data-i18ncd="lb_action" style="text-align: center;">Action</th>
+						</tr>
+						</thead>
+						<tbody id="categoryList">
+						<!--  <tr>
+							<td><input type="radio"></td>
+							<td><div class="image">
+								<img id="staImgView" src="http://localhost/stock-project/assets/image/default-staff-photo.png" class="img-circle" style="width:25px;" alt="User Image">
+							</div></td>
+							<td><div>Category 000001</div></td>
+							<td><div>ប្រភេទទំនិញ  000001</div></td>
+							<td><div>ប្រភេទទំនិញ  000001</div></td>
+							<td><div>2018-10-01</div></td>
+							<td class="text-center">
+								<button onclick="" type="button" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+							</td>
+						</tr>-->
+						</tbody>
+					</table>
 				</div>
 				<!-- /.box-body -->
         	</div>
@@ -63,4 +85,4 @@
       <!-- form end --> 
       <!-- end general form elements -->
 <?php include 'v_popup_footer.php';?>
-<script src="<?php echo base_url('assets/') ?>js/pages/popup/v_popup_form_product.js"></script>
+<script src="<?php echo base_url('assets/') ?>js/pages/popup/v_popup_select_category.js"></script>

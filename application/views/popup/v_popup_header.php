@@ -72,6 +72,9 @@
    		cursor: pointer;
    	}
 
+	.input-right{ text-align: right; }
+	.line-height-30{ line-height: 30px !important; }
+
   </style>
 </head>
 <body>
