@@ -35,12 +35,15 @@ class House extends CI_Controller{
 			'limit' 		=> $this->input->post('perPage'),
 			'offset' 		=> $this->input->post('offset'),
 			'pro_id' 		=> $this->input->post('houseId'),
-			'sup_nm' 		=> $this->input->post('suppNm'),
-			'bra_nm' 		=> $this->input->post('expPro'),
-			'sta_nm'		=> $this->input->post('expSta')
+			'bra_id'		=> $this->input->post('braNm'),
+			'cat_id' 		=> $this->input->post('catNm'),
+			'pro_code' 		=> $this->input->post('codePay'),
+			'pro_status' 		=> $this->input->post('proStat'),
+			'pro_start_price' 	=> $this->input->post('txtMinPrice'),
+			'pro_end_price' 	=> $this->input->post('txtMaxPrice')
 		);
-		$data["OUT_REC"] = $this->M_house->selectExpend($dataSrch);
-		$data["OUT_REC_CNT"] = $this->M_house->countExpend($dataSrch);
+		$data["OUT_REC"] = $this->M_house->selectHouse($dataSrch);
+		$data["OUT_REC_CNT"] = $this->M_house->countHouse($dataSrch);
 		echo json_encode($data);
 	}
 
@@ -50,6 +53,7 @@ class House extends CI_Controller{
 		}
 
 		$housePhoto = "";
+		$productCode = "";
 		if(!empty($_FILES['fileHousePhoto']['name'])){
 			$housePhoto = $this->M_common->uploadImage($_FILES['fileHousePhoto'],'fileHousePhoto','./upload/borey/house','/borey/house/');
 		}else{
@@ -74,6 +78,17 @@ class House extends CI_Controller{
 			'useYn'			=> "Y",
 			'com_id'		=> $_SESSION['comId']
 		);
+
+		$dataCode = array(
+			'pro_code'	=> $this->input->post('txtCode')
+		);
+		$productCode = $this->M_house->countHouse($dataCode);
+		print_r("totel:: ".sizeof($productCode["totel_rec"]));
+		if(sizeof($productCode["totel_rec"]) > 0){
+			print_r("DUPLICATE CODE");
+			return;
+		}
+
 
 		if($this->input->post('houseId') != null && $this->input->post('houseId') != ""){
 			//update data

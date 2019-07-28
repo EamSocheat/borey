@@ -27,18 +27,52 @@ var _thisPage = {
 			stock.comm.inputNumber("txtRoomQty");
 			stock.comm.inputNumber("txtToiletQty");
 			stock.comm.inputCurrency("txtHousePrice");
-		}, fillData : function(pos_id){
+		}, fillData : function(pro_id){
 			$.ajax({
 				type: "POST",
-				url: $("#base_url").val() +"Position/getPositionData",
-				data: {"pos_id" : pos_id},
+				url: $("#base_url").val() +"House/getHouse",
+				data: {"houseId" : pro_id},
 				dataType: "json",
-				success: function(data) {
+				success: function(res) {
 					$("#loading").hide();
-					if(data.OUT_REC.length > 0){
-						$("#posNm").val(data.OUT_REC[0]["pos_nm"]);
-						$("#posNmKh").val(data.OUT_REC[0]["pos_nm_kh"]);
-						$("#posDescr").val(data.OUT_REC[0]["pos_des"]);
+					if(res.OUT_REC != null && res.OUT_REC.length > 0){
+						$("#houseId").val(res.OUT_REC[0]["pro_id"]);
+
+						if(res.OUT_REC[0]["cat_nm_kh"] != "" && res.OUT_REC[0]["cat_nm_kh"] != null){
+							$("#txtCatNm").val(res.OUT_REC[0]["cat_nm_kh"]);
+							$("#txtCatNmVal").val(res.OUT_REC[0]["cat_nm_kh"]);
+						}else{
+							$("#txtCatNm").val(res.OUT_REC[0]["cat_nm"]);
+							$("#txtCatNmVal").val(res.OUT_REC[0]["cat_nm"]);
+						}
+						$("#txtCatIdVal").val(res.OUT_REC[0]["cat_id"]);
+
+						if(res.OUT_REC[0]["bra_nm_kh"] != "" && res.OUT_REC[0]["bra_nm_kh"] != null){
+							$("#txtProjNm").val(res.OUT_REC[0]["bra_nm_kh"]);
+							$("#txtProjNmVal").val(res.OUT_REC[0]["bra_nm_kh"]);
+						}else{
+							$("#txtProjNm").val(res.OUT_REC[0]["bra_nm"]);
+							$("#txtProjNmVal").val(res.OUT_REC[0]["bra_nm"]);
+						}
+						$("#txtProjIdVal").val(res.OUT_REC[0]["bra_nm"]);
+
+						$("#txtCode").val(res.OUT_REC[0]["pro_code"]);
+						$("#txtHousePrice").val(stock.comm.formatCurrency(res.OUT_REC[0]["pro_price"]));
+						$("#txtHouseNo").val(res.OUT_REC[0]["pro_number"]);
+						$("#txtHouseLength").val(res.OUT_REC[0]["pro_length"]);
+						$("#txtHouseWidth").val(res.OUT_REC[0]["pro_width"]);
+						$("#txtHouseArea").val(res.OUT_REC[0]["pro_area"]);
+						$("#txtStreetNo").val(res.OUT_REC[0]["pro_street"]);
+						$("#txtRoomQty").val(res.OUT_REC[0]["pro_room"]);
+						$("#txtToiletQty").val(res.OUT_REC[0]["pro_toilet"]);
+
+						$("#txtDesc").val(res.OUT_REC[0]["pro_des"]);
+						if(res.OUT_REC[0]["pro_photo"] != null && res.OUT_REC[0]["pro_photo"] != ""){
+							$("#expendImgView").attr("src", $("#base_url").val()+"upload"+res.OUT_REC[0]["pro_photo"]);
+							$("#expImgPath").val(res.OUT_REC[0]["pro_photo"]);
+						}
+					}else{
+						stock.comm.alertMsg($.i18n.prop("msg_err"));
 					}
 				}, error : function(data) {
 				    console.log(data);
@@ -47,7 +81,19 @@ var _thisPage = {
 		        }
 			});
 		}, saveHouseName : function(str){
+			$("#houseId").appendTo("#frmHouse");
 			parent.$("#loading").show();
+			if($("#txtCatNm").val() == "" || $("#txtCatNm").val() == ""){
+				top.stock.comm.alertMsg($.i18n.prop("msg_choose_cat"));
+				parent.$("#loading").hide();
+				return;
+			}
+
+			if($("#txtProjNm").val() == "" || $("#txtProjNm").val() == ""){
+				top.stock.comm.alertMsg($.i18n.prop("msg_choose_bra"));
+				parent.$("#loading").hide();
+				return;
+			}
 
 			$.ajax({
 				type: "POST",
@@ -62,8 +108,13 @@ var _thisPage = {
 						}else{
 							var parentFrame = "";
 							var callbackFunction = null;
-							parentFrame = $("#parentId").val();
-							callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupHouseCallback
+
+							if($("#parentId").val() != "" && $("#parentId").val() != null){
+								parentFrame = $("#parentId").val();
+								callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupHouseCallback
+							}else{
+								callbackFunction = parent.popupHouseCallback;
+							}
 							parent.stock.comm.closePopUpForm("PopupFormHouse", callbackFunction);
 						}
 					}
@@ -115,10 +166,24 @@ var _thisPage = {
 			$("#btnPopupProject").click(function(e){
 				var data  = "parentId=ifameStockForm";
 				data += "&dataSrch="+$("#txtProjNm").val();
-				var controllerNm = "PopupSelectProject";
+				var controllerNm = "PopupSelectBranch";
 				var option = {};
 				option["height"] = "567px";
 				stock.comm.openPopUpSelect(controllerNm, option, data, "modal-md");
+			});
+			//
+			$("#txtHouseLength").on("keyup", function(e){
+				var lenVal = $(this).val();
+				var widVal = $("#txtHouseWidth").val();
+
+				$("#txtHouseArea").val(Number(lenVal) * Number(widVal));
+			});
+			//
+			$("#txtHouseWidth").on("keyup", function(e){
+				var lenVal = $("#txtHouseLength").val();
+				var widVal = $(this).val();
+
+				$("#txtHouseArea").val(Number(lenVal) * Number(widVal));
 			});
 		}
 }
@@ -135,23 +200,24 @@ function selectCategoryCallback(data) {
 	$("#txtCatIdVal").val(data["cat_id"]);
 }
 
-function selectProjectCallback(data) {
-	if(data["proj_nm_kh"] != "" && data["proj_nm_kh"] != null){
-		$("#txtProjNm").val(data["proj_nm_kh"]);
-		$("#txtProjNmVal").val(data["proj_nm_kh"]);
+function selectBranchCallback(data) {
+	if(data["bra_nm_kh"] != "" && data["bra_nm_kh"] != null){
+		$("#txtProjNm").val(data["bra_nm_kh"]);
+		$("#txtProjNmVal").val(data["bra_nm_kh"]);
 	}else{
-		$("#txtProjNm").val(data['proj_nm']);
-		$("#txtProjNmVal").val(data['proj_nm']);
+		$("#txtProjNm").val(data['bra_nm']);
+		$("#txtProjNmVal").val(data['bra_nm']);
 	}
 
-	$("#txtProjIdVal").val(data["proj_id"]);
+	$("#txtProjIdVal").val(data["bra_id"]);
 }
 
 function clearForm(){
     $("#frmHouse input").val("");
     $("#frmHouse textarea").val("");
 
-    $("#posNm").focus();
+	$("#houseImgView").attr("src",$("#base_url").val()+"assets/image/default-house.jpg");
+
 }
 
 /**

@@ -11,7 +11,7 @@ var _thisPage = {
 		_this.event();
 	},
 	onload : function(){
-		// getData();
+		getData();
 		stock.comm.inputNumber("txtSrchBraPhone");
 		stock.comm.checkAllTblChk("chkAllBox","tblHouse","chk_box");
 
@@ -37,10 +37,10 @@ var _thisPage = {
 			sideBySide: true,
 			format: "dd-mm-yyyy",
 		});
-		$("#txtSrchHouseED").inputmask();
-
-		filtSupplierCombo();
+		stock.comm.inputNumber("txtMinPrice");
+		stock.comm.inputCurrency("txtMaxPrice");
 		filtProjectCombo();
+		filtCategoryCombo();
 		filtStaffCombo();
 	},event : function(){
 		$("#perPage").change(function(e){
@@ -115,11 +115,6 @@ var _thisPage = {
 		});
 
 		//
-		$("#btnSearch").click(function(e){
-			getData(1);
-		});
-
-		//
 		$("#btnReset").click(function(e){
 			resetFormSearch();
 		});
@@ -159,12 +154,14 @@ function getData(page_no){
 	//paging
 	dat["perPage"] = $("#perPage").val();
 	dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
-	//searching
-	dat["suppNm"]	= $("#cboSupNm option:selected").val();
-	dat["expPro"]	= $("#projectNm option:selected").val();
-	dat["expSta"] 	= $("#cboStaffPay option:selected").val();
-	dat["txtSrchHouseSD"]	= $("#txtSrchHouseSD").val();
-	dat["txtSrchHouseED"]	= $("#txtSrchHouseED").val();
+	// search
+	dat["braNm"]	= $("#projectNm option:selected").val();
+	dat["catNm"]	= $("#cboCatNm option:selected").val();
+	dat["codePay"] 	= $("#txtCodePay").val();
+	dat["proStat"]	= $("#cboStatusNm option:selected").val();
+	dat["txtMinPrice"]	= $("#txtMinPrice").val();
+	dat["txtMaxPrice"]	= $("#txtMaxPrice").val();
+	console.log(dat)
 
 	$("#loading").show();
 	$.ajax({
@@ -184,44 +181,35 @@ function getData(page_no){
 				$("#chkAllBox").show();
 
 				for(var i = 0; i < res.OUT_REC.length; i++){
-					var urlPhoto	= "";
-					if(res.OUT_REC[i]["exp_image"] != null && res.OUT_REC[i]["exp_image"] != ""){
-						urlPhoto = $("#base_url").val()+"/upload"+ res.OUT_REC[i]["exp_image"];
+					var urlPhoto = "";
+					if(res.OUT_REC[i]["pro_photo"] != null && res.OUT_REC[i]["pro_photo"] != ""){
+						urlPhoto = $("#base_url").val()+"/upload"+ res.OUT_REC[i]["pro_photo"];
 					}else{
-						urlPhoto = $("#base_url").val()+"/assets/image/default-staff-photo.png";
+						urlPhoto = $("#base_url").val()+"assets/image/default-house.jpg";
 					}
 
-					if(res.OUT_REC[i]["sup_nm_kh"] != "" && res.OUT_REC[i]["sup_nm_kh"] != null){
-						supNmKh = res.OUT_REC[i]["sup_nm_kh"];
-					}else{
-						supNmKh = res.OUT_REC[i]["sup_nm"];
-					}
-
-					if(res.OUT_REC[i]["sta_nm_kh"] != "" && res.OUT_REC[i]["sta_nm_kh"] != null){
-						staNmKh = res.OUT_REC[i]["sta_nm_kh"];
-					}else{
-						staNmKh = res.OUT_REC[i]["sta_nm"];
-					}
-
-					strHmtl += '<tr data-id="'+res.OUT_REC[i]["exp_id"]+'" class="cur-pointer" ondblclick="editData('+res.OUT_REC[i]['exp_id']+')">';
+					strHmtl += '<tr data-id="'+res.OUT_REC[i]["pro_id"]+'" class="cur-pointer" ondblclick="editData('+res.OUT_REC[i]['pro_id']+')">';
 					strHmtl += '	<td class="chk_box"><input type="checkbox" /></td>';
-					strHmtl += '	<td><div>'+supNmKh+'</div></td>';
-					strHmtl += '	<td><div style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["exp_total_price"])+'</div></td>';
-					strHmtl += '	<td><div>'+res.OUT_REC[i]["bra_nm"]+'</div></td>';
-					strHmtl += '	<td><div>'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["exp_date"])+'</div></td>';
-					strHmtl += '	<td><div>'+staNmKh+'</div></td>';
+					strHmtl += '	<td class="pro_image" style="padding: 0 8px;"><div style="width: 10px;">';
+					strHmtl += '		<img style="width: 35px;height: 35px;" src="'+ urlPhoto +'" class="img-circle" />';
+					strHmtl += '	</div></td>';
+					strHmtl += '	<td><div>'+res.OUT_REC[i]["pro_code"]+'</div></td>';
+					strHmtl += '	<td><div style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["pro_price"])+'</div></td>';
+					strHmtl += '	<td><div>'+stock.comm.null2Void(res.OUT_REC[i]["pro_length"])+' ម៉ែត្រ</div></td>';
+					strHmtl += '	<td><div>'+stock.comm.null2Void(res.OUT_REC[i]["pro_width"])+' ម៉ែត្រ</div></td>';
+					strHmtl += '	<td><div>'+stock.comm.null2Void(res.OUT_REC[i]["pro_area"])+' ម៉ែត្រការ៉េ</div></td>';
 					strHmtl += '	<td class="text-center">';
-					strHmtl += '		<button type="button" class="btn btn-primary btn-xs" onclick="editData('+res.OUT_REC[i]["exp_id"]+')">';
+					strHmtl += '		<button type="button" class="btn btn-primary btn-xs" onclick="editData('+res.OUT_REC[i]["pro_id"]+')">';
 					strHmtl += '			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
 					strHmtl += '		</button>';
 					strHmtl += '	</td>';
 					strHmtl += '</tr>';
 
-					totalAmt += Number(res.OUT_REC[i]["exp_total_price"]);
+					totalAmt += Number(res.OUT_REC[i]["pro_price"]);
 				}
 
 				strTotal +='<tr class="total">';
-				strTotal +='	<td class="" colspan="2" style="text-align: right;">ថ្លៃចំណាយសរុប: </td>';
+				strTotal +='	<td class="" colspan="3" style="text-align: right;">ថ្លៃទំនិញសរុប: </td>';
 				strTotal +='	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalAmt)+'</b></td>';
 				strTotal +='</tr>';
 
@@ -247,8 +235,8 @@ function getData(page_no){
 	});
 }
 
-function editData(exp_id){
-	var data = "id="+exp_id;
+function editData(pro_id){
+	var data = "id="+pro_id;
 	data += "&action=U";
 
 	var controllerNm = "PopupFormHouse";
@@ -283,22 +271,22 @@ function deleteDataArr(dataArr){
 	});
 }
 
-function filtSupplierCombo(){
-	var SUPPLIER_REC = stock.comm.callDataCombo("Supplier","getSupplierData");
+function filtCategoryCombo(){
+	var CATEGORY_REC = stock.comm.callDataCombo("Category","getCategoryData");
 
-	if(!stock.comm.isEmpty(SUPPLIER_REC)){
+	if(!stock.comm.isEmpty(CATEGORY_REC)){
 		var strHtml = '<option value="" data-i18ncd="lb_sup_choose">សូមជ្រើសរើស</option>';
 		var supStr  = "";
-		$("#cboSupNm").empty();
-		for(var i = 0; i < SUPPLIER_REC.length; i++){
-			if(SUPPLIER_REC[i]["sup_nm_kh"] != "" && SUPPLIER_REC[i]["sup_nm_kh"] != null){
-				supStr = SUPPLIER_REC[i]["sup_nm_kh"];
+		$("#cboCatNm").empty();
+		for(var i = 0; i < CATEGORY_REC.length; i++){
+			if(CATEGORY_REC[i]["cat_nm_kh"] != "" && CATEGORY_REC[i]["cat_nm_kh"] != null){
+				supStr = CATEGORY_REC[i]["cat_nm_kh"];
 			}else{
-				supStr = SUPPLIER_REC[i]["sup_nm"];
+				supStr = CATEGORY_REC[i]["cat_nm"];
 			}
-			strHtml += '<option value="'+SUPPLIER_REC[i]["sup_id"]+'">'+supStr+'</option>';
+			strHtml += '<option value="'+CATEGORY_REC[i]["cat_id"]+'">'+supStr+'</option>';
 		}
-		$("#cboSupNm").html(strHtml);
+		$("#cboCatNm").html(strHtml);
 	}
 }
 
@@ -366,11 +354,12 @@ function downloadExcel(dataRec){
  *
  */
 function resetFormSearch(){
-	$("#cboSupNm option:eq(0)").attr("selected", true);
 	$("#projectNm option:eq(0)").attr("selected", true);
-	$("#cboStaffPay option:eq(0)").attr("selected", true);
-	$("#txtSrchHouseSD").val("");
-	$("#txtSrchHouseED").val("");
+	$("#cboCatNm option:eq(0)").attr("selected", true);
+	$("#cboStatusNm option:eq(0)").attr("selected", true);
+	$("#txtCodePay").val("");
+	$("#txtMinPrice").val("");
+	$("#txtMaxPrice").val("");
 }
 
 /**

@@ -33,27 +33,12 @@
 								<!-- /.box-header -->
 								<div class="box-body">
 									<div class="row" >
-										<div class="col-sm-12 col-md-12 col-lg-12 row" style="
-                                            ">
-											<div class="col-sm-2 col-md-2 col-lg-2" style="
-                                                ">
-												<div class="form-group form-inline" >
-													<label for="cboSupNm" class="control-label" data-i18ncd="lb_supp_nm" style="
-                                                        margin-bottom: 7px;display: -webkit-box;
-                                                    ">អ្នកផ្គត់ផ្គង់</label>
-													<!-- <input type="text" class="form-control input-sm" name="txtSrchSuppNm" id="txtSrchSuppNm" placeholder="អ្នកផ្គត់ផ្គង់" style="width: 100%;">-->
-													<select class="form-control" id="cboSupNm" name="cboSupNm" style="font-size: 14px;" onchange="getData()">
-														<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>
-														<option value="1" data-i18ncd="lb_project_1">static</option>
-													</select>
-												</div>
-											</div>
+										<div class="col-sm-12 col-md-12 col-lg-12 row" style="">
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
 												<div class="form-group form-inline">
 													<label for="projectNm" class="control-label" data-i18ncd="lb_project" style="
                                                         margin-bottom: 7px;display: -webkit-box;
                                                     ">គម្រោង</label>
-													<!-- <input type="text" class="form-control input-sm" id="txtSrchProNm" name="txtSrchProNm" placeholder="គម្រោង" style="width: 100%;">-->
 													<select class="form-control" id="projectNm" name="projectNm" style="font-size: 14px;" onchange="getData()">
 														<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>
 														<option value="1" data-i18ncd="lb_project_1">static</option>
@@ -61,13 +46,43 @@
 												</div>
 											</div>
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
-												<div class="form-group form-inline">
-													<label for="cboStaffPay" class="control-label" data-i18ncd="lb_staff_nm" style="margin-bottom: 7px;display: -webkit-box;">បុគ្គលិក(អ្នកទូទាត់)</label>
-													<!-- <input type="text" class="form-control input-sm" id="txtSrchStaffNm" name="txtSrchStaffNm" placeholder="បុគ្គលិក(អ្នកទូទាត់)" style="width: 100%;">-->
-													<select class="form-control" id="cboStaffPay" name="cboStaffPay" style="font-size: 14px;" onchange="getData()">
-														<option value="" data-i18ncd="lb_project_choose" selected>សូមជ្រើសរើស</option>
-														<option value="0" data-i18ncd="lb_staff_admin">static</option>
+												<div class="form-group form-inline" >
+													<label for="cboCatNm" class="control-label" data-i18ncd="lb_cat" style="
+                                                        margin-bottom: 7px;display: -webkit-box;
+                                                    ">ប្រភេទទំនិញ</label>
+													<select class="form-control" id="cboCatNm" name="cboCatNm" style="width: 143px;font-size: 14px;" onchange="getData()">
+														<option value="" data-i18ncd="lb_cat_choose">សូមជ្រើសរើស</option>
+														<option value="1" data-i18ncd="lb_category_1">static</option>
 													</select>
+												</div>
+											</div>
+											<div class="col-sm-2 col-md-2 col-lg-2" style="">
+												<div class="form-group form-inline">
+													<label for="txtCodePay" class="control-label" data-i18ncd="lb_pro_code" style="margin-bottom: 7px;display: -webkit-box;">លេខកូដ</label>
+													 <input type="text" class="form-control input-sm" id="txtCodePay" name="txtCodePay" placeholder="េខកូដ" style="width: 100%;">
+												</div>
+											</div>
+											<div class="col-sm-2 col-md-2 col-lg-2" style="">
+												<div class="form-group form-inline" >
+													<label for="cboStatusNm" class="control-label" data-i18ncd="lb_status" style="
+                                                        margin-bottom: 7px;display: -webkit-box;
+                                                    ">ការប្រើប្រាស់</label>
+													<select class="form-control" id="cboStatusNm" name="cboStatusNm" style="width: 143px;font-size: 14px;" onchange="getData()">
+														<option value="1" data-i18ncd="lb_status_active">នៅប្រើប្រាស់</option>
+														<option value="0" data-i18ncd="lb_status_inactive">ឈប់ប្រើប្រាស់</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-sm-2 col-md-2 col-lg-2" style="">
+												<div class="form-group form-inline">
+													<label for="txtMinPrice" class="control-label" data-i18ncd="lb_pro_price" style="margin-bottom: 7px;display: -webkit-box;">តម្លៃអចលនទ្រព្យ</label>
+													<input type="text" class="form-control input-sm" id="txtMinPrice" name="txtMinPrice" placeholder="តម្លៃអចលនទ្រព្យ" style="width: 100%;">
+												</div>
+											</div>
+											<div class="col-sm-2 col-md-2 col-lg-2" style="">
+												<div class="form-group form-inline" style="margin-top: 26px;">
+													<label for="txtMaxPrice" class="control-label" data-i18ncd="lb_pro_price" style="display: none;margin-bottom: 7px;">តម្លៃអចលនទ្រព្យ</label>
+													<input type="text" class="form-control input-sm" id="txtMaxPrice" name="txtMaxPrice" placeholder="តម្លៃអចលនទ្រព្យ" style="width: 100%;">
 												</div>
 											</div>
 										</div>
@@ -144,11 +159,11 @@
 								</tr>
 								</thead>
 								<tbody>
-									<tr class="cur-pointer">
+									<!--<tr class="cur-pointer">
 										<td><div class="line-height" style="width: 10px;"><input type='checkbox'></div></td>
 										<td class='cus_image' style=''>
 											<div style="width: 10px;">
-												<img style='width: 45px;height: 45px;' src="<?php echo base_url('\assets\image\house_cv-h01.jpg') ?>" />
+												<img style='width: 45px;height: 45px;' src="<?php /*echo base_url('\assets\image\house_cv-h01.jpg') */?>" />
 											</div>
 										</td>
 										<td><div class="line-height">House CV-H01</div></td>
@@ -166,7 +181,7 @@
 										<td><div class="line-height"><input type='checkbox'></div></td>
 										<td class='cus_image' style=''>
 											<div style="width: 5px;">
-												<img style='width: 45px;height: 45px;' src="<?php echo base_url('\assets\image\house_cv-h01.jpg') ?>" />
+												<img style='width: 45px;height: 45px;' src="<?php /*echo base_url('\assets\image\house_cv-h01.jpg') */?>" />
 											</div>
 										</td>
 										<td><div class="line-height">House CV-H01</div></td>
@@ -179,7 +194,7 @@
 												<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 											</button>
 										</td>
-									</tr>
+									</tr>-->
 								</tbody>
 
 							</table>

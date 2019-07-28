@@ -96,7 +96,7 @@
 			  <div class="col-xs-3 padding-forms-left">
 				  <div class="form-group">
 					  <label for="txtStreetNo" data-i18ncd="lb_house_street">ផ្លូវលេខ</label>
-					  <input type="text" class="form-control input-right" id="txtStreetNo" name="txtStreetNo" required="required" autocomplete="off" />
+					  <input type="text" class="form-control input-right" id="txtStreetNo" name="txtStreetNo" autocomplete="off" />
 				  </div>
 			  </div>
 			  <div class="col-xs-3 padding-forms-right">

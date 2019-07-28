@@ -37,8 +37,6 @@ var _thisPage = {
 			
 			parent.stock.comm.openPopUpForm(controllerNm,option, data,null,"modalMdBranch","modalMdContentBranch","ifameStockFormBranch");
 		});
-		
-		
 		//
 		$("#btnEdit").click(function(){
 			var chkVal = $('#tblBranch tbody tr td.chk_box input[type="checkbox"]:checked');
@@ -51,7 +49,6 @@ var _thisPage = {
 			var braId=tblTr.attr("data-id");
 			editData(braId);
 		});
-		
 		//
 		$("#btnDelete").click(function(e){
 			var chkVal = $('#tblBranch tbody tr td.chk_box input[type="checkbox"]:checked');
@@ -79,16 +76,13 @@ var _thisPage = {
 				//
 				deleteDataArr(delObj);
 			});
-			
 		});
-		
 		//
 		$("#btnSearch").click(function(e){
 			_pageNo=1;
 			_perPage=6;
 			getData();
 		});
-		
 		//
 		$("#txtSearch").keypress(function(e) {
 		    if(e.which == 13) {
@@ -108,7 +102,6 @@ var _thisPage = {
 		        }
 			} 
 			lastScrollTop = st;
-			
 		});
 		//
 		$("#btnChoose").click(function(e) {
@@ -119,29 +112,30 @@ var _thisPage = {
 			}
 			
 			var tblTr = chkVal.parent().parent();
-			var data={};
-			data["bra_nm"] = tblTr.find("td.bra_nm").html();
+			var data  = {};
 			data["bra_id"] = tblTr.attr("data-id");
-			
-			var parentFrame="";
-			var callbackFunction=null;
-			if($("#parentId").val() !="" && $("#parentId").val() !=null){
+			data["bra_nm"] = tblTr.find("td.bra_nm").html();
+			data["bra_nm_kh"] = tblTr.find("td.bra_nm_kh").html();
+
+			var parentFrame		 = "";
+			var callbackFunction = null;
+			if($("#parentId").val() != "" && $("#parentId").val() != null){
 				parentFrame= $("#parentId").val();
 				callbackFunction=parent.$("#"+parentFrame)[0].contentWindow.selectBranchCallback
 			}
 			parent.stock.comm.closePopUpForm("PopupSelectBranch",callbackFunction,data);
 		});
-		
 		//
 		$("#tblBranch tbody").on("dblclick", "tr td:not(.chk_box,.act_btn)", function() {
 			var tblTr = $(this).parent();
-			var data={};
-			data["bra_nm"] = tblTr.find("td.bra_nm").html();
+			var data  = {};
 			data["bra_id"] = tblTr.attr("data-id");
-			
-			var parentFrame="";
-			var callbackFunction=null;
-			if($("#parentId").val() !="" && $("#parentId").val() !=null){
+			data["bra_nm"] = tblTr.find("td.bra_nm").html();
+			data["bra_nm_kh"] = tblTr.find("td.bra_nm_kh").html();
+
+			var parentFrame		 = "";
+			var callbackFunction = null;
+			if($("#parentId").val() != "" && $("#parentId").val() != null){
 				parentFrame= $("#parentId").val();
 				callbackFunction=parent.$("#"+parentFrame)[0].contentWindow.selectBranchCallback
 			}
@@ -186,14 +180,11 @@ function getData(){
 			        
 			        $("#tblBranch tbody").append(html);
 			    }    
-			    
 			}else{
 				if($("#tblBranch tbody tr").length <= 0){
 					$("#tblBranch tbody").append("<tr><td colspan='5' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 				}
-			    
 			}
-			
 		},
 		error : function(data) {
 		    console.log(data);
@@ -201,6 +192,7 @@ function getData(){
         }
 	});
 }
+
 function deleteData(bra_id){
     parent.stock.comm.confirmMsg($.i18n.prop("msg_sure_del"));
     parent.$("#btnConfirmOk").unbind().click(function(e){
@@ -232,7 +224,6 @@ function editData(bra_id){
  * 
  */
 function deleteDataArr(dataArr){
-
 	$.ajax({
 		type: "POST",
 		url: $("#base_url").val() +"Branch/delete",
