@@ -2,6 +2,7 @@
   <!-- general form elements -->
   <input type="hidden" id="supId" name="supId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
   <input type="hidden" id="frmAct" name="frmAct" value="<?php if(isset($_GET["action"])){ echo $_GET["action"]; }?>"/>
+  <input type="hidden" id="parentId" name="parentId" value="<?php if(isset($_GET["parentId"])){ echo $_GET["parentId"]; }?>"/>
   <!-- form start -->
   <form role="form" class="form-horizontal" id="frmBranch" action="">
       <div class="modal-header">
@@ -37,7 +38,7 @@
             		<div class="col-xs-6 padding-forms-right">
             			<div class="form-group">
                            	<label for="supplEmail" data-i18ncd="lb_email">Email</label>
-                        	<input type="text" class="form-control" id="supplEmail" name="supplEmail" required="required" style="border-radius:5px;">
+                        	<input type="text" class="form-control" id="supplEmail" name="supplEmail" style="border-radius:5px;">
                         </div>
             		</div>
             	</div>
@@ -64,9 +65,9 @@
       </div>
  
 	  <div class="modal-footer">
-		<button type="submit" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
-        <button type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>
-        <button type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
+		<button data-i18ncd="btn_save_new" type="submit" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
+        <button data-i18ncd="btn_save" type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>
+        <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
       </div>
   </form>
   <!-- form end --> 

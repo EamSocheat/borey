@@ -39,10 +39,12 @@ class M_customer extends CI_Model{
 		}
 
 		if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+			$this->db->group_start();
 			$this->db->like('tbl_customer.cus_nm', $dataSrch['srch_all']);
 			$this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_all']);
 			$this->db->or_like('tbl_customer.cus_idnt_num', $dataSrch['srch_all']);
 			$this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_all']);
+			$this->db->group_end();
 		}
 
 		$this->db->order_by("cus_id", "desc");

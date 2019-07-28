@@ -12,7 +12,6 @@
 				<li><a href="Dashboard"><i class="fa fa-dashboard"></i> <span data-i18ncd="lb_dashbord">Dashboard</span></a></li>
 				<li class="active" data-i18ncd="lb_customer">Customer</li>
 			</ol>
-
 		</section>
 
 		<!-- Main content -->
@@ -68,7 +67,6 @@
 											</div>
 
 										</div>
-
 									</div>
 									<!-- /.box-body -->
 								</div>
@@ -100,7 +98,6 @@
 									<form class="form-inline" action="">
 										<label for="limitRow" data-i18ncd="lb_records">Records</label>
 										<select class="form-control input-sm" id="perPage">
-											<option value="1" data-i18ncd="lb_row1">1 rows</option>
 											<option value="10" data-i18ncd="lb_row10" selected>10 rows</option>
 											<option value="20" data-i18ncd="lb_row20">20 rows</option>
 											<option value="50" data-i18ncd="lb_row50">50 rows</option>
@@ -118,7 +115,7 @@
 									<colgroup>
 										<col style="width:5px;">
 										<col style="width:10px;">
-										<col style="width:150px;">
+										<col style="width:200px;">
 										<col style="width:300px;">
 										<col style="width:400px;">
 										<col style="width:200px">

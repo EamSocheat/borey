@@ -77,6 +77,10 @@
     .margin-left-5px{
         margin-left: 5px;
     }
+
+	.input-right{ text-align: right; }
+	.line-height-30{ line-height: 30px !important; }
+
   </style>
 </head>
 <body>

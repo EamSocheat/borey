@@ -52,7 +52,7 @@
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0.0
     </div>
     <strong>Copyright &copy; 2019-2020 Nokor App.</strong> All rights
     reserved.
@@ -281,11 +281,11 @@ $(document).ready(function() {
 	$("#langDropSelect a").click(function(e){
 		$('#loading').show();
 		//$("#langDrop").html($(this).html());
-		var lang="";
+		var lang = "";
 		if($(this).attr("id") =="langKh"){
-			lang="kh";
+			lang = "kh";
 		}else{
-			lang="en";
+			lang = "en";
 		}
 		//changeLang(lang);
 		setCookie("lang", lang, 100);
@@ -389,19 +389,19 @@ function changeLang(lang) {
 
     eleTargetDis.attr("placeholder","");
     
-	var holdLang="";
+	var holdLang = "";
 	
 	if(lang=="kh"){
-		holdLang="បញ្ជូល ";
+		holdLang = "បញ្ជូល ";
 	}else{
-		holdLang="Enter ";
+		holdLang = "Enter ";
 	}
     eleTarget.each(function(i){
 		var labelTxt = $("label[for='"+$(this).attr("id")+"']").eq(0).html();
-		if(labelTxt != null && labelTxt !="" && labelTxt != undefined){
-			labelTxt=labelTxt;
+		if(labelTxt != null && labelTxt != "" && labelTxt != undefined){
+			labelTxt = labelTxt;
 		}else{
-			labelTxt="";
+			labelTxt = "";
 		}
     	$(this).attr("placeholder",holdLang+labelTxt);
 	});

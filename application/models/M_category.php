@@ -24,6 +24,13 @@
     	    if($dataSrch['cat_nm_kh'] != null && $dataSrch['cat_nm_kh'] != ""){
     	        $this->db->like('tbl_category.cat_nm_kh', $dataSrch['cat_nm_kh']);
     	    }
+
+			if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+				$this->db->group_start();
+				$this->db->like('tbl_category.cat_nm', $dataSrch['srch_all']);
+				$this->db->or_like('tbl_category.cat_nm_kh', $dataSrch['srch_all']);
+				$this->db->group_end();
+			}
     	    
     	    $this->db->order_by("com_id", "cat_nm");
     	    return $this->db->get('tbl_category',$dataSrch['limit'],$dataSrch['offset'])->result();
@@ -42,6 +49,13 @@
     	    if($dataSrch['cat_nm_kh'] != null && $dataSrch['cat_nm_kh'] != ""){
     	        $this->db->like('tbl_category.cat_nm_kh', $dataSrch['cat_nm_kh']);
     	    }
+
+			if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+				$this->db->group_start();
+				$this->db->like('tbl_category.cat_nm', $dataSrch['srch_all']);
+				$this->db->or_like('tbl_category.cat_nm_kh', $dataSrch['srch_all']);
+				$this->db->group_end();
+			}
     	    
     	    return $this->db->get()->result();
     	}

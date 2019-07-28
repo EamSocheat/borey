@@ -7,7 +7,7 @@
           <form role="form" class="form-horizontal" id="frmCustomer" action="" style="display: none">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
-              <span aria-hidden="true">&times;</span></button>
+            <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="popupTitle">Default Modal</h4>
           </div>
           

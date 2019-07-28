@@ -1,14 +1,14 @@
 <?php include 'v_popup_header.php';?>
 	  <!-- general form elements -->
-	  <input type="hidden" id="braId" name="braId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
+	  <input type="hidden" id="suppId" name="suppId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
 	  <input type="hidden" id="frmAct" name="frmAct" value="<?php if(isset($_GET["action"])){ echo $_GET["action"]; }?>"/>
 	  <input type="hidden" id="parentId" name="parentId" value="<?php if(isset($_GET["parentId"])){ echo $_GET["parentId"]; }?>"/>
 	  <!-- form start -->
-      <div role="form" class="form-horizontal" id="frmBranch" action="" style="display: none">
+      <div role="form" class="form-horizontal" id="frmSupplier" action="" style="display: none">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
           <span aria-hidden="true">&times;</span></button>
-        <h4  class="modal-title" id="popupTitle"><i class="fa fa-user-plus"></i> <span data-i18ncd="pop_select_product">Choose Product</span></h4>
+        <h4 class="modal-title" id="popupTitle"><i class="fa fa-home"></i> <span data-i18ncd="pop_select_supplier">Select Supplier</span></h4>
       </div>
       
       <div class="modal-body" id="modalMdBody">
@@ -36,18 +36,40 @@
 				<!-- /.button -->
 				<br>
 				<div class="box-body table-responsive fix-header-tbl" style="height: 235px;">
-				  <table class="table table-hover" id="tblProduct">
-				    <thead>  
-    					<tr>
-    					  <th><input type="checkbox" id="chkAllProduct"></th>
-    					  <th data-i18ncd="lb_name">Name</th>
-    					  <th data-i18ncd="lb_name_kh">Khmer Name</th>
-    					  <th data-i18ncd="lb_action">Action</th>
-    					</tr>
-					</thead>
+				  <table class="table table-hover" id="tblSupplier">
+					  <colgroup>
+						  <col style="width:5px;">
+						  <col style="width:150px;">
+						  <col style="width:100px;">
+<!--						  <col style="width:100px;">-->
+						  <col style="width:100px;">
+						  <col style="width:10px;">
+					  </colgroup>
+					  <thead>
+					  	<tr>
+							<th></th>
+							<th data-i18ncd="lb_name">ឈ្មោះ</th>
+							<th data-i18ncd="lb_phone">លេខទូរស័ព្ទ</th>
+<!--							<th data-i18ncd="lb_email">អ៊ីមែល</th>-->
+							<th data-i18ncd="lb_addr">អាស័យដ្ឋាន</th>
+							<th data-i18ncd="lb_action">សកម្មភាព</th>
+						</tr>
+					  </thead>
 					<tbody>
-						
-   					</tbody>
+						<tr>
+							<td><div><input type="radio" id="chkSupplier" class="radio_box"></div></td>
+							<td><div class="sup_nm">supplier 000001</div></td>
+							<td><div>012 121 989</div></td>
+							<td><div>supplier@gmail.com</div></td>
+							<td><div>Siem Reap</div></td>
+							<td class="act_btn text-center">
+								<button onclick="editData(11)" type="button" class="btn btn-primary btn-xs">
+									<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+					
 				  </table>
 				</div>
 				<!-- /.box-body -->
@@ -63,4 +85,4 @@
       <!-- form end --> 
       <!-- end general form elements -->
 <?php include 'v_popup_footer.php';?>
-<script src="<?php echo base_url('assets/') ?>js/pages/popup/v_popup_form_product.js"></script>
+<script src="<?php echo base_url('assets/') ?>js/pages/popup/v_popup_select_supplier.js"></script>

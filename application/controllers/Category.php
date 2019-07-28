@@ -37,6 +37,7 @@ class Category extends CI_Controller{
             'cat_nm_kh' => $this->input->post('categoryNmKh'),
             'limit'     => $this->input->post('limit'),
             'offset'    => $this->input->post('offset'),
+			'srch_all'  => $this->input->post('srchAll')
         );
         
         $data["OUT_REC"]     = $this->M_category->selectCategoryData($dataSrch);

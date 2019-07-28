@@ -68,6 +68,10 @@
     body select.form-control{
         padding: 0px 5px !important;
     }
+	 #tblCustomer tbody > tr.cust-data:hover{ cursor: pointer; }
+	.cur-pointer{ cursor: pointer; }
+	.line-height{ line-height: 48px; font-size: 1.2em; }
+ 
   </style>
 </head>
 <body class="hold-transition skin-black-light sidebar-mini fixed">
