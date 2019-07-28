@@ -12,8 +12,8 @@ var _thisPage = {
 		},
 		onload : function(){
 			parent.$("#loading").hide();
-			clearForm();
-			loadCurrencyData();
+			
+		
 			stock.comm.inputCurrency("lRate");
 			stock.comm.inputCurrency("lAmt");
 			
@@ -135,31 +135,6 @@ var _thisPage = {
 		}
 };
 
-function loadCurrencyData(){
-    parent.$("#loading").show();
-	$.ajax({
-		type: "POST",
-		url : $("#base_url").val() +"Currency/getCurrency",
-		// data: new FormData($("#frmContract")[0]),
-		dataType: "json",
-		async: false,
-		success: function(res) {
-		    parent.$("#loading").hide();
-		    $("#cboCurrency").html("");
-		    var html = '';
-			if(res.OUT_REC != null && res.OUT_REC.length > 0){
-				$.each(res.OUT_REC, function(i,v){
-					html += '<option value="'+v.cur_id+'">'+ (getCookie("lang") == "kh" ? v.cur_nm_kh : v.cur_nm) +'</option>';
-				});
-				$("#cboCurrency").html(html);
-			}
-		},
-		error : function(data) {
-			console.log(data);
-			stock.comm.alertMsg($.i18n.prop("msg_err"));
-        }
-	});
-}
 
 function saveData(str){
 	$("#contId").appendTo("#frmContract");    

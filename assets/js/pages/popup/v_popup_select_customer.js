@@ -29,7 +29,7 @@ var _thisPage = {
 			parent.$("#loading").show();
 			var controllerNm = "PopupFormCustomer";
 			var option = {};
-			option["height"] = "570px";
+			option["height"] = "620px";
 			var data = "parentId="+"ifameStockSelect";
 			
 			parent.stock.comm.openPopUpForm(controllerNm,option, data,null,"modalMdBranch","modalMdContentBranch","ifameStockFormBranch");
@@ -219,7 +219,7 @@ function editData(bra_id){
 	data+="&parentId="+"ifameStockSelect";
 	var controllerNm = "PopupFormBranch";
 	var option={};
-	option["height"] = "460px";
+	option["height"] = "500px";
     parent.stock.comm.openPopUpForm(controllerNm,option, data,null,"modalMdBranch","modalMdContentBranch","ifameStockFormBranch");
 }
 
@@ -265,7 +265,6 @@ function resetFormSearch(){
  * 
 */
 function popupCustomerCallback(){
-	console.log("log testing");
 	_pageNo  = 1;
 	_perPage = $("#tblCustomer tbody tr").length;
     getData();
