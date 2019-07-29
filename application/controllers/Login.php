@@ -37,7 +37,7 @@ class Login extends CI_Controller {
 		            $usrNm=$r->usr_nm;
 		            $comId = $r->com_id;
 		            $usrId = $r->usr_id;
-		            $staffPos= $r->pos_nm;
+		            $staffPos= $r->pos_nm_kh;
 		            $staffPhone= $r->sta_phone1;
 		            $staffPhoto= $r->sta_photo;
 		            $staffNm=$r->sta_nm;
@@ -123,7 +123,7 @@ class Login extends CI_Controller {
     			'usrId'  => $usrId,
     			'staffPos' => $staffPos,
 				'staffPhone' => $staffPhone,
-    			'staffPhone' => $staffPhoto,
+    			'staffPhoto' => $staffPhoto,
 				'staffNm' => $staffNm,
     	        'editYn' => $editYn,
     	        'addYn' => $addYn

@@ -39,21 +39,8 @@
             		</div>
 
             		<div class="col-xs-4 padding-forms-right">
-            			<div class="form-group">
-                           	<label for="cboCurrency" data-i18ncd="lb_currency">Currency</label>
-                        	<select class="form-control" id="cboCurrency" name="cboCurrency" style="font-size: 14px;">
-                        		<!-- <option value="M">Please Select</option>
-	                    		<option value="M">Reil</option> -->
-			                </select>
-                        </div>
-            		</div>
-            	</div>
-
-            	<!-- second row -->
-            	<div class="col-xs-12 row" style="padding:0px">
-            		<div class="col-xs-4 padding-forms-left">
-            			<div class="form-group">
-            				<label for="txtContSD" data-i18ncd="lb_contract_start">Contract Start Date</label>
+                        <div class="form-group">
+            				<label for="txtContSD" >ថ្ងៃកក់ប្រាក់</label>
 							<div class="input-group date">
 								<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 									<i class="fa fa-calendar"></i>
@@ -62,25 +49,19 @@
 							</div>
             			</div>
             		</div>
-            		<div class="col-xs-4 padding-forms-right">
-            			<div class="form-group">
-				      		<label  for="lAmt" data-i18nCd="lb_principle_amt">Loan Amount</label>
-				        	<input type="text" class="form-control" id="lAmt" placeholder="Enter loan amount" name="lAmt" autocomplete="off" />
-				    	</div>
-            		</div>
-            		
-            		<div class="col-xs-4 padding-forms-right">
-            			<div class="form-group">
-				    		<label for="lRate" data-i18nCd="lb_interest_amt" >Loan Interest(%)</label>
-					      	<input  type="text" maxlength="5" class="form-control" id="lRate" placeholder="Enter interest" name="lRate" autocomplete="off" />
-				      	</div>  
-            		</div>
             	</div>
-            	<!-- 3 row -->
+
+            	<!-- second row -->
             	<div class="col-xs-12 row" style="padding:0px">
             		<div class="col-xs-4 padding-forms-left">
             			<div class="form-group">
-				      		<label  for="cbointerestType" data-i18nCd="lb_interest_type">Interest Type</label>
+				      		<label  for="lAmt" >លុយកក់</label>
+				        	<input type="text" class="form-control" id="lAmt" placeholder="Enter loan amount" name="lAmt" autocomplete="off" />
+				    	</div>
+            		</div>
+            		<div class="col-xs-4 padding-forms-right">
+            			<div class="form-group">
+				      		<label  for="cbointerestType" >អ្នកទទួលលុយ(បុគ្គលិក)</label>
                 			 <select class="form-control" id="cbointerestType" name="cbointerestType" style="font-size: 14px;">
 	                    		<option value="M" data-i18nCd="lb_interest_type_M">Monthly</option>
 	                    		<option value="Y" data-i18nCd="lb_interest_type_Y">Yearly</option>
@@ -90,61 +71,37 @@
             		
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-				      		<label for="lYear" data-i18nCd="lb_year">Year</label>
-				        	<input type="text" maxlength="2" class="form-control" id="lYear" placeholder="Enter year" name="lYear" autocomplete="off" />
-				    	</div> 
-            		</div>
-            		
-            		<div class="col-xs-4 padding-forms-right">
-            			<div class="form-group">
-				    		<label for="lMonth" data-i18nCd="lb_month">Month</label>
-					      	<input type="text" maxlength="2" class="form-control" id="lMonth" placeholder="Enter month" name="lMonth" autocomplete="off" />
-				      	</div> 	
+            				<label for="txtContSD1" >ថ្ងៃផុតកំណត់</label>
+							<div class="input-group date">
+								<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+									<i class="fa fa-calendar"></i>
+								</div>
+								<input type="text" class="form-control pull-right date-pick" id="txtContSD1" name="txtContSD1" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
+							</div>
+            			</div>
             		</div>
             	</div>
+            	<!-- 3 row -->
                 <div class="col-xs-12 row" style="padding:0px">
-                    <div class="col-xs-12 padding-forms-left">
+                    <div class="col-xs-8 padding-forms-left">
                         <div class="form-group">
                             <label  for="txtDesc" data-i18nCd="lb_des">Description</label>
                             <input type="text" class="form-control" id="txtDesc" placeholder="Enter Description" name="txtDesc" autocomplete="off" />
                         </div>
                     </div>
+                    
+                    <div class="col-xs-4 padding-forms-right">
+            			<div class="form-group">
+				      		<label  for="cbointerestType" >អ្នកលក់(បុគ្គលិក)</label>
+                			 <select class="form-control" id="cbointerestType" name="cbointerestType" style="font-size: 14px;">
+	                    		<option value="M" data-i18nCd="lb_interest_type_M">Monthly</option>
+	                    		<option value="Y" data-i18nCd="lb_interest_type_Y">Yearly</option>
+			                </select>
+				    	</div>
+            		</div>
+            		
                 </div>
-                <!-- data readonly -->
-                <div class="col-xs-12 row" style="padding:0;min-height: 55px;" id="divContractEnd">
-                    <div class="col-xs-4 padding-forms-left">
-                        <div class="form-group" style="display: none;" id="divEnd1">
-                            <label for="txtContSD" data-i18ncd="lb_contract_end">Contract End Date</label>
-                            <div class="input-group date">
-                                <div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right date-pick" id="txtContED" name="txtContED" disabled="disabled" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" autocomplete="off" />
-                            </div>
-                        </div>
-                    </div>
-                    <!--
-                    <div class="col-xs-4 padding-forms-right" >
-                        <div class="form-group" style="display: none;" id="divEnd2">
-                            <label  for="totalLAmt" data-i18nCd="lb_total_priciple">Total Loaned Amount</label>
-                            <input type="text" class="form-control" id="totalLAmt" placeholder="Loaned amount" name="totalL" disabled="disabled" autocomplete="off" />
-                        </div> 
-                    </div>
-                     -->
-                    <div class="col-xs-4 padding-forms-right" >
-                        <div class="form-group" style="display: none;" id="divEnd3">
-                            <label for="totalLRate" data-i18nCd="lb_total_priciple">Total Paid Amount</label>
-                            <input type="text" class="form-control" id="totalLRate" placeholder="Enter interest" name="totalLRate" disabled="disabled" autocomplete="off" />
-                        </div>  
-                    </div>
-                     <div class="col-xs-4 padding-forms-right" >
-                        <div class="form-group" style="display: none;" id="divEnd2">
-                            <label for="totalLRate" data-i18nCd="lb_income">Total Income</label>
-                            <input type="text" class="form-control" id="totalIncome" placeholder="Enter interest" name="totalIncome" disabled="disabled" autocomplete="off" />
-                        </div>  
-                    </div>
-                </div>
-                <!-- // data readonly -->                
+                             
             <!-- end modal body  -->
         </div>
      

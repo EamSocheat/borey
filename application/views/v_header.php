@@ -137,17 +137,23 @@
 						<!-- User Account: style can be found in dropdown.less -->
 						<li class="dropdown user user-menu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<img src="<?php echo base_url('assets/') ?>dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+								<img src="<?php  $imageUrl= $_SESSION['staffPhoto'];
+													if($imageUrl == '' || $imageUrl == null){
+														$imageUrl = 'assets/dist/img/user2-160x160.jpg';
+													}else{
+														$imageUrl = 'upload/'.$imageUrl;
+													} 
+													echo base_url().$imageUrl; ?>" class="user-image" alt="User Image">
 								<span class="hidden-xs"><?php echo $_SESSION['usrNm']; ?></span>
 							</a>
 							<ul class="dropdown-menu">
 								<!-- User image -->
 								<li class="user-header">
-									<img src="<?php echo base_url('assets/') ?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+									<img src=" <?php echo base_url().$imageUrl; ?>" class="img-circle" alt="User Image">
 
 									<p>
-										Alexander - Web Developer
-										<small>Member since July. 2019</small>
+										<?php if($_SESSION['staffNm'] != null && $_SESSION['staffNm'] != '' && $_SESSION['staffNm'] != 'null'){ echo $_SESSION['staffNm'].' - ';}  ?>  <?php echo $_SESSION['staffPos'];  ?>
+										<small></small>
 									</p>
 								</li>
 								<!-- Menu Body -->
@@ -168,10 +174,10 @@
 								<!-- Menu Footer-->
 								<li class="user-footer">
 									<div class="pull-left">
-										<a href="#" class="btn btn-default btn-flat">Profile</a>
+										<a href="#" id="btnProfile" class="btn btn-default btn-flat">ប្តូរលេខសំងាត់</a>
 									</div>
 									<div class="pull-right">
-										<a href="#" class="btn btn-default btn-flat">Sign out</a>
+										<a href="#" id="btnLogout" class="btn btn-warning btn-flat">ចាកចេញ</a>
 									</div>
 								</li>
 							</ul>
