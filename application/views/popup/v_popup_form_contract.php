@@ -71,12 +71,12 @@
             		
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-            				<label for="txtContSD1" >ថ្ងៃផុតកំណត់</label>
+            				<label for="txtContED" >ថ្ងៃផុតកំណត់</label>
 							<div class="input-group date">
-								<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+								<div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 									<i class="fa fa-calendar"></i>
 								</div>
-								<input type="text" class="form-control pull-right date-pick" id="txtContSD1" name="txtContSD1" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
+								<input type="text" class="form-control pull-right date-pick" id="txtContED" name="txtContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
 							</div>
             			</div>
             		</div>
@@ -100,6 +100,34 @@
 				    	</div>
             		</div>
             		
+                </div>
+                
+                <div class="col-xs-12 row" style="padding:0px">
+                	<div style="text-align: right;    margin-right: 5px;">
+                		<button  type="button" class="btn btn-info btn-sm" id="btnSelect"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
+                	</div>
+                	<!--  -->
+                	<br>
+                	<div class="col-xs-12 padding-forms-left">
+                    	<div class="box-body table-responsive fix-header-tbl" style="height: 150px;padding: 0px;">
+        				  <table class="table table-hover" id="tblBranch" >
+        				    <thead>  
+            					<tr>
+            					  <th><input type="checkbox" id="chkAll"></th>
+            					  <th data-i18ncd="lb_name">Name</th>
+            					  <th data-i18ncd="lb_name_kh">Khmer Name</th>
+            					  <th data-i18ncd="lb_branch_type">Type</th>
+            					  <th data-i18ncd="lb_action">Action</th>
+            					</tr>
+        					</thead>
+        					<tbody>
+        					   
+        					</tbody>
+        					
+        				  </table>
+        				</div> 	
+                	</div>
+    				<!--  --> 
                 </div>
                              
             <!-- end modal body  -->

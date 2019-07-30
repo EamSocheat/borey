@@ -19,7 +19,7 @@ var _thisPage = {
 			
 			//
 			$('#txtContSD').datepicker({
-				language: (getCookie("lang") == "kh" ? "kh" : "en"),
+				language: "kh",
 				weekStart: true,
 		        todayBtn:  true,
 				autoclose: true,
@@ -29,6 +29,21 @@ var _thisPage = {
 				format: "dd-mm-yyyy",
 		    });
 			$("#txtContSD").inputmask();
+			
+			//
+			$('#txtContED').datepicker({
+				language: "kh" ,
+				weekStart: true,
+		        todayBtn:  true,
+				autoclose: true,
+				todayHighlight: 1,
+				forceParse: 0,
+				sideBySide: true,
+				format: "dd-mm-yyyy",
+				minDate: new Date("2019-07-30")
+		    });
+			$("#txtContED").inputmask();
+			//
 
 			if($("#frmAct").val() == "U"){
 			    getDataEdit($("#contId").val());
