@@ -67,27 +67,16 @@ class Contract extends CI_Controller{
         }
 
         $data = array(
-            'cus_id'        => $this->input->post('txtCusId'),
-            'con_start_dt'  => date('Y-m-d H:i:s',strtotime($this->input->post('txtContSD'))),
-            'cur_id'        => $this->input->post('cboCurrency'),
-            'con_principle' => $this->input->post('lAmt'),
-            'con_interest'  => $this->input->post('lRate'),
-            'con_interest_type' => $this->input->post('cbointerestType'),
-            'con_per_year'  => $this->input->post('lYear'),
-            'con_per_month' => $this->input->post('lMonth'),
-            'con_desc' => $this->input->post('txtDesc'),            
+            'cus_id'        	=> $this->input->post('txtCusId'),
+        	'con_total_price' => $this->input->post('txtAmtBooking'),
+            'con_date'  	=> date('Y-m-d H:i:s',strtotime($this->input->post('txtContSD'))),
+        	'con_date_exp'    => date('Y-m-d H:i:s',strtotime($this->input->post('txtContED'))),
+            'con_desc' 		=> $this->input->post('txtDesc'),      
+        	'seller_id'        => $this->input->post('cboSeller'),
+        	'rec_id'        => $this->input->post('cboReceiver')     
         );
         
-        $con_id  = $this->M_contract->selectId();
-        foreach($con_id as $r){
-            $max_id = (int)$r->con_id + 1;
-            $max_id = (string)$max_id;
-            $zero   = '';
-            for($i = strlen($max_id); $i <= 9; $i++){
-                $zero = '0'.$zero;
-            }
-            $con_id = $zero.$max_id;
-        }
+        
 
         if($this->input->post('contId') != null && $this->input->post('contId') != ""){
             //update data
@@ -102,7 +91,22 @@ class Contract extends CI_Controller{
             $data['regUsr'] = $_SESSION['usrId'];
             $data['regDt']  = date('Y-m-d H:i:s');
             $data['con_no'] = $con_id;
-            $this->M_contract->insert($data);
+            $con_id = $this->M_contract->insert($data);
+            $old_con_id = $con_id;
+            
+            $max_id = $con_id + 1;
+            $max_id = (string)$max_id;
+            $zero   = '';
+            for($i = strlen($max_id); $i <= 9; $i++){
+                $zero = '0'.$zero;
+            }
+            $con_id = $zero.$max_id;
+	        
+            $dataUpdate = array(
+            	'con_code' => $con_id,
+            	'con_id' => $old_con_id,
+            );
+            $this->M_contract->update($dataUpdate);
         }
 
         echo 'OK';

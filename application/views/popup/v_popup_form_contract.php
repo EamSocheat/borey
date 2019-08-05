@@ -55,16 +55,15 @@
             	<div class="col-xs-12 row" style="padding:0px">
             		<div class="col-xs-4 padding-forms-left">
             			<div class="form-group">
-				      		<label  for="lAmt" >លុយកក់</label>
-				        	<input type="text" class="form-control" id="lAmt" placeholder="Enter loan amount" name="lAmt" autocomplete="off" />
+				      		<label  for="txtAmtBooking" >លុយកក់</label>
+				        	<input type="text" class="form-control" id="txtAmtBooking" placeholder="Enter loan amount" name="txtAmtBooking" autocomplete="off" />
 				    	</div>
             		</div>
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-				      		<label  for="cbointerestType" >អ្នកទទួលលុយ(បុគ្គលិក)</label>
-                			 <select class="form-control" id="cbointerestType" name="cbointerestType" style="font-size: 14px;">
-	                    		<option value="M" data-i18nCd="lb_interest_type_M">Monthly</option>
-	                    		<option value="Y" data-i18nCd="lb_interest_type_Y">Yearly</option>
+				      		<label  for="cboReceiver" >អ្នកទទួលលុយ(បុគ្គលិក)</label>
+                			 <select class="form-control" id="cboReceiver" name="cboReceiver" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
+	                    		
 			                </select>
 				    	</div>
             		</div>
@@ -92,10 +91,9 @@
                     
                     <div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-				      		<label  for="cbointerestType" >អ្នកលក់(បុគ្គលិក)</label>
-                			 <select class="form-control" id="cbointerestType" name="cbointerestType" style="font-size: 14px;">
-	                    		<option value="M" data-i18nCd="lb_interest_type_M">Monthly</option>
-	                    		<option value="Y" data-i18nCd="lb_interest_type_Y">Yearly</option>
+				      		<label  for="cboSeller" >អ្នកលក់(បុគ្គលិក)</label>
+                			 <select class="form-control" id="cboSeller" name="cboSeller" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
+	                    		
 			                </select>
 				    	</div>
             		</div>
@@ -104,20 +102,18 @@
                 
                 <div class="col-xs-12 row" style="padding:0px">
                 	<div style="text-align: right;    margin-right: 5px;">
-                		<button  type="button" class="btn btn-info btn-sm" id="btnSelect"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
+                		<button  type="button" class="btn btn-info btn-sm" id="btnSelectPro"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
                 	</div>
                 	<!--  -->
                 	<br>
                 	<div class="col-xs-12 padding-forms-left">
                     	<div class="box-body table-responsive fix-header-tbl" style="height: 150px;padding: 0px;">
-        				  <table class="table table-hover" id="tblBranch" >
+        				  <table class="table table-hover" id="tblProduct" >
         				    <thead>  
             					<tr>
-            					  <th><input type="checkbox" id="chkAll"></th>
-            					  <th data-i18ncd="lb_name">Name</th>
-            					  <th data-i18ncd="lb_name_kh">Khmer Name</th>
-            					  <th data-i18ncd="lb_branch_type">Type</th>
-            					  <th data-i18ncd="lb_action">Action</th>
+            					  <th>លេខកូដ</th>
+	        					  <th>ប្រភេទ</th>
+	        					  <th>គំរោង</th>
             					</tr>
         					</thead>
         					<tbody>
