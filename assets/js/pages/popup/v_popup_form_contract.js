@@ -14,8 +14,9 @@ var _thisPage = {
 			parent.$("#loading").hide();
 			//
 			getStaff();
-			stock.comm.inputCurrency("lRate");
-			stock.comm.inputCurrency("lAmt");
+			getPaymentMethod()
+			stock.comm.inputCurrency("txtAmtBooking");
+			//stock.comm.inputCurrency("lAmt");
 			
 			//
 			$('#txtContSD').datepicker({
@@ -27,22 +28,12 @@ var _thisPage = {
 				forceParse: 0,
 				sideBySide: true,
 				format: "dd-mm-yyyy",
+		    }).on('changeDate', function (ev) {
+		    	$('#txtContED').data("DateTimePicker").clear();
+		    	settingEndDate();
 		    });
 			$("#txtContSD").inputmask();
 			
-			//
-			$('#txtContED').datepicker({
-				language: "kh" ,
-				weekStart: true,
-		        todayBtn:  true,
-				autoclose: true,
-				todayHighlight: 1,
-				forceParse: 0,
-				sideBySide: true,
-				format: "dd-mm-yyyy",
-				minDate: new Date("2019-07-30")
-		    });
-			$("#txtContED").inputmask();
 			//
 
 			if($("#frmAct").val() == "U"){
@@ -59,6 +50,7 @@ var _thisPage = {
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
 			
+			settingEndDate();
 			
 		},
 		event : function(){
@@ -164,22 +156,33 @@ function saveData(str){
 	$("#contId").appendTo("#frmContract");    
     
     var isCusomterEmpty = $("#txtCusNm").val().trim();
-       if(stock.comm.isNull(isCusomterEmpty) || stock.comm.isEmpty(isCusomterEmpty)){
-    	
-    	return;
+   if(stock.comm.isNull(isCusomterEmpty) || stock.comm.isEmpty(isCusomterEmpty)){
+	   showCustomerErr();
+	   return;
     }
        
     var productChk=$("#tblProduct tbody tr");
+    if(productChk.length < 1){
+    	showProductErr();
+    	return;
+    }
    	var productArr=[];
    	productChk.each(function(i){
    		productArr.push(parseInt($(this).attr("data-id")));
    	});
    
 	parent.$("#loading").show();
+	//
+	$("#txtAmtBooking").val($("#txtAmtBooking").val().replace(/,/g,''));
+	$("#txtCusNm").css("border-color","#ced4da");
+	$("#btnSelectPro").css("border-color","#ced4da");
+	parent.$("#msgErr").hide();
+	//
+	
 	$.ajax({
 		type : "POST",
 		url  : $("#base_url").val() +"Contract/saveContract",
-		data: $("#frmContract").serialize()+"&menuArr="+menuArr ,
+		data: $("#frmContract").serialize()+"&productArr="+productArr ,
 		success: function(res) {
 		    parent.$("#loading").hide();
 		    console.log(res)
@@ -209,7 +212,7 @@ function updateContractStatus(status){
 		data: input,
 		dataType: "json",
 		success: function(res) {
-			console.log(res);
+			
 		    if(res > 0){
 		    	if(status == "0"){
 		    		parent.stock.comm.alertMsg($.i18n.prop("msg_close"),"braNm");
@@ -341,11 +344,16 @@ function selectCustomerCallback(data){
 	
 	$("#txtCusId").val(data["cus_id"]);
 	$("#txtCusPhone").val(data["cus_phone1"]);
+	
+	$("#txtCusNm").css("border-color","#ced4da");
+	parent.$("#msgErr").hide();
+	
 }
 
 function selectPositionCallback(data){
 	$("#txtPosNm").val(data["pos_nm"]);
 	$("#txtPosId").val(data["pos_id"]);
+	
 }
 
 function selectProductCallback(data){
@@ -364,6 +372,8 @@ function selectProductCallback(data){
 		}
 	}
 	
+	$("#btnSelectPro").css("border-color","#ced4da");
+	parent.$("#msgErr").hide();
 }
 
 
@@ -400,4 +410,74 @@ function getStaff(){
 			stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
         }
 	});
+}
+
+/**
+ * 
+ * @returns
+ */
+function getPaymentMethod(){
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"Contract/getPaymentMethod",
+		dataType: 'json',
+		async: false,
+		success: function(res) {
+			if(res.OUT_REC.length > 0){
+				$("#cboPaymentMet option").remove();
+				$("#cboPaymentMet").append("<option value=''>សូមជ្រើសរើសវីធីបង់ប្រាក់</option>");
+				
+				for(var i=0; i<res.OUT_REC.length; i++){
+					var braNm = res.OUT_REC[i]["met_nm_kh"];
+					$("#cboPaymentMet").append("<option value='"+res.OUT_REC[i]["met_id"]+"'>"+braNm+"</option>");
+				}
+				
+			}else{
+				console.log(res);
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
+        }
+	});
+}
+
+function showCustomerErr(){
+	$("#txtCusNm").css("border-color","red");
+	parent.$("#msgShw").html("សូមជ្រើសរើស អតិថិជន!!!");
+	parent.$("#msgErr").show();
+	
+}
+
+function showProductErr(){
+	$("#btnSelectPro").css("border-color","red");
+	parent.$("#msgShw").html(" សូមជ្រើសរើស អចលនទ្រព្យ!!!");
+	parent.$("#msgErr").show();
+	
+}
+
+function settingEndDate(){
+
+	var newDate = "";
+	var newDay = $("#txtContSD").val().substring(0,2);
+	var newMonth = $("#txtContSD").val().substring(3,5);
+	var newYear = $("#txtContSD").val().substring(6,10);
+	newDate = newYear+"-"+newMonth+"-"+newDay;
+	console.log(newDate);
+	var myDate = moment(newDate, 'dd-mm-yyyy').toDate();
+	console.log(myDate);
+	//
+	$('#txtContED').datepicker({
+		language: "kh" ,
+		weekStart: true,
+        todayBtn:  true,
+		autoclose: true,
+		todayHighlight: 1,
+		forceParse: 0,
+		sideBySide: true,
+		format: "dd-mm-yyyy",
+		startDate : myDate
+    });
+	$("#txtContED").inputmask();
 }

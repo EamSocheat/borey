@@ -1,5 +1,6 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set("Asia/Bangkok");
 
 class Contract extends CI_Controller{
     public function __construct(){
@@ -11,7 +12,7 @@ class Contract extends CI_Controller{
         $this->load->helper('form');
         $this->load->model('M_contract');
         $this->load->model('M_common');
-       
+        $this->load->model('M_house');
     }
     
     public function index(){
@@ -26,7 +27,10 @@ class Contract extends CI_Controller{
         
         $this->load->view('v_contract',$data);
     }
-
+	public function getPaymentMethod(){
+		$data["OUT_REC"] = $this->M_common->selectPaymentMethod();
+        echo json_encode($data);
+	}
     public function getContract(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
@@ -71,9 +75,11 @@ class Contract extends CI_Controller{
         	'con_total_price' => $this->input->post('txtAmtBooking'),
             'con_date'  	=> date('Y-m-d H:i:s',strtotime($this->input->post('txtContSD'))),
         	'con_date_exp'    => date('Y-m-d H:i:s',strtotime($this->input->post('txtContED'))),
-            'con_desc' 		=> $this->input->post('txtDesc'),      
+            'con_des' 		=> $this->input->post('txtDesc'),      
         	'seller_id'        => $this->input->post('cboSeller'),
-        	'rec_id'        => $this->input->post('cboReceiver')     
+        	'rec_id'        => $this->input->post('cboReceiver'),
+          	'con_pay_met'        => $this->input->post('cboPaymentMet'),
+        	'con_tran_id'        => $this->input->post('txtTran'),
         );
         
         
@@ -90,14 +96,12 @@ class Contract extends CI_Controller{
             $data['com_id'] = $_SESSION['comId'];
             $data['regUsr'] = $_SESSION['usrId'];
             $data['regDt']  = date('Y-m-d H:i:s');
-            $data['con_no'] = $con_id;
+         
             $con_id = $this->M_contract->insert($data);
             $old_con_id = $con_id;
-            
-            $max_id = $con_id + 1;
-            $max_id = (string)$max_id;
+            $max_id = (string)$con_id;
             $zero   = '';
-            for($i = strlen($max_id); $i <= 9; $i++){
+            for($i = strlen($max_id); $i <= 6; $i++){
                 $zero = '0'.$zero;
             }
             $con_id = $zero.$max_id;
@@ -107,6 +111,28 @@ class Contract extends CI_Controller{
             	'con_id' => $old_con_id,
             );
             $this->M_contract->update($dataUpdate);
+            
+            $productArr = explode(",",$this->input->post('productArr'));
+            for($j=0; $j<sizeof($productArr);$j++){
+            	$dataDetial = array();
+            	
+            	$dataDetial['con_id']  = $old_con_id;
+            	$dataDetial['pro_id']  = $productArr[$j];
+            	$dataDetial['useYn']  = 'Y';
+	            $dataDetial['com_id'] = $_SESSION['comId'];
+	            $dataDetial['regUsr'] = $_SESSION['usrId'];
+	            $dataDetial['regDt']  = date('Y-m-d H:i:s');
+	            $this->M_contract->insertDetial($dataDetial);
+            	
+	            $dataHouse = array();
+	            $dataHouse['pro_status'] = 'B';
+	            $dataHouse['pro_id'] = $productArr[$j];
+	            $data['upUsr']  = $_SESSION['usrId'];
+           		$data['upDt']   = date('Y-m-d H:i:s');
+           		
+            	$this->M_house->update($dataHouse);
+            	
+            }
         }
 
         echo 'OK';

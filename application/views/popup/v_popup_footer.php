@@ -252,8 +252,8 @@ function checkCookieLang(){
     		$("#langDrop").attr("data-lng","kh");
     		$("body").css("font-size","14px");
 	    	$("body .form-control").css("font-size","14px");
-	    	$("body .input-sm").css("font-size","13px");
-	    	$("body .form-control-sm").css("font-size","13px");
+	    	$("body .input-sm").css("font-size","14px");
+	    	$("body .form-control-sm").css("font-size","14px");
 			/* 
     		$("body .form-control").css("font-size","14px");
     		$("body .form-control-sm").css("font-size","13px");

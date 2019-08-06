@@ -22,7 +22,7 @@
             			<div class="form-group">
 							<label for="cusNm2" data-i18ncd="lb_customer_name">Customer Name</label>
 							<div class="input-group">
-								<input type="text" style="height: 34px;" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm" autocomplete="off" />
+								<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm" autocomplete="off" />
 								<span id="btnPopupCusch" class="input-group-addon label-info" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
 							</div>
 							<input type="hidden" id="txtCusId" name="txtCusId">
@@ -33,7 +33,7 @@
             			<div class="form-group">
 							<label for="txtCusPhone" data-i18ncd="lb_customer_phone">Customer Phone</label>
 							<div class="input-group" style="width:100%;">
-								<input style="height: 34px; border-radius: 3px;" type="text"  class="form-control input-sm" disabled="disabled" id="txtCusPhone" name="txtCusPhone" autocomplete="off" />
+								<input style="height: 34px; border-radius: 3px;font-size: 14px;" type="text"  class="form-control input-sm" disabled="disabled" id="txtCusPhone" name="txtCusPhone" autocomplete="off" />
 							</div>
 						</div>
             		</div>
@@ -55,9 +55,11 @@
             	<div class="col-xs-12 row" style="padding:0px">
             		<div class="col-xs-4 padding-forms-left">
             			<div class="form-group">
-				      		<label  for="txtAmtBooking" >លុយកក់</label>
-				        	<input type="text" class="form-control" id="txtAmtBooking" placeholder="Enter loan amount" name="txtAmtBooking" autocomplete="off" />
-				    	</div>
+            				<label  for="cboSeller" >អ្នកលក់(បុគ្គលិក)</label>
+                			<select class="form-control" id="cboSeller" name="cboSeller" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
+	                    		
+			                </select>
+			        	</div>
             		</div>
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
@@ -82,31 +84,47 @@
             	</div>
             	<!-- 3 row -->
                 <div class="col-xs-12 row" style="padding:0px">
-                    <div class="col-xs-8 padding-forms-left">
+                    <div class="col-xs-4 padding-forms-left">
+                    	<div class="form-group">
+	                        <label  for="cboPaymentMet" >វីធីបង់ប្រាក់</label>
+	                		<select class="form-control" id="cboPaymentMet" name="cboPaymentMet" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសវីធីបង់ប្រាក់ ')" oninput="setCustomValidity('')">
+	                    		
+		                	</select>
+	                	</div>
+                    </div>
+                    <div class="col-xs-4 padding-forms-right">
+            			
+		                <div class="form-group">
+				      		<label  for="txtTran" >លេខប្រតិបត្តិការណ៍</label>
+				        	<input type="text" class="form-control" id="txtTran" placeholder="Enter loan amount" name="txtTran" autocomplete="off" />
+				    	</div>
+			    	
+            		</div>
+                    <div class="col-xs-4 padding-forms-right">
+            			
+		                <div class="form-group">
+				      		<label  for="txtAmtBooking" >ចំនូនលុយកក់</label>
+				        	<input type="text" class="form-control" id="txtAmtBooking" placeholder="Enter loan amount" name="txtAmtBooking" autocomplete="off" required="required" />
+				    	</div>
+			    	
+            		</div>
+            		
+                </div>
+                <div class="col-xs-12 row" style="padding:0px">
+                	<div class="col-xs-12 padding-forms-left">
                         <div class="form-group">
                             <label  for="txtDesc" data-i18nCd="lb_des">Description</label>
                             <input type="text" class="form-control" id="txtDesc" placeholder="Enter Description" name="txtDesc" autocomplete="off" />
                         </div>
                     </div>
-                    
-                    <div class="col-xs-4 padding-forms-right">
-            			<div class="form-group">
-				      		<label  for="cboSeller" >អ្នកលក់(បុគ្គលិក)</label>
-                			 <select class="form-control" id="cboSeller" name="cboSeller" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
-	                    		
-			                </select>
-				    	</div>
-            		</div>
-            		
                 </div>
-                
                 <div class="col-xs-12 row" style="padding:0px">
                 	<div style="text-align: right;    margin-right: 5px;">
                 		<button  type="button" class="btn btn-info btn-sm" id="btnSelectPro"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
                 	</div>
                 	<!--  -->
                 	<br>
-                	<div class="col-xs-12 padding-forms-left">
+                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
                     	<div class="box-body table-responsive fix-header-tbl" style="height: 150px;padding: 0px;">
         				  <table class="table table-hover" id="tblProduct" >
         				    <thead>  
@@ -129,10 +147,8 @@
             <!-- end modal body  -->
         </div>
      
-        <div class="modal-footer" style="text-align: center;">
+        <div class="modal-footer" >
             <input type="hidden" value="" id="statusID" name="statusID" />
-            <button data-i18ncd="btn_status_closed" type="button" class="btn btn-success btn-sm" id="btnStatusActive" style="float: left;display: none;">Close</button>
-            <button data-i18ncd="btn_status_active" type="button" class="btn btn-danger btn-sm" id="btnStatusClose" style="float: left;display: none;">Cancel Close</button>
             <button data-i18ncd="btn_save_new" type="submit" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
             <button data-i18ncd="btn_save" type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>
             <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>

@@ -187,7 +187,7 @@ var _thisPage = {
 				$("#loading").show();
 				var controllerNm = "PopupFormContract";
 				var option = {};
-				option["height"] = "580px";
+				option["height"] = "650px";
 				
 				stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
 			});			
@@ -315,7 +315,7 @@ function editData(cont_id){
 	var controllerNm = "PopupFormContract";
 	var option = {};
 	var data   = "id="+cont_id+"&action=U";
-	option["height"] = "580px";
+	option["height"] = "650px";
 	
 	stock.comm.openPopUpForm(controllerNm, option, data, "modal-lg");
 }

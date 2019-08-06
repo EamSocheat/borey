@@ -57,4 +57,10 @@
 		}
 		
 		
+		public function selectPaymentMethod(){
+			$this->db->select('*');
+			$this->db->from('tbl_payment_method');
+			return $this->db->get()->result();
+		}
+		
     }

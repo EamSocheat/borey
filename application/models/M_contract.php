@@ -184,4 +184,9 @@
             $this->db->insert('tbl_contract',$data);
             return $this->db->insert_id();
         }
+        
+		public function insertDetial($data){
+            $this->db->insert('tbl_contract_detail',$data);
+            return $this->db->insert_id();
+        }
     }
