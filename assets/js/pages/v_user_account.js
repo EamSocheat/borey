@@ -11,7 +11,7 @@ var _thisPage = {
 		_this.event();
 	},
 	onload : function(){
-		getStaff()
+		getStaff();
 		//
 		getData(); 
 		//

@@ -37,6 +37,9 @@ class Contract extends CI_Controller{
         }
         $startDate = $this->input->post('txtSrchContSD');
         $endDate   = $this->input->post('txtSrchContED');
+        $startDateExp = $this->input->post('txtSrchContSDExp');
+        $endDateExp   = $this->input->post('txtSrchContEDExp');
+        
         $conStatus = $this->input->post('cboStatus');
         if($startDate != null || $startDate != ""){
             $startDate = date('Y-m-d H:i:s',strtotime($startDate));
@@ -44,6 +47,14 @@ class Contract extends CI_Controller{
 
         if($endDate != null || $endDate != ""){
             $endDate = date('Y-m-d H:i:s',strtotime($endDate));
+        }
+        
+        if($startDateExp != null || $startDateExp != ""){
+            $startDateExp = date('Y-m-d H:i:s',strtotime($startDateExp));
+        }
+        
+        if($endDateExp != null || $endDateExp != ""){
+            $endDateExp = date('Y-m-d H:i:s',strtotime($endDateExp));
         }
 
         $dataSrch = array(
@@ -54,9 +65,12 @@ class Contract extends CI_Controller{
             'con_no'        => $this->input->post('txtSrchContCode'),
             'con_start_dt'  => $startDate,
             'con_end_dt'    => $endDate,
+            'con_start_dt_exp'  => $startDateExp,
+            'con_end_dt_exp'    => $endDateExp,
             'srch_status'   => $this->input->post('srch_status'),
             'srch_customer' => $this->input->post('txtSrchCusNm'),
         	'filter_status' 	=> $conStatus,
+            'srch_seller' 	=> $this->input->post('cboSeller'),
         	'srch_all'		=> $this->input->post('srchAll')
         );
 
@@ -80,6 +94,7 @@ class Contract extends CI_Controller{
         	'rec_id'        => $this->input->post('cboReceiver'),
           	'con_pay_met'        => $this->input->post('cboPaymentMet'),
         	'con_tran_id'        => $this->input->post('txtTran'),
+            'con_sta'        => 'B',
         );
         
         

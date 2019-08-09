@@ -8,6 +8,7 @@ var _thisPage = {
 		onload : function(){
 			this.event();
 			this.loadData();
+			getSeller();
 			stock.comm.checkAllTblChk("chkAllBox","tblContract","chk_box");
 
 			$('#txtSrchContSD').datepicker({
@@ -33,6 +34,30 @@ var _thisPage = {
 				format: "dd-mm-yyyy",
 		    });
 			$("#txtSrchContED").inputmask();
+			
+			$('#txtSrchContSDExp').datepicker({
+				language: (getCookie("lang") == "kh" ? "kh" : "en"),
+				weekStart: true,
+		        todayBtn:  true,
+				autoclose: true,
+				todayHighlight: 1,
+				forceParse: 0,
+				sideBySide: true,
+				format: "dd-mm-yyyy",
+		    });
+			$("#txtSrchContSDExp").inputmask();
+
+			$('#txtSrchContEDExp').datepicker({
+				language: (getCookie("lang") == "kh" ? "kh" : "en"),
+				weekStart: true,
+		        todayBtn:  true,
+				autoclose: true,
+				todayHighlight: 1,
+				forceParse: 0,
+				sideBySide: true,
+				format: "dd-mm-yyyy",
+		    });
+			$("#txtSrchContEDExp").inputmask();
 		}, loadData : function(page_no){
 			$("#chkAllBox").prop( "checked", false );
 		    var pageNo = 1;
@@ -51,6 +76,10 @@ var _thisPage = {
 		    dat["txtSrchContED"]	= $("#txtSrchContED").val();
 		    dat["txtSrchCusNm"]		= $("#txtSrchCusNm").val();
 		    dat["cboStatus"]		= $("#cboStatus").val();
+		    
+		    dat["txtSrchContSDExp"]	= $("#txtSrchContSDExp").val();
+		    dat["txtSrchContEDExp"]	= $("#txtSrchContEDExp").val();
+		    dat["cboSeller"]		= $("#cboSeller").val();
 		    
 		    $("#loading").show();
 		    $.ajax({
@@ -76,7 +105,7 @@ var _thisPage = {
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["met_nm_kh"]+'</div></td>';
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["cus_nm_kh"]+'</div></td>';
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["sta_nm_kh"] +'</div></td>';
-							html += 	'<td><div class="text-right">'+chkContStatus(res.OUT_REC[i]["con_sta"])+'</div></td>';
+							html += 	'<td><div class="text-center">'+chkContStatus(res.OUT_REC[i]["con_sta"])+'</div></td>';
 							html += 	'<td class="text-center">';
 							html +=			'<button onclick="editData('+res.OUT_REC[i]["con_id"]+')" type="button" class="btn btn-primary btn-xs">';
 							html += 		'<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
@@ -309,25 +338,38 @@ function editData(cont_id){
 	stock.comm.openPopUpForm(controllerNm, option, data, "modal-lg");
 }
 
-function showPeriod(y,m){
-	var strPer = '';
-	if((y != null && y != 0) && (m != null && m != 0)){
-		strPer = showYear(y) + showMonth(m);
-	}else if(y != null && y != 0){
-		strPer = showYear(y);
-	}else if(m != null && m != 0){
-		strPer = showMonth(m);
-	}else{
-		strPer = '';
-	}
-	return strPer;
+
+/**
+ * 
+ * @returns
+ */
+function getSeller(){
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"Staff/getStaff",
+		dataType: 'json',
+		async: false,
+		success: function(res) {
+			if(res.OUT_REC.length > 0){
+				$("#cboSeller option").remove();
+				$("#cboSeller").append("<option value=''>សូមជ្រើសរើសអ្នកលក់</option>");
+				
+				for(var i=0; i<res.OUT_REC.length; i++){
+					var braNm = res.OUT_REC[i]["sta_nm_kh"];
+					$("#cboSeller").append("<option value='"+res.OUT_REC[i]["sta_id"]+"'>"+braNm+"</option>");
+				}
+				
+			}else{
+				console.log(res);
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
+        }
+	});
 }
 
-
-function commaAmt(str){
-	str = String(str);
-	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-}
 
 function null2Zero(dat){
 	if(dat == null || dat == undefined || dat == "null" || dat == "undefined" || dat == ""){
@@ -338,10 +380,12 @@ function null2Zero(dat){
 
 function chkContStatus(s){
 	var statusStr = '';
-	if(s == "C"){
-		statusStr = '<span class="label label-warning">បោះបង់ <span>';
-	}else if(s == "B"){
+	if(s == "E"){
+		statusStr = '<span class="label label-warning">ផុតកំណត់ <span>';
+	}else if(s == "C"){
 		statusStr = '<span class="label label-danger">ត្រលប់ប្រាក់ <span>';
+	}else if(s == "S"){
+		statusStr = '<span class="label label-info">លក់ <span>';
 	}else{	
 		statusStr = '<span class="label label-success">បើក <span>';
 	}
@@ -370,5 +414,9 @@ function resetFormSearch(){
     $("#txtSrchContED").val("");
     $("#txtSrchCusNm").val("");
     $("#cboStatus").val("");
+    
+    $("#txtSrchContSDExp").val("");
+    $("#txtSrchContEDExp").val("");
+    $("#cboSeller").val("");
 }
 

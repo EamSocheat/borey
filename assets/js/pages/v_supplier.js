@@ -8,7 +8,7 @@ $(document).ready(function () {
 var _thisPage = {
 		onload : function(){
 			var _this = this;
-			_this.loadData();
+			_thisPage.loadData();
 			_this.event();
 			stock.comm.checkAllTblChk("chkAll","tblSupplier","chk_box");
 		}, loadData : function(page_no){
@@ -105,7 +105,7 @@ var _thisPage = {
 				        if($("#chkAll").is(":checked")){
 				        	_pageNo = 1;
 				        }
-				        _this.loadData(_pageNo);
+				        _thisPage.loadData(_pageNo);
 				    }else{
 				    	stock.comm.alertMsg($.i18n.prop("msg_err_del"));
 				        return;
@@ -117,19 +117,19 @@ var _thisPage = {
 		}, event : function(){
 			$("#txtSrchSupplNm, #txtSrchSupplNmKh").on("keypress", function(e){
 				if(e.which == 13){
-					_this.loadData(1);
+					_thisPage.loadData(1);
 				}
 			});
 			$("#paging").on("click", "li a", function(e) {
 		        var pageNo = $(this).html();
 		        _pageNo = pageNo;
-		        _this.loadData(pageNo);
+		        _thisPage.loadData(pageNo);
 		    });
 		}
 }
 
 function popupSupplierCallback(){
-	_this.loadData(_pageNo);
+	_thisPage.loadData(_pageNo);
 }
 
 function null2Void(dat){

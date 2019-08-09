@@ -58,10 +58,15 @@ var _thisPage = {
 						parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"suppplyNm");
 						if(str == "new"){
 						    clearForm();
-						    parent._this.loadData();
+						    
 						}else{
-							var parentFrame = $("#parentId").val();
-							var callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupSupplierCallback;
+							var callbackFunction=null;
+							if($("#parentId").val() != "" && $("#parentId").val() != null){
+								var parentFrame = $("#parentId").val();
+								callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupSupplierCallback;
+							}else{
+								callbackFunction = parent.popupSupplierCallback;
+							}
 							parent.stock.comm.closePopUpForm("PopupFormSupplier", callbackFunction);
 						}
 					}
@@ -73,8 +78,13 @@ var _thisPage = {
 			});
 		}, event : function(){
 			$("#btnClose, #btnExit").click(function(e){
-				var parentFrame = $("#parentId").val();
-				var callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupSupplierCallback;
+				var callbackFunction=null;
+				if($("#parentId").val() != "" && $("#parentId").val() != null){
+					var parentFrame = $("#parentId").val();
+					callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupSupplierCallback;
+				}else{
+					callbackFunction = parent.popupSupplierCallback;
+				}
 				parent.stock.comm.closePopUpForm("PopupFormSupplier", callbackFunction);
 
 			});
