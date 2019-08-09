@@ -8,33 +8,13 @@
     	}
 
     	function selectContractData($dataSrch){
-    	    $this->db->select('tbl_contract.*, tbl_customer.cus_nm, tbl_customer.cus_phone1, tbl_customer.cus_nm_kh, tbl_customer.cus_id, tbl_currency.cur_nm, tbl_currency.cur_nm_kh, tbl_currency.cur_syn, tbl_contract.con_principle,
-                (tbl_contract.con_principle 
-                    - 
-                (select COALESCE(sum(tbl_payment.pay_loan), 0)
-                    from tbl_payment where tbl_payment.con_id = tbl_contract.con_id and tbl_payment.useYn = "Y")
-                ) as loan_amount_left,
-                CASE WHEN (select tbl_payment.pay_date
-                                    from tbl_payment where tbl_payment.con_id = tbl_contract.con_id
-                                    and tbl_payment.useYn = "Y"
-                                    order by tbl_payment.pay_id desc
-                                    limit 1)
-                IS NULL THEN  tbl_contract.con_start_dt
-                ELSE
-                (select tbl_payment.pay_date
-                            from tbl_payment where tbl_payment.con_id = tbl_contract.con_id
-                            and tbl_payment.useYn = "Y"
-                            order by tbl_payment.pay_id desc
-                            limit 1) 
-                END                     
-                as pay_last_date,
-                (( select COALESCE(sum(tbl_payment.pay_int), 0) + COALESCE(sum(tbl_payment.pay_loan), 0) from tbl_payment where tbl_payment.con_id = tbl_contract.con_id and tbl_payment.useYn = "Y")) as total_paid_amt,
-                ( select  COALESCE(sum(tbl_payment.pay_loan), 0) from tbl_payment where tbl_payment.con_id = tbl_contract.con_id and tbl_payment.useYn = "Y") as total_paid_prin,
-                ( select COALESCE(sum(tbl_payment.pay_int), 0) from tbl_payment where tbl_payment.con_id = tbl_contract.con_id and tbl_payment.useYn = "Y") as total_paid_int,
-                (tbl_contract.con_principle - (select COALESCE(sum(tbl_payment.pay_loan), 0) from tbl_payment where tbl_payment.con_id = tbl_contract.con_id and tbl_payment.useYn = "Y")) as loan_amount_left');
+    	    $this->db->select('*');
             //$this->db->from('tbl_contract');
             $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
-            $this->db->join('tbl_currency','tbl_currency.cur_id = tbl_contract.cur_id');
+            $this->db->join('tbl_staff seller','seller.sta_id = tbl_contract.seller_id');
+            //$this->db->join('tbl_staff reciev','reciev.sta_id = tbl_contract.seller_id');
+            $this->db->join('tbl_payment_method','tbl_payment_method.met_id = tbl_contract.con_pay_met');
+            //$this->db->join('tbl_contract_detail','tbl_contract_detail.con_id = tbl_contract.con_id');
             $this->db->where('tbl_contract.com_id', $_SESSION['comId']);
             $this->db->where('tbl_contract.useYn', 'Y');
 
@@ -92,8 +72,9 @@
                 $this->db->or_like('tbl_contract.con_no', $dataSrch['srch_all']);
                 $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_all']);
             }
-
-            $this->db->order_by("con_id", "desc");
+            
+            //$this->db->group_by('tbl_contract.con_id');
+            $this->db->order_by("tbl_contract.con_id", "desc");
             return $this->db->get('tbl_contract',$dataSrch['limit'],$dataSrch['offset'])->result();
     	}
 
@@ -102,7 +83,7 @@
 		    $this->db->select('count(con_id) as total_rec');
             $this->db->from('tbl_contract');
             $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
-            $this->db->join('tbl_currency','tbl_currency.cur_id = tbl_contract.cur_id');
+            $this->db->join('tbl_payment_method','tbl_payment_method.met_id = tbl_contract.con_pay_met');
             $this->db->where('tbl_contract.com_id', $_SESSION['comId']);
             $this->db->where('tbl_contract.useYn', 'Y');
 

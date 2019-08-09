@@ -38,11 +38,11 @@
 											<div class="col-sm-3 col-md-3 col-lg-3" style="
 												">
 												<div class="form-group form-inline">
-													<label for="txtSrchContCode" class="control-label" data-i18ncd="lb_contract_no" style="
+													<label for="txtSrchContCode" class="control-label"  style="
 														margin-bottom: 7px;
 														display: -webkit-box;
-													">áž›áŸ�áž�ážŸáž˜áŸ’áž‚áž¶áž›áŸ‹áž€áž·áž…áŸ’áž…ážŸáž“áŸ’áž™áž¶</label>
-													<input type="text" class="form-control input-sm" id="txtSrchContCode" placeholder="áž”áž‰áŸ’áž‡áž¼áž› áž›áŸ�áž�ážŸáž˜áŸ’áž‚áž¶áž›áŸ‹áž€áž·áž…áŸ’áž…ážŸáž“áŸ’áž™áž¶" style="
+													">លេខសម្គាល់ការកក់ប្រាក់​​</label>
+													<input type="text" class="form-control input-sm" id="txtSrchContCode" placeholder="" style="
 													">
 												</div>
 											</div>
@@ -50,23 +50,22 @@
 												">
 												<div class="input-group date" style="
 													">
-													<label for="txtSrchContSD" class="control-label" data-i18ncd="lb_contract_start" style="
+													<label for="txtSrchContSD" class="control-label" style="
 														margin-bottom: 7px;
 														display: table-caption;
-													">áž…áž¶áž”áŸ‹áž•áŸ’ážŠáž¾áž˜áž€áž·áž…áŸ’áž…ážŸáž“áŸ’áž™áž¶</label>
+													">ថ្ងៃកក់ប្រាក់​​​</label>
 													<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;padding: 5px 11px;">
 														<i class="fa fa-calendar"></i>
 													</div>
-													<input type="text" class="form-control pull-left date-pick" id="txtSrchContSD" name="txtSrchContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="áž”áž‰áŸ’áž‡áž¼áž› " style="font-size: 12px;width: 60%;">
+													<input type="text" class="form-control pull-left date-pick" id="txtSrchContSD" name="txtSrchContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="" style="font-size: 12px;width: 60%;">
 												</div>
 											</div>
 											<div class="col-sm-3 col-md-3 col-lg-3" style="
 												">
 												<div class="input-group date">
-													<label for="txtSrchContED" class="control-label" data-i18ncd="lb_contract_end" style="
+													<label for="txtSrchContED" class="control-label"  style="
 														display: table-caption;
-														margin-bottom: 7px;
-													">áž€áž·áž…áŸ’áž…ážŸáž“áŸ’áž™áž¶áž”áž‰áŸ’áž…áž”áŸ‹</label>
+														margin-bottom: 7px;"> ​</label>
 													<div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
 														<i class="fa fa-calendar"></i>
 													</div>
@@ -78,8 +77,8 @@
                                                     <label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_customer" style="
 														margin-bottom: 7px;
 														display: -webkit-box;
-													">ážˆáŸ’áž˜áŸ„áŸ‡</label>
-                                                    <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="áž”áž‰áŸ’áž‡áž¼áž› áž…áž¶áž”áŸ‹áž•áŸ’ážŠáž¾áž˜áž€áž·áž…áŸ’áž…ážŸáž“áŸ’áž™áž¶">
+													">អតិថិជន</label>
+                                                    <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="អតិថិជន">
                                                 </div>
                                             </div>
 										</div>
@@ -97,7 +96,7 @@
 													<label for="cboStatus" class="control-label" data-i18ncd="lb_status" style="
 														margin-bottom: 7px;
 														display: -webkit-box;
-													">Status</label>
+													">ការប្រើប្រាស់ </label>
 													<select class="form-control" id="cboStatus" name="cboStatus" style="font-size: 14px;min-width: 150px;">
 														<option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
 														<option value="1" data-i18ncd="lb_active">Active</option>
@@ -128,7 +127,7 @@
 									<button type="button" id="btnDelete" class="btn btn-danger btn-sm" style="margin-right: 5px"><i class="fa fa-trash" aria-hidden="true"></i> <span data-i18ncd="btn_delete">Delete</span></button>
 									<!-- <button type="button" id="btnEdit" class="btn btn-primary btn-sm" style="margin-right: 5px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span data-i18ncd="btn_edit">Edit</span></button> -->
 									<button type="button" id="btnAddNew" class="btn btn-default btn-sm" onclick="_thisPage.addNewData();"><i class="fa fa-plus" aria-hidden="true"></i> <span data-i18ncd="btn_add_new">Add New</span></button>
-									<button type="button" id="btnDownExcel" class="btn btn-success btn-sm" style="margin-left: 7px;"><i class="fa fa-download" aria-hidden="true"></i> <span data-i18ncd="btn_excel">Download Excel</span></button>
+									<!-- <button type="button" id="btnDownExcel" class="btn btn-success btn-sm" style="margin-left: 7px;"><i class="fa fa-download" aria-hidden="true"></i> <span data-i18ncd="btn_excel">Download Excel</span></button>-->
 									<div style="margin-left: 5px;display: none;">
 		                                <form method="post" action="<?php echo base_url(); ?>Contract/download_excel" id="btnExcel">
 		                                    <input type="submit" value="Submit">
@@ -144,8 +143,7 @@
 							
 							<div class="pull-right" style="padding-bottom: 5px;">
 								<form class="form-inline" action="">
-									<!--<label for="limitRow" data-i18ncd="lb_records">Records</label>-->
-									<button type="button" id="btnShowRecord" class="btn btn-default btn-sm" style="margin-right: 5px"><i class="fa fa-cog" aria-hidden="true"></i> <span data-i18ncd="lb_records">Record</span></button>
+									<label for="limitRow" data-i18ncd="lb_records">Records</label>
 									<select class="form-control input-sm" id="perPage" onchange="_thisPage.loadData(1);">
 										<option value="1" data-i18ncd="lb_row1">1 rows</option>
 										<option value="10" data-i18ncd="lb_row10" selected="selected">10 rows</option>
@@ -163,32 +161,20 @@
 							<table class="table table-hover" id="tblContract">
 								<thead>
 									<tr>
-										<th><input type="checkbox" id="chkAllBox" style="display: none;"></th>
-										<th data-i18ncd="lb_contract_no">Contract Code</th>
-										<th data-i18ncd="lb_contract_start" class="txt_c">Contract Start</th>
-										<th data-i18ncd="lb_principle_amt" class="txt_r">Loan Amount</th>
-										<th data-i18ncd="lb_interest_amt" class="txt_r">Loan Interest(%)</th>
-										<th data-i18ncd="lb_interest_type" class="txt_c">Interest Type</th>
-										<th data-i18ncd="lb_period" class="txt_c">Period</th>
-										<th data-i18ncd="lb_customer" class="txt_c">Customer</th>
-										<th data-i18ncd="lb_status" class="txt_c">Status</th>
-										<th data-i18ncd="lb_action" class="txt_c">Action</th>
+										<th><input type="checkbox" id="chkAllBox" ></th>
+										<th class="txt_c">លេខសម្គាល់ </th>
+										<th class="txt_c">ថ្ងៃកក់ប្រាក់</  </th>
+										<th class="txt_r">ថ្ងៃផុតកំណត់</<< </th>
+										<th class="text-right">ចំនូនលុយកក់</    </th>
+										<th class="text-right">វីធីបង់ប្រាក់</   </th>
+										<th class="text-right">អតិថិជន</  </th>
+										<th class="text-right">អ្នកលក់(បុគ្គលិក)</th>
+										<th class="text-right">ការប្រើប្រាស់</  </th>
+										<th data-i18ncd="lb_action"​ class="txt_c">Action</th>
 									</tr>
 								</thead>
 								<tbody>
-									<!-- <tr>
-										<td class="chk_box"><input type="checkbox"></td>
-										<td><div>000001</div></td>
-										<td><div>2019-02-08</div></td>
-										<td><div>200$</div></td>
-										<td><div>10%</div></td>
-										<td><div>M</div></td>
-										<td><div>1 year</div></td>
-										<td><div>customer 00001</div></td>
-										<td class="text-center">
-											<button onclick="" type="button" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-										</td>
-									</tr> -->
+									
 								</tbody>
 							</table>
 						</div>

@@ -66,45 +66,32 @@ var _thisPage = {
 					if(res.OUT_REC != null && res.OUT_REC.length >0){
 						
 					    for(var i=0; i<res.OUT_REC.length;i++){
-					    	if(res.OUT_REC[i]["cur_id"] == "1"){
-								totalRiels += parseFloat(stock.comm.null2Void(res.OUT_REC[i]["con_principle"], 0));
-								totalPaidIntRiels+= parseFloat(stock.comm.null2Void(res.OUT_REC[i]["total_paid_int"], 0));
-								totalPaidPrinRiels+= parseFloat(stock.comm.null2Void(res.OUT_REC[i]["total_paid_prin"], 0));
-							}else if(res.OUT_REC[i]["cur_id"] == "2"){
-								totalDollar += parseFloat(stock.comm.null2Void(res.OUT_REC[i]["con_principle"], 0));
-								totalPaidIntDollar+= parseFloat(stock.comm.null2Void(res.OUT_REC[i]["total_paid_int"], 0));
-								totalPaidPrinDollar+= parseFloat(stock.comm.null2Void(res.OUT_REC[i]["total_paid_prin"], 0));
-							}
-
+					    	
 					    	html += '<tr data-id='+res.OUT_REC[i]["con_id"]+'>';
 					        html += 	'<td class="chk_box"><input type="checkbox"></td>';
-							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["con_no"])+'</div></td>';
-							html += 	'<td><div class="txt_c">'+stringDate(res.OUT_REC[i]["con_start_dt"].substr(0,10))+'</div></td>';
-							html += 	'<td><div class="txt_r">'+stock.comm.formatCurrency(res.OUT_REC[i]["con_principle"])+res.OUT_REC[i]["cur_syn"]+'</div></td>';
-							html += 	'<td><div class="txt_r">'+res.OUT_REC[i]["con_interest"]+'%</div></td>';
-							html += 	'<td><div class="txt_c">'+$.i18n.prop("lb_interest_type_"+res.OUT_REC[i]["con_interest_type"])+'</div></td>';
-							html += 	'<td><div class="txt_c">'+showPeriod(res.OUT_REC[i]["con_per_year"], res.OUT_REC[i]["con_per_month"])+'</div></td>';
-							html += 	'<td><div class="txt_c">'+(getCookie("lang") == "kh" ? res.OUT_REC[i]["cus_nm_kh"] : res.OUT_REC[i]["cus_nm"]) +'</div></td>';
-							html += 	'<td><div class="txt_c">'+chkContStatus(res.OUT_REC[i]["con_status"])+'</div></td>';
+							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["con_code"])+'</div></td>';
+							html += 	'<td><div class="txt_c">'+stringDate(res.OUT_REC[i]["con_date"].substr(0,10))+'</div></td>';
+							html += 	'<td><div class="txt_r">'+stringDate(res.OUT_REC[i]["con_date_exp"].substr(0,10))+'</div></td>';
+							html += 	'<td><div class="text-right">'+stock.comm.formatCurrency(res.OUT_REC[i]["con_total_price"])+' $</div></td>';
+							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["met_nm_kh"]+'</div></td>';
+							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["cus_nm_kh"]+'</div></td>';
+							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["sta_nm_kh"] +'</div></td>';
+							html += 	'<td><div class="text-right">'+chkContStatus(res.OUT_REC[i]["con_sta"])+'</div></td>';
 							html += 	'<td class="text-center">';
 							html +=			'<button onclick="editData('+res.OUT_REC[i]["con_id"]+')" type="button" class="btn btn-primary btn-xs">';
 							html += 		'<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
 							html += 	'</td>';
 							html += '</tr>';
 							
-							
+							totalDollar += parseFloat(res.OUT_REC[i]["con_total_price"]);
 					    }
 
-					    strTotal +='<tr class="total" style="height: 20px;"><td colspan="2"><button onclick="reportShowHide()" style="width:100%" type="button" class="btn btn-default btn-sm" id="btnReportClose"><i class="fa fa-cog" aria-hidden="true"></i> '+$.i18n.prop("lb_report")+'</button></td></tr>';
-					    strTotal += '<tr class="total total_hide" >';
-						strTotal += '	<td colspan="2" ><b>'+$.i18n.prop("lb_cal_loan_amt_total")+'</b></td>';
-						strTotal += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b></td>';
-						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalRiels))+addCurrency("1", totalRiels)+'</b></td>';
-						strTotal += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b></td>';
-						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalDollar))+addCurrency("2", totalDollar)+'</b></td>';
-						strTotal += '<td colspan="4"></td>';
+					    strTotal += '<tr class="total" >';
+						strTotal += '	<td colspan="4" ><b>សរុប​</b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+totalDollar+' $ </b></td>';
+						strTotal += '<td colspan="6"></td>';
 						strTotal += '</tr>';
-						
+						/*
 						strTotalPaidInt += '<tr class="total total_hide" >';
 						strTotalPaidInt += '	<td colspan="2"><b>'+$.i18n.prop("lb_int_income_total")+'</b></td>';
 						strTotalPaidInt += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b></td>';
@@ -141,7 +128,9 @@ var _thisPage = {
 					    $("#tblContract tbody").html(html);
 					    $("#tblContract tbody").append(strTotal);
 					    $("#tblContract tbody").append(strTotalPaidInt);
-					    $("#tblContract tbody").append(strTotalPaidPrin);
+					    $("#tblContract tbody").append(strTotalPaidPrin);*/
+					    $("#tblContract tbody").html(html);
+					    $("#tblContract tbody").append(strTotal);
 					    stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 					}else{
 						$("#chkAllBox").hide();
@@ -334,35 +323,6 @@ function showPeriod(y,m){
 	return strPer;
 }
 
-function addCurrency(curId,amt){
-	if(curId == "1" && !stock.comm.isEmpty(amt) && amt != 0){
-		return "៛";	
-	}else if(curId == "2" && !stock.comm.isEmpty(amt) && amt != 0){
-		return "$";
-	}else{
-		return "";
-	}
-}
-
-function showYear(y){
-	var year = '';
-	if(y > 1){
-		year = y+"&nbsp;"+$.i18n.prop("lb_years")+"&nbsp;";
-	}else{
-		year = y+"&nbsp;"+$.i18n.prop("lb_year")+"&nbsp;";
-	}
-	return year;
-}
-
-function showMonth(m){
-	var month = '';
-	if(m > 1){
-		month = m+"&nbsp;"+$.i18n.prop("lb_months")+"&nbsp;";
-	}else{
-		month = m+"&nbsp;"+$.i18n.prop("lb_month")+"&nbsp;";
-	}
-	return month;
-}
 
 function commaAmt(str){
 	str = String(str);
@@ -378,10 +338,12 @@ function null2Zero(dat){
 
 function chkContStatus(s){
 	var statusStr = '';
-	if(s != "0" || s != 0){
-		statusStr = '<span class="label label-success">'+$.i18n.prop("lb_active")+'</span>';
-	}else{		
-		statusStr = '<span class="label label-danger">'+$.i18n.prop("lb_close")+'</span>';
+	if(s == "C"){
+		statusStr = '<span class="label label-warning">បោះបង់ <span>';
+	}else if(s == "B"){
+		statusStr = '<span class="label label-danger">ត្រលប់ប្រាក់ <span>';
+	}else{	
+		statusStr = '<span class="label label-success">បើក <span>';
 	}
 	return statusStr;
 }
@@ -410,26 +372,3 @@ function resetFormSearch(){
     $("#cboStatus").val("");
 }
 
-function calRielsCurrency(val){
-	
-	if(val <=0 || val == 'null' || val == null ||  val == undefined || val == "undefined"){
-		return 0;
-	}
-	val = parseInt(val);
-	val = val.toString();
-	
-	if(val.substr((length-2),2) != "00"){
-    	val = val.substr(0,val.length-2) + "00";
-		val = parseInt(val) + 100;
-    }else{
-    	val = parseInt(val);
-    }
-    
-	return val;
-}
-
-function reportShowHide(){
-	$( ".total_hide" ).toggle( "fast", function() {
-	    // Animation complete.
-	});
-}
