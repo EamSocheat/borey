@@ -31,6 +31,18 @@ class Contract extends CI_Controller{
 		$data["OUT_REC"] = $this->M_common->selectPaymentMethod();
         echo json_encode($data);
 	}
+	public function getContractDetail(){
+	    if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	   
+	    $dataSrch = array(
+	        'con_id'        => $this->input->post('conId'),
+	    );
+	    
+	    $data["OUT_REC"] = $this->M_contract->selectContractDataDetail($dataSrch);
+	    echo json_encode($data);
+	}
     public function getContract(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
@@ -128,11 +140,13 @@ class Contract extends CI_Controller{
             $this->M_contract->update($dataUpdate);
             
             $productArr = explode(",",$this->input->post('productArr'));
+            $proPriceArr = explode(",",$this->input->post('proPriceArr'));
             for($j=0; $j<sizeof($productArr);$j++){
             	$dataDetial = array();
             	
             	$dataDetial['con_id']  = $old_con_id;
             	$dataDetial['pro_id']  = $productArr[$j];
+            	$dataDetial['pro_book_price'] = floatval($proPriceArr[$j]);
             	$dataDetial['useYn']  = 'Y';
 	            $dataDetial['com_id'] = $_SESSION['comId'];
 	            $dataDetial['regUsr'] = $_SESSION['usrId'];
@@ -162,9 +176,10 @@ class Contract extends CI_Controller{
         if($this->input->post('contId') != null && $this->input->post('contId') != ""){
             //update data
             $data['con_id'] = $this->input->post('contId');
-            $data['con_status']   = $this->input->post('statusID');
+            $data['con_sta']   = $this->input->post('statusID');
             $data['upUsr']  = $_SESSION['usrId'];
             $data['upDt']   = date('Y-m-d H:i:s');
+            $data['com_id'] = $_SESSION['comId'];
             $this->M_contract->update($data);
             $cntDel = 1;
         }

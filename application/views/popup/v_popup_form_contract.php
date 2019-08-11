@@ -17,6 +17,15 @@
 		<div class="modal-body" id="modalMdBody">
 		<!-- modal body  -->
 			<div class="row">
+				<div class="col-xs-12 row" style="padding:0px;display:none" id="btnEditDiv">
+					
+					<div class="col-xs-12 padding-forms-left text-left" style="padding-left: 35px;margin-bottom: 10px;">
+						<button type="button" class="btn btn-warning btn-xs" id="btnExp"><i class="fa fa-check" aria-hidden="true"></i> កំណត់ផុតកំណត់</button>
+						<button type="button" class="btn btn-danger btn-xs" id="btnReturn"><i class="fa fa-check" aria-hidden="true"></i> កំណត់ត្រលប់ប្រាក់ </button>
+						<button type="button" class="btn btn-success btn-xs" id="btnOpen"><i class="fa fa-check" aria-hidden="true"></i> កំណត់បើក </button>
+					</div>
+					
+				</div>
 				<div class="col-xs-12 row" style="padding:0px">
             		<div class="col-xs-4 padding-forms-left">
             			<div class="form-group">
@@ -132,6 +141,7 @@
             					  <th>លេខកូដ</th>
 	        					  <th>ប្រភេទ</th>
 	        					  <th>គំរោង</th>
+	        					  <th>តំលៃ $</th>
             					</tr>
         					</thead>
         					<tbody>
@@ -149,6 +159,7 @@
      
         <div class="modal-footer" >
             <input type="hidden" value="" id="statusID" name="statusID" />
+            <button type="button" class="btn btn-info btn-sm" id="btnPrint" style="display: none;">បោះពុម្ព</button>
             <button data-i18ncd="btn_save_new" type="submit" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
             <button data-i18ncd="btn_save" type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>
             <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>

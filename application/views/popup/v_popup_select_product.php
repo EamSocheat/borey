@@ -8,7 +8,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="popupTitle"><i class="fa fa-home"></i> <span data-i18ncd="pop_select_branch">Select Branch</span></h4>
+            <h4 class="modal-title" id="popupTitle"><i class="fa fa-home"></i> <span > ជ្រើសរើសអចលនទ្រព្យ</span></h4>
           </div>
           
           <div class="modal-body" id="modalMdBody">

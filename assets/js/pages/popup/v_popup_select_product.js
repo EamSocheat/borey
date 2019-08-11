@@ -59,8 +59,8 @@ var _thisPage = {
 		//
 		$("#btnChoose").click(function(e) {
 			var chkVal = $('#tblProduct tbody tr td.chk_box input[type="checkbox"]:checked');
-			if(chkVal.length < 1){
-			    parent.stock.comm.alertMsg("សូមជ្រើសរើសទិន្ន័យ!!!");
+			if(chkVal.length != 1){
+			    parent.stock.comm.alertMsg("សូមជ្រើសរើស អចលនទ្រព្យចំនួនមួយ!");
 				return;
 			}
 			
@@ -72,6 +72,7 @@ var _thisPage = {
 				data["pro_code"] = tblTr.find("td.pro_code").html();
 				data["cat_nm"] = tblTr.find("td.cat_nm").html();
 				data["bra_nm"] = tblTr.find("td.bra_nm").html();
+				data["pro_price"] = tblTr.find("td.pro_price").html();
 				data["pro_id"] = tblTr.attr("data-id");
 				dataArr.push(data);
 			});
@@ -136,7 +137,7 @@ function getData(){
 			        html += "<td class='pro_code cur-pointer'>"+res.OUT_REC[i]["pro_code"]+"</td>";
 			        html += "<td class='cat_nm cur-pointer'>"+res.OUT_REC[i]["cat_nm_kh"]+"</td>";
 			        html += "<td class='bra_nm cur-pointer'>"+res.OUT_REC[i]["bra_nm_kh"]+"</td>";
-			        html += "<td class='pro_price cur-pointer'>"+res.OUT_REC[i]["pro_price"]+"</td>";
+			        html += "<td class='pro_price cur-pointer'>"+stock.comm.formatCurrency(res.OUT_REC[i]["pro_price"])+"</td>";
 			        html += "</tr>";
 			        
 			        $("#tblProduct tbody").append(html);

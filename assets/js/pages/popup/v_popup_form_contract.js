@@ -28,9 +28,6 @@ var _thisPage = {
 				forceParse: 0,
 				sideBySide: true,
 				format: "dd-mm-yyyy",
-		    }).on('changeDate', function (ev) {
-		    	$('#txtContED').data("DateTimePicker").clear();
-		    	settingEndDate();
 		    });
 			$("#txtContSD").inputmask();
 			
@@ -148,6 +145,36 @@ var _thisPage = {
 				option["height"] = "460px";
 			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
 			});
+			
+			
+			$("#btnReturn").click(function(e){
+				top.stock.comm.confirmMsg("តើអ្នកប្រាកដថា ត្រលប់ប្រាក់ ទៅអតិថិជនមែនទេ ?");
+				
+				top.$("#btnConfirmOk").unbind().click(function(e){
+					top.$("#mdlConfirm").modal('hide');
+					updateContractStatus("C");
+				});
+			});
+			
+			
+			$("#btnExp").click(function(e){
+				top.stock.comm.confirmMsg("តើអ្នកប្រាកដថា ផុតកំណត់មែនទេ ?");
+				
+				top.$("#btnConfirmOk").unbind().click(function(e){
+					top.$("#mdlConfirm").modal('hide');
+					updateContractStatus("E");
+				});
+			});
+			
+			$("#btnOpen").click(function(e){
+				top.stock.comm.confirmMsg("តើអ្នកប្រាកដថា បើកការប្រើប្រាស់មែនទេ ?");
+				
+				top.$("#btnConfirmOk").unbind().click(function(e){
+					top.$("#mdlConfirm").modal('hide');
+					updateContractStatus("F");
+				});
+			});
+			
 		}
 };
 
@@ -167,11 +194,13 @@ function saveData(str){
     	return;
     }
    	var productArr=[];
+   	var productPriceArr=[];
    	productChk.each(function(i){
    		productArr.push(parseInt($(this).attr("data-id")));
+   		productPriceArr.push($(this).find("td.pro_price input").val().replace(/,/g,''));
+   		
    	});
-   
-	parent.$("#loading").show();
+   	
 	//
 	$("#txtAmtBooking").val($("#txtAmtBooking").val().replace(/,/g,''));
 	$("#txtCusNm").css("border-color","#ced4da");
@@ -182,7 +211,7 @@ function saveData(str){
 	$.ajax({
 		type : "POST",
 		url  : $("#base_url").val() +"Contract/saveContract",
-		data: $("#frmContract").serialize()+"&productArr="+productArr ,
+		data: $("#frmContract").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr ,
 		success: function(res) {
 		    parent.$("#loading").hide();
 		    console.log(res)
@@ -205,7 +234,7 @@ function saveData(str){
 function updateContractStatus(status){
 	var input = {};
 	input["contId"] = $("#contId").val();
-	input["statusID"] = $("#statusID").val();
+	input["statusID"] = status;
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Contract/udpateStatus",
@@ -214,12 +243,8 @@ function updateContractStatus(status){
 		success: function(res) {
 			
 		    if(res > 0){
-		    	if(status == "0"){
-		    		parent.stock.comm.alertMsg($.i18n.prop("msg_close"),"braNm");
-		    	}else{
-		    		parent.stock.comm.alertMsg($.i18n.prop("msg_active"),"braNm");
-		    	}
-				
+		    	
+		    	parent.stock.comm.alertMsg("ការកំណត់បាន ជោគជ័យ");
 				parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
 			}else{
 				stock.comm.alertMsg($.i18n.prop("msg_err_del"));
@@ -235,85 +260,73 @@ function updateContractStatus(status){
 }
 
 function getDataEdit(cont_id){
+	$("#btnSave").remove();
     //
     $("#loading").show();
     $.ajax({
 		type: "POST",
-		url : $("#base_url").val() +"Contract/getContract",
+		url : $("#base_url").val() +"Contract/getContractDetail",
 		data: {"conId":cont_id},
 		dataType: "json",
 		async: false,
 		success: function(res) {
 			//$("#btnSave").hide();
+			console.log(res.OUT_REC);
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
+				var status = res.OUT_REC[0]["con_sta"];
+				if(status != "S"){
+					if(status =="E"){
+						$("#btnExp").hide();
+					}else if(status =="C"){
+						$("#btnReturn").hide();
+					}else{
+						$("#btnOpen").hide();
+					}
+					$("#btnEditDiv").show();
+				}
 				
-				var status = res.OUT_REC[0]["con_status"];
-				$("#balanceLeft").text( $.i18n.prop("lb_pay_balance") +" : "+ stock.comm.formatCurrency(res.OUT_REC[0]["loan_amount_left"])+res.OUT_REC[0]["cur_syn"]);	
-				$("#contractNo").text( $.i18n.prop("lb_contract_no") +" : "+ res.OUT_REC[0]["con_no"]);		
+				
+				$("#btnPrint").show();
+				
+				
+				//$("#balanceLeft").text( $.i18n.prop("lb_pay_balance") +" : "+ stock.comm.formatCurrency(res.OUT_REC[0]["loan_amount_left"])+res.OUT_REC[0]["cur_syn"]);	
+				$("#contractNo").text( $.i18n.prop("lb_contract_no") +" : "+ res.OUT_REC[0]["con_code"]);		
 				
 			    $("#txtCusNm").val(res.OUT_REC[0]["cus_nm_kh"]);
 			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
 			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
-			    $("#cboCurrency option[value='"+res.OUT_REC[0]["cur_id"]+"']").attr("selected",true);
-			    //$("#cboCurrency").val(res.OUT_REC[0]["cur_id"]);
-			    $("#txtContSD").val(moment(res.OUT_REC[0]["con_start_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+			    $("#txtContSD").val(moment(res.OUT_REC[0]["con_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
 			    $("#lAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_principle"]));
-			    $("#lRate").val(res.OUT_REC[0]["con_interest"]);
-				$("#cbointerestType option[value='"+res.OUT_REC[0]["con_interest_type"]+"']").attr("selected",true);
-			    $("#lYear").val(res.OUT_REC[0]["con_per_year"]);
-			    $("#lMonth").val(res.OUT_REC[0]["con_per_month"]);
-			    
-			    $("#txtContED").val(moment(res.OUT_REC[0]["con_end_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-		    	$("#totalLAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["total_paid_amt"]));
-		    	var totalPaidAmt = parseFloat(res.OUT_REC[0]["total_paid_int"]) + parseFloat(res.OUT_REC[0]["total_paid_prin"]);
-		    	var totalIncome = totalPaidAmt - parseFloat(res.OUT_REC[0]["con_principle"]);
-		    	if(totalIncome  < 0){
-		    		totalIncome = 0;
-				}
-		    	if(res.OUT_REC[0]["cur_id"] == 1){
-		    		$("#totalLRate").val(stock.comm.formatCurrency(calRielsCurrency(totalPaidAmt)) +"៛");
-		    		$("#totalIncome").val(stock.comm.formatCurrency(calRielsCurrency(totalIncome)) +"៛");
-		    	}else{
-		    		$("#totalLRate").val(stock.comm.formatCurrency(totalPaidAmt)+"$");
-		    		$("#totalIncome").val(stock.comm.formatCurrency(totalIncome)+"$");
-		    	}
-			    
-			    
+			    $("#cboSeller").val(res.OUT_REC[0]["seller_id"]);
+			    $("#cboReceiver").val(res.OUT_REC[0]["rec_id"]);
+			    $("#txtTran").val(res.OUT_REC[0]["con_tran_id"]);
+			    $("#txtDesc").val(res.OUT_REC[0]["con_des"]);
+			    $("#cboPaymentMet").val(res.OUT_REC[0]["con_pay_met"]);
+			    $("#txtContED").val(moment(res.OUT_REC[0]["con_date_exp"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+		    	$("#txtAmtBooking").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
+		    	
+			    $("#btnSelectPro").hide();
+		    	
 			    $("#divEnd1").show();
 		    	$("#divEnd2").show();
 			    $("#divEnd3").show();
-			    
-			    if(status == "0"){
-			    	$("#btnStatusActive").show();
-			    	$("#btnStatusClose").hide();
-			    	$("#statusID").val("1");
-			    	$("#btnSave").hide();
-
-				    $("#divEnd1").show();
-				   /* $("#divEnd2").show();
-				    $("#divEnd3").show();*/
-				    
-			    	// $("#btnStatus").attr("data-i18ncd", "btn_status_closed");
-			    }else{
-			    	$("#divEnd1").hide();
-			    	/*$("#divEnd2").hide();
-				    $("#divEnd3").hide();*/
-				    
-			    	$("#btnStatusActive").hide();
-			    	$("#btnStatusClose").show();
-			    	$("#statusID").val("0");
-			    	// $("#btnStatus").attr("data-i18ncd", "btn_status_active");
-			    	$("#btnSave").show();
+			 
+			    $("#tblProduct tbody").html("");
+			    for(var i=0;i<res.OUT_REC.length; i++){
+			    	
+					var rec = res.OUT_REC[i];
+					var html = "<tr data-id='"+rec["pro_id"]+"'>";
+			        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
+			        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
+			        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
+			        html += "<td class='pro_price cur-pointer'>"+stock.comm.formatCurrency(rec["pro_book_price"])+"</td>";
+			        html += "</tr>";
+			        
+			        $("#tblProduct tbody").append(html);
+					
 			    }
 
-			    /*$("#txtAddr").val(res.OUT_REC[0]["cont_addr"]);
-			    $("#txtPhone1").val(res.OUT_REC[0]["cont_phone1"]);
-			    $("#txtPhone2").val(res.OUT_REC[0]["cont_phone2"]);
-			    $("#txtEmail").val(res.OUT_REC[0]["cont_email"]);
-			    $("#txtStartDate").val(moment(res.OUT_REC[0]["sta_start_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtEndDate").val(moment(res.OUT_REC[0]["sta_end_dt"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#txtDes").val(res.OUT_REC[0]["sta_des"]);*/
-			    
+			    $("#frmContract input,#frmContract textarea,#frmContract select").prop("disabled",true);
 			}else{
 			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -333,6 +346,7 @@ function clearForm(){
     $("#frmContract textarea").val("");
     $("#staImgView").attr("src",$("#base_url").val()+"assets/image/default-staff-photo.png");
     $("#txtContractNm").focus();
+    $("#tblProduct tbody").html("");
 }
 
 function selectCustomerCallback(data){
@@ -365,7 +379,7 @@ function selectProductCallback(data){
 	        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
 	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
-	        //html += "<td class='pro_price cur-pointer'>"+res.OUT_REC[i]["pro_price"]+"</td>";
+	        html += "<td class='pro_price cur-pointer'><input class='form-control input-sm' type='text' value ='"+rec["pro_price"]+"'></td>";
 	        html += "</tr>";
 	        
 	        $("#tblProduct tbody").append(html);
@@ -459,14 +473,14 @@ function showProductErr(){
 
 function settingEndDate(){
 
-	var newDate = "";
+	/*var newDate = "";
 	var newDay = $("#txtContSD").val().substring(0,2);
 	var newMonth = $("#txtContSD").val().substring(3,5);
 	var newYear = $("#txtContSD").val().substring(6,10);
 	newDate = newYear+"-"+newMonth+"-"+newDay;
 	console.log(newDate);
 	var myDate = moment(newDate, 'dd-mm-yyyy').toDate();
-	console.log(myDate);
+	console.log(myDate);*/
 	//
 	$('#txtContED').datepicker({
 		language: "kh" ,
@@ -476,8 +490,7 @@ function settingEndDate(){
 		todayHighlight: 1,
 		forceParse: 0,
 		sideBySide: true,
-		format: "dd-mm-yyyy",
-		startDate : myDate
+		format: "dd-mm-yyyy"
     });
 	$("#txtContED").inputmask();
 }
