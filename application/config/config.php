@@ -24,7 +24,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://localhost/borey/borey';
-$config['base_url'] = 'http://localhost/borey_dev';
 //$config['base_url'] = 'http://localhost/git/stock';
 
 /*

@@ -120,11 +120,19 @@
             		
                 </div>
                 <div class="col-xs-12 row" style="padding:0px">
-                	<div class="col-xs-12 padding-forms-left">
+                	<div class="col-xs-8 padding-forms-left">
                         <div class="form-group">
                             <label  for="txtDesc" data-i18nCd="lb_des">Description</label>
                             <input type="text" class="form-control" id="txtDesc" placeholder="Enter Description" name="txtDesc" autocomplete="off" />
                         </div>
+                    </div>
+                    <div class="col-xs-4 padding-forms-right">
+                        <div class="form-group">
+	                        <label  for="cboConType" >ប្រភេទកិច្ចសន្យា</label>
+	                		<select class="form-control" id="cboConType" name="cboConType" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសវីធីបង់ប្រាក់ ')" oninput="setCustomValidity('')">
+	                    		
+		                	</select>
+	                	</div>
                     </div>
                 </div>
                 <div class="col-xs-12 row" style="padding:0px">
