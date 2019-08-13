@@ -457,6 +457,33 @@ function getPaymentMethod(){
 	});
 }
 
+function getContractType(){
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"Contract/getContractType",
+		dataType: 'json',
+		async: false,
+		success: function(res) {
+			if(res.OUT_REC.length > 0){
+				$("#cboConType option").remove();
+				$("#cboConType").append("<option value=''>សូមជ្រើសប្រភេទកិច្ចសន្យា</option>");
+				
+				for(var i=0; i<res.OUT_REC.length; i++){
+					var braNm = res.OUT_REC[i]["met_nm_kh"];
+					$("#cboConType").append("<option value='"+res.OUT_REC[i]["met_id"]+"'>"+braNm+"</option>");
+				}
+				
+			}else{
+				console.log(res);
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
+        }
+	});
+}
+
 function showCustomerErr(){
 	$("#txtCusNm").css("border-color","red");
 	parent.$("#msgShw").html("សូមជ្រើសរើស អតិថិជន!!!");
