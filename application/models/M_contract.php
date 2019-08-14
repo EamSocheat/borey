@@ -6,7 +6,11 @@
         	parent::__construct();
         	
     	}
-    	
+    	function selectContractType(){
+    		$this->db->select('*');
+    		$this->db->from('tbl_contract_type');
+    		return $this->db->get()->result();
+    	}
     	
     	function selectContractDataDetail($dataSrch){
     	    $this->db->select('*');

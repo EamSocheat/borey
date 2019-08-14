@@ -16,6 +16,7 @@ var _thisPage = {
 			getStaff();
 			getPaymentMethod()
 			stock.comm.inputCurrency("txtAmtBooking");
+			getContractType();
 			//stock.comm.inputCurrency("lAmt");
 			
 			//
@@ -304,6 +305,7 @@ function getDataEdit(cont_id){
 			    $("#cboPaymentMet").val(res.OUT_REC[0]["con_pay_met"]);
 			    $("#txtContED").val(moment(res.OUT_REC[0]["con_date_exp"], "YYYY-MM-DD").format("DD-MM-YYYY"));
 		    	$("#txtAmtBooking").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
+		    	$("#cboConType").val(res.OUT_REC[0]["con_type_id"]);
 		    	
 			    $("#btnSelectPro").hide();
 		    	
@@ -458,6 +460,7 @@ function getPaymentMethod(){
 }
 
 function getContractType(){
+	
 	$.ajax({
 		type: "POST",
 		url: $("#base_url").val() +"Contract/getContractType",
@@ -469,8 +472,8 @@ function getContractType(){
 				$("#cboConType").append("<option value=''>សូមជ្រើសប្រភេទកិច្ចសន្យា</option>");
 				
 				for(var i=0; i<res.OUT_REC.length; i++){
-					var braNm = res.OUT_REC[i]["met_nm_kh"];
-					$("#cboConType").append("<option value='"+res.OUT_REC[i]["met_id"]+"'>"+braNm+"</option>");
+					var braNm = res.OUT_REC[i]["con_type_nm_kh"];
+					$("#cboConType").append("<option value='"+res.OUT_REC[i]["con_type_id"]+"'>"+braNm+"</option>");
 				}
 				
 			}else{

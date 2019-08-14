@@ -129,7 +129,7 @@
                     <div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
 	                        <label  for="cboConType" >ប្រភេទកិច្ចសន្យា</label>
-	                		<select class="form-control" id="cboConType" name="cboConType" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសវីធីបង់ប្រាក់ ')" oninput="setCustomValidity('')">
+	                		<select class="form-control" id="cboConType" name="cboConType" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសប្រភេទកិច្ចសន្យា ')" oninput="setCustomValidity('')">
 	                    		
 		                	</select>
 	                	</div>

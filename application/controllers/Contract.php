@@ -43,6 +43,15 @@ class Contract extends CI_Controller{
 	    $data["OUT_REC"] = $this->M_contract->selectContractDataDetail($dataSrch);
 	    echo json_encode($data);
 	}
+	
+	public function getContractType(){
+	    if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	    $data["OUT_REC"] = $this->M_contract->selectContractType();
+	    echo json_encode($data);
+	}
+	
     public function getContract(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
@@ -107,6 +116,7 @@ class Contract extends CI_Controller{
           	'con_pay_met'        => $this->input->post('cboPaymentMet'),
         	'con_tran_id'        => $this->input->post('txtTran'),
             'con_sta'        => 'B',
+        	'con_type_id'        => $this->input->post('cboConType')
         );
         
         

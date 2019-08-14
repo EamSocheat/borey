@@ -1,0 +1,9 @@
+CREATE TABLE tbl_contract_type (
+		con_type_id	int NOT NULL AUTO_INCREMENT, 
+		con_type_nm	varchar(500),
+    		con_type_nm_kh	varchar(500),
+		PRIMARY KEY(con_type_id) 
+);
+
+alter table tbl_contract
+add COLUMN con_type_id int;
