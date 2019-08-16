@@ -22,7 +22,7 @@
 					<div class="col-xs-12 padding-forms-left text-left" style="padding-left: 35px;margin-bottom: 10px;">
 						<button type="button" class="btn btn-warning btn-xs" id="btnExp"><i class="fa fa-check" aria-hidden="true"></i> កំណត់ផុតកំណត់</button>
 						<button type="button" class="btn btn-danger btn-xs" id="btnReturn"><i class="fa fa-check" aria-hidden="true"></i> កំណត់ត្រលប់ប្រាក់ </button>
-						<button type="button" class="btn btn-success btn-xs" id="btnOpen"><i class="fa fa-check" aria-hidden="true"></i> កំណត់បើក </button>
+						<button type="button" class="btn btn-success btn-xs" id="btnOpen"><i class="fa fa-check" aria-hidden="true"></i> កំណត់កក់ </button>
 					</div>
 					
 				</div>
