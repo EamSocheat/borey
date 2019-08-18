@@ -1,0 +1,4 @@
+INSERT INTO `tbl_contract_type`(`con_type_nm_kh`, `con_type_nm`) VALUES ('បង់ជាមួយក្រុមហ៊ុនរយៈពេល១៨ខែដោយឥតការប្រាក់','បង់ជាមួយក្រុមហ៊ុនរយៈពេល១៨ខែដោយឥតការប្រាក់');
+INSERT INTO `tbl_contract_type`(`con_type_nm_kh`, `con_type_nm`) VALUES ('រំលស់70%ជាមួយក្រុមហ៊ុនរយៈពេល៣ឆ្នាំ( ការប្រាក់ក្នុង១ខែ 1.2%)','រំលស់70%ជាមួយក្រុមហ៊ុនរយៈពេល៣ឆ្នាំ( ការប្រាក់ក្នុង១ខែ 1.2%)');
+INSERT INTO `tbl_contract_type`(`con_type_nm_kh`, `con_type_nm`) VALUES ('រំលស់70%ជាមួយធនាគារ','រំលស់70%ជាមួយធនាគារ');
+INSERT INTO `tbl_contract_type`(`con_type_nm_kh`, `con_type_nm`) VALUES ('រំលស់95%ជាមួយឥណទាន','រំលស់95%ជាមួយឥណទាន');
