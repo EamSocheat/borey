@@ -168,7 +168,7 @@ var _thisPage = {
 			});
 			
 			$("#btnOpen").click(function(e){
-				top.stock.comm.confirmMsg("តើអ្នកប្រាកដថា បើកការប្រើប្រាស់មែនទេ ?");
+				top.stock.comm.confirmMsg("តើអ្នកប្រាកដថា បានកក់មែនទេ ?");
 				
 				top.$("#btnConfirmOk").unbind().click(function(e){
 					top.$("#mdlConfirm").modal('hide');

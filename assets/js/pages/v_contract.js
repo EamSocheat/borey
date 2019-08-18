@@ -105,7 +105,7 @@ var _thisPage = {
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["met_nm_kh"]+'</div></td>';
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["cus_nm_kh"]+'</div></td>';
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["sta_nm_kh"] +'</div></td>';
-							html += 	'<td><div class="text-center">'+chkContStatus(res.OUT_REC[i]["con_sta"])+'</div></td>';
+							html += 	'<td class="con-status" data-val="'+res.OUT_REC[i]["con_sta"]+'"><div class="text-center">'+chkContStatus(res.OUT_REC[i]["con_sta"])+'</div></td>';
 							html += 	'<td class="text-center">';
 							html +=			'<button onclick="editData('+res.OUT_REC[i]["con_id"]+')" type="button" class="btn btn-primary btn-xs">';
 							html += 		'<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
@@ -227,6 +227,18 @@ var _thisPage = {
 				
 				if(chkVal.length <= 0){
 					stock.comm.alertMsg($.i18n.prop("msg_con_del"));
+					return;
+				}
+				var chkDeleteFail='';
+				chkVal.each(function(i){
+					var tblTr   = $(this).parent().parent();
+					if(tblTr.find("td.con-status").attr("data-val") =="C" || tblTr.find("td.con-status").attr("data-val") == "E" || tblTr.find("td.con-status").attr("data-val") =="S" ){
+						chkDeleteFail ='1';
+					}
+		
+				});
+				if(chkDeleteFail){
+					stock.comm.alertMsg("សូមជ្រើសរើស តែទិន្ន័យបានកក់ ទើបលុបបាន!!!");
 					return;
 				}
 				
@@ -387,7 +399,7 @@ function chkContStatus(s){
 	}else if(s == "S"){
 		statusStr = '<span class="label label-info">លក់ <span>';
 	}else{	
-		statusStr = '<span class="label label-success">បើក <span>';
+		statusStr = '<span class="label label-success">កក់ <span>';
 	}
 	return statusStr;
 }
