@@ -176,6 +176,9 @@ var _thisPage = {
 				});
 			});
 			
+			$("#btnPrint").click(function(e){
+				printInv();
+			});
 		}
 };
 
@@ -485,6 +488,40 @@ function getContractType(){
 			stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
         }
 	});
+}
+
+
+function printInv(){
+	var data = {};
+	var dataArr = [];
+	data["base_url"] = $("#base_url").val();
+	data["book_id"] = "1";
+	dataArr.push(data);
+	var datObj={};
+	datObj["printData"] = dataArr;
+	console.log(datObj);
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"PrintInv/printInvBooking",
+		data: datObj,
+		async: false,
+		success: function(res) {
+			var newWin=parent.window.open('','Print-Window');
+			newWin.document.open();
+			newWin.document.write(res);
+			newWin.document.close();
+			newWin.focus();
+			//newWin.print();
+			setTimeout(function(){ newWin.print();newWin.close();}, 200);
+			parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
+        }
+	});
+	
+	
 }
 
 function showCustomerErr(){
