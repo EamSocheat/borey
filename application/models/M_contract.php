@@ -13,13 +13,14 @@
     	}
     	
     	function selectContractDataDetail($dataSrch){
-    	    $this->db->select('*');
+    	    $this->db->select('*,seller.sta_nm_kh as seller_nm');
     	    $this->db->from('tbl_contract');
     	    $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
     	    $this->db->join('tbl_staff seller','seller.sta_id = tbl_contract.seller_id');
     	    //$this->db->join('tbl_staff reciev','reciev.sta_id = tbl_contract.seller_id');
     	    $this->db->join('tbl_payment_method','tbl_payment_method.met_id = tbl_contract.con_pay_met');
     	    $this->db->join('tbl_contract_detail','tbl_contract_detail.con_id = tbl_contract.con_id');
+    	    $this->db->join('tbl_contract_type','tbl_contract_type.con_type_id = tbl_contract.con_type_id');
     	    $this->db->join('tbl_product','tbl_product.pro_id = tbl_contract_detail.pro_id');
     	    $this->db->join('tbl_category','tbl_category.cat_id = tbl_product.cat_id');
     	    $this->db->join('tbl_branch','tbl_branch.bra_id = tbl_product.bra_id');
@@ -30,6 +31,13 @@
     	    
     	    if($dataSrch['con_id'] != null && $dataSrch['con_id'] != ""){
     	        $this->db->where('tbl_contract.con_id', $dataSrch['con_id']);
+    	    }
+    	    
+    	    if($dataSrch['con_sta'] != null && $dataSrch['con_sta'] != ""){
+    	        $this->db->where('tbl_contract.con_sta', $dataSrch['con_sta']);
+    	    }
+    	    if($dataSrch['con_code'] != null && $dataSrch['con_code'] != ""){
+    	        $this->db->where('tbl_contract.con_code', $dataSrch['con_code']);
     	    }
     	    
     	    return $this->db->get()->result();

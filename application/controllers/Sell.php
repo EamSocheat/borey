@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set("Asia/Bangkok");
 
-class Contract extends CI_Controller{
+class Sell extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model('M_login');
@@ -20,12 +20,12 @@ class Contract extends CI_Controller{
             redirect('/Login');
         }
         
-        $dataMenu['menu_active'] = "Contract";
+        $dataMenu['menu_active'] = "Sell";
         $data['header'] = $this->load->view('v_header', $dataMenu, TRUE);
         $data['footer'] = $this->load->view('v_footer', NULL, TRUE);
         $data['iframe'] = $this->load->view('v_iframe', NULL, TRUE);
         
-        $this->load->view('v_contract',$data);
+        $this->load->view('v_sell',$data);
     }
 	public function getPaymentMethod(){
 		$data["OUT_REC"] = $this->M_common->selectPaymentMethod();
@@ -38,8 +38,6 @@ class Contract extends CI_Controller{
 	   
 	    $dataSrch = array(
 	        'con_id'        => $this->input->post('conId'),
-	        'con_sta'       => $this->input->post('conSta'),
-	        'con_code'       => $this->input->post('conCode')
 	    );
 	    
 	    $data["OUT_REC"] = $this->M_contract->selectContractDataDetail($dataSrch);

@@ -55,7 +55,7 @@ var _thisPage = {
 			//
 			$("#btnClose,#btnExit").click(function(e){
 				//parent.$("#modalMd").modal('hide');
-				parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
+				parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
 			});
 			//
 			$("#frmContract").submit(function(e){
@@ -179,9 +179,87 @@ var _thisPage = {
 			$("#btnPrint").click(function(e){
 				printInv($("#contId").val());
 			});
+			
+			
+			$("#btnContractSrch").click(function(e){
+				getContractInfo($("#txtContract").val());
+			});
+			
+			
 		}
 };
 
+
+function getContractInfo(cont_code){
+	if(cont_code == "" || cont_code == null){
+		$("#txtContract").focus();
+		return;
+	}
+	parent.$("#loading").hide();
+	$.ajax({
+		type: "POST",
+		url : $("#base_url").val() +"Contract/getContractDetail",
+		data: {"conCode":cont_code,"conSta":"B"},
+		dataType: "json",
+		async: false,
+		success: function(res) {
+			console.log(res);
+			if(res.OUT_REC != null && res.OUT_REC.length >0){
+				var status = res.OUT_REC[0]["con_sta"];
+				
+				$("#txtBookDate").val(moment(res.OUT_REC[0]["con_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+				$("#txtBookingAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
+				
+			    $("#txtCusNm").val(res.OUT_REC[0]["cus_nm_kh"]);
+			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
+			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
+			    
+			    $("#cboSeller").val(res.OUT_REC[0]["seller_id"]);
+			    $("#cboReceiver").val(res.OUT_REC[0]["rec_id"]);
+			    $("#txtTran").val(res.OUT_REC[0]["con_tran_id"]);
+			    $("#txtDesc").val(res.OUT_REC[0]["con_des"]);
+			    $("#cboPaymentMet").val(res.OUT_REC[0]["con_pay_met"]);
+			   $("#txtAmtBooking").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
+		    	$("#cboConType").val(res.OUT_REC[0]["con_type_id"]);
+		    	
+			    $("#btnSelectPro").hide();
+		    	
+			    $("#divEnd1").show();
+		    	$("#divEnd2").show();
+			    $("#divEnd3").show();
+			 
+			    $("#tblProduct tbody").html("");
+			    var totalAmount = 0;
+			    for(var i=0;i<res.OUT_REC.length; i++){
+			    	
+					var rec = res.OUT_REC[i];
+					var html = "<tr data-id='"+rec["pro_id"]+"'>";
+			        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
+			        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
+			        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
+			        html += "<td class='pro_price cur-pointer text-right'>"+stock.comm.formatCurrency(rec["pro_book_price"])+"</td>";
+			        html += "</tr>";
+			        
+			        $("#tblProduct tbody").append(html);
+			        totalAmount+= parseFloat(rec["pro_book_price"]);
+			    }
+			    
+			    var amtLeft = totalAmount - parseFloat(res.OUT_REC[0]["con_total_price"]);
+			    $("#tblProduct tbody").append("<tr><td class='text-right' colspan='3'><b>ប្រាក់ដើមនៅសល់៖</b></td><td class='text-right'>"+ stock.comm.formatCurrency(amtLeft) +"</td></tr>");
+			    
+			    $("#frmContract input,#frmContract textarea,#frmContract select").prop("disabled",true);
+			    $("#txtDisCash,#txtDisPer").prop("disabled",false);
+			}else{
+			   parent.stock.comm.alertMsg("មិនមានការកក់ប្រាក់នេះ  ឫបានលក់ហើយ!!!");
+			}
+			parent.$("#loading").hide();
+		},
+		error : function(data) {
+		    console.log(data);
+		    stock.comm.alertMsg($.i18n.prop("msg_err"));
+        }
+	});
+}
 
 function saveData(str){
 	$("#contId").appendTo("#frmContract");    
@@ -229,7 +307,7 @@ function saveData(str){
 				if(str == "new"){
 				    clearForm();
 				}else{					
-				    parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
+				    parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
 				}
 			}
 		},
@@ -254,7 +332,7 @@ function updateContractStatus(status){
 		    if(res > 0){
 		    	
 		    	parent.stock.comm.alertMsg("ការកំណត់បាន ជោគជ័យ");
-				parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
+				parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
 			}else{
 				stock.comm.alertMsg($.i18n.prop("msg_err_del"));
 		        return;
@@ -337,6 +415,7 @@ function getDataEdit(cont_id){
 			    }
 
 			    $("#frmContract input,#frmContract textarea,#frmContract select").prop("disabled",true);
+			    
 			}else{
 			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -389,7 +468,7 @@ function selectProductCallback(data){
 	        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
 	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
-	        html += "<td class='pro_price cur-pointer'><input class='form-control input-sm' type='text' value ='"+rec["pro_price"]+"'></td>";
+	        html += "<td class='pro_price cur-pointer'><input class='form-control input-sm text-right' type='text' value ='"+rec["pro_price"]+"'></td>";
 	        html += "</tr>";
 	        
 	        $("#tblProduct tbody").append(html);
@@ -518,7 +597,7 @@ function printInv(con_id){
 				newWin.focus();
 				//newWin.print();
 				setTimeout(function(){ newWin.print();newWin.close();}, 200);
-				parent.stock.comm.closePopUpForm("PopupFormContract",parent.popupContractCallback);
+				parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
 			}
 			
 		},

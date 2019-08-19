@@ -72,7 +72,7 @@
             		</div>
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-				      		<label  for="cboReceiver" >អ្នកទទួលលុយ(បុគ្គលិក)</label>
+				      		<label  for="cboReceiver" >អ្នកទទួលប្រាក់(បុគ្គលិក)</label>
                 			 <select class="form-control" id="cboReceiver" name="cboReceiver" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
 	                    		
 			                </select>

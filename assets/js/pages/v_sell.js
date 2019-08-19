@@ -203,9 +203,9 @@ var _thisPage = {
 			//
 			$("#btnAddNew").click(function(){
 				$("#loading").show();
-				var controllerNm = "PopupFormContract";
+				var controllerNm = "PopupFormSell";
 				var option = {};
-				option["height"] = "650px";
+				option["height"] = "900px";
 				
 				stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
 			});			
@@ -342,10 +342,10 @@ function deleteDataArr(dataArr){
 
 function editData(cont_id){	
     $("#loading").show();
-	var controllerNm = "PopupFormContract";
+	var controllerNm = "PopupFormSell";
 	var option = {};
 	var data   = "id="+cont_id+"&action=U";
-	option["height"] = "650px";
+	option["height"] = "900px";
 	
 	stock.comm.openPopUpForm(controllerNm, option, data, "modal-lg");
 }
