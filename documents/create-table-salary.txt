@@ -1,0 +1,17 @@
+CREATE TABLE tbl_salary (
+		sal_id	int NOT NULL AUTO_INCREMENT, 
+		sal_start_dt date,
+		sal_end_dt date,
+		sal_month date,
+		sal_amt double,
+		sal_comm double,
+		sal_overtime double,
+		sta_id int,
+		regDt	datetime,
+		upDt	datetime,
+		useYn	varchar(1),
+		regUsr	int,
+		upUsr	int,
+		com_id	int,
+		PRIMARY KEY(sal_id) 
+);
