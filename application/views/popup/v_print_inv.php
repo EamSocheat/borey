@@ -7,7 +7,7 @@
 		}
 		  table {
 		  	border-collapse: collapse;
-		  	font-size: 11px;
+		  	font-size: 12px;
 		   	width: 100%;
 		  }
 		  td, th {
@@ -37,11 +37,11 @@
 			font-weight: bold;
 		  }
 		  .with-200{
-			width: 100px;
+			width: 110px;
 			font-weight: bold;
 		  }
 		  p{
-			font-size: 11px;
+			font-size: 12px;
 		  }
 		</style>
 	</head>
@@ -196,9 +196,7 @@
 				<tr>
 					<td>&nbsp;</td>
 				</tr>
-				<tr>
-					<td>&nbsp;</td>
-				</tr>
+				
 				<tr>
 					<td>ឈ្មោះ........................</td>
 					<td>ឈ្មោះ........................</td>
