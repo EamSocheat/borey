@@ -176,16 +176,35 @@ var _thisPage = {
 				});
 			});
 			
+			//
 			$("#btnPrint").click(function(e){
 				printInv($("#contId").val());
 			});
 			
-			
+			//
 			$("#btnContractSrch").click(function(e){
 				getContractInfo($("#txtContract").val());
 			});
 			
+			//
+			$("#txtDisPer").keyup(function(e){
+				calDiscount("P");
+			});
 			
+			//
+			$("#txtDisCash").keyup(function(e){
+				calDiscount("C");
+			});
+			
+			//
+			$("#txtPayPer").keyup(function(e){
+				calPay("P");
+			});
+			
+			//
+			$("#txtPayCash").keyup(function(e){
+				calPay("C");
+			});
 		}
 };
 
@@ -237,7 +256,7 @@ function getContractInfo(cont_code){
 			        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 			        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
 			        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
-			        html += "<td class='pro_price cur-pointer text-right'>"+stock.comm.formatCurrency(rec["pro_book_price"])+"</td>";
+			        html += "<td class=' cur-pointer text-right'> <input class='text-right' id='pro_price' style='border: none;background-color: #ffffff;' value='"+stock.comm.formatCurrency(rec["pro_book_price"])+"'></td>";
 			        html += "</tr>";
 			        
 			        $("#tblProduct tbody").append(html);
@@ -248,7 +267,9 @@ function getContractInfo(cont_code){
 			    $("#tblProduct tbody").append("<tr><td class='text-right' colspan='3'><b>ប្រាក់ដើមនៅសល់៖</b></td><td class='text-right'>"+ stock.comm.formatCurrency(amtLeft) +"</td></tr>");
 			    
 			    $("#frmContract input,#frmContract textarea,#frmContract select").prop("disabled",true);
-			    $("#txtDisCash,#txtDisPer").prop("disabled",false);
+			    $("#txtDisCash,#txtDisPer,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash").prop("disabled",false);
+			    calDiscount("P");
+			    calPay("P");
 			}else{
 			   parent.stock.comm.alertMsg("មិនមានការកក់ប្រាក់នេះ  ឫបានលក់ហើយ!!!");
 			}
@@ -468,7 +489,7 @@ function selectProductCallback(data){
 	        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
 	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
-	        html += "<td class='pro_price cur-pointer'><input class='form-control input-sm text-right' type='text' value ='"+rec["pro_price"]+"'></td>";
+	        html += "<td class='pro_price cur-pointer'><input id='pro_price' class='form-control text-right' type='text' value ='"+rec["pro_price"]+"'></td>";
 	        html += "</tr>";
 	        
 	        $("#tblProduct tbody").append(html);
@@ -476,7 +497,9 @@ function selectProductCallback(data){
 	}
 	
 	$("#btnSelectPro").css("border-color","#ced4da");
+	calDiscount("P");
 	parent.$("#msgErr").hide();
+	
 }
 
 
@@ -646,4 +669,94 @@ function settingEndDate(){
 		format: "dd-mm-yyyy"
     });
 	$("#txtContED").inputmask();
+}
+
+
+function calDiscount(id_act){
+	if($("#pro_price").val() != "" && $("#pro_price").val() != null && $("#pro_price").val() != undefined && !isNaN($("#pro_price").val().replace(/,/g,''))){
+		var proPrice = parseFloat($("#pro_price").val().replace(/,/g,''));
+		var amountAftDis=0;
+		var amtLeft=0;
+		if(id_act == "C" && $("#txtDisCash").val().replace(/,/g,'') !=""){
+			var disCash=0;
+			var disPer=0;
+			if($("#txtDisCash").val().replace(/,/g,'') ==""){
+				disCash=0;
+			}else{
+				disCash = parseFloat($("#txtDisCash").val().replace(/,/g,''));
+			}
+			amountAftDis = proPrice - disCash;
+			disPer = (disCash *100) / proPrice;
+			$("#txtDisPer").val(disPer.toFixed(2));
+		}else if($("#txtDisPer").val() != "" && $("#txtDisPer").val() != null && $("#txtDisPer").val() != undefined && !isNaN($("#txtDisPer").val().replace(/,/g,''))){
+			var disPer=0;
+			var disCash=0;
+			if($("#txtDisPer").val().replace(/,/g,'') == ""){
+				disPer=0;
+			}else{
+				disPer=parseFloat($("#txtDisPer").val().replace(/,/g,''));
+			}
+			disCash = (disPer/100) * proPrice;
+			amountAftDis = proPrice - disCash;
+			$("#txtDisCash").val(stock.comm.formatCurrency(disCash.toFixed(2)));
+		}
+		
+		if(amountAftDis > 0 && $("#txtBookingAmt").val() != "" && $("#txtBookingAmt").val() != null && $("#txtBookingAmt").val() != undefined && !isNaN($("#txtBookingAmt").val().replace(/,/g,''))){
+			amtLeft = amountAftDis - parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
+		}else{
+			amtLeft = amountAftDis;
+		}
+		$("#txtPrinciple").val(stock.comm.formatCurrency(amountAftDis.toFixed(2)));
+		$("#txtTotalLeft").val(stock.comm.formatCurrency(amtLeft.toFixed(2)));
+	}else{
+		$("#txtPrinciple").val("");
+		$("#txtTotalLeft").val("");
+	}
+	
+}
+
+
+
+function calPay(id_act){
+	if($("#pro_price").val() != "" && $("#pro_price").val() != null && $("#pro_price").val() != undefined && !isNaN($("#pro_price").val().replace(/,/g,''))){
+		var proPrice = 0;
+		if($("#txtPrinciple").val().replace(/,/g,'') > 0 && $("#txtPrinciple").val() != "" && $("#txtPrinciple").val() != null && $("#txtPrinciple").val() != undefined && !isNaN($("#txtPrinciple").val().replace(/,/g,''))){
+			proPrice = parseFloat($("#txtPrinciple").val().replace(/,/g,''));
+		}else{
+			proPrice=parseFloat($("#pro_price").val().replace(/,/g,''));
+		}
+		var amountAftDis=0;
+		var amtLeft=0;
+		if(id_act == "C" && $("#txtPayCash").val().replace(/,/g,'') !=""){
+			var disCash=0;
+			var disPer=0;
+			if($("#txtPayCash").val().replace(/,/g,'') ==""){
+				disCash=0;
+			}else{
+				disCash = parseFloat($("#txtPayCash").val().replace(/,/g,''));
+			}
+			amountAftDis = proPrice - disCash;
+			disPer = (disCash *100) / proPrice;
+			$("#txtPayPer").val(disPer.toFixed(2));
+		}else if($("#txtPayPer").val() != "" && $("#txtPayPer").val() != null && $("#txtPayPer").val() != undefined && !isNaN($("#txtPayPer").val().replace(/,/g,''))){
+			var disPer=0;
+			var disCash=0;
+			if($("#txtPayPer").val().replace(/,/g,'') == ""){
+				disPer=0;
+			}else{
+				disPer=parseFloat($("#txtPayPer").val().replace(/,/g,''));
+			}
+			disCash = (disPer/100) * proPrice;
+			if($("#txtBookingAmt").val().replace(/,/g,'') != null && $("#txtBookingAmt").val().replace(/,/g,'') != ""){
+				disCash = disCash - parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
+			}
+			if(disCash <= parseFloat($("#txtBookingAmt").val().replace(/,/g,''))){
+				$("#txtPayCash").val("");
+			}else{
+				$("#txtPayCash").val(stock.comm.formatCurrency(disCash.toFixed(2)));
+			}
+		}
+	
+	}
+	
 }

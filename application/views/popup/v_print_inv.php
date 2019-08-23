@@ -3,11 +3,11 @@
 	<head>
 		<style>
 		body{font-family: Khmer OS Siemreap;
-			
+			padding-top: 20px;
 		}
 		  table {
 		  	border-collapse: collapse;
-		  	font-size: 12px;
+		  	font-size: 13px;
 		   	width: 100%;
 		  }
 		  td, th {
@@ -21,15 +21,15 @@
 		  }
 		  .div-box{
 				border: 2px solid #D4AF37;border-radius: 15px;padding:10px;
-			    min-height: 120px;
-				max-height: 120px;
+			    min-height: 130px;
+				max-height: 130px;
 		  }
 		  .with-100{
 			width: 50px;
 			font-weight: bold;
 		  }
 		  .with-150{
-			width: 75px;
+			width: 90px;
 			font-weight: bold;
 		  }
 		  .with-10{
@@ -37,18 +37,18 @@
 			font-weight: bold;
 		  }
 		  .with-200{
-			width: 110px;
+			width: 120px;
 			font-weight: bold;
 		  }
 		  p{
-			font-size: 12px;
+			font-size: 13px;
 		  }
 		</style>
 	</head>
 	<body style="">
 		<div style="text-align: left;"><img style="width: 200px;" src="<?php echo $printData[0]["base_url"]."/upload/fix/";?>galaxy11-logo.png" /></div>
 		<div style="text-align: center;margin-top: -20px"><h3>បង្កាន់ដៃបង់ប្រាក់</h3></div>
-		<div style="text-align: right; margin-top: -20px">		
+		<div style="text-align: right; margin-top: -30px">		
 			<p>លេខបង្កាន់ដៃ ៖ <span><?php echo $OUT_REC[0]->con_code;?></span></p>
 			<p>កាលបរិច្ឆេទ ៖ <span><?php echo date('d-m-Y',strtotime($OUT_REC[0]->con_date));?></span></p>  
 		</div>
