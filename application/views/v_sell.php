@@ -193,18 +193,17 @@
 						</div>
 						
 						<div class="box-body table-responsive">
-							<table class="table table-hover" id="tblContract">
+							<table class="table table-hover" id="tblSell">
 								<thead>
 									<tr>
 										<th><input type="checkbox" id="chkAllBox" ></th>
 										<th class="txt_c">លេខសម្គាល់ </th>
-										<th class="txt_c">ថ្ងៃកក់ប្រាក់</  </th>
-										<th class="txt_r">ថ្ងៃផុតកំណត់</<< </th>
-										<th class="text-right">ចំនូនលុយកក់</    </th>
-										<th class="text-right">វីធីបង់ប្រាក់</   </th>
+										<th class="txt_c">ថ្ងៃលក់</th>
+										<th class="txt_c">គំរោង</<< </th>
+										<th class="txt_c">លេខកូដអចនលទ្រព្យ</    </th>
+										<th class="text-right">តំលៃលក់</   </th>
 										<th class="text-right">អតិថិជន</  </th>
 										<th class="text-right">អ្នកលក់(បុគ្គលិក)</th>
-										<th class="text-center">ការប្រើប្រាស់</  </th>
 										<th data-i18ncd="lb_action"​ class="txt_c">Action</th>
 									</tr>
 								</thead>

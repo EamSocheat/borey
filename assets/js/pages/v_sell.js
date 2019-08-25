@@ -9,7 +9,7 @@ var _thisPage = {
 			this.event();
 			this.loadData();
 			getSeller();
-			stock.comm.checkAllTblChk("chkAllBox","tblContract","chk_box");
+			stock.comm.checkAllTblChk("chkAllBox","tblSell","chk_box");
 
 			$('#txtSrchContSD').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
@@ -84,86 +84,49 @@ var _thisPage = {
 		    $("#loading").show();
 		    $.ajax({
 				type: "POST",
-				url : $("#base_url").val() +"Contract/getContract",
+				url : $("#base_url").val() +"Sell/getSell",
 				data: dat,
 				dataType: "json",
 				success: function(res) {
+					console.log(res);
 					var html = "", strTotal = "", totalDollar = 0, totalRiels = 0;
 					var strTotalPaidInt="",strTotalPaidPrin="",totalPaidIntDollar = 0,totalPaidIntRiels = 0,totalPaidPrinDollar=0, totalPaidPrinRiels=0;
 					$("#loading").hide();
-					$("#tblContract tbody").html("");
+					$("#tblSell tbody").html("");
 					if(res.OUT_REC != null && res.OUT_REC.length >0){
 						
 					    for(var i=0; i<res.OUT_REC.length;i++){
 					    	
-					    	html += '<tr data-id='+res.OUT_REC[i]["con_id"]+'>';
+					    	html += '<tr data-id='+res.OUT_REC[i]["sell_id"]+'>';
 					        html += 	'<td class="chk_box"><input type="checkbox"></td>';
-							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["con_code"])+'</div></td>';
-							html += 	'<td><div class="txt_c">'+stringDate(res.OUT_REC[i]["con_date"].substr(0,10))+'</div></td>';
-							html += 	'<td><div class="txt_r">'+stringDate(res.OUT_REC[i]["con_date_exp"].substr(0,10))+'</div></td>';
-							html += 	'<td><div class="text-right">'+stock.comm.formatCurrency(res.OUT_REC[i]["con_total_price"])+' $</div></td>';
-							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["met_nm_kh"]+'</div></td>';
+							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["sell_code"])+'</div></td>';
+							html += 	'<td><div class="txt_c">'+stringDate(res.OUT_REC[i]["sell_date"].substr(0,10))+'</div></td>';
+							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["bra_nm_kh"]+'</div></td>';
+							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["pro_code"]+'</div></td>';
+							html += 	'<td><div class="text-right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sell_total_price"])+' $</div></td>';
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["cus_nm_kh"]+'</div></td>';
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["sta_nm_kh"] +'</div></td>';
-							html += 	'<td class="con-status" data-val="'+res.OUT_REC[i]["con_sta"]+'"><div class="text-center">'+chkContStatus(res.OUT_REC[i]["con_sta"])+'</div></td>';
 							html += 	'<td class="text-center">';
-							html +=			'<button onclick="editData('+res.OUT_REC[i]["con_id"]+')" type="button" class="btn btn-primary btn-xs">';
+							html +=			'<button onclick="editData('+res.OUT_REC[i]["sell_id"]+')" type="button" class="btn btn-primary btn-xs">';
 							html += 		'<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
 							html += 	'</td>';
 							html += '</tr>';
 							
-							totalDollar += parseFloat(res.OUT_REC[i]["con_total_price"]);
+							totalDollar += parseFloat(res.OUT_REC[i]["sell_total_price"]);
 					    }
 
 					    strTotal += '<tr class="total" >';
-						strTotal += '	<td colspan="4" ><b>សរុប​</b></td>';
+						strTotal += '	<td colspan="5" ><b>សរុប​</b></td>';
 						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(totalDollar)+' $ </b></td>';
 						strTotal += '<td colspan="6"></td>';
 						strTotal += '</tr>';
-						/*
-						strTotalPaidInt += '<tr class="total total_hide" >';
-						strTotalPaidInt += '	<td colspan="2"><b>'+$.i18n.prop("lb_int_income_total")+'</b></td>';
-						strTotalPaidInt += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b></td>';
-						strTotalPaidInt += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(calRielsCurrency(totalPaidIntRiels)))+addCurrency("1", totalPaidIntRiels)+'</b></td>';
-						strTotalPaidInt += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b></td>';
-						strTotalPaidInt += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalPaidIntDollar))+addCurrency("2", totalPaidIntDollar)+'</b></td>';
-						strTotalPaidInt += '<td colspan="4"></td>';
-						strTotalPaidInt += '</tr>';
 						
-						strTotalPaidPrin += '<tr class="total total_hide" >';
-						strTotalPaidPrin += '	<td colspan="2"><b>'+$.i18n.prop("lb_prin_income_total")+'</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(calRielsCurrency(totalPaidPrinRiels)))+addCurrency("1", totalPaidPrinRiels)+'</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalPaidPrinDollar))+addCurrency("2", totalPaidPrinDollar)+'</b></td>';
-						strTotalPaidPrin += '<td colspan="4"></td>';
-						strTotalPaidPrin += '</tr>';
-						
-						var incomeAmtRiels = (totalPaidIntRiels +totalPaidPrinRiels) - totalRiels;
-						var incomeAmtDollar = (totalPaidIntDollar+totalPaidPrinDollar)-totalDollar;
-						if(incomeAmtDollar  < 0){
-							incomeAmtDollar = 0;
-						}
-						strTotalPaidPrin += '<tr class="total total_hide" >';
-						strTotalPaidPrin += '	<td colspan="2"><b>'+$.i18n.prop("lb_income_total")+'</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(calRielsCurrency(incomeAmtRiels)))+addCurrency("1", incomeAmtRiels)+'</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(incomeAmtDollar))+addCurrency("2", incomeAmtDollar)+'</b></td>';
-						strTotalPaidPrin += '<td colspan="4"></td>';
-						strTotalPaidPrin += '</tr>';
-					    
-					    $("#chkAllBox").show();
-					    $("#tblContract tbody").html(html);
-					    $("#tblContract tbody").append(strTotal);
-					    $("#tblContract tbody").append(strTotalPaidInt);
-					    $("#tblContract tbody").append(strTotalPaidPrin);*/
-					    $("#tblContract tbody").html(html);
-					    $("#tblContract tbody").append(strTotal);
+					    $("#tblSell tbody").html(html);
+					    $("#tblSell tbody").append(strTotal);
 					    stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 					}else{
 						$("#chkAllBox").hide();
-					    $("#tblContract tbody").append("<tr><td colspan='10' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+					    $("#tblSell tbody").append("<tr><td colspan='10' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 					    stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 					}
 				},
@@ -205,13 +168,13 @@ var _thisPage = {
 				$("#loading").show();
 				var controllerNm = "PopupFormSell";
 				var option = {};
-				option["height"] = "900px";
+				option["height"] = "930px";
 				
 				stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
 			});			
 			//
 			$("#btnEdit").click(function(){
-				var chkVal = $('#tblContract tbody tr td.chk_box input[type="checkbox"]:checked');
+				var chkVal = $('#tblSell tbody tr td.chk_box input[type="checkbox"]:checked');
 				if(chkVal.length != 1){
 					stock.comm.alertMsg($.i18n.prop("msg_con_edit1"));
 					return;
@@ -223,7 +186,7 @@ var _thisPage = {
 			});			
 			//
 			$("#btnDelete").click(function(e){
-				var chkVal = $('#tblContract tbody tr td.chk_box input[type="checkbox"]:checked');
+				var chkVal = $('#tblSell tbody tr td.chk_box input[type="checkbox"]:checked');
 				
 				if(chkVal.length <= 0){
 					stock.comm.alertMsg($.i18n.prop("msg_con_del"));
@@ -276,7 +239,7 @@ var _thisPage = {
 			// 
 			$("#btnDownExcel").click(function(e){
 				e.preventDefault();
-				var chkVal = $('#tblContract tbody tr td.chk_box input[type="checkbox"]:checked');
+				var chkVal = $('#tblSell tbody tr td.chk_box input[type="checkbox"]:checked');
 
 				if(chkVal.length <= 0){
 					stock.comm.alertMsg($.i18n.prop("msg_down_excel"));
@@ -296,7 +259,7 @@ var _thisPage = {
 			
 			//
 			$("#btnShowRecord").click(function(e){
-				$( "#tblContract tr:not(.total)" ).toggle( "fast", function() {
+				$( "#tblSell tr:not(.total)" ).toggle( "fast", function() {
 				    // Animation complete.
 				});
 			});	
@@ -345,7 +308,7 @@ function editData(cont_id){
 	var controllerNm = "PopupFormSell";
 	var option = {};
 	var data   = "id="+cont_id+"&action=U";
-	option["height"] = "900px";
+	option["height"] = "930px";
 	
 	stock.comm.openPopUpForm(controllerNm, option, data, "modal-lg");
 }

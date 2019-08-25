@@ -15,7 +15,10 @@ var _thisPage = {
 			//
 			getStaff();
 			getPaymentMethod()
-			stock.comm.inputCurrency("txtAmtBooking");
+			stock.comm.inputCurrency("txtPayPer");
+			stock.comm.inputCurrency("txtPayCash");
+			stock.comm.inputCurrency("txtDisPer");
+			stock.comm.inputCurrency("txtDisCash");
 			getContractType();
 			//stock.comm.inputCurrency("lAmt");
 			
@@ -35,15 +38,15 @@ var _thisPage = {
 			//
 
 			if($("#frmAct").val() == "U"){
-			    getDataEdit($("#contId").val());
+			    getDataEdit($("#sellId").val());
 			    $("#lAmt").attr("readonly","readonly");
-			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_contract"));
+			    $("#popupTitle").html("<i class='fa fa-shopping-cart'></i> "+$.i18n.prop("btn_edit")+" ការលក់");
 			}else{
 				stock.comm.todayDate("#txtContSD","-");
 			    $("#btnSaveNew").show();			    
-			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_contract"));
+			    $("#popupTitle").html("<i class='fa fa-shopping-cart'></i> "+$.i18n.prop("btn_add_new")+" ការល​ក់" );
 			}
-			$("#frmContract").show();
+			$("#frmSell").show();
 			$("#braNm").focus();						
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
@@ -58,7 +61,7 @@ var _thisPage = {
 				parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
 			});
 			//
-			$("#frmContract").submit(function(e){
+			$("#frmSell").submit(function(e){
 				e.preventDefault();
 				if(_btnId == "btnSave"){
 			    	saveData();
@@ -178,7 +181,7 @@ var _thisPage = {
 			
 			//
 			$("#btnPrint").click(function(e){
-				printInv($("#contId").val());
+				printInv($("#sellId").val());
 			});
 			
 			//
@@ -222,10 +225,10 @@ function getContractInfo(cont_code){
 		dataType: "json",
 		async: false,
 		success: function(res) {
-			console.log(res);
+			
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				var status = res.OUT_REC[0]["con_sta"];
-				
+				$("#txtContID").val(res.OUT_REC[0]["con_id"]);
 				$("#txtBookDate").val(moment(res.OUT_REC[0]["con_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
 				$("#txtBookingAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
 				
@@ -234,10 +237,10 @@ function getContractInfo(cont_code){
 			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
 			    
 			    $("#cboSeller").val(res.OUT_REC[0]["seller_id"]);
-			    $("#cboReceiver").val(res.OUT_REC[0]["rec_id"]);
-			    $("#txtTran").val(res.OUT_REC[0]["con_tran_id"]);
+			   //$("#cboReceiver").val(res.OUT_REC[0]["rec_id"]);
+			    //$("#txtTran").val(res.OUT_REC[0]["con_tran_id"]);
 			    $("#txtDesc").val(res.OUT_REC[0]["con_des"]);
-			    $("#cboPaymentMet").val(res.OUT_REC[0]["con_pay_met"]);
+			    //$("#cboPaymentMet").val(res.OUT_REC[0]["con_pay_met"]);
 			   $("#txtAmtBooking").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
 		    	$("#cboConType").val(res.OUT_REC[0]["con_type_id"]);
 		    	
@@ -256,7 +259,7 @@ function getContractInfo(cont_code){
 			        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 			        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
 			        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
-			        html += "<td class=' cur-pointer text-right'> <input class='text-right' id='pro_price' style='border: none;background-color: #ffffff;' value='"+stock.comm.formatCurrency(rec["pro_book_price"])+"'></td>";
+			        html += "<td class='pro_price cur-pointer text-right'> <input class='text-right' id='pro_price' style='border: none;background-color: #ffffff;' value='"+stock.comm.formatCurrency(rec["pro_book_price"])+"'></td>";
 			        html += "</tr>";
 			        
 			        $("#tblProduct tbody").append(html);
@@ -264,11 +267,14 @@ function getContractInfo(cont_code){
 			    }
 			    
 			    var amtLeft = totalAmount - parseFloat(res.OUT_REC[0]["con_total_price"]);
-			    $("#tblProduct tbody").append("<tr><td class='text-right' colspan='3'><b>ប្រាក់ដើមនៅសល់៖</b></td><td class='text-right'>"+ stock.comm.formatCurrency(amtLeft) +"</td></tr>");
+			    //$("#tblProduct tbody").append("<tr><td class='text-right' colspan='3'><b>ប្រាក់ដើមនៅសល់៖</b></td><td class='text-right'>"+ stock.comm.formatCurrency(amtLeft) +"</td></tr>");
+			    console.log(totalAmount+":"+amtLeft)
+			    $("#txtPrinciple").val(stock.comm.formatCurrency(totalAmount));
+				$("#txtTotalLeft").val(stock.comm.formatCurrency(amtLeft));
+			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
+			    $("#txtDisCash,#txtDisPer,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#txtContID,#cboPaymentMet,#txtTran").prop("disabled",false);
 			    
-			    $("#frmContract input,#frmContract textarea,#frmContract select").prop("disabled",true);
-			    $("#txtDisCash,#txtDisPer,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash").prop("disabled",false);
-			    calDiscount("P");
+			    //calDiscount("P");
 			    calPay("P");
 			}else{
 			   parent.stock.comm.alertMsg("មិនមានការកក់ប្រាក់នេះ  ឫបានលក់ហើយ!!!");
@@ -283,7 +289,7 @@ function getContractInfo(cont_code){
 }
 
 function saveData(str){
-	$("#contId").appendTo("#frmContract");    
+	$("#sellId").appendTo("#frmSell");    
     
     var isCusomterEmpty = $("#txtCusNm").val().trim();
    if(stock.comm.isNull(isCusomterEmpty) || stock.comm.isEmpty(isCusomterEmpty)){
@@ -300,21 +306,27 @@ function saveData(str){
    	var productPriceArr=[];
    	productChk.each(function(i){
    		productArr.push(parseInt($(this).attr("data-id")));
-   		productPriceArr.push($(this).find("td.pro_price input").val().replace(/,/g,''));
-   		
+   		productPriceArr.push($("#pro_price").val().replace(/,/g,''));
    	});
    	
 	//
-	$("#txtAmtBooking").val($("#txtAmtBooking").val().replace(/,/g,''));
+	$("#txtPayCash").val($("#txtPayCash").val().replace(/,/g,''));
+	$("#txtPrinciple").val($("#txtPrinciple").val().replace(/,/g,''));
+	
+	$("#txtDisPer").val($("#txtDisPer").val().replace(/,/g,''));
+	$("#txtDisCash").val($("#txtDisCash").val().replace(/,/g,''));
+	
 	$("#txtCusNm").css("border-color","#ced4da");
 	$("#btnSelectPro").css("border-color","#ced4da");
+	$("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",false);
+	
 	parent.$("#msgErr").hide();
 	//
-	
+	console.log($("#frmSell").serialize());
 	$.ajax({
 		type : "POST",
-		url  : $("#base_url").val() +"Contract/saveContract",
-		data: $("#frmContract").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr ,
+		url  : $("#base_url").val() +"Sell/saveSell",
+		data: $("#frmSell").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr ,
 		success: function(res) {
 		    parent.$("#loading").hide();
 			if(res !=""){
@@ -326,7 +338,8 @@ function saveData(str){
 				});
 				
 				if(str == "new"){
-				    clearForm();
+					clearForm();
+					$("#txtBookingAmt,#txtBookDate,#txtCusNm,#txtCusPhone,#txtPrinciple,#txtTotalLeft").prop("disabled",true);
 				}else{					
 				    parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
 				}
@@ -341,7 +354,7 @@ function saveData(str){
 
 function updateContractStatus(status){
 	var input = {};
-	input["contId"] = $("#contId").val();
+	input["sellId"] = $("#sellId").val();
 	input["statusID"] = status;
 	$.ajax({
 		type: "POST",
@@ -373,69 +386,69 @@ function getDataEdit(cont_id){
     $("#loading").show();
     $.ajax({
 		type: "POST",
-		url : $("#base_url").val() +"Contract/getContractDetail",
-		data: {"conId":cont_id},
+		url : $("#base_url").val() +"Sell/getSellDetail",
+		data: {"sellId":cont_id},
 		dataType: "json",
 		async: false,
 		success: function(res) {
 			//$("#btnSave").hide();
 			console.log(res.OUT_REC);
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
-				var status = res.OUT_REC[0]["con_sta"];
-				if(status != "S"){
-					if(status =="E"){
-						$("#btnExp").hide();
-					}else if(status =="C"){
-						$("#btnReturn").hide();
-					}else{
-						$("#btnOpen").hide();
-					}
-					$("#btnEditDiv").show();
-				}
-				
-				
+				$("#btnContractSrch").remove();
+				$("#txtContract").css("width","260px");
+				$("#txtContract").css("border-radius","5px");
 				$("#btnPrint").show();
-				
-				
 				//$("#balanceLeft").text( $.i18n.prop("lb_pay_balance") +" : "+ stock.comm.formatCurrency(res.OUT_REC[0]["loan_amount_left"])+res.OUT_REC[0]["cur_syn"]);	
-				$("#contractNo").text( $.i18n.prop("lb_contract_no") +" : "+ res.OUT_REC[0]["con_code"]);		
+				$("#contractNo").text( "លេខសម្គាល់ការលក់" +" : "+ res.OUT_REC[0]["sell_code"]);		
 				
 			    $("#txtCusNm").val(res.OUT_REC[0]["cus_nm_kh"]);
 			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
 			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
-			    $("#txtContSD").val(moment(res.OUT_REC[0]["con_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#lAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_principle"]));
+			    $("#txtBookDate").val(res.OUT_REC[0]["con_date"] == null ? "" : moment(res.OUT_REC[0]["con_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
 			    $("#cboSeller").val(res.OUT_REC[0]["seller_id"]);
 			    $("#cboReceiver").val(res.OUT_REC[0]["rec_id"]);
-			    $("#txtTran").val(res.OUT_REC[0]["con_tran_id"]);
-			    $("#txtDesc").val(res.OUT_REC[0]["con_des"]);
-			    $("#cboPaymentMet").val(res.OUT_REC[0]["con_pay_met"]);
-			    $("#txtContED").val(moment(res.OUT_REC[0]["con_date_exp"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-		    	$("#txtAmtBooking").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
+			    $("#txtDesc").val(res.OUT_REC[0]["sell_des"]);
+			    $("#txtBookingAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
+			    $("#txtContract").val(res.OUT_REC[0]["con_code"]);
 		    	$("#cboConType").val(res.OUT_REC[0]["con_type_id"]);
 		    	
 			    $("#btnSelectPro").hide();
+			    
+			    $("#txtPrinciple").val(stock.comm.formatCurrency(res.OUT_REC[0]["sell_total_price"]));
+			    
 		    	
 			    $("#divEnd1").show();
 		    	$("#divEnd2").show();
 			    $("#divEnd3").show();
 			 
 			    $("#tblProduct tbody").html("");
-			    for(var i=0;i<res.OUT_REC.length; i++){
-			    	
+			   	var rec = res.OUT_REC[0];
+				var html = "<tr data-id='"+rec["pro_id"]+"'>";
+		        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
+		        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm_kh"]+"</td>";
+		        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm_kh"]+"</td>";
+		        html += "<td class='pro_price cur-pointer'>"+stock.comm.formatCurrency(rec["sell_price_before_dis"])+"</td>";
+		        html += "</tr>";
+		        $("#tblProduct tbody").append(html);
+					
+			    //
+		        $("#tblPayment tbody").html("");
+		    	for(var i=0;i<res.OUT_REC.length; i++){
 					var rec = res.OUT_REC[i];
-					var html = "<tr data-id='"+rec["pro_id"]+"'>";
-			        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
-			        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
-			        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
-			        html += "<td class='pro_price cur-pointer'>"+stock.comm.formatCurrency(rec["pro_book_price"])+"</td>";
-			        html += "</tr>";
+					var htmlPayment = "<tr data-id='"+rec["sale_pay_id"]+"'>";
+			        htmlPayment += "<td class='sale_pay_date cur-pointer'>"+stringDate(rec["sale_pay_date"].substr(0,10))+"</td>";
+			        htmlPayment += "<td class='reciver cur-pointer'>"+rec["reciver"]+"</td>";
+			        htmlPayment += "<td class='met_nm_kh cur-pointer'>"+rec["met_nm_kh"]+"</td>";
+			        htmlPayment += "<td class='sale_pay_tran_id cur-pointer'>"+rec["sale_pay_tran_id"]+"</td>";
+			        htmlPayment += "<td class='sale_pay_amt_per cur-pointer text-right'>"+rec["sale_pay_amt_per"]+" %</td>";
+			        htmlPayment += "<td class='sale_pay_amt_cash cur-pointer text-right'>"+stock.comm.formatCurrency(rec["sale_pay_amt_cash"])+" $</td>";
+			        htmlPayment += "</tr>";
 			        
-			        $("#tblProduct tbody").append(html);
+			        $("#tblPayment tbody").append(htmlPayment);
 					
 			    }
 
-			    $("#frmContract input,#frmContract textarea,#frmContract select").prop("disabled",true);
+			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
 			    
 			}else{
 			    console.log(res);
@@ -452,8 +465,8 @@ function getDataEdit(cont_id){
 }
 
 function clearForm(){
-    $("#frmContract input").val("");
-    $("#frmContract textarea").val("");
+    $("#frmSell input").val("");
+    $("#frmSell textarea").val("");
     $("#staImgView").attr("src",$("#base_url").val()+"assets/image/default-staff-photo.png");
     $("#txtContractNm").focus();
     $("#tblProduct tbody").html("");
@@ -487,9 +500,9 @@ function selectProductCallback(data){
 			var rec = data["data"][i];
 			var html = "<tr data-id='"+rec["pro_id"]+"'>";
 	        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
-	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
-	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
-	        html += "<td class='pro_price cur-pointer'><input id='pro_price' class='form-control text-right' type='text' value ='"+rec["pro_price"]+"'></td>";
+	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm_kh"]+"</td>";
+	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm_kh"]+"</td>";
+	        html += "<td class=' cur-pointer'><input id='pro_price' class='form-control text-right pro_price' type='text' value ='"+rec["pro_price"]+"'></td>";
 	        html += "</tr>";
 	        
 	        $("#tblProduct tbody").append(html);
@@ -673,7 +686,8 @@ function settingEndDate(){
 
 
 function calDiscount(id_act){
-	if($("#pro_price").val() != "" && $("#pro_price").val() != null && $("#pro_price").val() != undefined && !isNaN($("#pro_price").val().replace(/,/g,''))){
+	if($("#txtPayCash").val() != "" && $("#txtPayCash").val() != null && $("#txtPayCash").val() != undefined && !isNaN($("#txtPayCash").val().replace(/,/g,''))){
+		var payPrice = parseFloat($("#txtPayCash").val().replace(/,/g,''));
 		var proPrice = parseFloat($("#pro_price").val().replace(/,/g,''));
 		var amountAftDis=0;
 		var amtLeft=0;
@@ -686,7 +700,7 @@ function calDiscount(id_act){
 				disCash = parseFloat($("#txtDisCash").val().replace(/,/g,''));
 			}
 			amountAftDis = proPrice - disCash;
-			disPer = (disCash *100) / proPrice;
+			disPer = (disCash *100) / payPrice;
 			$("#txtDisPer").val(disPer.toFixed(2));
 		}else if($("#txtDisPer").val() != "" && $("#txtDisPer").val() != null && $("#txtDisPer").val() != undefined && !isNaN($("#txtDisPer").val().replace(/,/g,''))){
 			var disPer=0;
@@ -696,7 +710,7 @@ function calDiscount(id_act){
 			}else{
 				disPer=parseFloat($("#txtDisPer").val().replace(/,/g,''));
 			}
-			disCash = (disPer/100) * proPrice;
+			disCash = (disPer/100) * payPrice;
 			amountAftDis = proPrice - disCash;
 			$("#txtDisCash").val(stock.comm.formatCurrency(disCash.toFixed(2)));
 		}
@@ -706,13 +720,18 @@ function calDiscount(id_act){
 		}else{
 			amtLeft = amountAftDis;
 		}
-		$("#txtPrinciple").val(stock.comm.formatCurrency(amountAftDis.toFixed(2)));
-		$("#txtTotalLeft").val(stock.comm.formatCurrency(amtLeft.toFixed(2)));
-	}else{
+		
+		if(amtLeft != 0 && amountAftDis != 0){
+			$("#txtPrinciple").val(stock.comm.formatCurrency(amountAftDis.toFixed(2)));
+			$("#txtTotalLeft").val(stock.comm.formatCurrency(amtLeft.toFixed(2)));
+		}
+		
+	}/*else{
 		$("#txtPrinciple").val("");
 		$("#txtTotalLeft").val("");
-	}
+	}*/
 	
+	//calPay("P");
 }
 
 
@@ -734,10 +753,17 @@ function calPay(id_act){
 				disCash=0;
 			}else{
 				disCash = parseFloat($("#txtPayCash").val().replace(/,/g,''));
+				if($("#txtBookingAmt").val().replace(/,/g,'') !=""){
+					disCash+=parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
+				}
 			}
 			amountAftDis = proPrice - disCash;
 			disPer = (disCash *100) / proPrice;
 			$("#txtPayPer").val(disPer.toFixed(2));
+			$("#txtPayCash").css("border-color","#ced4da");
+			$("#txtPayPer").css("border-color","#ced4da");
+			parent.$("#msgShw").hide();
+			
 		}else if($("#txtPayPer").val() != "" && $("#txtPayPer").val() != null && $("#txtPayPer").val() != undefined && !isNaN($("#txtPayPer").val().replace(/,/g,''))){
 			var disPer=0;
 			var disCash=0;
@@ -752,11 +778,24 @@ function calPay(id_act){
 			}
 			if(disCash <= parseFloat($("#txtBookingAmt").val().replace(/,/g,''))){
 				$("#txtPayCash").val("");
+				$("#txtPayCash").css("border-color","red");
+				$("#txtPayPer").css("border-color","red");
+				parent.$("#msgShw").html("ប្រាក់បង់ មិនត្រឹមត្រូវទេ!!!");
+				parent.$("#msgErr").show();
 			}else{
 				$("#txtPayCash").val(stock.comm.formatCurrency(disCash.toFixed(2)));
+				$("#txtPayCash").css("border-color","#ced4da");
+				$("#txtPayPer").css("border-color","#ced4da");
+				parent.$("#msgErr").hide();
 			}
 		}
 	
 	}
-	
+	calDiscount("P");
+}
+
+function stringDate(str){
+	if(str == '') return '';
+
+	return str = str.substr(8,10) +'-'+ str.substr(5,2) +'-'+ str.substr(0,4);
 }

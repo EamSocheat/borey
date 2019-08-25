@@ -1,0 +1,18 @@
+CREATE TABLE tbl_sale_payment(
+		sale_pay_id	int NOT NULL AUTO_INCREMENT, 
+		sale_pay_date date,
+		sale_pay_amt_cash double,
+		sale_pay_amt_per double,
+		sale_pay_tran_id varchar(100),
+		sale_pay_met_id int,
+		rec_id int,
+		seller_id int,
+		sell_id int,
+		regDt	datetime,
+		upDt	datetime,
+		useYn	varchar(1),
+		regUsr	int,
+		upUsr	int,
+		com_id	int,
+		PRIMARY KEY(sale_pay_id) 
+);

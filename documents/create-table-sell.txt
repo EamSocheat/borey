@@ -1,0 +1,42 @@
+CREATE TABLE tbl_sell(
+		sell_id	int NOT NULL AUTO_INCREMENT, 
+		sell_date date,
+		sell_total_price double,
+		sell_dis_per double,
+		sell_dis_amt double,
+		sell_price_before_dis double,
+		sell_des text,
+		sell_code varchar(10),
+		con_id int,
+		rec_id int,
+		seller_id int,
+		regDt	datetime,
+		upDt	datetime,
+		useYn	varchar(1),
+		regUsr	int,
+		upUsr	int,
+		com_id	int,
+		PRIMARY KEY(sell_id) 
+);
+
+CREATE TABLE tbl_sell_detail(
+		sell_id	int NOT NULL, 
+		pro_id int  NOT NULL,
+		pro_price double,
+		pro_sell_price double,
+		regDt	datetime,
+		upDt	datetime,
+		useYn	varchar(1),
+		regUsr	int,
+		upUsr	int,
+		com_id	int,
+		PRIMARY KEY(pro_id,sell_id) 
+);
+
+ALTER TABLE tbl_sale_payment add column sale_pay_code varchar(10);
+
+alter TABLE tbl_sell
+add column cus_id int;
+
+alter TABLE tbl_sell
+add column con_type_id int;

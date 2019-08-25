@@ -1,9 +1,9 @@
 <?php include 'v_popup_header.php';?>
     <!-- general form elements -->
-	<input type="hidden" id="contId" name="contId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
+	<input type="hidden" id="sellId" name="sellId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
 	<input type="hidden" id="frmAct" name="frmAct" value="<?php if(isset($_GET["action"])){ echo $_GET["action"]; }?>"/>
     <!-- form start -->
-	<form role="form" class="form-horizontal" id="frmContract" action="" style="display: none">
+	<form role="form" class="form-horizontal" id="frmSell" action="" style="display: none">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
                 <span aria-hidden="true">&times;</span>
@@ -26,6 +26,7 @@
     						<div class="input-group">
     							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" id="txtContract" name="txtContract" autocomplete="off" />
     							<span id="btnContractSrch" class="input-group-addon label-info" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"> ​</i></span>
+    							<input type="hidden" id="txtContID" name="txtContID"/>
     						</div>
     					</div>
             		</div>
@@ -76,19 +77,7 @@
             		</div>
             	</div>
 
-            	<!-- second row -->
-            	<div class="col-xs-12 row" style="padding:0px">
-            		<div class="col-xs-4 padding-forms-left">
-            			
-            		</div>
-            		<div class="col-xs-4 padding-forms-right">
-            			
-            		</div>
-            		
-            		<div class="col-xs-4 padding-forms-right">
-            			
-            		</div>
-            	</div>
+            	
             	<!-- 3 row -->
                 <div class="col-xs-12 row" style="padding:0px">
                     <div class="col-xs-4 padding-forms-left">
@@ -99,7 +88,7 @@
 		                	</select>
 	                	</div>
                     </div>
-                    <div class="col-xs-8 padding-forms-right">
+                    <div class="col-xs-5 padding-forms-right">
             			
 		                <div class="form-group">
                             <label  for="txtDesc" data-i18nCd="lb_des">Description</label>
@@ -107,18 +96,23 @@
                         </div>
 			    	
             		</div>
+            		<div class="col-xs-3 padding-forms-right text-right">
+            			<div class="form-group">
+            				<label  for="btnSelectPro" ></label>
+		                	<button  type="button" style="margin-top: 26px;" class="btn btn-info btn-sm" id="btnSelectPro"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
+			    		</div>
+            		</div>
                  
                 </div>
                 
                 <div class="col-xs-12 row" style="padding:0px">
-                	<div style="text-align: right;    margin-right: 5px;">
+                	<!--<div style="text-align: right;    margin-right: 5px;">
                 		<button  type="button" class="btn btn-info btn-sm" id="btnSelectPro"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
                 	</div>
-                	<!--  -->
-                	<br>
+                	<br>-->
                 	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
                 		<span><b>ពត៍មានអចលនទ្រព្យ</b></span>
-                    	<div class="box-body table-responsive fix-header-tbl" style="height: 120px;padding: 0px;">
+                    	<div class="box-body table-responsive fix-header-tbl" style="height: 100px;padding: 0px;">
         				  <table class="table table-hover" id="tblProduct" >
         				    <thead>  
             					<tr>
@@ -139,8 +133,44 @@
                 </div>
                 
                 
+                <div class="col-xs-12 row" style="padding:0px;">
+                	<!--  -->
+		    		<div class="col-xs-3 padding-forms-left">
+                		<div class="form-group">
+            				<label for="txtContSD" >ថ្ងៃបង់ប្រាក់</label>
+							<div class="input-group date">
+								<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+									<i class="fa fa-calendar"></i>
+								</div>
+								<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
+							</div>
+            			</div>
+                	</div>
+                	<div class="col-xs-3 padding-forms-right">
+                		<div class="form-group">
+				      		<label  for="cboReceiver" >អ្នកទទួលប្រាក់(បុគ្គលិក)</label>
+                			 <select class="form-control" id="cboReceiver" name="cboReceiver" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
+	                    		
+			                </select>
+				    	</div>
+                    </div>
+                    <div class="col-xs-3 padding-forms-right">
+                        <div class="form-group">
+        		      		<label  for="txtPayPer" > ប្រាក់បង់  % </label><span> </span>
+        		        	<input type="text" maxlength="2" class="form-control text-right" id="txtPayPer" placeholder="Enter loan amount" name="txtPayPer" autocomplete="off" />
+        		    	</div>
+                    </div>
+                    <div class="col-xs-3 padding-forms-right">
+                        <div class="form-group">
+        		      		<label  for="txtPayCash">ប្រាក់បង់ $ </label><span> </span>
+        		        	<input type="text" class="form-control text-right" id="txtPayCash" placeholder="Enter loan amount" name="txtPayCash" autocomplete="off" />
+        		    	</div>
+                    </div>
+			    	<!--  -->
+                </div>
                 
                 <div class="col-xs-12 row" style="padding:0px;">
+                	
                 	<!--  -->
 		    		<div class="col-xs-3 padding-forms-left">
                 		<div class="form-group">
@@ -169,40 +199,30 @@
 			    	<!--  -->
                 </div>
                 
+                
                 <div class="col-xs-12 row" style="padding:0px;margin-bottom: 10px;">
-                	<!--  -->
-		    		<div class="col-xs-3 padding-forms-left">
-                		<div class="form-group">
-            				<label for="txtContSD" >ថ្ងៃបង់ប្រាក់</label>
-							<div class="input-group date">
-								<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
-									<i class="fa fa-calendar"></i>
-								</div>
-								<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
-							</div>
-            			</div>
-                	</div>
-                	<div class="col-xs-3 padding-forms-right">
-                		<div class="form-group">
-				      		<label  for="cboReceiver" >អ្នកទទួលប្រាក់(បុគ្គលិក)</label>
-                			 <select class="form-control" id="cboReceiver" name="cboReceiver" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
+                    <div class="col-xs-3 padding-forms-left">
+                    	<div class="form-group">
+	                        <label  for="cboPaymentMet" >វីធីបង់ប្រាក់</label>
+	                		<select class="form-control" id="cboPaymentMet" name="cboPaymentMet" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសវីធីបង់ប្រាក់ ')" oninput="setCustomValidity('')">
 	                    		
-			                </select>
+		                	</select>
+	                	</div>
+                    </div>
+                    <div class="col-xs-3 padding-forms-right">
+            			
+		                <div class="form-group">
+				      		<label  for="txtTran" >លេខប្រតិបត្តិការណ៍</label>
+				        	<input type="text" class="form-control" id="txtTran" placeholder="Enter loan amount" name="txtTran" autocomplete="off" />
 				    	</div>
-                    </div>
-                    <div class="col-xs-3 padding-forms-right">
-                        <div class="form-group">
-        		      		<label  for="txtPayPer" > ប្រាក់បង់  % </label><span> </span>
-        		        	<input type="text"  class="form-control text-right" id="txtPayPer" placeholder="Enter loan amount" name="txtPayPer" autocomplete="off" />
-        		    	</div>
-                    </div>
-                    <div class="col-xs-3 padding-forms-right">
-                        <div class="form-group">
-        		      		<label  for="txtPayCash">ប្រាក់បង់ $ </label><span> </span>
-        		        	<input type="text" class="form-control text-right" id="txtPayCash" placeholder="Enter loan amount" name="txtPayCash" autocomplete="off" />
-        		    	</div>
-                    </div>
-			    	<!--  -->
+			    	
+            		</div>
+                    <div class="col-xs-4 padding-forms-right">
+            			
+		               
+			    	
+            		</div>
+            		
                 </div>
                 
                 <div class="col-xs-12 row" style="padding:0px">
@@ -212,10 +232,12 @@
         				  <table class="table table-hover" id="tblPayment" >
         				    <thead>  
             					<tr>
-            					  <th>លេខកូដ</th>
-	        					  <th>ប្រភេទ</th>
-	        					  <th>គំរោង</th>
-	        					  <th>តំលៃ $</th>
+            					  <th>ថ្ងៃបង់ប្រាក់ </th>
+	        					  <th>អ្នកទទួលប្រាក់ </th>
+	        					  <th>វីធីបង់ប្រាក់</th>
+	        					  <th>លេខប្រតិបត្តិការណ៍ </th>
+	        					  <th class="text-right">ប្រាក់បង់ % </th>
+	        					  <th class="text-right">ប្រាក់បង់ $</th>
             					</tr>
         					</thead>
         					<tbody>

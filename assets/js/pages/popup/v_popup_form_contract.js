@@ -172,7 +172,7 @@ var _thisPage = {
 				
 				top.$("#btnConfirmOk").unbind().click(function(e){
 					top.$("#mdlConfirm").modal('hide');
-					updateContractStatus("F");
+					updateContractStatus("B");
 				});
 			});
 			
@@ -327,8 +327,8 @@ function getDataEdit(cont_id){
 					var rec = res.OUT_REC[i];
 					var html = "<tr data-id='"+rec["pro_id"]+"'>";
 			        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
-			        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
-			        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
+			        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm_kh"]+"</td>";
+			        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm_kh"]+"</td>";
 			        html += "<td class='pro_price cur-pointer'>"+stock.comm.formatCurrency(rec["pro_book_price"])+"</td>";
 			        html += "</tr>";
 			        
@@ -387,8 +387,8 @@ function selectProductCallback(data){
 			var rec = data["data"][i];
 			var html = "<tr data-id='"+rec["pro_id"]+"'>";
 	        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
-	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
-	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
+	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm_kh"]+"</td>";
+	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm_kh"]+"</td>";
 	        html += "<td class='pro_price cur-pointer'><input class='form-control input-sm' type='text' value ='"+rec["pro_price"]+"'></td>";
 	        html += "</tr>";
 	        

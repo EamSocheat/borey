@@ -141,7 +141,7 @@ class Contract extends CI_Controller{
             $con_id_save =$con_id;
             $max_id = (string)$con_id;
             $zero   = '';
-            for($i = strlen($max_id); $i <= 6; $i++){
+            for($i = strlen($max_id); $i <= 5; $i++){
                 $zero = '0'.$zero;
             }
             $con_id = $zero.$max_id;

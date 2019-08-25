@@ -13,7 +13,11 @@ class Sell extends CI_Controller{
         $this->load->model('M_contract');
         $this->load->model('M_common');
         $this->load->model('M_house');
+        $this->load->model('M_sell');
+        $this->load->model('M_sale_payment');
     }
+    
+    
     
     public function index(){
         if(!$this->M_check_user->check()){
@@ -31,16 +35,16 @@ class Sell extends CI_Controller{
 		$data["OUT_REC"] = $this->M_common->selectPaymentMethod();
         echo json_encode($data);
 	}
-	public function getContractDetail(){
+	public function getSellDetail(){
 	    if(!$this->M_check_user->check()){
 	        redirect('/Login');
 	    }
 	   
 	    $dataSrch = array(
-	        'con_id'        => $this->input->post('conId'),
+	        'sell_id'        => $this->input->post('sellId'),
 	    );
 	    
-	    $data["OUT_REC"] = $this->M_contract->selectContractDataDetail($dataSrch);
+	    $data["OUT_REC"] = $this->M_sell->selectSellDataDetail($dataSrch);
 	    echo json_encode($data);
 	}
 	
@@ -52,7 +56,7 @@ class Sell extends CI_Controller{
 	    echo json_encode($data);
 	}
 	
-    public function getContract(){
+    public function getSell(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
         }
@@ -95,88 +99,111 @@ class Sell extends CI_Controller{
         	'srch_all'		=> $this->input->post('srchAll')
         );
 
-        $data["OUT_REC"] = $this->M_contract->selectContractData($dataSrch);
-        $data["OUT_REC_CNT"] = $this->M_contract->countContractData($dataSrch);
+        $data["OUT_REC"] = $this->M_sell->selectSellData($dataSrch);
+        $data["OUT_REC_CNT"] = $this->M_sell->countSellData($dataSrch);
         echo json_encode($data);
     }
 
-    public function saveContract(){
+    public function saveSell(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
         }
-
-        $data = array(
+        
+        $productArr = explode(",",$this->input->post('productArr'));
+        $proPriceArr = explode(",",$this->input->post('proPriceArr'));
+        
+        
+        $dataSell = array(
             'cus_id'        	=> $this->input->post('txtCusId'),
-        	'con_total_price' => $this->input->post('txtAmtBooking'),
-            'con_date'  	=> date('Y-m-d H:i:s',strtotime($this->input->post('txtContSD'))),
-        	'con_date_exp'    => date('Y-m-d H:i:s',strtotime($this->input->post('txtContED'))),
-            'con_des' 		=> $this->input->post('txtDesc'),      
+        	'sell_total_price' => $this->input->post('txtPrinciple'),
+            'sell_date'  	=> date('Y-m-d H:i:s',strtotime($this->input->post('txtContSD'))),
+            'sell_des' 		=> $this->input->post('txtDesc'),      
         	'seller_id'        => $this->input->post('cboSeller'),
         	'rec_id'        => $this->input->post('cboReceiver'),
-          	'con_pay_met'        => $this->input->post('cboPaymentMet'),
-        	'con_tran_id'        => $this->input->post('txtTran'),
-            'con_sta'        => 'B',
-        	'con_type_id'        => $this->input->post('cboConType')
+          	//'con_pay_met'        => $this->input->post('cboPaymentMet'),
+        	//'con_tran_id'        => $this->input->post('txtTran'),
+            'con_id'        => $this->input->post('txtContID'),
+        	'con_type_id'        => $this->input->post('cboConType'),
+            'sell_price_before_dis'        => $proPriceArr[0],
+            'sell_dis_amt'        => $this->input->post('txtDisCash'),
+            'sell_dis_per'        => $this->input->post('txtDisPer'),
         );
         
-        $con_id_save=0;
+        $sell_id_save=0;
 
-        if($this->input->post('contId') != null && $this->input->post('contId') != ""){
-            //update data
-            $data['con_id'] = $this->input->post('contId');
-            $data['upUsr']  = $_SESSION['usrId'];
-            $data['upDt']   = date('Y-m-d H:i:s');
-            $this->M_contract->update($data);
-        }else{
-            //insert data
-            $data['useYn']  = 'Y';
-            $data['com_id'] = $_SESSION['comId'];
-            $data['regUsr'] = $_SESSION['usrId'];
-            $data['regDt']  = date('Y-m-d H:i:s');
-         
-            $con_id = $this->M_contract->insert($data);
-            $old_con_id = $con_id;
-            $con_id_save =$con_id;
-            $max_id = (string)$con_id;
-            $zero   = '';
-            for($i = strlen($max_id); $i <= 6; $i++){
-                $zero = '0'.$zero;
-            }
-            $con_id = $zero.$max_id;
-	        
-            $dataUpdate = array(
-            	'con_code' => $con_id,
-            	'con_id' => $old_con_id,
-            );
-            $this->M_contract->update($dataUpdate);
-            
-            $productArr = explode(",",$this->input->post('productArr'));
-            $proPriceArr = explode(",",$this->input->post('proPriceArr'));
-            for($j=0; $j<sizeof($productArr);$j++){
-            	$dataDetial = array();
-            	
-            	$dataDetial['con_id']  = $old_con_id;
-            	$dataDetial['pro_id']  = $productArr[$j];
-            	$dataDetial['pro_book_price'] = floatval($proPriceArr[$j]);
-            	$dataDetial['useYn']  = 'Y';
-	            $dataDetial['com_id'] = $_SESSION['comId'];
-	            $dataDetial['regUsr'] = $_SESSION['usrId'];
-	            $dataDetial['regDt']  = date('Y-m-d H:i:s');
-	            $this->M_contract->insertDetial($dataDetial);
-            	
-	            $dataHouse = array();
-	            $dataHouse['pro_status'] = 'B';
-	            $dataHouse['pro_id'] = $productArr[$j];
-	            $data['upUsr']  = $_SESSION['usrId'];
-           		$data['upDt']   = date('Y-m-d H:i:s');
-           		
-            	$this->M_house->update($dataHouse);
-            	
-            }
+        //insert data
+        $dataSell['useYn']  = 'Y';
+        $dataSell['com_id'] = $_SESSION['comId'];
+        $dataSell['regUsr'] = $_SESSION['usrId'];
+        $dataSell['regDt']  = date('Y-m-d H:i:s');
+     
+        $sell_id = $this->M_sell->insert($dataSell);
+        $old_sell_id = $sell_id;
+        $sell_id_save =$sell_id;
+        $max_id = (string)$sell_id;
+        $zero   = '';
+        for($i = strlen($max_id); $i <= 5; $i++){
+            $zero = '0'.$zero;
         }
+        $sell_id = $zero.$max_id;
+        
+        $dataUpdate = array(
+        	'sell_code' => $sell_id,
+        	'sell_id' => $old_sell_id,
+        );
+        $this->M_sell->update($dataUpdate);
+        
+       
+        for($j=0; $j<sizeof($productArr);$j++){
+        	$dataDetial = array();
+        	
+        	$dataDetial['sell_id']  = $old_sell_id;
+        	$dataDetial['pro_id']  = $productArr[$j];
+        	$dataDetial['pro_sell_price'] = floatval($proPriceArr[$j]);
+        	$dataDetial['useYn']  = 'Y';
+            $dataDetial['com_id'] = $_SESSION['comId'];
+            $dataDetial['regUsr'] = $_SESSION['usrId'];
+            $dataDetial['regDt']  = date('Y-m-d H:i:s');
+            $this->M_sell->insertDetial($dataDetial);
+        	
+            $dataHouse = array();
+            $dataHouse['pro_status'] = 'S';
+            $dataHouse['pro_sale_price'] = 'S';
+            $dataHouse['pro_id'] = $productArr[$j];
+            $dataHouse['upUsr']  = $_SESSION['usrId'];
+            $dataHouse['upDt']   = date('Y-m-d H:i:s');
+       		
+        	$this->M_house->update($dataHouse);
+        	
+        }
+        $sale_pay_code="";
+        if($this->input->post('txtContID') != null && $this->input->post('txtContID') != ""){
+            $sale_pay_code = "000001";
+        }else{
+            $sale_pay_code = "000002";
+        }
+        $dataSalePayment=array(
+            'sell_id'        	=> $old_sell_id,
+            'sale_pay_date'  	=> date('Y-m-d H:i:s',strtotime($this->input->post('txtContSD'))),
+            'sale_pay_amt_per' => $this->input->post('txtPayPer'),
+            'sale_pay_amt_cash' => $this->input->post('txtPayCash'),
+            'sale_pay_tran_id' 		=> $this->input->post('txtTran'),
+            'sale_pay_met_id'        => $this->input->post('cboPaymentMet'),
+            'rec_id'        => $this->input->post('cboReceiver'),
+            //'con_type_id'        => $this->input->post('cboConType'),
+            'sale_pay_code'        => $sale_pay_code,
+        );
+        $dataSalePayment['useYn']  = 'Y';
+        $dataSalePayment['com_id'] = $_SESSION['comId'];
+        $dataSalePayment['regUsr'] = $_SESSION['usrId'];
+        $dataSalePayment['regDt']  = date('Y-m-d H:i:s');
+        
+        $sell_id = $this->M_sale_payment->insert($dataSalePayment);
 
-        echo $con_id_save;
+        echo $sell_id_save;
     }
+    
+    
 
     public function udpateStatus(){
         if(!$this->M_check_user->check()){
@@ -219,85 +246,7 @@ class Sell extends CI_Controller{
         echo $cntDel;
     }
 
-    function download_excel(){
-        
-        $object = new PHPExcel();
-        $object->setActiveSheetIndex(0);
-
-        $table_columns = array("Contract No", "Contract Start", "Loan Amount", "Loan Interest", "Interest Type", "Period", "Customer", "Total Loan", "Total Interest", "Contract End");
-        $column = 0;
-
-        /**
-         * get header
-         */
-        foreach($table_columns as $field){
-            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
-            $column++;
-                        
-            /**
-             * set auto width foreach column size
-             */
-            foreach (range($field, $object->getActiveSheet()->getHighestDataColumn()) as $col) {
-                $object->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
-            }
-        }
-
-        /**
-         * set style to header
-         */
-        $styleArray = array(
-            'font' => array('bold' => true,'color' => array('rgb' => 'FF0000'),),
-            'alignment' => array('horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,),
-            /*'fill' => array(
-                'type' => PHPExcel_Style_Fill::FILL_SOLID,
-                'color' => array('rgb' => 'B2B2B2')
-            ),*/
-            'borders' => array(
-                'allborders' => array(
-                    'style' => PHPExcel_Style_Border::BORDER_THIN,
-                    'color' => array('rgb' => 'DDDDDD'),),
-                'top' => array(
-                    'style' => \PHPExcel_Style_Border::BORDER_THIN,),
-                /*'fill' => array(
-                    'type' => \PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
-                    'rotation' => 90,
-                    'startcolor' => array('argb' => 'FFA0A0A0',),'endcolor' => array('argb' => '333333',),),*/
-            ),
-        );
-        $object->getActiveSheet()->getStyle('A1:J1')->applyFromArray($styleArray);
-        $object->getDefaultStyle()->getFont()->setName('Khmer OS Battambang');
-        
-        /**
-         * retrieve data from table database
-         */
-        $dataSrch = array(
-            'conIdArr' => $this->input->post("conIdArray")
-        );
-        $contract_data = $this->M_contract->selectContractData($dataSrch);
-
-        /**
-         * match header and data
-         */
-        $excel_row = 2;
-        foreach($contract_data as $row){
-            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->con_no);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->con_start_dt);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $this->commaAmt($row->con_principle));
-            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->con_interest."%");
-            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->con_interest_type);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $this->showPeriod($row->con_per_year,$row->con_per_month));
-            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->cus_nm);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->con_total_principle);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->con_total_interest);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->con_end_dt);
-            $excel_row++;
-        }
-
-        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="Contract_'.date('Y/m/d').'.xls"');        
-        $object_writer->save('php://output');
-    }
+    
 
     function commaAmt($str){
         $str = (int)$str;
