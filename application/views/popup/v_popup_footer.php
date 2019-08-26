@@ -164,7 +164,8 @@ $('#adminCalendar').fullCalendar({
 });
 
 $(document).ready(function() {
-
+	$("body .modal-title").css("font-family","Khmer Os Battambang");
+	$("body label").css("font-size","15px");
 
 	/* onload */
 	if(parent.$("#usr_edit_yn").val() != "Y" && $("#frmAct").val() == "U"){

@@ -6,7 +6,7 @@
 	<section class="content-header">
 		<h1>
 		<i class="fa fa-handshake-o"></i>
-		<span data-i18ncd="lb_contract">Contract</span>
+		<span >លក់ចេញ</span>
 		<small data-i18ncd="lb_information">Information</small>
 		</h1>
 		<ol class="breadcrumb">

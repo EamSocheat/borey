@@ -92,14 +92,14 @@ var _thisPage = {
 			
 			var controllerNm = "PopupFormCategory";
 			var option = {};
-			option["height"] = "352px";
+			option["height"] = "360px";
 		    stock.comm.openPopUpForm(controllerNm,option, data,"modal-md");		    
 		}, addNewCategory: function(){
 			$("#loading").show();
 			var data = "";
 			var controllerNm = "PopupFormCategory";
 			var option = {};
-			option["height"] = "352px";
+			option["height"] = "360px";
 			
 			stock.comm.openPopUpForm(controllerNm, option, data);
 		}, deleteDataArr : function(dataArr){

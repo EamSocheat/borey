@@ -357,12 +357,31 @@ function checkCookieLang(){
         	$("body .form-control").css("font-size","14px");
         	$("body .form-control-sm").css("font-size","13px"); */
         }
+
+    	$("body").css("font-family","Source Sans Pro,Helvetica Neue,Helvetica,Arial,sans-serif,Khmer Os Battambang");
+    	$("body").css("font-size","15px");
+    	$("body .form-control").css("font-size","14px");
+    	$("body .input-sm").css("font-size","13px");
+    	$("body .form-control-sm").css("font-size","13px");
+    	//$("body label").css("font-size","14px");
+    	//$("body span").css("font-size","14px");
+    	$("body .modal-title").css("font-family","Khmer Os Battambang");
+    	$("body .content-header").css("font-family","Khmer Os Battambang");
+    	$("body small").css("font-family","Khmer Os Battambang");
+    	$("body span").css("font-family","Khmer Os Battambang");
+    	
     }else{
     	$("body").css("font-family","Source Sans Pro,Helvetica Neue,Helvetica,Arial,sans-serif,Khmer Os Battambang");
     	$("body").css("font-size","14px");
     	$("body .form-control").css("font-size","14px");
     	$("body .input-sm").css("font-size","13px");
     	$("body .form-control-sm").css("font-size","13px");
+    	//$("body label").css("font-size","14px");
+    	//$("body span").css("font-size","14px");
+    	$("body .modal-title").css("font-family","Khmer Os Battambang");
+    	$("body .content-header").css("font-family","Khmer Os Battambang");
+    	$("body small").css("font-family","Khmer Os Battambang");
+    	$("body span").css("font-family","Khmer Os Battambang");
     	lang="en";
     	changeLang("en");
     	$("#langDrop").attr("data-lng","en");

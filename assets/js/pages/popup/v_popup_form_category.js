@@ -26,8 +26,15 @@ var _thisPage = {
 		},
 		event : function(){
 			$("#btnClose, #btnExit").click(function(){
-				var parentFrame = $("#parentId").val();
-				var callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupCategoryCallback;
+				//var parentFrame = $("#parentId").val();
+				//var callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupCategoryCallback;
+				var callbackFunction=null;
+				if($("#parentId").val() != "" && $("#parentId").val() != null){
+					var parentFrame = $("#parentId").val();
+					callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupCategoryCallback;
+				}else{
+					callbackFunction = parent.popupCategoryCallback;
+				}
 				parent.stock.comm.closePopUpForm("PopupFormCategory", callbackFunction);
 			});
 			$("#frmCateg").submit(function(e){
@@ -79,8 +86,16 @@ function saveData(str){
 				if(str == "new"){
 				    clearForm();
 				}else{
-					var parentFrame = $("#parentId").val();
-					var callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupCategoryCallback;
+					//var parentFrame = $("#parentId").val();
+					//var callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupCategoryCallback;
+					
+					var callbackFunction=null;
+					if($("#parentId").val() != "" && $("#parentId").val() != null){
+						var parentFrame = $("#parentId").val();
+						callbackFunction = parent.$("#"+parentFrame)[0].contentWindow.popupCategoryCallback;
+					}else{
+						callbackFunction = parent.popupCategoryCallback;
+					}
 					parent.stock.comm.closePopUpForm("PopupFormCategory", callbackFunction);
 				}
 			}
