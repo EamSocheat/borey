@@ -1,5 +1,6 @@
 var _btnId;
 var _this;
+var _amountLeft;
 $(document).ready(function() {
 	_thisPage.init();
 });
@@ -14,7 +15,7 @@ var _thisPage = {
 			parent.$("#loading").hide();
 			//
 			getStaff();
-			getPaymentMethod()
+			getPaymentMethod();
 			stock.comm.inputCurrency("txtPayPer");
 			stock.comm.inputCurrency("txtPayCash");
 			stock.comm.inputCurrency("txtDisPer");
@@ -42,16 +43,16 @@ var _thisPage = {
 			    $("#lAmt").attr("readonly","readonly");
 			    $("#popupTitle").html("<i class='fa fa-shopping-cart'></i> "+$.i18n.prop("btn_edit")+" ការលក់");
 			}else{
-				stock.comm.todayDate("#txtContSD","-");
 			    $("#btnSaveNew").show();			    
 			    $("#popupTitle").html("<i class='fa fa-shopping-cart'></i> "+$.i18n.prop("btn_add_new")+" ការល​ក់" );
 			}
+			stock.comm.todayDate("#txtContSD","-");
 			$("#frmSell").show();
 			$("#braNm").focus();						
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
 			
-			settingEndDate();
+			
 			
 		},
 		event : function(){
@@ -65,10 +66,17 @@ var _thisPage = {
 				e.preventDefault();
 				if(_btnId == "btnSave"){
 			    	saveData();
+				}else if(_btnId == "btnAddPayment" ){
+					savePaymentData();
 				}else{
 			    	saveData("new");
 				}
 			
+			});
+			//
+			$("#btnAddPayment").click(function(e){
+				_btnId = $(this).attr("id");
+				
 			});
 			//
 			$("#btnSave").click(function(e){
@@ -268,7 +276,7 @@ function getContractInfo(cont_code){
 			    
 			    var amtLeft = totalAmount - parseFloat(res.OUT_REC[0]["con_total_price"]);
 			    //$("#tblProduct tbody").append("<tr><td class='text-right' colspan='3'><b>ប្រាក់ដើមនៅសល់៖</b></td><td class='text-right'>"+ stock.comm.formatCurrency(amtLeft) +"</td></tr>");
-			    console.log(totalAmount+":"+amtLeft)
+			    
 			    $("#txtPrinciple").val(stock.comm.formatCurrency(totalAmount));
 				$("#txtTotalLeft").val(stock.comm.formatCurrency(amtLeft));
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
@@ -321,8 +329,7 @@ function saveData(str){
 	$("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",false);
 	
 	parent.$("#msgErr").hide();
-	//
-	console.log($("#frmSell").serialize());
+	
 	$.ajax({
 		type : "POST",
 		url  : $("#base_url").val() +"Sell/saveSell",
@@ -351,6 +358,68 @@ function saveData(str){
         }
 	});
 }
+
+
+
+function savePaymentData(str){
+	$("#sellId").appendTo("#frmSell");    
+    
+    var isCusomterEmpty = $("#txtCusNm").val().trim();
+   if(stock.comm.isNull(isCusomterEmpty) || stock.comm.isEmpty(isCusomterEmpty)){
+	   showCustomerErr();
+	   return;
+    }
+       
+    var productChk=$("#tblProduct tbody tr");
+    if(productChk.length < 1){
+    	showProductErr();
+    	return;
+    }
+   	var productArr=[];
+   	var productPriceArr=[];
+   	productChk.each(function(i){
+   		productArr.push(parseInt($(this).attr("data-id")));
+   		productPriceArr.push($("#pro_price").val().replace(/,/g,''));
+   	});
+   	
+	//
+	$("#txtPayCash").val($("#txtPayCash").val().replace(/,/g,''));
+	$("#txtPrinciple").val($("#txtPrinciple").val().replace(/,/g,''));
+	
+	$("#txtDisPer").val($("#txtDisPer").val().replace(/,/g,''));
+	$("#txtDisCash").val($("#txtDisCash").val().replace(/,/g,''));
+	
+	$("#txtCusNm").css("border-color","#ced4da");
+	$("#btnSelectPro").css("border-color","#ced4da");
+	$("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",false);
+	
+	parent.$("#msgErr").hide();
+	
+	$.ajax({
+		type : "POST",
+		url  : $("#base_url").val() +"Sell/savePayment",
+		data: $("#frmSell").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr ,
+		success: function(res) {
+		    parent.$("#loading").hide();
+			if(res !=""){
+				//parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
+				parent.stock.comm.confirmMsg($.i18n.prop("msg_save_com")+" \nតើអ្នកចង់បោះពុម្ពដែរឫទេ ?");
+				parent.$("#btnConfirmOk").unbind().click(function(e){
+					parent.$("#mdlConfirm").modal('hide');
+					printInv(res);
+				});
+								
+				parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
+				
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg($.i18n.prop("msg_err"));
+        }
+	});
+}
+
 
 function updateContractStatus(status){
 	var input = {};
@@ -397,7 +466,7 @@ function getDataEdit(cont_id){
 				$("#btnContractSrch").remove();
 				$("#txtContract").css("width","260px");
 				$("#txtContract").css("border-radius","5px");
-				$("#btnPrint").show();
+				$("#btnAddPayment").show();
 				//$("#balanceLeft").text( $.i18n.prop("lb_pay_balance") +" : "+ stock.comm.formatCurrency(res.OUT_REC[0]["loan_amount_left"])+res.OUT_REC[0]["cur_syn"]);	
 				$("#contractNo").text( "លេខសម្គាល់ការលក់" +" : "+ res.OUT_REC[0]["sell_code"]);		
 				
@@ -405,18 +474,20 @@ function getDataEdit(cont_id){
 			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
 			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
 			    $("#txtBookDate").val(res.OUT_REC[0]["con_date"] == null ? "" : moment(res.OUT_REC[0]["con_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#cboSeller").val(res.OUT_REC[0]["seller_id"]);
-			    $("#cboReceiver").val(res.OUT_REC[0]["rec_id"]);
+			    $("#cboSeller").val(res.OUT_REC[0]["sell_seller_id"]);
+			    //$("#cboReceiver").val(res.OUT_REC[0]["rec_id"]);
 			    $("#txtDesc").val(res.OUT_REC[0]["sell_des"]);
 			    $("#txtBookingAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
 			    $("#txtContract").val(res.OUT_REC[0]["con_code"]);
-		    	$("#cboConType").val(res.OUT_REC[0]["con_type_id"]);
+		    	$("#cboConType").val(res.OUT_REC[0]["sell_con_type_id"]);
 		    	
 			    $("#btnSelectPro").hide();
 			    
 			    $("#txtPrinciple").val(stock.comm.formatCurrency(res.OUT_REC[0]["sell_total_price"]));
-			    
+			    $("#txtDisPer").val(res.OUT_REC[0]["sell_dis_per"]);
+			    $("#txtDisCash").val(stock.comm.formatCurrency(res.OUT_REC[0]["sell_dis_amt"]))
 		    	
+			    
 			    $("#divEnd1").show();
 		    	$("#divEnd2").show();
 			    $("#divEnd3").show();
@@ -427,12 +498,13 @@ function getDataEdit(cont_id){
 		        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 		        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm_kh"]+"</td>";
 		        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm_kh"]+"</td>";
-		        html += "<td class='pro_price cur-pointer'>"+stock.comm.formatCurrency(rec["sell_price_before_dis"])+"</td>";
+		        html += "<td class='pro_price cur-pointer text-right' style='    padding-right: 25px;'><input class='text-right' id='pro_price' style='border: none;background-color: #ffffff;' value='"+stock.comm.formatCurrency(rec["sell_price_before_dis"])+"'/></td>";
 		        html += "</tr>";
 		        $("#tblProduct tbody").append(html);
 					
 			    //
 		        $("#tblPayment tbody").html("");
+		        var salePay=0;
 		    	for(var i=0;i<res.OUT_REC.length; i++){
 					var rec = res.OUT_REC[i];
 					var htmlPayment = "<tr data-id='"+rec["sale_pay_id"]+"'>";
@@ -441,15 +513,21 @@ function getDataEdit(cont_id){
 			        htmlPayment += "<td class='met_nm_kh cur-pointer'>"+rec["met_nm_kh"]+"</td>";
 			        htmlPayment += "<td class='sale_pay_tran_id cur-pointer'>"+rec["sale_pay_tran_id"]+"</td>";
 			        htmlPayment += "<td class='sale_pay_amt_per cur-pointer text-right'>"+rec["sale_pay_amt_per"]+" %</td>";
-			        htmlPayment += "<td class='sale_pay_amt_cash cur-pointer text-right'>"+stock.comm.formatCurrency(rec["sale_pay_amt_cash"])+" $</td>";
+			        htmlPayment += "<td class='sale_pay_amt_cash cur-pointer text-right'  style='padding-right: 25px;'>"+stock.comm.formatCurrency(rec["sale_pay_amt_cash"])+" $</td>";
 			        htmlPayment += "</tr>";
 			        
 			        $("#tblPayment tbody").append(htmlPayment);
-					
+			        salePay += parseFloat(rec["sale_pay_amt_cash"]);
 			    }
-
+		    	$("#txtTotalPaid").val(stock.comm.formatCurrency(salePay));
+		    	$("#totalPaidDiv").show();
+		    	var contractPay = res.OUT_REC[0]["con_total_price"] == null ? 0 : parseFloat(res.OUT_REC[0]["con_total_price"]);
+			    var amountLeft =0;
+			    amountLeft = parseFloat(res.OUT_REC[0]["sell_total_price"]) - (contractPay+salePay);
+			    $("#txtTotalLeft").val(stock.comm.formatCurrency(amountLeft));
+			    _amountLeft = amountLeft;
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
-			    
+			    $("#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#cboPaymentMet,#txtTran").prop("disabled",false);
 			}else{
 			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -660,29 +738,6 @@ function showProductErr(){
 	
 }
 
-function settingEndDate(){
-
-	/*var newDate = "";
-	var newDay = $("#txtContSD").val().substring(0,2);
-	var newMonth = $("#txtContSD").val().substring(3,5);
-	var newYear = $("#txtContSD").val().substring(6,10);
-	newDate = newYear+"-"+newMonth+"-"+newDay;
-	console.log(newDate);
-	var myDate = moment(newDate, 'dd-mm-yyyy').toDate();
-	console.log(myDate);*/
-	//
-	$('#txtContED').datepicker({
-		language: "kh" ,
-		weekStart: true,
-        todayBtn:  true,
-		autoclose: true,
-		todayHighlight: 1,
-		forceParse: 0,
-		sideBySide: true,
-		format: "dd-mm-yyyy"
-    });
-	$("#txtContED").inputmask();
-}
 
 
 function calDiscount(id_act){
@@ -714,14 +769,14 @@ function calDiscount(id_act){
 			amountAftDis = proPrice - disCash;
 			$("#txtDisCash").val(stock.comm.formatCurrency(disCash.toFixed(2)));
 		}
-		
+	
 		if(amountAftDis > 0 && $("#txtBookingAmt").val() != "" && $("#txtBookingAmt").val() != null && $("#txtBookingAmt").val() != undefined && !isNaN($("#txtBookingAmt").val().replace(/,/g,''))){
 			amtLeft = amountAftDis - parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
 		}else{
 			amtLeft = amountAftDis;
 		}
-		
-		if(amtLeft != 0 && amountAftDis != 0){
+	
+		if(amtLeft != 0 && amountAftDis != 0 && $("#frmAct").val() !="U"){
 			$("#txtPrinciple").val(stock.comm.formatCurrency(amountAftDis.toFixed(2)));
 			$("#txtTotalLeft").val(stock.comm.formatCurrency(amtLeft.toFixed(2)));
 		}
@@ -739,11 +794,17 @@ function calDiscount(id_act){
 function calPay(id_act){
 	if($("#pro_price").val() != "" && $("#pro_price").val() != null && $("#pro_price").val() != undefined && !isNaN($("#pro_price").val().replace(/,/g,''))){
 		var proPrice = 0;
-		if($("#txtPrinciple").val().replace(/,/g,'') > 0 && $("#txtPrinciple").val() != "" && $("#txtPrinciple").val() != null && $("#txtPrinciple").val() != undefined && !isNaN($("#txtPrinciple").val().replace(/,/g,''))){
-			proPrice = parseFloat($("#txtPrinciple").val().replace(/,/g,''));
+		if($("#frmAct").val() =="U"){
+			//add more pay
+			proPrice=parseFloat(_amountLeft);
 		}else{
-			proPrice=parseFloat($("#pro_price").val().replace(/,/g,''));
+			if($("#txtPrinciple").val().replace(/,/g,'') > 0 && $("#txtPrinciple").val() != "" && $("#txtPrinciple").val() != null && $("#txtPrinciple").val() != undefined && !isNaN($("#txtPrinciple").val().replace(/,/g,''))){
+				proPrice = parseFloat($("#txtPrinciple").val().replace(/,/g,''));
+			}else{
+				proPrice=parseFloat($("#pro_price").val().replace(/,/g,''));
+			}
 		}
+		
 		var amountAftDis=0;
 		var amtLeft=0;
 		if(id_act == "C" && $("#txtPayCash").val().replace(/,/g,'') !=""){
@@ -753,7 +814,7 @@ function calPay(id_act){
 				disCash=0;
 			}else{
 				disCash = parseFloat($("#txtPayCash").val().replace(/,/g,''));
-				if($("#txtBookingAmt").val().replace(/,/g,'') !=""){
+				if($("#txtBookingAmt").val().replace(/,/g,'') !="" && $("#frmAct").val() !="U"){
 					disCash+=parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
 				}
 			}
@@ -773,10 +834,10 @@ function calPay(id_act){
 				disPer=parseFloat($("#txtPayPer").val().replace(/,/g,''));
 			}
 			disCash = (disPer/100) * proPrice;
-			if($("#txtBookingAmt").val().replace(/,/g,'') != null && $("#txtBookingAmt").val().replace(/,/g,'') != ""){
+			if($("#txtBookingAmt").val().replace(/,/g,'') != null && $("#txtBookingAmt").val().replace(/,/g,'') != "" && $("#frmAct").val() !="U"){
 				disCash = disCash - parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
 			}
-			if(disCash <= parseFloat($("#txtBookingAmt").val().replace(/,/g,''))){
+			if(disCash <= parseFloat($("#txtBookingAmt").val().replace(/,/g,'')) && $("#frmAct").val() !="U"){
 				$("#txtPayCash").val("");
 				$("#txtPayCash").css("border-color","red");
 				$("#txtPayPer").css("border-color","red");
@@ -791,7 +852,10 @@ function calPay(id_act){
 		}
 	
 	}
-	calDiscount("P");
+	if($("#frmAct").val() !="U"){
+		calDiscount("P");
+	}
+	
 }
 
 function stringDate(str){

@@ -13,7 +13,7 @@
     	}
     	
     	function selectSellDataDetail($dataSrch){
-    	    $this->db->select('*,seller.sta_nm_kh as seller_nm,reciev.sta_nm_kh as reciver');
+    	    $this->db->select('*,tbl_sell.con_type_id as sell_con_type_id,seller.sta_id as sell_seller_id,seller.sta_nm_kh as seller_nm,reciev.sta_nm_kh as reciver');
     	    $this->db->from('tbl_sell');
     	    $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
     	    $this->db->join('tbl_sell_detail','tbl_sell_detail.sell_id = tbl_sell.sell_id');
@@ -33,6 +33,7 @@
     	    if($dataSrch['sell_id'] != null && $dataSrch['sell_id'] != ""){
     	        $this->db->where('tbl_sell.sell_id', $dataSrch['sell_id']);
     	    }
+    	    $this->db->order_by("tbl_sale_payment.sale_pay_id", "desc");
     	    return $this->db->get()->result();
     	}
         

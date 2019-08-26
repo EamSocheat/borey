@@ -203,6 +203,43 @@ class Sell extends CI_Controller{
         echo $sell_id_save;
     }
     
+	public function savePayment(){
+        if(!$this->M_check_user->check()){
+            redirect('/Login');
+        }
+        $data=array(
+            'sell_id'        	=> $this->input->post('sellId')
+        );
+        $max_code_obj = $this->M_sale_payment->selectPaymentCode($data);
+        $max_id_int = intval($max_code_obj[0]->sale_pay_code);
+        $max_id = (string)$max_id_int;
+        $zero   = '';
+        for($i = strlen($max_id); $i <= 5; $i++){
+            $zero = '0'.$zero;
+        }
+        $sale_pay_code = $zero.$max_id;
+        
+        $dataSalePayment=array(
+            'sell_id'        	=> $this->input->post('sellId'),
+            'sale_pay_date'  	=> date('Y-m-d H:i:s',strtotime($this->input->post('txtContSD'))),
+            'sale_pay_amt_per' => $this->input->post('txtPayPer'),
+            'sale_pay_amt_cash' => $this->input->post('txtPayCash'),
+            'sale_pay_tran_id' 		=> $this->input->post('txtTran'),
+            'sale_pay_met_id'        => $this->input->post('cboPaymentMet'),
+            'rec_id'        => $this->input->post('cboReceiver'),
+            //'con_type_id'        => $this->input->post('cboConType'),
+            'sale_pay_code'        => $sale_pay_code,
+        );
+        $dataSalePayment['useYn']  = 'Y';
+        $dataSalePayment['com_id'] = $_SESSION['comId'];
+        $dataSalePayment['regUsr'] = $_SESSION['usrId'];
+        $dataSalePayment['regDt']  = date('Y-m-d H:i:s');
+        
+        $sell_id_save = $this->M_sale_payment->insert($dataSalePayment);
+
+        echo $sell_id_save;
+    }
+    
     
 
     public function udpateStatus(){

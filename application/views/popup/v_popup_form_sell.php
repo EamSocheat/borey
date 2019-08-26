@@ -119,7 +119,7 @@
             					  <th>លេខកូដ</th>
 	        					  <th>ប្រភេទ</th>
 	        					  <th>គំរោង</th>
-	        					  <th>តំលៃ $</th>
+	        					  <th class="text-right" style="padding-right: 25px;">តំលៃ $</th>
             					</tr>
         					</thead>
         					<tbody>
@@ -170,37 +170,6 @@
                 </div>
                 
                 <div class="col-xs-12 row" style="padding:0px;">
-                	
-                	<!--  -->
-		    		<div class="col-xs-3 padding-forms-left">
-                		<div class="form-group">
-        		      		<label  for="txtDisPer" > បញ្ចុះតំលៃ % </label><span> </span>
-        		        	<input type="text" maxlength="2" class="form-control text-right" id="txtDisPer" placeholder="Enter loan amount" name="txtDisPer" autocomplete="off" />
-        		    	</div>
-                	</div>
-                	<div class="col-xs-3 padding-forms-right">
-                		<div class="form-group">
-        		      		<label  for="txtDisCash">បញ្ចុះតំលៃ $ </label><span> </span>
-        		        	<input type="text" class="form-control text-right" id="txtDisCash" placeholder="Enter loan amount" name="txtDisCash" autocomplete="off" />
-        		    	</div>
-                    </div>
-                    <div class="col-xs-3 padding-forms-right">
-                        <div class="form-group">
-        		      		<label  for="txtPrinciple" > តំលៃបញ្ចុះរួច</label><span> </span>
-        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtPrinciple" placeholder="Enter loan amount" name="txtPrinciple" autocomplete="off" />
-        		    	</div>
-                    </div>
-                    <div class="col-xs-3 padding-forms-right">
-                        <div class="form-group">
-        		      		<label  for="txtTotalLeft" > ប្រាក់ដើមនៅសល់</label><span> </span>
-        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtTotalLeft" placeholder="Enter loan amount" name="txtTotalLeft" autocomplete="off" />
-        		    	</div>
-                    </div>
-			    	<!--  -->
-                </div>
-                
-                
-                <div class="col-xs-12 row" style="padding:0px;margin-bottom: 10px;">
                     <div class="col-xs-3 padding-forms-left">
                     	<div class="form-group">
 	                        <label  for="cboPaymentMet" >វីធីបង់ប្រាក់</label>
@@ -217,12 +186,47 @@
 				    	</div>
 			    	
             		</div>
-                    <div class="col-xs-4 padding-forms-right">
-            			
-		               
-			    	
-            		</div>
+                    <!--  -->
+		    		<div class="col-xs-3 padding-forms-right">
+                		<div class="form-group">
+        		      		<label  for="txtDisPer" > បញ្ចុះតំលៃ % </label><span> </span>
+        		        	<input type="text" maxlength="2" class="form-control text-right" id="txtDisPer" placeholder="Enter loan amount" name="txtDisPer" autocomplete="off" />
+        		    	</div>
+                	</div>
+                	<div class="col-xs-3 padding-forms-right">
+                		<div class="form-group">
+        		      		<label  for="txtDisCash">បញ្ចុះតំលៃ $ </label><span> </span>
+        		        	<input type="text" class="form-control text-right" id="txtDisCash" placeholder="Enter loan amount" name="txtDisCash" autocomplete="off" />
+        		    	</div>
+                    </div>
             		
+                </div>
+                
+                <div class="col-xs-12 row" style="padding:0px;">
+                	
+                	<!--  -->
+		    		<div class="col-xs-3 padding-forms-left">
+                		
+                	</div>
+                	<div class="col-xs-3 padding-forms-right">
+                		<div class="form-group" id="totalPaidDiv" style="display: none;">
+                		<label  for="txtTotalPaid" > ប្រាក់បានបង់សរុប</label><span> </span>
+        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtTotalPaid" placeholder="Enter loan amount" name="txtTotalPaid" autocomplete="off" />
+                		</div>
+                    </div>
+                    <div class="col-xs-3 padding-forms-right">
+                        <div class="form-group">
+        		      		<label  for="txtTotalLeft" > ប្រាក់ដើមនៅសល់</label><span> </span>
+        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtTotalLeft" placeholder="Enter loan amount" name="txtTotalLeft" autocomplete="off" />
+        		    	</div>
+                    </div>
+                    <div class="col-xs-3 padding-forms-right">
+        		    	<div class="form-group">
+        		      		<label  for="txtPrinciple" > តំលៃបញ្ចុះរួច</label><span> </span>
+        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtPrinciple" placeholder="Enter loan amount" name="txtPrinciple" autocomplete="off" />
+        		    	</div>
+                    </div>
+			    	<!--  -->
                 </div>
                 
                 <div class="col-xs-12 row" style="padding:0px">
@@ -237,7 +241,7 @@
 	        					  <th>វីធីបង់ប្រាក់</th>
 	        					  <th>លេខប្រតិបត្តិការណ៍ </th>
 	        					  <th class="text-right">ប្រាក់បង់ % </th>
-	        					  <th class="text-right">ប្រាក់បង់ $</th>
+	        					  <th class="text-right"  style="padding-right: 25px;">ប្រាក់បង់ $</th>
             					</tr>
         					</thead>
         					<tbody>
@@ -256,7 +260,8 @@
      
         <div class="modal-footer" >
             <input type="hidden" value="" id="statusID" name="statusID" />
-            <button type="button" class="btn btn-info btn-sm" id="btnPrint" style="display: none;">បោះពុម្ព</button>
+            <!--<button type="button" class="btn btn-info btn-sm" id="btnPrint" style="display: none;">បោះពុម្ព</button> -->
+            <button type="submit" class="btn btn-primary btn-sm" id="btnAddPayment" style="display: none;"><i class="fa fa-plus"></i> បង់ប្រាក់បន្ថែម</button>
             <button data-i18ncd="btn_save_new" type="submit" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
             <button data-i18ncd="btn_save" type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>
             <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
