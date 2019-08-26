@@ -167,7 +167,7 @@
      
         <div class="modal-footer" >
             <input type="hidden" value="" id="statusID" name="statusID" />
-            <button type="button" class="btn btn-info btn-sm" id="btnPrint" style="display: none;">បោះពុម្ព</button>
+            <button type="button" class="btn btn-info btn-sm" id="btnPrint" style="display: none;"><i class='fa fa-print' aria-hidden='true'></i> បោះពុម្ព</button>
             <button data-i18ncd="btn_save_new" type="submit" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
             <button data-i18ncd="btn_save" type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>
             <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>

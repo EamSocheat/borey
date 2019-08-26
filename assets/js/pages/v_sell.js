@@ -168,7 +168,7 @@ var _thisPage = {
 				$("#loading").show();
 				var controllerNm = "PopupFormSell";
 				var option = {};
-				option["height"] = "930px";
+				option["height"] = "750px";
 				
 				stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
 			});			

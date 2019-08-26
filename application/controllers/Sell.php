@@ -115,18 +115,16 @@ class Sell extends CI_Controller{
         
         $dataSell = array(
             'cus_id'        	=> $this->input->post('txtCusId'),
-        	'sell_total_price' => $this->input->post('txtPrinciple'),
+            'sell_total_price' => $proPriceArr[0],
             'sell_date'  	=> date('Y-m-d H:i:s',strtotime($this->input->post('txtContSD'))),
             'sell_des' 		=> $this->input->post('txtDesc'),      
         	'seller_id'        => $this->input->post('cboSeller'),
         	'rec_id'        => $this->input->post('cboReceiver'),
-          	//'con_pay_met'        => $this->input->post('cboPaymentMet'),
-        	//'con_tran_id'        => $this->input->post('txtTran'),
             'con_id'        => $this->input->post('txtContID'),
         	'con_type_id'        => $this->input->post('cboConType'),
-            'sell_price_before_dis'        => $proPriceArr[0],
-            'sell_dis_amt'        => $this->input->post('txtDisCash'),
-            'sell_dis_per'        => $this->input->post('txtDisPer'),
+            //'sell_price_before_dis'        => $proPriceArr[0],
+            //'sell_dis_amt'        => $this->input->post('txtDisCash'),
+            //'sell_dis_per'        => $this->input->post('txtDisPer'),
         );
         
         $sell_id_save=0;
@@ -188,10 +186,13 @@ class Sell extends CI_Controller{
             'sale_pay_amt_per' => $this->input->post('txtPayPer'),
             'sale_pay_amt_cash' => $this->input->post('txtPayCash'),
             'sale_pay_tran_id' 		=> $this->input->post('txtTran'),
+            'sale_pay_real_amount' 		=> $this->input->post('txtRealPayAmt'),
             'sale_pay_met_id'        => $this->input->post('cboPaymentMet'),
             'rec_id'        => $this->input->post('cboReceiver'),
             //'con_type_id'        => $this->input->post('cboConType'),
             'sale_pay_code'        => $sale_pay_code,
+            'sale_pay_dis_per' => $this->input->post('txtDisPer'),
+            'sale_pay_dis_cash' => $this->input->post('txtDisCash'),
         );
         $dataSalePayment['useYn']  = 'Y';
         $dataSalePayment['com_id'] = $_SESSION['comId'];
@@ -227,6 +228,7 @@ class Sell extends CI_Controller{
             'sale_pay_tran_id' 		=> $this->input->post('txtTran'),
             'sale_pay_met_id'        => $this->input->post('cboPaymentMet'),
             'rec_id'        => $this->input->post('cboReceiver'),
+            'sale_pay_real_amount' 		=> $this->input->post('txtRealPayAmt'),
             //'con_type_id'        => $this->input->post('cboConType'),
             'sale_pay_code'        => $sale_pay_code,
         );

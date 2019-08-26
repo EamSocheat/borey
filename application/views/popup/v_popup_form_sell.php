@@ -88,7 +88,7 @@
 		                	</select>
 	                	</div>
                     </div>
-                    <div class="col-xs-5 padding-forms-right">
+                    <div class="col-xs-8 padding-forms-right">
             			
 		                <div class="form-group">
                             <label  for="txtDesc" data-i18nCd="lb_des">Description</label>
@@ -96,20 +96,21 @@
                         </div>
 			    	
             		</div>
+            		<!--
             		<div class="col-xs-3 padding-forms-right text-right">
             			<div class="form-group">
             				<label  for="btnSelectPro" ></label>
 		                	<button  type="button" style="margin-top: 26px;" class="btn btn-info btn-sm" id="btnSelectPro"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
 			    		</div>
             		</div>
-                 
+                    -->
                 </div>
                 
                 <div class="col-xs-12 row" style="padding:0px">
-                	<!--<div style="text-align: right;    margin-right: 5px;">
+                	<div style="text-align: right;    margin-right: 5px;">
                 		<button  type="button" class="btn btn-info btn-sm" id="btnSelectPro"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
                 	</div>
-                	<br>-->
+                	
                 	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
                 		<span><b>ពត៍មានអចលនទ្រព្យ</b></span>
                     	<div class="box-body table-responsive fix-header-tbl" style="height: 100px;padding: 0px;">
@@ -157,13 +158,13 @@
                     <div class="col-xs-3 padding-forms-right">
                         <div class="form-group">
         		      		<label  for="txtPayPer" > ប្រាក់បង់  % </label><span> </span>
-        		        	<input type="text" maxlength="2" class="form-control text-right" id="txtPayPer" placeholder="Enter loan amount" name="txtPayPer" autocomplete="off" />
+        		        	<input type="text" maxlength="2" class="form-control text-right" id="txtPayPer" required="required"  placeholder="Enter loan amount" name="txtPayPer" autocomplete="off" />
         		    	</div>
                     </div>
                     <div class="col-xs-3 padding-forms-right">
                         <div class="form-group">
         		      		<label  for="txtPayCash">ប្រាក់បង់ $ </label><span> </span>
-        		        	<input type="text" class="form-control text-right" id="txtPayCash" placeholder="Enter loan amount" name="txtPayCash" autocomplete="off" />
+        		        	<input type="text" class="form-control text-right" id="txtPayCash" required="required"  placeholder="Enter loan amount" name="txtPayCash" autocomplete="off" />
         		    	</div>
                     </div>
 			    	<!--  -->
@@ -209,39 +210,43 @@
                 		
                 	</div>
                 	<div class="col-xs-3 padding-forms-right">
-                		<div class="form-group" id="totalPaidDiv" style="display: none;">
+                		<div class="form-group totalPaidDiv" style="display: none;">
                 		<label  for="txtTotalPaid" > ប្រាក់បានបង់សរុប</label><span> </span>
         		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtTotalPaid" placeholder="Enter loan amount" name="txtTotalPaid" autocomplete="off" />
                 		</div>
                     </div>
                     <div class="col-xs-3 padding-forms-right">
-                        <div class="form-group">
+                        <div class="form-group totalPaidDiv" style="display: none">
         		      		<label  for="txtTotalLeft" > ប្រាក់ដើមនៅសល់</label><span> </span>
         		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtTotalLeft" placeholder="Enter loan amount" name="txtTotalLeft" autocomplete="off" />
         		    	</div>
                     </div>
                     <div class="col-xs-3 padding-forms-right">
         		    	<div class="form-group">
-        		      		<label  for="txtPrinciple" > តំលៃបញ្ចុះរួច</label><span> </span>
-        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtPrinciple" placeholder="Enter loan amount" name="txtPrinciple" autocomplete="off" />
+        		      		<label  for="txtRealPayAmt" > ប្រាក់ត្រូវបង់សរុប</label><span> </span>
+        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtRealPayAmt" placeholder="Enter loan amount" name="txtRealPayAmt" autocomplete="off" />
         		    	</div>
                     </div>
 			    	<!--  -->
                 </div>
                 
-                <div class="col-xs-12 row" style="padding:0px">
+                <div class="col-xs-12 row totalPaidDiv" style="padding:0px;display: none">
                 	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
                 		<span><b>ប្រវត្តិនៃការបង់ប្រាក់</b></span>
                     	<div class="box-body table-responsive fix-header-tbl" style="height: 160px;padding: 0px;">
         				  <table class="table table-hover" id="tblPayment" >
         				    <thead>  
             					<tr>
+            					  <th> </th>
             					  <th>ថ្ងៃបង់ប្រាក់ </th>
 	        					  <th>អ្នកទទួលប្រាក់ </th>
 	        					  <th>វីធីបង់ប្រាក់</th>
 	        					  <th>លេខប្រតិបត្តិការណ៍ </th>
 	        					  <th class="text-right">ប្រាក់បង់ % </th>
-	        					  <th class="text-right"  style="padding-right: 25px;">ប្រាក់បង់ $</th>
+	        					  <th class="text-right"  >ប្រាក់បង់ $</th>
+	        					  <th class="text-right"  >បញ្ចុះ%</th>
+	        					  <!-- <th class="text-right"  >បញ្ចុះតំលៃ $</th> -->
+	        					  <th class="text-right"  style="padding-right: 25px;">ប្រាក់បង់សរុប</th>
             					</tr>
         					</thead>
         					<tbody>

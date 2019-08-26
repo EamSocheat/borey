@@ -200,21 +200,33 @@ var _thisPage = {
 			//
 			$("#txtDisPer").keyup(function(e){
 				calDiscount("P");
+				if($(this).val() =="" || $(this).val() ==null){
+					$("#txtDisCash").val("");
+				}
 			});
 			
 			//
 			$("#txtDisCash").keyup(function(e){
 				calDiscount("C");
+				if($(this).val() =="" || $(this).val() ==null){
+					$("#txtDisPer").val("");
+				}
 			});
 			
 			//
 			$("#txtPayPer").keyup(function(e){
 				calPay("P");
+				if($(this).val() =="" || $(this).val() ==null){
+					$("#txtPayCash").val("");
+				}
 			});
 			
 			//
 			$("#txtPayCash").keyup(function(e){
 				calPay("C");
+				if($(this).val() =="" || $(this).val() ==null){
+					$("#txtPayPer").val("");
+				}
 			});
 		}
 };
@@ -277,7 +289,7 @@ function getContractInfo(cont_code){
 			    var amtLeft = totalAmount - parseFloat(res.OUT_REC[0]["con_total_price"]);
 			    //$("#tblProduct tbody").append("<tr><td class='text-right' colspan='3'><b>ប្រាក់ដើមនៅសល់៖</b></td><td class='text-right'>"+ stock.comm.formatCurrency(amtLeft) +"</td></tr>");
 			    
-			    $("#txtPrinciple").val(stock.comm.formatCurrency(totalAmount));
+			    //$("#txtRealPayAmt").val(stock.comm.formatCurrency(totalAmount));
 				$("#txtTotalLeft").val(stock.comm.formatCurrency(amtLeft));
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
 			    $("#txtDisCash,#txtDisPer,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#txtContID,#cboPaymentMet,#txtTran").prop("disabled",false);
@@ -319,7 +331,8 @@ function saveData(str){
    	
 	//
 	$("#txtPayCash").val($("#txtPayCash").val().replace(/,/g,''));
-	$("#txtPrinciple").val($("#txtPrinciple").val().replace(/,/g,''));
+	$("#txtRealPayAmt").val($("#txtRealPayAmt").val().replace(/,/g,''));
+	
 	
 	$("#txtDisPer").val($("#txtDisPer").val().replace(/,/g,''));
 	$("#txtDisCash").val($("#txtDisCash").val().replace(/,/g,''));
@@ -346,7 +359,7 @@ function saveData(str){
 				
 				if(str == "new"){
 					clearForm();
-					$("#txtBookingAmt,#txtBookDate,#txtCusNm,#txtCusPhone,#txtPrinciple,#txtTotalLeft").prop("disabled",true);
+					$("#txtBookingAmt,#txtBookDate,#txtCusNm,#txtCusPhone,#txtRealPayAmt,#txtTotalLeft").prop("disabled",true);
 				}else{					
 				    parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
 				}
@@ -384,7 +397,7 @@ function savePaymentData(str){
    	
 	//
 	$("#txtPayCash").val($("#txtPayCash").val().replace(/,/g,''));
-	$("#txtPrinciple").val($("#txtPrinciple").val().replace(/,/g,''));
+	$("#txtRealPayAmt").val($("#txtRealPayAmt").val().replace(/,/g,''));
 	
 	$("#txtDisPer").val($("#txtDisPer").val().replace(/,/g,''));
 	$("#txtDisCash").val($("#txtDisCash").val().replace(/,/g,''));
@@ -482,11 +495,11 @@ function getDataEdit(cont_id){
 		    	$("#cboConType").val(res.OUT_REC[0]["sell_con_type_id"]);
 		    	
 			    $("#btnSelectPro").hide();
-			    
-			    $("#txtPrinciple").val(stock.comm.formatCurrency(res.OUT_REC[0]["sell_total_price"]));
+			    /*
+			    $("#txtRealPayAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["sell_total_price"]));
 			    $("#txtDisPer").val(res.OUT_REC[0]["sell_dis_per"]);
 			    $("#txtDisCash").val(stock.comm.formatCurrency(res.OUT_REC[0]["sell_dis_amt"]))
-		    	
+		    	*/
 			    
 			    $("#divEnd1").show();
 		    	$("#divEnd2").show();
@@ -498,7 +511,7 @@ function getDataEdit(cont_id){
 		        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 		        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm_kh"]+"</td>";
 		        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm_kh"]+"</td>";
-		        html += "<td class='pro_price cur-pointer text-right' style='    padding-right: 25px;'><input class='text-right' id='pro_price' style='border: none;background-color: #ffffff;' value='"+stock.comm.formatCurrency(rec["sell_price_before_dis"])+"'/></td>";
+		        html += "<td class='pro_price cur-pointer text-right' style='    padding-right: 25px;'><input class='text-right' id='pro_price' style='border: none;background-color: #ffffff;' value='"+stock.comm.formatCurrency(rec["sell_total_price"])+"'/></td>";
 		        html += "</tr>";
 		        $("#tblProduct tbody").append(html);
 					
@@ -508,26 +521,33 @@ function getDataEdit(cont_id){
 		    	for(var i=0;i<res.OUT_REC.length; i++){
 					var rec = res.OUT_REC[i];
 					var htmlPayment = "<tr data-id='"+rec["sale_pay_id"]+"'>";
+					htmlPayment += "<td class='sale_pay_date cur-pointer'><button type='button' class='btn btn-info btn-xs' onclick='printInv("+rec["sale_pay_id"]+")'><i class='fa fa-print' aria-hidden='true'></i> </button></td>";
 			        htmlPayment += "<td class='sale_pay_date cur-pointer'>"+stringDate(rec["sale_pay_date"].substr(0,10))+"</td>";
 			        htmlPayment += "<td class='reciver cur-pointer'>"+rec["reciver"]+"</td>";
 			        htmlPayment += "<td class='met_nm_kh cur-pointer'>"+rec["met_nm_kh"]+"</td>";
 			        htmlPayment += "<td class='sale_pay_tran_id cur-pointer'>"+rec["sale_pay_tran_id"]+"</td>";
-			        htmlPayment += "<td class='sale_pay_amt_per cur-pointer text-right'>"+rec["sale_pay_amt_per"]+" %</td>";
-			        htmlPayment += "<td class='sale_pay_amt_cash cur-pointer text-right'  style='padding-right: 25px;'>"+stock.comm.formatCurrency(rec["sale_pay_amt_cash"])+" $</td>";
+			        htmlPayment += "<td class='sale_pay_amt_per cur-pointer text-right'>"+rec["sale_pay_amt_per"]+"%</td>";
+			        htmlPayment += "<td class='sale_pay_amt_cash cur-pointer text-right'>"+stock.comm.formatCurrency(rec["sale_pay_amt_cash"])+"$</td>";
+			        htmlPayment += "<td class='sale_pay_amt_per cur-pointer text-right'>"+(rec["sale_pay_dis_per"] == null ? 0: rec["sale_pay_dis_per"]) +"%</td>";
+			        //htmlPayment += "<td class='sale_pay_amt_cash cur-pointer text-right'>"+(rec["sale_pay_dis_cash"] == null ? 0 : stock.comm.formatCurrency(rec["sale_pay_dis_cash"]))+"$</td>";
+			        htmlPayment += "<td class='sale_pay_amt_cash cur-pointer text-right'  style='padding-right: 25px;'>"+stock.comm.formatCurrency(rec["sale_pay_real_amount"])+"$</td>";
 			        htmlPayment += "</tr>";
 			        
 			        $("#tblPayment tbody").append(htmlPayment);
-			        salePay += parseFloat(rec["sale_pay_amt_cash"]);
+			        salePay += parseFloat(rec["sale_pay_real_amount"]);
 			    }
+		    	if($("#txtBookingAmt").val() != "" && $("#txtBookingAmt").val() != null && $("#txtBookingAmt").val() != undefined){
+		    		salePay += parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
+				}
 		    	$("#txtTotalPaid").val(stock.comm.formatCurrency(salePay));
-		    	$("#totalPaidDiv").show();
+		    	$(".totalPaidDiv").show();
 		    	var contractPay = res.OUT_REC[0]["con_total_price"] == null ? 0 : parseFloat(res.OUT_REC[0]["con_total_price"]);
 			    var amountLeft =0;
 			    amountLeft = parseFloat(res.OUT_REC[0]["sell_total_price"]) - (contractPay+salePay);
 			    $("#txtTotalLeft").val(stock.comm.formatCurrency(amountLeft));
 			    _amountLeft = amountLeft;
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
-			    $("#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#cboPaymentMet,#txtTran").prop("disabled",false);
+			    $("#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#cboPaymentMet,#txtTran,#txtDisPer,#txtDisCash").prop("disabled",false);
 			}else{
 			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -578,8 +598,8 @@ function selectProductCallback(data){
 			var rec = data["data"][i];
 			var html = "<tr data-id='"+rec["pro_id"]+"'>";
 	        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
-	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm_kh"]+"</td>";
-	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm_kh"]+"</td>";
+	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
+	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
 	        html += "<td class=' cur-pointer'><input id='pro_price' class='form-control text-right pro_price' type='text' value ='"+rec["pro_price"]+"'></td>";
 	        html += "</tr>";
 	        
@@ -743,6 +763,9 @@ function showProductErr(){
 function calDiscount(id_act){
 	if($("#txtPayCash").val() != "" && $("#txtPayCash").val() != null && $("#txtPayCash").val() != undefined && !isNaN($("#txtPayCash").val().replace(/,/g,''))){
 		var payPrice = parseFloat($("#txtPayCash").val().replace(/,/g,''));
+		/*if($("#txtBookingAmt").val() != "" && $("#txtBookingAmt").val() != null && $("#txtBookingAmt").val() != undefined){
+			payPrice += parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
+		}*/
 		var proPrice = parseFloat($("#pro_price").val().replace(/,/g,''));
 		var amountAftDis=0;
 		var amtLeft=0;
@@ -754,7 +777,7 @@ function calDiscount(id_act){
 			}else{
 				disCash = parseFloat($("#txtDisCash").val().replace(/,/g,''));
 			}
-			amountAftDis = proPrice - disCash;
+			amountAftDis = payPrice - disCash;
 			disPer = (disCash *100) / payPrice;
 			$("#txtDisPer").val(disPer.toFixed(2));
 		}else if($("#txtDisPer").val() != "" && $("#txtDisPer").val() != null && $("#txtDisPer").val() != undefined && !isNaN($("#txtDisPer").val().replace(/,/g,''))){
@@ -766,23 +789,31 @@ function calDiscount(id_act){
 				disPer=parseFloat($("#txtDisPer").val().replace(/,/g,''));
 			}
 			disCash = (disPer/100) * payPrice;
-			amountAftDis = proPrice - disCash;
+			
 			$("#txtDisCash").val(stock.comm.formatCurrency(disCash.toFixed(2)));
 		}
-	
+		if($("#txtDisCash").val().replace(/,/g,'') =="" || $("#txtDisCash").val().replace(/,/g,'') ==null || $("#txtDisPer").val() == "" || $("#txtDisPer").val() == null){
+			disCash=0;
+		}
+		/*
 		if(amountAftDis > 0 && $("#txtBookingAmt").val() != "" && $("#txtBookingAmt").val() != null && $("#txtBookingAmt").val() != undefined && !isNaN($("#txtBookingAmt").val().replace(/,/g,''))){
 			amtLeft = amountAftDis - parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
 		}else{
 			amtLeft = amountAftDis;
 		}
-	
-		if(amtLeft != 0 && amountAftDis != 0 && $("#frmAct").val() !="U"){
-			$("#txtPrinciple").val(stock.comm.formatCurrency(amountAftDis.toFixed(2)));
+		
+		if(amtLeft != 0 && amountAftDis != 0 ){
+			$("#txtRealPayAmt").val(stock.comm.formatCurrency(amountAftDis.toFixed(2)));
 			$("#txtTotalLeft").val(stock.comm.formatCurrency(amtLeft.toFixed(2)));
+		}*/
+		if($("#txtBookingAmt").val() != "" && $("#txtBookingAmt").val() != null && $("#txtBookingAmt").val() != undefined && $("#frmAct").val() !="U"){
+			disCash += parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
 		}
+		amountAftDis = payPrice - disCash;
+		$("#txtRealPayAmt").val(stock.comm.formatCurrency(amountAftDis.toFixed(2)));
 		
 	}/*else{
-		$("#txtPrinciple").val("");
+		$("#txtRealPayAmt").val("");
 		$("#txtTotalLeft").val("");
 	}*/
 	
@@ -794,17 +825,12 @@ function calDiscount(id_act){
 function calPay(id_act){
 	if($("#pro_price").val() != "" && $("#pro_price").val() != null && $("#pro_price").val() != undefined && !isNaN($("#pro_price").val().replace(/,/g,''))){
 		var proPrice = 0;
-		if($("#frmAct").val() =="U"){
+		/*if($("#frmAct").val() =="U"){
 			//add more pay
 			proPrice=parseFloat(_amountLeft);
-		}else{
-			if($("#txtPrinciple").val().replace(/,/g,'') > 0 && $("#txtPrinciple").val() != "" && $("#txtPrinciple").val() != null && $("#txtPrinciple").val() != undefined && !isNaN($("#txtPrinciple").val().replace(/,/g,''))){
-				proPrice = parseFloat($("#txtPrinciple").val().replace(/,/g,''));
-			}else{
-				proPrice=parseFloat($("#pro_price").val().replace(/,/g,''));
-			}
-		}
-		
+		}else{*/
+		proPrice=parseFloat($("#pro_price").val().replace(/,/g,''));
+		//}
 		var amountAftDis=0;
 		var amtLeft=0;
 		if(id_act == "C" && $("#txtPayCash").val().replace(/,/g,'') !=""){
@@ -814,9 +840,9 @@ function calPay(id_act){
 				disCash=0;
 			}else{
 				disCash = parseFloat($("#txtPayCash").val().replace(/,/g,''));
-				if($("#txtBookingAmt").val().replace(/,/g,'') !="" && $("#frmAct").val() !="U"){
+				/*if($("#txtBookingAmt").val().replace(/,/g,'') !="" && $("#frmAct").val() !="U"){
 					disCash+=parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
-				}
+				}*/
 			}
 			amountAftDis = proPrice - disCash;
 			disPer = (disCash *100) / proPrice;
@@ -834,14 +860,14 @@ function calPay(id_act){
 				disPer=parseFloat($("#txtPayPer").val().replace(/,/g,''));
 			}
 			disCash = (disPer/100) * proPrice;
-			if($("#txtBookingAmt").val().replace(/,/g,'') != null && $("#txtBookingAmt").val().replace(/,/g,'') != "" && $("#frmAct").val() !="U"){
+			/*if($("#txtBookingAmt").val().replace(/,/g,'') != null && $("#txtBookingAmt").val().replace(/,/g,'') != "" && $("#frmAct").val() !="U"){
 				disCash = disCash - parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
-			}
+			}*/
 			if(disCash <= parseFloat($("#txtBookingAmt").val().replace(/,/g,'')) && $("#frmAct").val() !="U"){
 				$("#txtPayCash").val("");
 				$("#txtPayCash").css("border-color","red");
 				$("#txtPayPer").css("border-color","red");
-				parent.$("#msgShw").html("ប្រាក់បង់ មិនត្រឹមត្រូវទេ!!!");
+				parent.$("#msgErr").html("ប្រាក់បង់ មិនត្រឹមត្រូវទេ!!!");
 				parent.$("#msgErr").show();
 			}else{
 				$("#txtPayCash").val(stock.comm.formatCurrency(disCash.toFixed(2)));
@@ -852,9 +878,8 @@ function calPay(id_act){
 		}
 	
 	}
-	if($("#frmAct").val() !="U"){
-		calDiscount("P");
-	}
+	calDiscount("P");
+	
 	
 }
 
