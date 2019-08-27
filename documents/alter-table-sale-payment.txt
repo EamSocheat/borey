@@ -1,2 +1,4 @@
 alter table tbl_sale_payment
 add column sale_pay_real_amount double; 
+alter table tbl_sale_payment
+add column sale_pay_penalty double;

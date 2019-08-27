@@ -1,6 +1,7 @@
 var _btnId;
 var _this;
 var _amountLeft;
+var _amountPay;
 $(document).ready(function() {
 	_thisPage.init();
 });
@@ -20,6 +21,7 @@ var _thisPage = {
 			stock.comm.inputCurrency("txtPayCash");
 			stock.comm.inputCurrency("txtDisPer");
 			stock.comm.inputCurrency("txtDisCash");
+			stock.comm.inputCurrency("txtPayPenalty");
 			getContractType();
 			//stock.comm.inputCurrency("lAmt");
 			
@@ -228,6 +230,17 @@ var _thisPage = {
 					$("#txtPayPer").val("");
 				}
 			});
+			
+			//
+			$("#txtPayPenalty").keyup(function(e){
+				var newTotal=0
+				if($(this).val().replace(/,/g,"") !=""){
+					newTotal=_amountPay+parseFloat($(this).val().replace(/,/g,""));
+				}else{
+					newTotal = _amountPay;
+				}
+				$("#txtRealPayAmt").val(stock.comm.formatCurrency(newTotal.toFixed(2)));
+			});
 		}
 };
 
@@ -332,7 +345,7 @@ function saveData(str){
 	//
 	$("#txtPayCash").val($("#txtPayCash").val().replace(/,/g,''));
 	$("#txtRealPayAmt").val($("#txtRealPayAmt").val().replace(/,/g,''));
-	
+	$("#txtPayPenalty").val($("#txtPayPenalty").val().replace(/,/g,''));
 	
 	$("#txtDisPer").val($("#txtDisPer").val().replace(/,/g,''));
 	$("#txtDisCash").val($("#txtDisCash").val().replace(/,/g,''));
@@ -354,7 +367,8 @@ function saveData(str){
 				parent.stock.comm.confirmMsg($.i18n.prop("msg_save_com")+" \nតើអ្នកចង់បោះពុម្ពដែរឫទេ ?");
 				parent.$("#btnConfirmOk").unbind().click(function(e){
 					parent.$("#mdlConfirm").modal('hide');
-					printInv(res);
+					var dataArr =  res.split("#");
+					printInv(dataArr[0],dataArr[1]);
 				});
 				
 				if(str == "new"){
@@ -419,7 +433,7 @@ function savePaymentData(str){
 				parent.stock.comm.confirmMsg($.i18n.prop("msg_save_com")+" \nតើអ្នកចង់បោះពុម្ពដែរឫទេ ?");
 				parent.$("#btnConfirmOk").unbind().click(function(e){
 					parent.$("#mdlConfirm").modal('hide');
-					printInv(res);
+					printInv($("#sellId").val(),res);
 				});
 								
 				parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
@@ -518,23 +532,25 @@ function getDataEdit(cont_id){
 			    //
 		        $("#tblPayment tbody").html("");
 		        var salePay=0;
+		        var saleRealAmt=0;
 		    	for(var i=0;i<res.OUT_REC.length; i++){
 					var rec = res.OUT_REC[i];
 					var htmlPayment = "<tr data-id='"+rec["sale_pay_id"]+"'>";
-					htmlPayment += "<td class='sale_pay_date cur-pointer'><button type='button' class='btn btn-info btn-xs' onclick='printInv("+rec["sale_pay_id"]+")'><i class='fa fa-print' aria-hidden='true'></i> </button></td>";
+					htmlPayment += "<td class='sale_pay_date cur-pointer'><button type='button' class='btn btn-info btn-xs' onclick='printInv("+res.OUT_REC[0]["sell_id"]+","+rec["sale_pay_id"]+")'><i class='fa fa-print' aria-hidden='true'></i> </button></td>";
 			        htmlPayment += "<td class='sale_pay_date cur-pointer'>"+stringDate(rec["sale_pay_date"].substr(0,10))+"</td>";
 			        htmlPayment += "<td class='reciver cur-pointer'>"+rec["reciver"]+"</td>";
 			        htmlPayment += "<td class='met_nm_kh cur-pointer'>"+rec["met_nm_kh"]+"</td>";
-			        htmlPayment += "<td class='sale_pay_tran_id cur-pointer'>"+rec["sale_pay_tran_id"]+"</td>";
+			        htmlPayment += "<td class='sale_pay_penalty cur-pointer text-right'>"+(rec["sale_pay_penalty"] == null ? 0: stock.comm.formatCurrency(rec["sale_pay_penalty"]))+"$</td>";
+			        htmlPayment += "<td class='sale_pay_amt_per cur-pointer text-right'>"+(rec["sale_pay_dis_per"] == null ? 0: rec["sale_pay_dis_per"]) +"%</td>";
 			        htmlPayment += "<td class='sale_pay_amt_per cur-pointer text-right'>"+rec["sale_pay_amt_per"]+"%</td>";
 			        htmlPayment += "<td class='sale_pay_amt_cash cur-pointer text-right'>"+stock.comm.formatCurrency(rec["sale_pay_amt_cash"])+"$</td>";
-			        htmlPayment += "<td class='sale_pay_amt_per cur-pointer text-right'>"+(rec["sale_pay_dis_per"] == null ? 0: rec["sale_pay_dis_per"]) +"%</td>";
 			        //htmlPayment += "<td class='sale_pay_amt_cash cur-pointer text-right'>"+(rec["sale_pay_dis_cash"] == null ? 0 : stock.comm.formatCurrency(rec["sale_pay_dis_cash"]))+"$</td>";
 			        htmlPayment += "<td class='sale_pay_amt_cash cur-pointer text-right'  style='padding-right: 25px;'>"+stock.comm.formatCurrency(rec["sale_pay_real_amount"])+"$</td>";
 			        htmlPayment += "</tr>";
 			        
 			        $("#tblPayment tbody").append(htmlPayment);
 			        salePay += parseFloat(rec["sale_pay_real_amount"]);
+			        saleRealAmt += parseFloat(rec["sale_pay_amt_cash"]);
 			    }
 		    	if($("#txtBookingAmt").val() != "" && $("#txtBookingAmt").val() != null && $("#txtBookingAmt").val() != undefined){
 		    		salePay += parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
@@ -543,11 +559,11 @@ function getDataEdit(cont_id){
 		    	$(".totalPaidDiv").show();
 		    	var contractPay = res.OUT_REC[0]["con_total_price"] == null ? 0 : parseFloat(res.OUT_REC[0]["con_total_price"]);
 			    var amountLeft =0;
-			    amountLeft = parseFloat(res.OUT_REC[0]["sell_total_price"]) - (contractPay+salePay);
+			    amountLeft = parseFloat(res.OUT_REC[0]["sell_total_price"]) - saleRealAmt;
 			    $("#txtTotalLeft").val(stock.comm.formatCurrency(amountLeft));
 			    _amountLeft = amountLeft;
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
-			    $("#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#cboPaymentMet,#txtTran,#txtDisPer,#txtDisCash").prop("disabled",false);
+			    $("#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#cboPaymentMet,#txtTran,#txtDisPer,#txtDisCash,#txtPayPenalty").prop("disabled",false);
 			}else{
 			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -709,17 +725,19 @@ function getContractType(){
 }
 
 
-function printInv(con_id){
+function printInv(sell_id,pay_id){
 	var data = {};
 	var dataArr = [];
 	data["base_url"] = $("#base_url").val();
-	data["con_id"] = con_id ;
+	data["sell_id"] = sell_id ;
+	data["pay_id"] = pay_id ;
 	dataArr.push(data);
 	var datObj={};
 	datObj["printData"] = dataArr;
+	console.log(datObj);
 	$.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"PrintInv/printInvBooking",
+		url: $("#base_url").val() +"PrintInv/printInvSelling",
 		data: datObj,
 		async: false,
 		success: function(res) {
@@ -731,7 +749,7 @@ function printInv(con_id){
 				newWin.focus();
 				//newWin.print();
 				setTimeout(function(){ newWin.print();newWin.close();}, 200);
-				parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
+				//parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
 			}
 			
 		},
@@ -810,6 +828,7 @@ function calDiscount(id_act){
 			disCash += parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
 		}
 		amountAftDis = payPrice - disCash;
+		_amountPay = amountAftDis;
 		$("#txtRealPayAmt").val(stock.comm.formatCurrency(amountAftDis.toFixed(2)));
 		
 	}/*else{

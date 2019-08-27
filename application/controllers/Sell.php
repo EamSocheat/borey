@@ -17,7 +17,7 @@ class Sell extends CI_Controller{
         $this->load->model('M_sale_payment');
         $this->load->model('M_commission');
         $this->load->model('M_commission_setting');
-        
+        $this->load->model('M_staff');
     }
     
     
@@ -179,9 +179,9 @@ class Sell extends CI_Controller{
         }
         $sale_pay_code="";
         if($this->input->post('txtContID') != null && $this->input->post('txtContID') != ""){
-            $sale_pay_code = "000001";
-        }else{
             $sale_pay_code = "000002";
+        }else{
+            $sale_pay_code = "000001";
         }
         $dataSalePayment=array(
             'sell_id'        	=> $old_sell_id,
@@ -202,7 +202,7 @@ class Sell extends CI_Controller{
         $dataSalePayment['regUsr'] = $_SESSION['usrId'];
         $dataSalePayment['regDt']  = date('Y-m-d H:i:s');
         
-        $sell_id = $this->M_sale_payment->insert($dataSalePayment);
+        $pay_id = $this->M_sale_payment->insert($dataSalePayment);
         
         
         //
@@ -236,7 +236,8 @@ class Sell extends CI_Controller{
 	    	}
 	    	$datacommi=array(
 	            'sell_id'        	=> $old_sell_id,
-	    		'commi_amt'        	=> $commi_amt
+	    		'commi_amt'        	=> $commi_amt,
+	    	    'commi_type'        	=> "S",
 	        );
 	        $datacommi['useYn']  = 'Y';
 	        $datacommi['com_id'] = $_SESSION['comId'];
@@ -246,7 +247,9 @@ class Sell extends CI_Controller{
 	        
 	        $datacommex=array(
 	            'sell_id'        	=> $old_sell_id,
-	    		'commi_amt'        	=> $commi_amt_ex
+	    		'commi_amt'        	=> $commi_amt_ex,
+	            'commi_type'        	=> "A",
+	            
 	        );
 	        $datacommex['useYn']  = 'Y';
 	        $datacommex['com_id'] = $_SESSION['comId'];
@@ -255,7 +258,7 @@ class Sell extends CI_Controller{
 	        $this->M_commission->insert($datacommex);
 	    }
        	
-        echo $sell_id_save;
+	    echo $sell_id_save.'#'.$pay_id;
     }
     
 	public function savePayment(){
@@ -283,7 +286,7 @@ class Sell extends CI_Controller{
             'sale_pay_met_id'        => $this->input->post('cboPaymentMet'),
             'rec_id'        => $this->input->post('cboReceiver'),
             'sale_pay_real_amount' 		=> $this->input->post('txtRealPayAmt'),
-            //'con_type_id'        => $this->input->post('cboConType'),
+            'sale_pay_penalty'        => $this->input->post('txtPayPenalty'),
             'sale_pay_code'        => $sale_pay_code,
         );
         $dataSalePayment['useYn']  = 'Y';

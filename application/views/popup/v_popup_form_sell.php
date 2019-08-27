@@ -208,6 +208,11 @@
                 	<!--  -->
 		    		<div class="col-xs-3 padding-forms-left">
                 		
+                		<div class="form-group totalPaidDiv" style="display: none;">
+        		      		<label  for="txtPayPenalty">ប្រាក់ពិន័យ $ </label><span> </span>
+        		        	<input type="text" class="form-control text-right" id="txtPayPenalty" placeholder="Enter loan amount" name="txtPayPenalty" autocomplete="off" />
+        		    	</div>
+                        
                 	</div>
                 	<div class="col-xs-3 padding-forms-right">
                 		<div class="form-group totalPaidDiv" style="display: none;">
@@ -241,10 +246,10 @@
             					  <th>ថ្ងៃបង់ប្រាក់ </th>
 	        					  <th>អ្នកទទួលប្រាក់ </th>
 	        					  <th>វីធីបង់ប្រាក់</th>
-	        					  <th>លេខប្រតិបត្តិការណ៍ </th>
+	        					  <th class="text-right">ប្រាក់ពិន័យ $ </th>
+	        					  <th class="text-right">បញ្ចុះ%</th>
 	        					  <th class="text-right">ប្រាក់បង់ % </th>
 	        					  <th class="text-right"  >ប្រាក់បង់ $</th>
-	        					  <th class="text-right"  >បញ្ចុះ%</th>
 	        					  <!-- <th class="text-right"  >បញ្ចុះតំលៃ $</th> -->
 	        					  <th class="text-right"  style="padding-right: 25px;">ប្រាក់បង់សរុប</th>
             					</tr>

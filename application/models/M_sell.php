@@ -12,8 +12,26 @@
     		return $this->db->get()->result();
     	}
     	
+    	function selectSumBalancePay($dataSrch){
+    	    $this->db->select('sum(tbl_sale_payment.sale_pay_amt_cash) as total_balance_pay,"" as no_no');
+    	    $this->db->from('tbl_sale_payment');
+    	    $this->db->where('tbl_sale_payment.sell_id', $dataSrch['sell_id']);
+    	    $this->db->where('tbl_sale_payment.com_id', $_SESSION['comId']);
+    	    $this->db->where('tbl_sale_payment.useYn', 'Y');
+    	    return $this->db->get()->result();
+    	}
+    	
+    	function selectSumTotalPay($dataSrch){
+    	    $this->db->select('sum(tbl_sale_payment.sale_pay_real_amount) as total_real_pay,"" as no_no');
+    	    $this->db->from('tbl_sale_payment');
+    	    $this->db->where('tbl_sale_payment.sell_id', $dataSrch['sell_id']);
+    	    $this->db->where('tbl_sale_payment.com_id', $_SESSION['comId']);
+    	    $this->db->where('tbl_sale_payment.useYn', 'Y');
+    	    return $this->db->get()->result();
+    	}
+    	
     	function selectSellDataDetail($dataSrch){
-    	    $this->db->select('*,tbl_sell.con_type_id as sell_con_type_id,seller.sta_id as sell_seller_id,seller.sta_nm_kh as seller_nm,reciev.sta_nm_kh as reciver');
+    	    $this->db->select('*,conType.con_type_nm_kh as con_type_nm_kh,tbl_sell.con_type_id as sell_con_type_id,seller.sta_id as sell_seller_id,seller.sta_nm_kh as seller_nm,reciev.sta_nm_kh as reciver');
     	    $this->db->from('tbl_sell');
     	    $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
     	    $this->db->join('tbl_sell_detail','tbl_sell_detail.sell_id = tbl_sell.sell_id');
@@ -25,6 +43,7 @@
     	    $this->db->join('tbl_payment_method','tbl_payment_method.met_id = tbl_sale_payment.sale_pay_met_id');
     	    $this->db->join('tbl_staff seller','seller.sta_id = tbl_sell.seller_id');
     	    $this->db->join('tbl_staff reciev','reciev.sta_id = tbl_sale_payment.rec_id');
+    	    $this->db->join('tbl_contract_type conType','conType.con_type_id = tbl_sell.con_type_id');
     	    
     	    $this->db->where('tbl_sell.com_id', $_SESSION['comId']);
     	    $this->db->where('tbl_sell.useYn', 'Y');
@@ -32,6 +51,10 @@
     	    
     	    if($dataSrch['sell_id'] != null && $dataSrch['sell_id'] != ""){
     	        $this->db->where('tbl_sell.sell_id', $dataSrch['sell_id']);
+    	    }
+    	    
+    	    if($dataSrch['sale_pay_id'] != null && $dataSrch['sale_pay_id'] != ""){
+    	        $this->db->where('tbl_sale_payment.sale_pay_id', $dataSrch['sale_pay_id']);
     	    }
     	    $this->db->order_by("tbl_sale_payment.sale_pay_id", "desc");
     	    return $this->db->get()->result();
