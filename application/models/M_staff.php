@@ -6,9 +6,38 @@
         	parent::__construct();
         	
     	}
-
+		
+	
+    	function selectProductCategory($dataSrch){
+    		
+        	$this->db->select('tbl_staff.cat_id');
+        	$this->db->from('tbl_product');
+        	$this->db->join('tbl_category','tbl_category.cat_id = tbl_product.cat_id');
+        	$this->db->where('tbl_product.com_id', $_SESSION['comId']);
+        	$this->db->where('tbl_product.useYn', 'Y');
+        	//---
+        	if($dataSrch['pro_id'] != null && $dataSrch['pro_id'] != ""){
+        	    $this->db->where('tbl_product.pro_id', $dataSrch['pro_id']);
+        	}
+        	return $this->db->get()->result();
+    	}
+    	
+    	function selectStaffPosition($dataSrch){
+    		
+        	$this->db->select('tbl_staff.pos_id');
+        	$this->db->from('tbl_staff');
+        	$this->db->join('tbl_position','tbl_position.pos_id = tbl_staff.pos_id');
+        	$this->db->where('tbl_staff.com_id', $_SESSION['comId']);
+        	$this->db->where('tbl_staff.useYn', 'Y');
+        	//---
+        	if($dataSrch['sta_id'] != null && $dataSrch['sta_id'] != ""){
+        	    $this->db->where('tbl_staff.sta_id', $dataSrch['sta_id']);
+        	}
+        	return $this->db->get()->result();
+    	}
+    	
     	function selectStaff($dataSrch){
-  
+  			
         	$this->db->select('*');
         	//$this->db->from('tbl_staff');
         	//$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_staff.bra_id');

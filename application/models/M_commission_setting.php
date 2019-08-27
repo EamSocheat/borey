@@ -7,6 +7,29 @@ class M_commission_setting extends CI_Model{
         	
     	}
     	
+		function selectCommissionSettingFormular($dataSrch){
+    	    
+    	    $this->db->select('comset_amt,comset_type,comset_amt_ex,comset_type_ex');
+    	    $this->db->from('tbl_commission_setting');
+    	    $this->db->join('tbl_branch','tbl_branch.bra_id = tbl_commission_setting.bra_id');
+    	    $this->db->join('tbl_position','tbl_position.pos_id = tbl_commission_setting.pos_id');
+    	    $this->db->join('tbl_commission_setting_detail','tbl_commission_setting_detail.comset_id = tbl_commission_setting.comset_id');
+    	    $this->db->where('tbl_commission_setting.com_id', $_SESSION['comId']);
+    	    $this->db->where('tbl_commission_setting.useYn', 'Y');
+    	    //---
+    	    if($dataSrch['cat_id'] != null && $dataSrch['cat_id'] != ""){
+    	        $this->db->where('tbl_commission_setting_detail.cat_id', $dataSrch['cat_id']);
+    	    }
+    	    
+    	    //
+    	    if($dataSrch['pos_id'] != null && $dataSrch['pos_id'] != ""){
+    	        $this->db->where('tbl_commission_setting.pos_id', $dataSrch['pos_id']);
+    	    }
+    	    
+    	   
+    	    return $this->db->get()->result();
+    	}
+    	
     	function selectCommissionSettingDetail($dataSrch){
     	    
     	    $this->db->select('*');

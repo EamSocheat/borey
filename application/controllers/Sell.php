@@ -15,6 +15,9 @@ class Sell extends CI_Controller{
         $this->load->model('M_house');
         $this->load->model('M_sell');
         $this->load->model('M_sale_payment');
+        $this->load->model('M_commission');
+        $this->load->model('M_commission_setting');
+        
     }
     
     
@@ -200,7 +203,58 @@ class Sell extends CI_Controller{
         $dataSalePayment['regDt']  = date('Y-m-d H:i:s');
         
         $sell_id = $this->M_sale_payment->insert($dataSalePayment);
-
+        
+        
+        //
+        $dataSrchPos = array(
+            'sta_id' 		=> $this->input->post('cboSeller'),
+        );
+        $dataSrchPro = array(
+            'pro_id' 		=> $productArr[0],
+        );
+	    $dataPosition = $this->M_staff->selectStaffPosition($dataSrchPos);
+	    $dataCategory = $this->M_staff->selectProductCategory($dataSrchPro);
+	    
+	    $dataSrchCommSet = array(
+            'pos_id' 		=> $dataPosition[0]->pos_id,
+	    	'cat_id' 		=> $dataCategory[0]->cat_id
+        );
+	    $dataCommSet = $this->M_commission_setting->selectCommissionSettingFormular($dataSrchCommSet);
+	    if( floatval($dataCommSet[0]->comset_amt) > 0){
+	    	$commi_amt=0;
+	    	$commi_amt_ex=0;
+	    	if($dataCommSet[0]->comset_type == "M"){
+	    		$commi_amt = floatval($dataCommSet[0]->comset_amt);
+	    	}else{
+	    		$commi_amt = floatval($proPriceArr[$j]) * floatval($dataCommSet[0]->comset_amt)/100;
+	    	}
+	    	
+	    	if($dataCommSet[0]->comset_type_ex == "M"){
+	    		$commi_amt_ex = floatval($dataCommSet[0]->comset_amt_ex);
+	    	}else{
+	    		$commi_amt_ex = $commi_amt * floatval($dataCommSet[0]->comset_amt_ex)/100;
+	    	}
+	    	$datacommi=array(
+	            'sell_id'        	=> $old_sell_id,
+	    		'commi_amt'        	=> $commi_amt
+	        );
+	        $datacommi['useYn']  = 'Y';
+	        $datacommi['com_id'] = $_SESSION['comId'];
+	        $datacommi['regUsr'] = $_SESSION['usrId'];
+	        $datacommi['regDt']  = date('Y-m-d H:i:s');
+	        $this->M_commission->insert($datacommi);
+	        
+	        $datacommex=array(
+	            'sell_id'        	=> $old_sell_id,
+	    		'commi_amt'        	=> $commi_amt_ex
+	        );
+	        $datacommex['useYn']  = 'Y';
+	        $datacommex['com_id'] = $_SESSION['comId'];
+	        $datacommex['regUsr'] = $_SESSION['usrId'];
+	        $datacommex['regDt']  = date('Y-m-d H:i:s');
+	        $this->M_commission->insert($datacommex);
+	    }
+       	
         echo $sell_id_save;
     }
     

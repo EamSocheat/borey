@@ -1,0 +1,16 @@
+CREATE TABLE tbl_commission (
+		commi_id int NOT NULL AUTO_INCREMENT, 
+		commi_amt double,
+		commi_type varchar(1),
+		commi_is_approve varchar(1),
+		commi_approve_date date,
+		commi_approve_des varchar(500),
+		sell_id int,
+		regDt	datetime,
+		upDt	datetime,
+		useYn	varchar(1),
+		regUsr	int,
+		upUsr	int,
+		com_id	int,
+		PRIMARY KEY(commi_id) 
+);
