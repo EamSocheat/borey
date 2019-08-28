@@ -5,7 +5,7 @@
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
-		<i class="fa fa-handshake-o"></i>
+		<i class="fa fa-shopping-cart"></i>
 		<span >លក់ចេញ</span>
 		<small data-i18ncd="lb_information">Information</small>
 		</h1>
