@@ -278,96 +278,102 @@
 			    </div>
 			    <!--installment  --> 
 			    <div id="divInstallmentView" class="tab-pane fade">
-			      	<div class="col-xs-12 row" style="padding:0px;">
-	                	<!--  -->
-			    		<div class="col-xs-3 padding-forms-left">
-	                        <div class="form-group totalPaidDiv" style="display: none">
-	        		      		<label  for="txtTotalLeftInst" > ប្រាក់ដើមនៅសល់</label><span> </span>
-	        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtTotalLeftInst" placeholder="Enter loan amount" name="txtTotalLeftInst" autocomplete="off" />
-	        		    	</div>
-	                	</div>
-	                	<div class="col-xs-3 padding-forms-right">
-	                		<div class="form-group">
-	        		      		<label  for="txtInterstRate" > អត្រាការប្រាក់ %(ក្នុងមួយឆ្នាំ) </label><span> </span>
-	        		        	<input type="text"  maxlength="5" class="form-control text-right" id="txtInterstRate" required="required"  placeholder="Enter loan amount" name="txtInterstRate" autocomplete="off" />
-	        		    	</div>
-	                    </div>
-	                    <div class="col-xs-3 padding-forms-right">
-	                        <div class="form-group">
-	        		      		<label  for="txtPeriod" > រយៈពេលរំលួស(ខែ)</label><span> </span>
-	        		        	<input type="text" maxlength="3" class="form-control text-right" id="txtPeriod" required="required"  placeholder="Enter loan amount" name="txtPeriod" autocomplete="off" />
-	        		    	</div>
-	                    </div>
-	                    <div class="col-xs-3 padding-forms-right">
-	                    	<div class="form-group">
-		                    	<label for="txtStartInstDate" >ថ្ងៃចាប់ផ្តើមបង់ដំបូង</label>
-								<div class="input-group date">
-									<div class="input-group-addon" id="txtStartInstDateIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
-										<i class="fa fa-calendar"></i>
+			    	<div class="row">
+				      	<div class="col-xs-12 row" style="padding:0px;">
+		                	<!--  -->
+				    		<div class="col-xs-3 padding-forms-left">
+		                        <div class="form-group totalPaidDiv" style="display: none">
+		        		      		<label  for="txtTotalLeftInst" > ប្រាក់ដើមនៅសល់</label><span> </span>
+		        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtTotalLeftInst" placeholder="Enter loan amount" name="txtTotalLeftInst" autocomplete="off" />
+		        		    	</div>
+		                	</div>
+		                	<div class="col-xs-3 padding-forms-right">
+		                		<div class="form-group">
+		        		      		<label  for="txtInterstRate" > អត្រាការប្រាក់ %(ក្នុងមួយឆ្នាំ) </label><span> </span>
+		        		        	<input type="text"  maxlength="5" class="form-control text-right" id="txtInterstRate" required="required"  placeholder="Enter loan amount" name="txtInterstRate" autocomplete="off" />
+		        		    	</div>
+		                    </div>
+		                    <div class="col-xs-3 padding-forms-right">
+		                        <div class="form-group">
+		        		      		<label  for="txtPeriod" > រយៈពេលរំលួស(ខែ)</label><span> </span>
+		        		        	<input type="text" maxlength="3" class="form-control text-right" id="txtPeriod" required="required"  placeholder="Enter loan amount" name="txtPeriod" autocomplete="off" />
+		        		    	</div>
+		                    </div>
+		                    <div class="col-xs-3 padding-forms-right">
+		                    	<div class="form-group">
+			                    	<label for="txtStartInstDate" >ថ្ងៃចាប់ផ្តើមបង់ដំបូង</label>
+									<div class="input-group date">
+										<div class="input-group-addon" id="txtStartInstDateIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+											<i class="fa fa-calendar"></i>
+										</div>
+										<input type="text" class="form-control pull-right date-pick" id="txtStartInstDate" name="txtStartInstDate" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
 									</div>
-									<input type="text" class="form-control pull-right date-pick" id="txtStartInstDate" name="txtStartInstDate" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
 								</div>
-							</div>
-	                    </div>
-	                   
-				    	<!--  -->
+		                    </div>
+		                   
+					    	<!--  -->
+		                </div>
+		                <div class="col-xs-12 row" style="padding:0px;">
+		                	<div style="text-align: right;    margin-right: 5px;margin-bottom: 15px;">
+	                        	<button style="" type="button" class="btn btn-warning btn-sm" id="btnCalInst"><i class="fa fa-plus"></i> គណនា</button>
+	                    	</div>
+		                </div>
+		                
+		                <div class="col-xs-12 row totalPaidDiv" style="padding:0px;display: none">
+		                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
+		                		<table style="width:100%" class="table">
+		                			<colgroup>
+										<col width="15%">
+										<col width="5%">
+										<col width="80%">
+									</colgroup>
+								  	<tr>
+								    	<th>ប្រាក់បង់ប្រចាំខែ</th>
+								    	<th>៖</th>
+								    	<td id="monthlyPay"></td>
+								  	</tr>
+								  	<tr>
+								    	<th>ការប្រាក់សរុប</th>
+								    	<th>៖</th>
+								    	<td id="totalPayInterest"></td>
+								  	</tr>
+								  	<tr>
+								    	<th>ប្រាក់បង់សរុប</th>
+								    	<th>៖</th>
+								    	<td id="totalPayInstallment"></td>
+								  	</tr>
+								</table>
+		                	</div>
+		                	
+		                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
+		                		<!-- <span><b>ប្រវត្តិនៃការបង់ប្រាក់</b></span>--> 
+		                    	<div class="box-body table-responsive fix-header-tbl" style="height: 500px;padding: 0px;">
+		        				  <table class="table table-hover" id="tblInstallment" >
+		        				    <thead>  
+		            					<tr>
+		            					  <th>ល.រ</th>
+		            					  <th class="text-center">កាលបរិច្ឆេទបង់ប្រាក់</th>
+		            					  <th class="text-right">ប្រាក់ដើម $</th>
+			        					  <th class="text-right">ប្រាក់ការ $</th>
+			        					  <th class="text-right">ប្រាក់ដើមនៅសល់ $</th>
+			        					  <th class="text-right" style="padding-right: 25px;">ប្រាក់បង់សរុប $</th>
+			        					  
+		            					</tr>
+		        					</thead>
+		        					<tbody>
+		        					   
+		        					</tbody>
+		        					
+		        				  </table>
+		        				</div> 	
+		                	</div>
+		    				<!--  --> 
+		                </div>
 	                </div>
-	                <div class="col-xs-12 row" style="padding:0px;">
-	                	<div style="text-align: right;    margin-right: 5px;margin-bottom: 15px;">
-                        	<button style="" type="button" class="btn btn-warning btn-sm" id="btnCalInst"><i class="fa fa-plus"></i> គណនា</button>
-                    	</div>
-	                </div>
-	                
-	                <div class="col-xs-12 row totalPaidDiv" style="padding:0px;display: none">
-	                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
-	                		<table style="width:100%" class="table">
-	                			<colgroup>
-									<col width="15%">
-									<col width="5%">
-									<col width="80%">
-								</colgroup>
-							  	<tr>
-							    	<th>ប្រាក់បង់ប្រចាំខែ</th>
-							    	<th>៖</th>
-							    	<td id="monthlyPay"></td>
-							  	</tr>
-							  	<tr>
-							    	<th>ការប្រាក់សរុប</th>
-							    	<th>៖</th>
-							    	<td id="totalPayInterest"></td>
-							  	</tr>
-							  	<tr>
-							    	<th>ប្រាក់បង់សរុប</th>
-							    	<th>៖</th>
-							    	<td id="totalPayInstallment"></td>
-							  	</tr>
-							</table>
-	                	</div>
-	                	
-	                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
-	                		<!-- <span><b>ប្រវត្តិនៃការបង់ប្រាក់</b></span>--> 
-	                    	<div class="box-body table-responsive fix-header-tbl" style="height: 450px;padding: 0px;">
-	        				  <table class="table table-hover" id="tblInstallment" >
-	        				    <thead>  
-	            					<tr>
-	            					  <th>ល.រ</th>
-	            					  <th class="text-center">កាលបរិច្ឆេទបង់ប្រាក់</th>
-	            					  <th class="text-right">ប្រាក់ដើម $</th>
-		        					  <th class="text-right">ប្រាក់ការ $</th>
-		        					  <th class="text-right">ប្រាក់ដើមនៅសល់ $</th>
-		        					  <th class="text-right" style="padding-right: 25px;">ប្រាក់បង់សរុប $</th>
-		        					  
-	            					</tr>
-	        					</thead>
-	        					<tbody>
-	        					   
-	        					</tbody>
-	        					
-	        				  </table>
-	        				</div> 	
-	                	</div>
-	    				<!--  --> 
-	                </div>
+	                <div class="modal-footer" >
+			            <button type="button" class="btn btn-primary btn-sm" id="btnSaveInstallment"><i class="fa fa-check" aria-hidden="true"></i> រក្សាទុកទិន្ន័យបង់រំលួស</button>
+			            <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
+			        </div>
 			    </div>
 		    </div>           
             <!-- end modal body  -->

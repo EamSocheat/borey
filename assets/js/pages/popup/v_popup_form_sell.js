@@ -79,6 +79,7 @@ var _thisPage = {
 			$("#btnClose,#btnExit").click(function(e){
 				//parent.$("#modalMd").modal('hide');
 				parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
+				parent.$("#msgErr").hide();
 			});
 			//
 			$("#frmSell").submit(function(e){
@@ -407,8 +408,10 @@ function saveData(str){
 				if(str == "new"){
 					clearForm();
 					$("#txtBookingAmt,#txtBookDate,#txtCusNm,#txtCusPhone,#txtRealPayAmt,#txtTotalLeft").prop("disabled",true);
+					parent.$("#msgErr").hide();
 				}else{					
 				    parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
+				    parent.$("#msgErr").hide();
 				}
 			}
 		},
@@ -470,7 +473,7 @@ function savePaymentData(str){
 				});
 								
 				parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
-				
+				parent.$("#msgErr").hide();
 			}
 		},
 		error : function(data) {
@@ -1023,13 +1026,14 @@ function calculateInstallment(){
 	var newYear = parseInt(yyyy);
 	$("#tblInstallment tbody").html("");
 	for (var j=1;j<=numberOfMonths;j++){
-		newMonth +=1;
+		
 		if(newMonth > 12){
 			newMonth=1;
 			newYear+=1;
 		}
 		newM = newMonth < 10 ? "0"+newMonth : newMonth; 
 		var newDate= newDay +"-"+newM +"-"+newYear;
+		newMonth +=1;
 		//
 		
 		interestAmount = loanAmountInst * ((rateOfInterest/100)/12) ;
