@@ -1,3 +1,4 @@
+
 CREATE TABLE tbl_installment (
 		inst_id	int NOT NULL AUTO_INCREMENT, 
 		inst_loan_amount double,
@@ -23,14 +24,13 @@ CREATE TABLE tbl_installment (
 );
 
 CREATE TABLE tbl_installment_payment (
-		inst_paid_id NOT NULL AUTO_INCREMENT, 
+		inst_paid_id int NOT NULL AUTO_INCREMENT, 
 		inst_total_paid_amount double,
 		inst_paid_yn varchar(1),
 		inst_paid_date date,
 		inst_paid_des text,
 		inst_paid_status varchar(1),
 		inst_cancel_yn varchar(1),
-		inst_total_paid_amount double,
 		rec_id int,
 		met_id int,
 		inst_id int,

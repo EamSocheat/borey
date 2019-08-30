@@ -371,7 +371,8 @@
 		                </div>
 	                </div>
 	                <div class="modal-footer" >
-			            <button type="button" class="btn btn-primary btn-sm" id="btnSaveInstallment"><i class="fa fa-check" aria-hidden="true"></i> រក្សាទុកទិន្ន័យបង់រំលួស</button>
+	                	<button type="button" style="display: none" class="btn btn-danger btn-sm" id="btnUpdateInstallment"><i class="fa fa-refresh" aria-hidden="true"></i> កែប្រែ ទិន្ន័យបង់រំលួស</button>
+			            <button type="button" class="btn btn-primary btn-sm" id="btnSaveInstallment"><i class="fa fa-check" aria-hidden="true"></i> រក្សាទុក ទិន្ន័យបង់រំលួស</button>
 			            <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
 			        </div>
 			    </div>

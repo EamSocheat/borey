@@ -2,6 +2,10 @@ var _btnId;
 var _this;
 var _amountLeft;
 var _amountPay;
+var _loanAmount;
+var _firstInstDate;
+var _instPeriod;
+var _interestRate;
 $(document).ready(function() {
 	_thisPage.init();
 });
@@ -60,6 +64,7 @@ var _thisPage = {
 			    getDataEdit($("#sellId").val());
 			    $("#lAmt").attr("readonly","readonly");
 			    $("#popupTitle").html("<i class='fa fa-shopping-cart'></i> "+$.i18n.prop("btn_edit")+" ការលក់");
+			    getInstallmentData();
 			}else{
 			    $("#btnSaveNew").show();			    
 			    $("#popupTitle").html("<i class='fa fa-shopping-cart'></i> "+$.i18n.prop("btn_add_new")+" ការល​ក់" );
@@ -263,17 +268,23 @@ var _thisPage = {
 			$("#btnCalInst").click(function(e){
 				calculateInstallment();
 			});
-			
+			//
 			$("#txtInterstRate").keyup(function(e){
 				parent.$("#msgErr").hide();
 			});
-			
+			//
 			$("#txtPeriod").keyup(function(e){
 				parent.$("#msgErr").hide();
 			});
+			//
 			$("#txtStartInstDate").change(function(e){
 				parent.$("#msgErr").hide();
 			});
+			//
+			$("#btnSaveInstallment").click(function(e){
+				saveInstallment();
+			});
+			
 		}
 };
 
@@ -761,6 +772,70 @@ function getContractType(){
 	});
 }
 
+/**
+ * 
+ * @returns
+ */
+function getInstallmentData(){
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"Sell/getInstallment",
+		dataType: 'json',
+		data : {sell_id:$("#sellId").val()},
+		async: false,
+		success: function(res) {
+			if(res.OUT_REC.length > 0){
+				$("#btnUpdateInstallment").show();
+				$("#btnSaveInstallment").remove();
+				$("#txtTotalLeftInst").val(stock.comm.formatCurrency(res.OUT_REC[0]["inst_loan_amount"]));
+				$("#txtPeriod").val(res.OUT_REC[0]["inst_period_month"]);
+				$("#txtInterstRate").val(res.OUT_REC[0]["inst_interest_rate"]);
+				$("#txtStartInstDate").val(res.OUT_REC[0]["inst_first_installment_date"]);
+				
+				$("#tblInstallment tbody").html("");
+				$("#tblInstallment thead tr").append("<th class='text-right' style='padding-right: 15px;'>បង់ប្រាក់</td>");
+				var totalPayInterest = 0;
+				var totalPayInstallment = 0;
+				var checkPay="";
+				for(var i=0; i<res.OUT_REC.length; i++){
+					var statusPay="";
+					if(res.OUT_REC[i]["inst_paid_status"] == "Y"){
+						statusPay='<span class="label label-primary">រួចរាល់</span>';
+						checkPay="1";
+					}else{
+						statusPay=' - ​';
+					}
+					var html = "<tr>";
+					html += "<td class='inst_num cur-pointer '>"+res.OUT_REC[i]["inst_num"]+"</td>";
+					html += "<td class='inst_date cur-pointer text-center'>"+res.OUT_REC[i]["inst_date"]+"</td>";
+			        html += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_principle"])+"</td>";
+			        html += "<td class='inst_amt_interest cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_interest"])+"</td>";
+			        html += "<td class='inst_amt_balance cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_balance"])+"</td>";
+			        html += "<td class='inst_amt_pay​ cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_pay"])+"</td>";
+			        html += "<td class=' cur-pointer text-right'  style='padding-right: 15px;' >"+statusPay+"</td>";
+			        html += "</tr>";
+			        $("#tblInstallment tbody").append(html);
+			        totalPayInterest += parseFloat(res.OUT_REC[i]["inst_amt_interest"]);
+			        totalPayInstallment += (parseFloat(res.OUT_REC[i]["inst_amt_interest"]) + parseFloat(res.OUT_REC[i]["inst_amt_principle"]));
+				}
+				totalPayInstallment = parseFloat(res.OUT_REC[0]["inst_loan_amount"]) + totalPayInterest;
+				$("#monthlyPay").html("$ "+stock.comm.formatCurrency(res.OUT_REC[0]["inst_amt_pay"]));
+				$("#totalPayInterest").html("$ "+stock.comm.formatCurrency(totalPayInterest.toFixed(2)));
+				$("#totalPayInstallment").html("$ "+stock.comm.formatCurrency(totalPayInstallment.toFixed(2)));
+				if(checkPay == "1"){
+					$("#btnCalInst").remove();
+					$("#btnUpdateInstallment").remove();
+				}
+			}else{
+				console.log(res);
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
+        }
+	});
+}
 
 function printInv(sell_id,pay_id){
 	var data = {};
@@ -976,19 +1051,19 @@ function calculateInstallment(){
 		return;
 	}
 	
-	var loanAmount = $("#txtTotalLeftInst").val().replace(/,/g,"");
+	var loanAmount = parseFloat($("#txtTotalLeftInst").val().replace(/,/g,""));
 	var numberOfMonths = parseInt($("#txtPeriod").val());
-	var rateOfInterest = $("#txtInterstRate").val();
+	var rateOfInterest = parseFloat($("#txtInterstRate").val());
 	var monthlyInterestRatio = (rateOfInterest/100)/12;
-	/*
+	
 	if(rateOfInterest <=0){
 		var top = 0;
 		var bottom = 0;
 		var sp = 0;
 		var emi = loanAmount /numberOfMonths;
-		var full = parseInt(loanAmount);
-		var interest = 0;
-		var int_pge =  (interest / full) * 100;
+		var totalPayInstallment = parseInt(loanAmount);
+		var totalPayInterest = 0;
+		var int_pge =  (totalPayInterest / totalPayInstallment) * 100;
 		//$("#tbl_int_pge").val(int_pge.toFixed(2)+" %");
 		
 	}else{
@@ -996,12 +1071,12 @@ function calculateInstallment(){
 		var bottom = top -1;
 		var sp = top / bottom;
 		var emi = ((loanAmount * monthlyInterestRatio) * sp);
-		var full = numberOfMonths * emi;
-		var interest = full - loanAmount;
-		var int_pge =  (interest / full) * 100;
+		var totalPayInstallment = numberOfMonths * emi;
+		var totalPayInterest = totalPayInstallment - loanAmount;
+		var int_pge =  (totalPayInterest / totalPayInstallment) * 100;
 		//$("#tbl_int_pge").val(int_pge.toFixed(2)+" %");
 	}
-	*/
+	/*
 	var top = Math.pow((1+monthlyInterestRatio),numberOfMonths);
 	var bottom = top -1;
 	var sp = top / bottom;
@@ -1009,7 +1084,7 @@ function calculateInstallment(){
 	var totalPayInstallment = numberOfMonths * emi; //full
 	var totalPayInterest = totalPayInstallment - loanAmount;//interest
 	var int_pge =  (totalPayInterest / totalPayInstallment) * 100;
-	
+	*/
 	$("#monthlyPay").html("$ "+stock.comm.formatCurrency(emi.toFixed(2)));
 	$("#totalPayInterest").html("$ "+stock.comm.formatCurrency(totalPayInterest.toFixed(2)));
 	$("#totalPayInstallment").html("$ "+stock.comm.formatCurrency(totalPayInstallment.toFixed(2)));
@@ -1021,6 +1096,11 @@ function calculateInstallment(){
 	var mm = firstInstallmentDate.substring(2,4)
 	var yyyy = firstInstallmentDate.substring(4,8)
 	
+	_loanAmount = loanAmount;
+	_firstInstDate = $("#txtStartInstDate").val();
+	_instPeriod = numberOfMonths;
+	_interestRate=rateOfInterest;
+
 	var newDay= dd;
 	var newMonth=parseInt(mm);
 	var newYear = parseInt(yyyy);
@@ -1047,16 +1127,76 @@ function calculateInstallment(){
 		}
 		
 		var html = "<tr>";
-		html += "<td class='cur-pointer'>"+j+"</td>";
-		html += "<td class='cur-pointer text-center'>"+newDate+"</td>";
-        html += "<td class='cur-pointer text-right'>"+stock.comm.formatCurrency(principleAmount.toFixed(2))+"</td>";
-        html += "<td class='cur-pointer text-right'>"+stock.comm.formatCurrency(interestAmount.toFixed(2))+"</td>";
-        html += "<td class='cur-pointer text-right'>"+stock.comm.formatCurrency(balanceAmount.toFixed(2))+"</td>";
-        html += "<td class='cur-pointer text-right'>"+stock.comm.formatCurrency(emi.toFixed(2))+"</td>";
+		html += "<td class='inst_num cur-pointer '>"+j+"</td>";
+		html += "<td class='inst_date cur-pointer text-center'>"+newDate+"</td>";
+        html += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(principleAmount.toFixed(2))+"</td>";
+        html += "<td class='inst_amt_interest cur-pointer text-right'>"+stock.comm.formatCurrency(interestAmount.toFixed(2))+"</td>";
+        html += "<td class='inst_amt_balance cur-pointer text-right'>"+stock.comm.formatCurrency(balanceAmount.toFixed(2))+"</td>";
+        html += "<td class='inst_amt_pay​ cur-pointer text-right'>"+stock.comm.formatCurrency(emi.toFixed(2))+"</td>";
         html += "</tr>";
         $("#tblInstallment tbody").append(html);
 		//
         loanAmountInst = loanAmountInst - principleAmount.toFixed(2);
 	}
 	
+}
+
+
+function saveInstallment(){
+	
+	var instArr = [];
+	var instObj = {};
+	var instRecord = $('#tblInstallment tbody tr');
+	if(instRecord == null || instRecord == undefined || instRecord.length <=0 ){
+		parent.stock.comm.alertMsg("សូមគណនាជាមុនសិន រួចព្យាយាមម្តងទៀត");
+	}
+	instRecord.each(function(i){
+		var instData = {};
+		var tblTr   = $(this);
+		var inst_num  = tblTr.find("td.inst_num").html();
+		var inst_date  = tblTr.find("td.inst_date").html();
+		var inst_amt_principle  = tblTr.find("td.inst_amt_principle").html().replace(/,/g,"");
+		var inst_amt_interest  = tblTr.find("td.inst_amt_interest").html().replace(/,/g,"");
+		var inst_amt_balance = tblTr.find("td.inst_amt_balance").html().replace(/,/g,"");
+		var inst_amt_pay = tblTr.find("td.inst_amt_pay​").html().replace(/,/g,"");
+		var loan_amount  = _loanAmount;
+		var first_inst_date  = _firstInstDate;
+		var inst_period  = _instPeriod;
+		var interest_rate  = _interestRate;
+		
+		
+		instData["inst_num"] 			= inst_num;
+		instData["inst_date"] 			= inst_date;
+		instData["inst_amt_principle"] 	= inst_amt_principle;
+		instData["inst_amt_interest"] 	= inst_amt_interest;
+		instData["inst_amt_balance"] 	= inst_amt_balance;
+		instData["inst_amt_pay"] 		= inst_amt_pay;
+		instData["loan_amount"] 			= loan_amount;
+		instData["first_inst_date"] 		= first_inst_date;
+		instData["inst_period"] 			= inst_period;
+		instData["interest_rate"] 			= interest_rate;
+		instData["sell_id"] 				= $("#sellId").val();
+		instArr.push(instData);
+	});
+	
+	instObj["instObj"] = instArr;
+	
+	$.ajax({
+		type: "POST",
+		url : $("#base_url").val() +"Sell/saveInstallment",
+		data: instObj,		
+		success: function(res) {
+		    if(parseInt(res) == parseInt(_instPeriod)){
+		    	parent.stock.comm.alertMsg("បង្កើតទិន្ន័យបានជោគជ័យ។");
+		    }else{
+		    	parent.stock.comm.alertMsg("បង្កើតទិន្ន័យមិនបានសំរេច សូមព្យាយាមម្តងទៀត");
+		        return;
+		    }
+		    $("#loading").hide();
+		},
+		error : function(data) {
+			console.log(data);
+			parent.stock.comm.alertMsg($.i18n.prop("msg_err"));
+        }
+	});
 }

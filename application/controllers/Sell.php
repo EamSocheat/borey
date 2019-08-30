@@ -18,6 +18,8 @@ class Sell extends CI_Controller{
         $this->load->model('M_commission');
         $this->load->model('M_commission_setting');
         $this->load->model('M_staff');
+        $this->load->model('M_installment');
+        
     }
     
     
@@ -299,8 +301,50 @@ class Sell extends CI_Controller{
         echo $sell_id_save;
     }
     
-    
+    public function saveInstallment(){
+     	if(!$this->M_check_user->check()){
+            redirect('/Login');
+        }
+        
+        $instObj = $this->input->post('instObj');
+        $cntInsert = 0;
+        for($i = 0; $i<sizeof($instObj); $i++){
+            $data = array(
+                    'sell_id'    => $instObj[$i]['sell_id'],
+            		'inst_num'    => $instObj[$i]['inst_num'],
+		            'inst_date'    => date('Y-m-d H:i:s',strtotime($instObj[$i]['inst_date'])),
+		            'inst_amt_principle'    => $instObj[$i]['inst_amt_principle'],
+		            'inst_amt_interest'    => $instObj[$i]['inst_amt_interest'],
+            		'inst_amt_balance'    => $instObj[$i]['inst_amt_balance'],
+		            'inst_amt_pay'    => $instObj[$i]['inst_amt_pay'],
+		            'inst_loan_amount'    => $instObj[$i]['loan_amount'],
+		            'inst_first_installment_date'    => date('Y-m-d H:i:s',strtotime($instObj[$i]['first_inst_date'])),
+		            'inst_period_month'    => $instObj[$i]['inst_period'],
+            		'inst_interest_rate'    => $instObj[$i]['interest_rate'],
+                    'useYn'     => "Y",
+                    'com_id'    => $_SESSION['comId'],
+                    'regDt'      => date('Y-m-d H:i:s'),
+                    'regUsr'     => $_SESSION['usrId']
+            );
+            $this->M_installment->insert($data);
+            $cntInsert += 1;
+        }
+        echo $cntInsert;
+    }
 
+    public function getInstallment(){
+    	if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	   
+	    $dataSrch = array(
+	        'sell_id'        => $this->input->post('sellId'),
+	    );
+	    
+	    $data["OUT_REC"] = $this->M_installment->selectInstallmentDetail($dataSrch);
+	    echo json_encode($data);
+    }
+    	
     public function udpateStatus(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
