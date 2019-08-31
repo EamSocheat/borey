@@ -246,7 +246,6 @@ function getDataEdit(usr_id){
 		dataType: "json",
 		async: false,
 		success: function(res) {
-			console.log(res);
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				$("#cboStaff").val(res.OUT_REC[0]["sta_id"]);
 			    $('#cboStaff').attr('disabled',true);
@@ -294,7 +293,6 @@ function getDataEdit(usr_id){
 	            }
 			    
 			}else{
-			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
 			}
 			$("#loading").hide();
@@ -460,8 +458,6 @@ function getStaff(){
 					$("#cboStaff").append("<option value='"+res.OUT_REC[i]["sta_id"]+"'>"+braNm+"</option>");
 				}
 				
-			}else{
-				console.log(res);
 			}
 		},
 		error : function(data) {

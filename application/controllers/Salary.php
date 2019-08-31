@@ -14,7 +14,6 @@ class Salary extends CI_Controller{
     }
 
 	public function index(){
-
 		if(!$this->M_check_user->check()){
 			redirect('/Login');
 		}
@@ -26,7 +25,7 @@ class Salary extends CI_Controller{
 		$this->load->view('v_salary',$data);
 	}
 
-	public function getHouse(){
+	public function getSalary(){
 		if(!$this->M_check_user->check()){
 			redirect('/Login');
 		}
@@ -34,16 +33,13 @@ class Salary extends CI_Controller{
 		$dataSrch = array(
 			'limit' 		=> $this->input->post('perPage'),
 			'offset' 		=> $this->input->post('offset'),
-			'pro_id' 		=> $this->input->post('houseId'),
-			'bra_id'		=> $this->input->post('braNm'),
-			'cat_id' 		=> $this->input->post('catNm'),
-			'pro_code' 		=> $this->input->post('codePay'),
-			'pro_status' 		=> $this->input->post('proStat'),
-			'pro_start_price' 	=> $this->input->post('txtMinPrice'),
-			'pro_end_price' 	=> $this->input->post('txtMaxPrice')
+			'sal_id' 		=> $this->input->post('salId'),
+			'sta_id'		=> $this->input->post('staffId'),
+			'sal_status'	=> $this->input->post('salStatus'),
+			'sal_month'		=> $this->input->post('salMonth')
 		);
-		$data["OUT_REC"] = $this->M_house->selectHouse($dataSrch);
-		$data["OUT_REC_CNT"] = $this->M_house->countHouse($dataSrch);
+		$data["OUT_REC"] 	 = $this->M_salary->selectSalary($dataSrch);
+		$data["OUT_REC_CNT"] = $this->M_salary->countSalary($dataSrch);
 		echo json_encode($data);
 	}
 
@@ -52,55 +48,70 @@ class Salary extends CI_Controller{
 			redirect('/Login');
 		}
 
-		$housePhoto = "";
-		$productCode = "";
-		if(!empty($_FILES['fileHousePhoto']['name'])){
-			$housePhoto = $this->M_common->uploadImage($_FILES['fileHousePhoto'],'fileHousePhoto','./upload/borey/house','/borey/house/');
-		}else{
-			$housePhoto = $this->input->post('houseImgPath');
+		$salGetMonth = "";
+		$staId		 = $this->input->post('txtStaffNm');
+		$salMonth	 = "01-".$this->input->post('txtSalMonth');
+		$salStatus   = $this->input->post('salStatus');
+		if($salStatus == "P"){
+			$salGetMonth = "";
+		}else if($salStatus == "G"){
+			$salGetMonth = date('Y-m-d H:i:s');
 		}
 
 		$data = array(
-			'pro_photo'		=> $housePhoto,
-			'cat_id'		=> $this->input->post('txtCatIdVal'),
-			'bra_id'		=> $this->input->post('txtProjIdVal'),
-			'pro_code'		=> $this->input->post('txtCode'),
-			'pro_price'		=> str_replace(",","",$this->input->post('txtHousePrice')),
-			'pro_number'	=> $this->input->post('txtHouseNo'),
-			'pro_length'	=> $this->input->post('txtHouseLength'),
-			'pro_width'		=> $this->input->post('txtHouseWidth'),
-			'pro_area'		=> $this->input->post('txtHouseArea'),
-			'pro_street'	=> $this->input->post('txtStreetNo'),
-			'pro_floor'		=> $this->input->post('txtFloorQty'),
-			'pro_room'		=> $this->input->post('txtRoomQty'),
-			'pro_toilet'	=> $this->input->post('txtToiletQty'),
-			'pro_des'		=> $this->input->post('txtDesc'),
+			'sal_start_dt'	=> date('Y-m-d',strtotime($this->input->post('txtSalSDate'))),
+			'sal_end_dt'	=> date('Y-m-d',strtotime($this->input->post('txtSalEDate'))),
+			'sal_month'		=> date('Y-m-d',strtotime($salMonth)),
+			'sal_amt'		=> str_replace(",","",$this->input->post('txtSalAmt')),
+			'sal_comm'		=> str_replace(",","",$this->input->post('txtSalcomm')),
+			'sal_overtime'	=> str_replace(",","",$this->input->post('txtSalOT')),
+			'sal_get_date'	=> $salGetMonth,
+			'sta_id'		=> $staId,
+			'sal_status'	=> $salStatus,
 			'useYn'			=> "Y",
 			'com_id'		=> $_SESSION['comId']
 		);
 
-		$dataCode = array(
-			'pro_code'	=> $this->input->post('txtCode')
+		$dataSalMonth = array(
+			'sal_month'	=> date('Y-m-d',strtotime($salMonth))
 		);
-		$productCode = $this->M_house->countHouse($dataCode);
-		print_r("totel:: ".sizeof($productCode["totel_rec"]));
-		if(sizeof($productCode["totel_rec"]) > 0){
-			print_r("DUPLICATE CODE");
+		$dataCurrentMonth = $this->M_salary->countDataCurrentMonth($dataSalMonth);
+
+		if(sizeof($dataCurrentMonth) > 0){
+//			print_r("This is month already given.");
+			echo 'DUPLICATE';
 			return;
 		}
 
 
-		if($this->input->post('houseId') != null && $this->input->post('houseId') != ""){
+		if($this->input->post('salId') != null && $this->input->post('salId') != ""){
 			//update data
-			$data['pro_id'] = $this->input->post('houseId');
-			$data['upUsr'] = $_SESSION['usrId'];
-			$data['upDt'] = date('Y-m-d H:i:s');
-			$this->M_house->update($data);
+			$data['sal_id'] = $this->input->post('salId');
+			$data['upUsr'] 	= $_SESSION['usrId'];
+			$data['upDt']	= date('Y-m-d H:i:s');
+			$this->M_salary->update($data);
 		}else{
 			//insert data
-			$data['regUsr'] = $_SESSION['usrId'];
-			$data['regDt'] = date('Y-m-d H:i:s');
-			$this->M_house->insert($data);
+			$data['regUsr']	= $_SESSION['usrId'];
+			$data['regDt']	= date('Y-m-d H:i:s');
+			$this->M_salary->insert($data);
+		}
+
+		echo 'OK';
+	}
+
+	public function updateSalaryStatus(){
+		if(!$this->M_check_user->check()){
+			redirect('/Login');
+		}
+
+		if($this->input->post('salId') != null && $this->input->post('salId') != ""){
+			//update data
+			$data['sal_status']	= $this->input->post('salStatus');
+			$data['sal_id'] = $this->input->post('salId');
+			$data['upUsr'] 	= $_SESSION['usrId'];
+			$data['upDt']	= date('Y-m-d H:i:s');
+			$this->M_salary->update($data);
 		}
 
 		echo 'OK';
@@ -120,57 +131,14 @@ class Salary extends CI_Controller{
 		$delObj = $this->input->post('delObj');
 		$cntDel = 0;
 		for($i=0; $i<sizeof($delObj); $i++){
-			/*$cntActiveContract	= 0;
-			$cntActiveSell		= 0;
-			//check contract table using branch or not
-			$dataCol = array(
-				'tbl_nm' 		=> "tbl_contract",
-				'id_nm' 		=> "exp_id",
-				'com_id' 		=> "com_id"
-			);
-
-			$dataVal = array(
-				'id_val' 		=> $delObj[$i]['expId'],
-				'com_val' 		=> $_SESSION['comId']
-			);
-			$chkData	= $this->M_common->checkActiveRecord($dataCol,$dataVal);
-			$cntActiveContract += $chkData[0]->active_rec;
-
-			$dataCol = array(
-				'tbl_nm' 		=> "tbl_sell",
-				'id_nm' 		=> "exp_id",
-				'com_id' 		=> "com_id"
-			);
-
-			$dataVal = array(
-				'id_val' 		=> $delObj[$i]['expId'],
-				'com_val' 		=> $_SESSION['comId']
-			);
-			$chkData		= $this->M_common->checkActiveRecord($dataCol,$dataVal);
-			$cntActiveSell += $chkData[0]->active_rec;
-
-			if($cntActiveContract > 0 || $cntActiveSell > 0){
-				continue;
-			}else{
-				$data = array(
-					'exp_id'	=> $delObj[$i]['expId'],
-					'useYn'		=> "N",
-					'com_id'	=> $_SESSION['comId'],
-					'upDt'		=> date('Y-m-d H:i:s'),
-					'upUsr'		=> $_SESSION['usrId']
-				);
-				$this->M_expend->update($data);
-				$cntDel+=1;
-			}*/
-
 			$data = array(
-				'pro_id'	=> $delObj[$i]['houseId'],
+				'sal_id'	=> $delObj[$i]['salId'],
 				'useYn'		=> "N",
 				'com_id'	=> $_SESSION['comId'],
 				'upDt'		=> date('Y-m-d H:i:s'),
 				'upUsr'		=> $_SESSION['usrId']
 			);
-			$this->M_house->update($data);
+			$this->M_salary->update($data);
 			$cntDel+=1;
 		}
 		echo $cntDel;

@@ -83,7 +83,7 @@ class House extends CI_Controller{
 			'pro_code'	=> $this->input->post('txtCode')
 		);
 		$productCode = $this->M_house->countHouse($dataCode);
-		print_r("totel:: ".sizeof($productCode["totel_rec"]));
+
 		if(sizeof($productCode["totel_rec"]) > 0){
 			print_r("DUPLICATE CODE");
 			return;

@@ -1,2 +1,0 @@
-alter TABLE tbl_user
-add COLUMN usr_edit_yn varchar(1);

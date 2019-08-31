@@ -6,125 +6,88 @@
 			parent::__construct();
 		}
 
-		function selectHouse($dataSrch){
+		function selectSalary($dataSrch){
 
 			$this->db->select('*');
-			//$this->db->from('tbl_product');
-			$this->db->join('tbl_category','tbl_category.cat_id = tbl_product.cat_id');
-			$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_product.bra_id');
-			$this->db->where('tbl_product.com_id', $_SESSION['comId']);
-			$this->db->where('tbl_product.useYn', 'Y');
+			//$this->db->from('tbl_salary');
+			$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_salary.sta_id');
+			$this->db->where('tbl_salary.com_id', $_SESSION['comId']);
+			$this->db->where('tbl_salary.useYn', 'Y');
 
-			if($dataSrch['pro_id'] != null && $dataSrch['pro_id'] != ""){
-				$this->db->where('tbl_product.pro_id', $dataSrch['pro_id']);
+			if($dataSrch['sal_id'] != null && $dataSrch['sal_id'] != ""){
+				$this->db->where('tbl_salary.sal_id', $dataSrch['sal_id']);
 			}
 
-			if($dataSrch['bra_id'] != null && $dataSrch['bra_id'] != ""){
-				$this->db->where('tbl_branch.bra_id', $dataSrch['bra_id']);
+			if($dataSrch['sta_id'] != null && $dataSrch['sta_id'] != ""){
+				$this->db->where('tbl_salary.sta_id', $dataSrch['sta_id']);
 			}
 
-			if($dataSrch['cat_id'] != null && $dataSrch['cat_id'] != ""){
-				$this->db->where('tbl_category.cat_id', $dataSrch['cat_id']);
+			if($dataSrch['sal_status'] != null && $dataSrch['sal_status'] != ""){
+				$this->db->where('tbl_salary.sal_status', $dataSrch['sal_status']);
 			}
 
-			if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
-				$this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
+			if($dataSrch['sal_month'] != null && $dataSrch['sal_month'] != ""){
+				$this->db->like('tbl_salary.sal_month', $dataSrch['sal_month']);
 			}
 
-			if(($dataSrch['pro_start_price'] != null && $dataSrch['pro_start_price'] != "") &&
-				$dataSrch['pro_end_price'] != null && $dataSrch['pro_end_price'] != ""){
-				$this->db->where('tbl_product.pro_price >= ', $dataSrch['pro_start_price']);
-				$this->db->where('tbl_product.pro_price <= ', $dataSrch['pro_end_price']);
-			}else{
-				if(($dataSrch['pro_start_price'] != null && $dataSrch['pro_start_price'] != "")){
-					$this->db->where('tbl_product.pro_price >=', $dataSrch['pro_start_price']);
-				}
-
-				if(($dataSrch['pro_end_price'] != null && $dataSrch['pro_end_price'] != "")){
-					$this->db->where('tbl_expend.exp_date <=', $dataSrch['pro_end_price']);
-				}
-			}
-
-			if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+			/*if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
 				$this->db->group_start();
-				$this->db->like('tbl_product.pro_nm', $dataSrch['srch_all']);
+				$this->db->like('tbl_salary.pro_nm', $dataSrch['srch_all']);
 				$this->db->or_like('tbl_branch.bra_nm', $dataSrch['srch_all']);
 				$this->db->or_like('tbl_category.cat_nm', $dataSrch['srch_all']);
 				$this->db->group_end();
-			}
+			}*/
 
-			$this->db->order_by("pro_id", "desc");
-			return $this->db->get('tbl_product',$dataSrch['limit'],$dataSrch['offset'])->result();
+			$this->db->order_by("sal_id", "desc");
+			return $this->db->get('tbl_salary',$dataSrch['limit'],$dataSrch['offset'])->result();
 		}
 
-		function countHouse($dataSrch){
+		function countSalary($dataSrch){
 
-			$this->db->select('count(pro_id) as total_rec');
-			$this->db->from('tbl_product');
-			$this->db->join('tbl_category','tbl_category.cat_id = tbl_product.cat_id');
-			$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_product.bra_id');
-			$this->db->where('tbl_product.com_id', $_SESSION['comId']);
-			$this->db->where('tbl_product.useYn', 'Y');
+			$this->db->select('count(sal_id) as total_rec');
+			$this->db->from('tbl_salary');
+			$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_salary.sta_id');
+			$this->db->where('tbl_salary.com_id', $_SESSION['comId']);
+			$this->db->where('tbl_salary.useYn', 'Y');
 
-			if($dataSrch['pro_id'] != null && $dataSrch['pro_id'] != ""){
-				$this->db->where('tbl_product.pro_id', $dataSrch['pro_id']);
+			if($dataSrch['sal_id'] != null && $dataSrch['sal_id'] != ""){
+				$this->db->where('tbl_salary.sal_id', $dataSrch['sal_id']);
 			}
 
-			if($dataSrch['bra_id'] != null && $dataSrch['bra_id'] != ""){
-				$this->db->where('tbl_branch.bra_id', $dataSrch['bra_id']);
+			if($dataSrch['sta_id'] != null && $dataSrch['sta_id'] != ""){
+				$this->db->where('tbl_salary.sta_id', $dataSrch['sta_id']);
 			}
 
-			if($dataSrch['cat_id'] != null && $dataSrch['cat_id'] != ""){
-				$this->db->where('tbl_category.cat_id', $dataSrch['cat_id']);
+			if($dataSrch['sal_status'] != null && $dataSrch['sal_status'] != ""){
+				$this->db->where('tbl_salary.sal_status', $dataSrch['sal_status']);
 			}
 
-			if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
-				$this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
-			}
-
-			if(($dataSrch['pro_start_price'] != null && $dataSrch['pro_start_price'] != "") &&
-				$dataSrch['pro_end_price'] != null && $dataSrch['pro_end_price'] != ""){
-				$this->db->where('tbl_product.pro_price >= ', $dataSrch['pro_start_price']);
-				$this->db->where('tbl_product.pro_price <= ', $dataSrch['pro_end_price']);
-			}else{
-				if(($dataSrch['pro_start_price'] != null && $dataSrch['pro_start_price'] != "")){
-					$this->db->where('tbl_product.pro_price >=', $dataSrch['pro_start_price']);
-				}
-
-				if(($dataSrch['pro_end_price'] != null && $dataSrch['pro_end_price'] != "")){
-					$this->db->where('tbl_expend.exp_date <=', $dataSrch['pro_end_price']);
-				}
-			}
-
-			if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
-				$this->db->group_start();
-				$this->db->like('tbl_product.pro_nm', $dataSrch['srch_all']);
-				$this->db->or_like('tbl_branch.bra_nm', $dataSrch['srch_all']);
-				$this->db->or_like('tbl_category.cat_nm', $dataSrch['srch_all']);
-				$this->db->group_end();
+			if($dataSrch['sal_month'] != null && $dataSrch['sal_month'] != ""){
+				$this->db->like('tbl_salary.sal_month', $dataSrch['sal_month']);
 			}
 
 			return $this->db->get()->result();
 		}
 
-		function checkProductCode($dataSrch){
-			$this->db->select('pro_code');
-			$this->db->from('tbl_product as pro');
-			$this->db->where('pro.useYn', 'Y');
-			$this->db->where('pro.pro_code', $dataSrch['pro_code']);
+		function countDataCurrentMonth($dataSalMonth){
+			$this->db->select('sal_id');
+			$this->db->from('tbl_salary as sal');
+			$this->db->where('sal.useYn', 'Y');
+			$this->db->where('sal.sal_month', $dataSalMonth['sal_month']);
 
 			$result = $this->db->get()->result();
+
 			return $result;
 		}
 
 		public function update($data){
 			$this->db->where('com_id', $_SESSION['comId']);
-			$this->db->where('pro_id', $data['pro_id']);
-			$this->db->update('tbl_product', $data);
+			$this->db->where('sal_id', $data['sal_id']);
+			$this->db->update('tbl_salary', $data);
 		}
 
 		public function insert($data){
-			$this->db->insert('tbl_product',$data);
+			$this->db->insert('tbl_salary',$data);
 			return $this->db->insert_id();
 		}
     }

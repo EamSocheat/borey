@@ -11,29 +11,17 @@ var _thisPage = {
 		_this.event();
 	},
 	onload : function(){
-		// getData();
-		stock.comm.checkAllTblChk("chkAllBox","tblHouse","chk_box");
+		getData();
+		stock.comm.checkAllTblChk("chkAllBox","tblSalary","chk_box");
 
 		$('#txtSalMonth').datepicker({
 			language: (getCookie("lang") == "kh" ? "kh" : "en"),
 			format: "mm-yyyy",
 			viewMode: "months",
-			minViewMode: "months",
-			autoclose: true
-			/*dateFormat: 'MM yy',
-			changeMonth: true,
-			changeYear: true,
-			showButtonPanel: true,
-			onClose: function(dateText, inst) {
-				var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-				var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-				$(this).val($.datepicker.formatDate('MM yy', new Date(year, month, 1)));
-			}*/
+			autoclose: true,
+			minViewMode: "months"
 		});
 		$("#txtSalMonth").inputmask();
-
-		filtProjectCombo();
-		filtCategoryCombo();
 		filtStaffCombo();
 	},event : function(){
 		$("#perPage").change(function(e){
@@ -52,6 +40,10 @@ var _thisPage = {
 			getData(pageNo);
 		});
 
+		$("#salMonthIcon").on("click", function(e) {
+			$(this).next().focus();
+		});
+
 		$(".box-footer").on("click", "#btnGoToPage", function(e) {
 			var pageNo = $("#txtGoToPage").val();
 			getData(pageNo);
@@ -60,16 +52,16 @@ var _thisPage = {
 		//
 		$("#btnAddNew").click(function(){
 			$("#loading").show();
-			var controllerNm = "PopupFormHouse";
+			var controllerNm = "PopupFormSalary";
 			var option = {};
-			option["height"] = "570px";
+			option["height"] = "455px";
 
 			stock.comm.openPopUpForm(controllerNm, option, null, "modal-md");
 		});
 
 		//
 		$("#btnEdit").click(function(){
-			var chkVal = $('#tblHouse tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblSalary tbody tr td.chk_box input[type="checkbox"]:checked');
 			if(chkVal.length != 1){
 				stock.comm.alertMsg($.i18n.prop("msg_con_edit1"));
 				return;
@@ -81,7 +73,7 @@ var _thisPage = {
 
 		//
 		$("#btnDelete").click(function(e){
-			var chkVal = $('#tblHouse tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblSalary tbody tr td.chk_box input[type="checkbox"]:checked');
 
 			if(chkVal.length <= 0){
 				stock.comm.alertMsg($.i18n.prop("msg_con_del"));
@@ -96,13 +88,14 @@ var _thisPage = {
 				var delObj = {};
 				chkVal.each(function(i){
 					var delData = {};
-					var tblTr   = $(this).parent().parent();
+					var tblTr   = $(this).parent().parent().parent();
 					var data_id = tblTr.attr("data-id");
-					delData["expId"] = data_id;
+					delData["salId"] = data_id;
 					delArr.push(delData);
 				});
 
 				delObj["delObj"] = delArr;
+				console.log(delObj);
 				deleteDataArr(delObj);
 			});
 		});
@@ -114,7 +107,7 @@ var _thisPage = {
 
 		$("#btnDownExcel").click(function(e){
 			e.preventDefault();
-			var chkVal = $('#tblHouse tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblSalary tbody tr td.chk_box input[type="checkbox"]:checked');
 
 			if(chkVal.length <= 0){
 				stock.comm.alertMsg($.i18n.prop("msg_down_excel"));
@@ -135,7 +128,6 @@ var _thisPage = {
 };
 
 function getData(page_no){
-	$("#chkAllBox").prop( "checked", false );
 	var pageNo = 1;
 	if(page_no != "" && page_no != null && page_no != undefined){
 		if(page_no <=0){
@@ -144,75 +136,66 @@ function getData(page_no){
 		pageNo = page_no;
 	}
 	var dat = {};
+	var salMonth = $("#txtSalMonth").val();
 	//paging
 	dat["perPage"] = $("#perPage").val();
 	dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
+
 	// search
-	dat["braNm"]	= $("#projectNm option:selected").val();
-	dat["catNm"]	= $("#cboCatNm option:selected").val();
-	dat["codePay"] 	= $("#txtCodePay").val();
-	dat["proStat"]	= $("#cboStatusNm option:selected").val();
-	dat["txtMinPrice"]	= $("#txtMinPrice").val();
-	dat["txtMaxPrice"]	= $("#txtMaxPrice").val();
-	console.log(dat)
+	dat["staffId"]		= $("#staffNm option:selected").val();
+	dat["salStatus"]	= $("#cboStatus option:selected").val();
+	dat["salMonth"]		= (salMonth != "" ? salMonth.split("-")[1]+"-"+salMonth.split("-")[0] : "");
 
 	$("#loading").show();
 	$.ajax({
 		type: "POST",
-		url : $("#base_url").val() +"House/getHouse",
+		url : $("#base_url").val() +"Salary/getSalary",
 		data: dat,
 		dataType: "json",
 		success	: function(res) {
-			$("#tblHouse tbody").html("");
-			var strHmtl	 = "";
-			var strTotal = "";
-			var totalAmt = 0;
-			var supNmKh  = "";
-			var staNmKh  = "";
+			$("#tblSalary tbody").html("");
+			$("#chkAllBox").prop( "checked", false );
 
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				$("#chkAllBox").show();
+				var strHtml = "", strTotal = "";
+				var totalSalaryAmt = 0, totalSalary = 0;
 
 				for(var i = 0; i < res.OUT_REC.length; i++){
-					var urlPhoto = "";
-					if(res.OUT_REC[i]["pro_photo"] != null && res.OUT_REC[i]["pro_photo"] != ""){
-						urlPhoto = $("#base_url").val()+"/upload"+ res.OUT_REC[i]["pro_photo"];
-					}else{
-						urlPhoto = $("#base_url").val()+"assets/image/default-house.jpg";
-					}
+					totalSalary = parseFloat(res.OUT_REC[i]["sal_amt"]) + parseFloat(res.OUT_REC[i]["sal_comm"]) + parseFloat(res.OUT_REC[i]["sal_overtime"]);
 
-					strHmtl += '<tr data-id="'+res.OUT_REC[i]["pro_id"]+'" class="cur-pointer" ondblclick="editData('+res.OUT_REC[i]['pro_id']+')">';
-					strHmtl += '	<td class="chk_box"><input type="checkbox" /></td>';
-					strHmtl += '	<td class="pro_image" style="padding: 0 8px;"><div style="width: 10px;">';
-					strHmtl += '		<img style="width: 35px;height: 35px;" src="'+ urlPhoto +'" class="img-circle" />';
-					strHmtl += '	</div></td>';
-					strHmtl += '	<td><div>'+res.OUT_REC[i]["pro_code"]+'</div></td>';
-					strHmtl += '	<td><div style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["pro_price"])+'</div></td>';
-					strHmtl += '	<td><div>'+stock.comm.null2Void(res.OUT_REC[i]["pro_length"])+' ម៉ែត្រ</div></td>';
-					strHmtl += '	<td><div>'+stock.comm.null2Void(res.OUT_REC[i]["pro_width"])+' ម៉ែត្រ</div></td>';
-					strHmtl += '	<td><div>'+stock.comm.null2Void(res.OUT_REC[i]["pro_area"])+' ម៉ែត្រការ៉េ</div></td>';
-					strHmtl += '	<td class="text-center">';
-					strHmtl += '		<button type="button" class="btn btn-primary btn-xs" onclick="editData('+res.OUT_REC[i]["pro_id"]+')">';
-					strHmtl += '			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
-					strHmtl += '		</button>';
-					strHmtl += '	</td>';
-					strHmtl += '</tr>';
+					strHtml += '<tr data-id="'+res.OUT_REC[i]["sal_id"]+'" class="cur-pointer" ondblclick="editData('+res.OUT_REC[i]['sal_id']+')">';
+					strHtml += '	<td class="chk_box"><div class="" style="width: 10px;"><input type="checkbox"></div></td>';
+					strHtml += '	<td><div class="">'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["sal_month"]).substr(3,10)+'</div></td>';
+					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sal_amt"])+'$</div></td>';
+					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sal_comm"])+'$</div></td>';
+					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sal_overtime"])+'$</div></td>';
+					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(totalSalary)+'$</div></td>';
+					strHtml += '	<td><div class="" style="">'+convertStatusToLetter(res.OUT_REC[i]["sal_status"])+'</div></td>';
+					strHtml += '	<td class="text-center">';
+					strHtml += '		<button type="button" class="btn btn-primary btn-xs" onclick="editData('+res.OUT_REC[i]["sal_id"]+')">';
+					strHtml += '			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
+					strHtml += '		</button>';
+					strHtml += '	</td>';
+					strHtml += '</tr>';
 
-					totalAmt += Number(res.OUT_REC[i]["pro_price"]);
+					totalSalaryAmt += parseFloat(totalSalary);
 				}
 
-				strTotal +='<tr class="total">';
-				strTotal +='	<td class="" colspan="3" style="text-align: right;">ថ្លៃទំនិញសរុប: </td>';
-				strTotal +='	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalAmt)+'</b></td>';
-				strTotal +='</tr>';
+				strTotal += '<tr class="total">';
+				strTotal += '	<td class="" colspan="5" style="text-align: right;font-weight: 600;">សរុបប្រាក់ខែបុគ្គលិក: </td>';
+				strTotal += '	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalSalaryAmt)+'$</b></td>';
+				strTotal += '	<td class="" style="text-align: right;"></td>';
+				strTotal += '	<td class="" style="text-align: right;"></td>';
+				strTotal += '</tr>';
 
-				$("#tblHouse tbody").append(strHmtl);
-				$("#tblHouse tbody").append(strTotal);
+				$("#tblSalary tbody").append(strHtml);
+				$("#tblSalary tbody").append(strTotal);
 				stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 			}else{
 				$("#chkAllBox").hide();
-				$("#tblHouse tbody").html("");
-				$("#tblHouse tbody").append("<tr><td colspan='9' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+				$("#tblSalary tbody").html("");
+				$("#tblSalary tbody").append("<tr><td colspan='9' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 				//--pagination
 				stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 			}
@@ -222,20 +205,31 @@ function getData(page_no){
 			console.log(data);
 			$("#chkAllBox").hide();
 			$("#loading").hide();
-			$("#tblHouse tbody").append("<tr><td colspan='9' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+			$("#tblSalary tbody").append("<tr><td colspan='9' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 			stock.comm.alertMsg($.i18n.prop("msg_err"));
 		}
 	});
 }
 
-function editData(pro_id){
-	var data = "id="+pro_id;
+function convertStatusToLetter(salStatus){
+	if(!salStatus) salStatus = "";
+	var statusLetter = "";
+	if(salStatus == "P"){
+		statusLetter = "ព្រាងទុក";
+	}else if(salStatus == "G"){
+		statusLetter = "បានប្រគល់";
+	}
+	return statusLetter;
+}
+
+function editData(sal_id){
+	var data = "id="+sal_id;
 	data += "&action=U";
 
-	var controllerNm = "PopupFormHouse";
+	var controllerNm = "PopupFormSalary";
 	var option = {};
-	option["height"] = "570px";
-	stock.comm.openPopUpForm(controllerNm,option, data,"modal-md");
+	option["height"] = "455px";
+	stock.comm.openPopUpForm(controllerNm, option, data, "modal-md");
 }
 
 /**
@@ -244,10 +238,10 @@ function editData(pro_id){
 function deleteDataArr(dataArr){
 	$.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"House/delete",
+		url : $("#base_url").val() +"Salary/delete",
 		data: dataArr,
+		dataType: 'json',
 		success: function(res) {
-
 			if(res > 0){
 				stock.comm.alertMsg(res+$.i18n.prop("msg_del_com"));
 				getData(_pageNo);
@@ -264,44 +258,6 @@ function deleteDataArr(dataArr){
 	});
 }
 
-function filtCategoryCombo(){
-	var CATEGORY_REC = stock.comm.callDataCombo("Category","getCategoryData");
-
-	if(!stock.comm.isEmpty(CATEGORY_REC)){
-		var strHtml = '<option value="" data-i18ncd="lb_sup_choose">សូមជ្រើសរើស</option>';
-		var supStr  = "";
-		$("#cboCatNm").empty();
-		for(var i = 0; i < CATEGORY_REC.length; i++){
-			if(CATEGORY_REC[i]["cat_nm_kh"] != "" && CATEGORY_REC[i]["cat_nm_kh"] != null){
-				supStr = CATEGORY_REC[i]["cat_nm_kh"];
-			}else{
-				supStr = CATEGORY_REC[i]["cat_nm"];
-			}
-			strHtml += '<option value="'+CATEGORY_REC[i]["cat_id"]+'">'+supStr+'</option>';
-		}
-		$("#cboCatNm").html(strHtml);
-	}
-}
-
-function filtProjectCombo(){
-	var PROJECT_REC = stock.comm.callDataCombo("Branch","getBranch");
-
-	if(!stock.comm.isEmpty(PROJECT_REC)){
-		var strHtml = '<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>';
-		var proStr  = "";
-		$("#projectNm").empty();
-		for(var i = 0; i < PROJECT_REC.length; i++){
-			if(PROJECT_REC[i]["bra_nm_kh"] != "" && PROJECT_REC[i]["bra_nm_kh"] != null){
-				proStr = PROJECT_REC[i]["bra_nm_kh"];
-			}else{
-				proStr = PROJECT_REC[i]["bra_nm"];
-			}
-			strHtml += '<option value="'+PROJECT_REC[i]["bra_id"]+'">'+proStr+'</option>';
-		}
-		$("#projectNm").html(strHtml);
-	}
-}
-
 
 function filtStaffCombo(){
 	var Staff_REC = stock.comm.callDataCombo("Staff","getStaff");
@@ -310,7 +266,7 @@ function filtStaffCombo(){
 		var strHtml  = '<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>';
 		strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
 		var staffStr = "";
-		$("#cboStaffPay").empty();
+		$("#staffNm").empty();
 		for(var i = 0; i < Staff_REC.length; i++){
 			if(Staff_REC[i]["sta_nm_kh"] != "" && Staff_REC[i]["sta_nm_kh"] != null){
 				staffStr = Staff_REC[i]["sta_nm_kh"];
@@ -319,45 +275,22 @@ function filtStaffCombo(){
 			}
 			strHtml += '<option value="'+Staff_REC[i]["sta_id"]+'">'+staffStr+'</option>';
 		}
-		$("#cboStaffPay").html(strHtml);
+		$("#staffNm").html(strHtml);
 	}
-}
-
-
-
-function downloadExcel(dataRec){
-	$.ajax({
-		type: "POST",
-		url : $("#base_url").val() +"House/download_excel",
-		data: dataRec,
-		contentType: "application/vnd.ms-excel",
-		dataType: "json",
-		cache: false,
-		success: function(res) {
-			$("#loading").hide();
-		},
-		error : function(data) {
-			console.log(data);
-			stock.comm.alertMsg($.i18n.prop("msg_err"));
-		}
-	});
 }
 
 /**
  *
  */
 function resetFormSearch(){
-	$("#projectNm option:eq(0)").attr("selected", true);
-	$("#cboCatNm option:eq(0)").attr("selected", true);
-	$("#cboStatusNm option:eq(0)").attr("selected", true);
-	$("#txtCodePay").val("");
-	$("#txtMinPrice").val("");
-	$("#txtMaxPrice").val("");
+	$("#staffNm option:eq(0)").attr("selected", true);
+	$("#cboStatus option:eq(0)").attr("selected", true);
+	$("#txtSalMonth").val("");
 }
 
 /**
  *
  */
-function popupHouseCallback(){
+function popupSalaryCallback(){
 	getData(_pageNo);
 }

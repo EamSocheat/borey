@@ -101,8 +101,6 @@ function getDataEdit(cat_id){
 		dataType: "json",
 		async: false,
 		success: function(res) {
-			console.log("popup")
-			console.log(res.OUT_REC)
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				if(res.OUT_REC[0]["cat_photo"] != "" && res.OUT_REC[0]["cat_photo"] != null){
 					$("#categImgView").attr("src", $("#base_url").val()+"/upload"+res.OUT_REC[0]["cat_photo"]);
@@ -113,7 +111,6 @@ function getDataEdit(cat_id){
 			    $("#cateDescr").val(res.OUT_REC[0]["cat_des"]);
 			    $("#txtCateNm").focus();
 			}else{
-			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
 			}
 			$("#loading").hide();

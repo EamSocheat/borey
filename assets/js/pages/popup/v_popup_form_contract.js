@@ -186,7 +186,6 @@ function saveData(str){
         processData: false,
 		success: function(res) {
 		    parent.$("#loading").hide();
-		    console.log(res)
 			if(res =="OK"){
 				parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
 				if(str == "new"){
@@ -213,7 +212,6 @@ function updateContractStatus(status){
 		data: input,
 		dataType: "json",
 		success: function(res) {
-			console.log(res);
 		    if(res > 0){
 		    	if(status == "0"){
 		    		parent.stock.comm.alertMsg($.i18n.prop("msg_close"),"braNm");
@@ -316,7 +314,6 @@ function getDataEdit(cont_id){
 			    $("#txtDes").val(res.OUT_REC[0]["sta_des"]);*/
 			    
 			}else{
-			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
 			}
 			$("#loading").hide();

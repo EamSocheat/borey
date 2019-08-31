@@ -265,7 +265,6 @@ function resetFormSearch(){
  * 
 */
 function popupCustomerCallback(){
-	console.log("log testing");
 	_pageNo  = 1;
 	_perPage = $("#tblCustomer tbody tr").length;
     getData();

@@ -269,7 +269,6 @@ stock.comm.formatDateWithoutTime = function(val){
 				if (res){
 					data= res.COM_REC;
 				}else{
-					console.log(data);
 					stock.comm.alertMsg($.i18n.prop("msg_err"));
 				}
 				
@@ -594,7 +593,6 @@ stock.comm.formatDateWithoutTime = function(val){
     				}
     				
     			}else{
-    				console.log(res);
     				stock.comm.alertMsg("System Error!!! PLease connect again.");
     			}
     		},
@@ -624,7 +622,6 @@ stock.comm.formatDateWithoutTime = function(val){
     				}
     				
     			}else{
-    				console.log(res);
     				stock.comm.alertMsg("System Error!!! PLease connect again.");
     			}
     		},
@@ -653,7 +650,6 @@ stock.comm.formatDateWithoutTime = function(val){
     				}
     				
     			}else{
-    				console.log(res);
     				stock.comm.alertMsg("System Error!!! PLease connect again.");
     			}
     		},

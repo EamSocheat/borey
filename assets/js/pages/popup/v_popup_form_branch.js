@@ -70,7 +70,6 @@ function getBrnachType(){
 				}
 				
 			}else{
-				console.log(res);
 				stock.comm.alertMsg($.i18n.prop("msg_err"));
 			}
 		},
@@ -138,7 +137,6 @@ function getDataEdit(bra_id){
 			    $("#braDes").val(res.OUT_REC[0]["bra_des"]);
 			    $("#braNm").focus();
 			}else{
-			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
 			}
 			$("#loading").hide();

@@ -4,7 +4,7 @@
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
-			<i class="fa fa-building-o"></i> <span data-i18ncd="lb_salary">Salary</span>
+			<i class="fa fa-university"></i> <span data-i18ncd="lb_salary">Salary</span>
 			<small data-i18ncd="lb_information">Information</small>
 		</h1>
 
@@ -49,14 +49,18 @@
 													<label for="cboStatus" class="control-label" data-i18ncd="lb_cat" style="margin-bottom: 7px;display: -webkit-box;">ការប្រើប្រាស់</label>
 													<select class="form-control" id="cboStatus" name="cboStatus" style="width: 143px;font-size: 14px;" onchange="getData()">
 														<option value="" data-i18ncd="lb_status_choose">សូមជ្រើសរើស</option>
-														<option value="1" data-i18ncd="lb_prepare">ព្រាងទុក</option>
-														<option value="1" data-i18ncd="lb_given">បានប្រគល់</option></select>
+														<option value="P" data-i18ncd="lb_prepare">ព្រាងទុក</option>
+														<option value="G" data-i18ncd="lb_given">បានប្រគល់</option>
+													</select>
 												</div>
 											</div>
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
-												<div class="form-group form-inline">
-													<label for="txtSalMonth" class="control-label" data-i18ncd="lb_pro_code" style="margin-bottom: 7px;display: -webkit-box;">ខែបើកប្រាក់</label>
-													<input type="text" class="form-control input-sm" id="txtSalMonth" name="txtSalMonth" placeholder="បញ្ជូល ខែបើកប្រាក់" style="width: 100%;">
+												<label for="txtSalMonth" class="control-label" data-i18ncd="lb_pro_code" style="margin-bottom: 7px;display: -webkit-box;">ខែបើកប្រាក់</label>
+												<div class="input-group date">
+													<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="salMonthIcon">
+														<i class="fa fa-calendar"></i>
+													</div>
+													<input type="text" class="form-control input-sm" id="txtSalMonth" name="txtSalMonth" placeholder="បញ្ជូល ខែបើកប្រាក់" style="width: 100%;" onchange="getData()">
 												</div>
 											</div>
 										</div>
@@ -77,8 +81,10 @@
 						<!-- button -->
 						<div class="row test-est">
 							<div class="col-xs-12">
-								<button type="button" id="btnDelete" class="btn btn-danger btn-sm" style="margin-right: 5px"><i class="fa fa-trash" aria-hidden="true"></i> <span data-i18ncd="btn_delete">Delete</span></button>
-								<button type="button" id="btnAddNew" class="btn btn-default btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> <span data-i18ncd="btn_add_new">Add New</span></button>
+								<div class="col-xs-12" style="display: flex;">
+									<button type="button" id="btnDelete" class="btn btn-danger btn-sm" style="margin-right: 5px"><i class="fa fa-trash" aria-hidden="true"></i> <span data-i18ncd="btn_delete">លុប</span></button>
+									<button type="button" id="btnAddNew" class="btn btn-default btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> <span data-i18ncd="btn_add_new">បន្ថែម&#8203;ថ្មី</span></button>
+								</div>
 							</div>
 						</div>
 						<!-- /.button -->
@@ -112,7 +118,8 @@
 									<col style="width:50px;">
 									<col style="width:50px;">
 									<col style="width:50px">
-									<col style="width:50px;">
+									<col style="width:10px;">
+									<col style="width:10px;">
 								</colgroup>
 								<thead>
 									<tr>
@@ -131,8 +138,6 @@
 								<tbody>
 									<tr class="cur-pointer">
 										<td><div class="" style="width: 10px;"><input type='checkbox'></div></td>
-										<!--<td><div class="">09-08-2019</div></td>
-										<td><div class="">09-08-2019</div></td>-->
 										<td><div class="">08-2019</div></td>
 										<td><div class="" style="text-align: right">$100,000</div></td>
 										<td><div class="" style="text-align: right">$100,000</div></td>

@@ -243,8 +243,6 @@ function getStaff(){
 					$("#cboStaff").append("<option value='"+res.OUT_REC[i]["sta_id"]+"'>"+braNm+"</option>");
 				}
 				
-			}else{
-				console.log(res);
 			}
 		},
 		error : function(data) {
