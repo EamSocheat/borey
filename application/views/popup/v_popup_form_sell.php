@@ -136,9 +136,155 @@
 		    				<!--  --> 
 		                </div>
 		                
+		                 <div class="col-xs-12 row" style="padding:0px;">
+		                	
+				    		<div class="col-xs-4 padding-forms-left">
+		                		<div class="form-group">
+		            				<label for="txtContSD" >ថ្ងៃលក់</label>
+									<div class="input-group date">
+										<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+											<i class="fa fa-calendar"></i>
+										</div>
+										<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
+									</div>
+		            			</div>
+		                	</div>
+		                	<div class="col-xs-4 padding-forms-right">
+		                		<div class="form-group">
+		        		      		<label  for="txtPayPer" > ប្រាក់ទូទាត់​ជាមុន  % </label><span> </span>
+		        		        	<input type="text" maxlength="2" class="form-control text-right" id="txtPayPer" required="required"  placeholder="Enter loan amount" name="txtPayPer" autocomplete="off" />
+		        		    	</div>
+		                    </div>
+		                    <div class="col-xs-4 padding-forms-right">
+		                        <div class="form-group">
+		        		      		<label  for="txtPayCash" > ប្រាក់ទូទាត់​ជាមុន $</label><span> </span>
+		        		        	<input type="text" class="form-control text-right" id="txtPayCash" required="required"  placeholder="Enter loan amount" name="txtPayCash" autocomplete="off" />
+		        		    	</div>
+		                    </div>
+		                   
+		                </div>
+		                
+		                <div class="col-xs-12 row" style="padding:0px;" >
+		                 	<div class="col-xs-4 padding-forms-left">
+		                        <div class="form-group">
+		        		      		<label  for="txtPayTime" > ចំនួនដងទូទាត់​ជាមុន</label><span> </span>
+		        		        	<input type="text" class="form-control text-right" id="txtPayTime" required="required"  placeholder="Enter loan amount" name="txtPayTime" autocomplete="off" />
+		        		    	</div>
+		                    </div>
+		                	<div class="col-xs-4 padding-forms-right">
+		                		<div class="form-group">
+			                    	<label for="txtStartInstDate" >ថ្ងៃបង់បន្ទាប់</label>
+									<div class="input-group date">
+										<div class="input-group-addon" id="txtStartInstDateIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+											<i class="fa fa-calendar"></i>
+										</div>
+										<input type="text" class="form-control pull-right date-pick" id="txtStartInstDate" name="txtStartInstDate" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
+									</div>
+								</div>
+		                	</div>
+		                	<div class="col-xs-4 padding-forms-right text-right" style="padding-right: 5px;">
+    	                        <button style="margin-top: 25px;" type="button" class="btn btn-warning btn-sm" id="btnCalInst"><i class="fa fa-plus"></i> គណនាតារាងបង់ប្រាក់</button>
+    	                    	
+		                	</div>
+		                	
+		                </div>
 		                
 		                <div class="col-xs-12 row" style="padding:0px;">
+		                	<div class="col-xs-4 padding-forms-left">
+		                		<div class="form-group">
+		                			<input class type="checkbox" id="cboInstYn" name="cboInstYn"> <label  for="cboInstYn" > ធ្វើការរំលួសជាមួយក្រុមហ៊ុន</label><span> </span>
+		                		</div>
+		                	</div>
+		                	
+		                </div>
+		                
+		                <div class="col-xs-12 row div_installment" style="padding:0px;display: none;">
 		                	<!--  -->
+				    		<div class="col-xs-4 padding-forms-left">
+		                        <div class="form-group" >
+		        		      		<label  for="txtTotalLeftInst" > ប្រាក់ដើមនៅសល់</label><span> </span>
+		        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtTotalLeftInst" placeholder="Enter loan amount" name="txtTotalLeftInst" autocomplete="off" />
+		        		    	</div>
+		                	</div>
+		                	<div class="col-xs-4 padding-forms-right">
+		                		<div class="form-group">
+		        		      		<label  for="txtInterstRate" > អត្រាការប្រាក់ %(ក្នុងមួយឆ្នាំ) </label><span> </span>
+		        		        	<input type="text"  maxlength="5" class="form-control text-right" id="txtInterstRate" required="required"  placeholder="Enter loan amount" name="txtInterstRate" autocomplete="off" />
+		        		    	</div>
+		                    </div>
+		                    <div class="col-xs-4 padding-forms-right">
+		                        <div class="form-group">
+		        		      		<label  for="txtPeriod" > រយៈពេលរំលួស(ខែ)</label><span> </span>
+		        		        	<input type="text" maxlength="3" class="form-control text-right" id="txtPeriod" required="required"  placeholder="Enter loan amount" name="txtPeriod" autocomplete="off" />
+		        		    	</div>
+		                    </div>
+		                   <!--  -->
+		                </div>
+		                
+		                <div class="col-xs-12 row div_installment" style="padding:0px;display: none">
+		                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
+		                		<table style="width:100%" class="table">
+		                			<colgroup>
+										<col width="15%">
+										<col width="5%">
+										<col width="15%">
+										<col width="12%">
+										<col width="5%">
+										<col width="15%">
+										<col width="12%">
+										<col width="5%">
+										<col width="15%">
+									</colgroup>
+								  	<tr>
+								    	<th>ប្រាក់បង់ប្រចាំខែ</th>
+								    	<th>៖</th>
+								    	<td id="monthlyPay"></td>
+								    	<th>ការប្រាក់សរុប</th>
+								    	<th>៖</th>
+								    	<td id="totalPayInterest"></td>
+								    	<th>ប្រាក់បង់សរុប</th>
+								    	<th>៖</th>
+								    	<td id="totalPayInstallment"></td>
+								  	</tr>
+								  	<tr>
+								    	
+								  	</tr>
+								  	<tr>
+								    	
+								  	</tr>
+								</table>
+		                	</div>
+		                	
+		                	
+		    				<!--  --> 
+		                </div>
+		                <div class="col-xs-12 row" style="padding:0px;">
+		                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
+		                		<!-- <span><b>ប្រវត្តិនៃការបង់ប្រាក់</b></span>--> 
+		                    	<div class="box-body table-responsive fix-header-tbl" style="height: 185px;padding: 0px;">
+		        				  <table class="table table-hover" id="tblInstallment" >
+		        				    <thead>  
+		            					<tr>
+		            					  <th>ល.រ</th>
+		            					  <th class="text-center">ថ្ងៃត្រូវបង់</th>
+		            					  <th class="text-right">ប្រាក់ដើម $</th>
+			        					  <th class="text-right">ប្រាក់ការ $</th>
+			        					  <th class="text-right">ប្រាក់ដើមនៅសល់ $</th>
+			        					  <th class="text-right" style="padding-right: 25px;">ប្រាក់បង់សរុប $</th>
+			        					  
+		            					</tr>
+		        					</thead>
+		        					<tbody>
+		        					   
+		        					</tbody>
+		        					
+		        				  </table>
+		        				</div> 	
+		                	</div>
+		                </div>
+		                <!--
+		                <div class="col-xs-12 row" style="padding:0px;">
+		                	
 				    		<div class="col-xs-3 padding-forms-left">
 		                		<div class="form-group">
 		            				<label for="txtContSD" >ថ្ងៃបង់ប្រាក់</label>
@@ -170,7 +316,7 @@
 		        		        	<input type="text" class="form-control text-right" id="txtPayCash" required="required"  placeholder="Enter loan amount" name="txtPayCash" autocomplete="off" />
 		        		    	</div>
 		                    </div>
-					    	<!--  -->
+					    	
 		                </div>
 		                
 		                <div class="col-xs-12 row" style="padding:0px;">
@@ -190,7 +336,7 @@
 						    	</div>
 					    	
 		            		</div>
-		                    <!--  -->
+		                    
 				    		<div class="col-xs-3 padding-forms-right">
 		                		<div class="form-group">
 		        		      		<label  for="txtDisPer" > បញ្ចុះតំលៃ % </label><span> </span>
@@ -208,7 +354,7 @@
 		                
 		                <div class="col-xs-12 row" style="padding:0px;">
 		                	
-		                	<!--  -->
+		                	
 				    		<div class="col-xs-3 padding-forms-left">
 		                		
 		                		<div class="form-group totalPaidDiv" style="display: none;">
@@ -235,7 +381,7 @@
 		        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtRealPayAmt" placeholder="Enter loan amount" name="txtRealPayAmt" autocomplete="off" />
 		        		    	</div>
 		                    </div>
-					    	<!--  -->
+					    	
 		                </div>
 		                
 		                <div class="col-xs-12 row totalPaidDiv" style="padding:0px;display: none">
@@ -253,7 +399,7 @@
 			        					  <th class="text-right">បញ្ចុះ%</th>
 			        					  <th class="text-right">ប្រាក់បង់ % </th>
 			        					  <th class="text-right"  >ប្រាក់បង់ $</th>
-			        					  <!-- <th class="text-right"  >បញ្ចុះតំលៃ $</th> -->
+			        					  <!-- <th class="text-right"  >បញ្ចុះតំលៃ $</th> 
 			        					  <th class="text-right"  style="padding-right: 25px;">ប្រាក់បង់សរុប</th>
 		            					</tr>
 		        					</thead>
@@ -264,8 +410,9 @@
 		        				  </table>
 		        				</div> 	
 		                	</div>
-		    				<!--  --> 
+		    				 
 		                </div>
+		                -->
 		        	</div>
 		        	<div class="modal-footer" >
 			            <input type="hidden" value="" id="statusID" name="statusID" />

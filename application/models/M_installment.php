@@ -37,6 +37,12 @@
             $this->db->update('tbl_installment', $data);
         }
         
+        public function updateBySell($data){
+            $this->db->where('com_id', $_SESSION['comId']);
+            $this->db->where('sell_id', $data['sell_id']);
+            $this->db->update('tbl_installment', $data);
+        }
+        
         public function insert($data){
             $this->db->insert('tbl_installment',$data);
             return $this->db->insert_id();

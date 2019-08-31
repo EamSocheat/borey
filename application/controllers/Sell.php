@@ -307,6 +307,17 @@ class Sell extends CI_Controller{
         }
         
         $instObj = $this->input->post('instObj');
+        
+        
+        $dataUpdate = array(
+            'sell_id'    => $instObj[0]['sell_id'],
+            'useYn'     => "N",
+            'com_id'    => $_SESSION['comId'],
+            'upDt'      => date('Y-m-d H:i:s'),
+            'upUsr'     => $_SESSION['usrId']
+        );
+        $this->M_installment->updateBySell($dataUpdate);
+        
         $cntInsert = 0;
         for($i = 0; $i<sizeof($instObj); $i++){
             $data = array(
