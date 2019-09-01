@@ -267,9 +267,11 @@ var _thisPage = {
 			//
 			$("#btnCalInst").click(function(e){
 				calculatePaySchedule();
-				/*if ($("#cboInstYn").prop("checked")) {
-					calculateInstallment();
-			    }*/
+				if ($("#cboInstYn").prop("checked")) {
+					$("#txt_com_inst_yn").val("Y");
+			    }else{
+			    	$("#txt_com_inst_yn").val("N");
+			    }
 			});
 			//
 			$("#txtInterstRate").keyup(function(e){
@@ -299,12 +301,14 @@ var _thisPage = {
 			
 			//
 			$("#cboInstYn").change(function(e){
+				
+				calculatePaySchedule();
 				if ($(this).prop("checked")) {
 					$(".div_installment").show();
 			    }else{
 			    	$(".div_installment").hide();
+			    	parent.$("#msgErr").hide();
 			    }
-				calculatePaySchedule();
 			});
 			
 			//
@@ -416,6 +420,8 @@ function saveData(str){
     	showProductErr();
     	return;
     }
+    
+    
    	var productArr=[];
    	var productPriceArr=[];
    	productChk.each(function(i){
@@ -425,11 +431,12 @@ function saveData(str){
    	
 	//
 	$("#txtPayCash").val($("#txtPayCash").val().replace(/,/g,''));
-	$("#txtRealPayAmt").val($("#txtRealPayAmt").val().replace(/,/g,''));
-	$("#txtPayPenalty").val($("#txtPayPenalty").val().replace(/,/g,''));
+	//$("#txtRealPayAmt").val($("#txtRealPayAmt").val().replace(/,/g,''));
+	//$("#txtPayPenalty").val($("#txtPayPenalty").val().replace(/,/g,''));
 	
-	$("#txtDisPer").val($("#txtDisPer").val().replace(/,/g,''));
-	$("#txtDisCash").val($("#txtDisCash").val().replace(/,/g,''));
+	//$("#txtDisPer").val($("#txtDisPer").val().replace(/,/g,''));
+	//$("#txtDisCash").val($("#txtDisCash").val().replace(/,/g,''));
+	$("#txtTotalLeftInst").val($("#txtTotalLeftInst").val().replace(/,/g,''));
 	
 	$("#txtCusNm").css("border-color","#ced4da");
 	$("#btnSelectPro").css("border-color","#ced4da");
@@ -440,26 +447,12 @@ function saveData(str){
 	$.ajax({
 		type : "POST",
 		url  : $("#base_url").val() +"Sell/saveSell",
-		data: $("#frmSell").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr ,
+		data: $("#frmSell").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr,
 		success: function(res) {
 		    parent.$("#loading").hide();
 			if(res !=""){
-				//parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
-				parent.stock.comm.confirmMsg($.i18n.prop("msg_save_com")+" \nតើអ្នកចង់បោះពុម្ពដែរឫទេ ?");
-				parent.$("#btnConfirmOk").unbind().click(function(e){
-					parent.$("#mdlConfirm").modal('hide');
-					var dataArr =  res.split("#");
-					printInv(dataArr[0],dataArr[1]);
-				});
+				saveInstallment(res,str);
 				
-				if(str == "new"){
-					clearForm();
-					$("#txtBookingAmt,#txtBookDate,#txtCusNm,#txtCusPhone,#txtRealPayAmt,#txtTotalLeft").prop("disabled",true);
-					parent.$("#msgErr").hide();
-				}else{					
-				    parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
-				    parent.$("#msgErr").hide();
-				}
 			}
 		},
 		error : function(data) {
@@ -570,13 +563,12 @@ function getDataEdit(cont_id){
 		dataType: "json",
 		async: false,
 		success: function(res) {
-			//$("#btnSave").hide();
-			console.log(res.OUT_REC);
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				$("#btnContractSrch").remove();
 				$("#txtContract").css("width","260px");
 				$("#txtContract").css("border-radius","5px");
-				$("#btnAddPayment").show();
+				$("#btnPrint").show();
+				$("#btnCalInst").remove();
 				//$("#balanceLeft").text( $.i18n.prop("lb_pay_balance") +" : "+ stock.comm.formatCurrency(res.OUT_REC[0]["loan_amount_left"])+res.OUT_REC[0]["cur_syn"]);	
 				$("#contractNo").text( "លេខសម្គាល់ការលក់" +" : "+ res.OUT_REC[0]["sell_code"]);		
 				
@@ -611,8 +603,14 @@ function getDataEdit(cont_id){
 		        html += "<td class='pro_price cur-pointer text-right' style='    padding-right: 25px;'><input class='text-right' id='pro_price' style='border: none;background-color: #ffffff;' value='"+stock.comm.formatCurrency(rec["sell_total_price"])+"'/></td>";
 		        html += "</tr>";
 		        $("#tblProduct tbody").append(html);
+		        
+		        if(res.OUT_REC[0]["sell_inst_yn"] =="Y"){
+		        	$(".div_installment").show();
+		        	$("#cboInstYn").prop("checked",true);
+		        }
 					
 			    //
+		        /*
 		        $("#tblPayment tbody").html("");
 		        var salePay=0;
 		        var saleRealAmt=0;
@@ -645,7 +643,7 @@ function getDataEdit(cont_id){
 			    amountLeft = parseFloat(res.OUT_REC[0]["sell_total_price"]) - saleRealAmt;
 			    $("#txtTotalLeft").val(stock.comm.formatCurrency(amountLeft));
 			    //$("#txtTotalLeftInst").val(stock.comm.formatCurrency(amountLeft));
-			    _amountLeft = amountLeft;
+			    _amountLeft = amountLeft;*/
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
 			    $("#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#cboPaymentMet,#txtTran,#txtDisPer,#txtDisCash,#txtPayPenalty,#txtInterstRate,#txtPeriod,#txtStartInstDate,#txtPayTime").prop("disabled",false);
 			}else{
@@ -821,19 +819,42 @@ function getInstallmentData(){
 		async: false,
 		success: function(res) {
 			if(res.OUT_REC.length > 0){
-				$("#btnUpdateInstallment").show();
+				//$("#btnUpdateInstallment").show();
 				$("#btnSaveInstallment").remove();
-				$("#txtTotalLeftInst").val(stock.comm.formatCurrency(res.OUT_REC[0]["inst_loan_amount"]));
-				$("#txtPeriod").val(res.OUT_REC[0]["inst_period_month"]);
-				$("#txtInterstRate").val(res.OUT_REC[0]["inst_interest_rate"]);
+				//$("#txtTotalLeftInst").val(stock.comm.formatCurrency(res.OUT_REC[0]["inst_loan_amount"]));
+				//$("#txtPeriod").val(res.OUT_REC[0]["inst_period_month"]);
+				//$("#txtInterstRate").val(res.OUT_REC[0]["inst_interest_rate"]);
 				$("#txtStartInstDate").val(moment(res.OUT_REC[0]["inst_first_installment_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+				
 				
 				$("#tblInstallment tbody").html("");
 				$("#tblInstallment thead tr").append("<th class='text-right' style='padding-right: 15px;'>បង់ប្រាក់</td>");
 				var totalPayInterest = 0;
 				var totalPayInstallment = 0;
 				var checkPay="";
+				var advPerPay=0;
+				var advTimePay=0;
+				var instLoanAmount =0;
 				for(var i=0; i<res.OUT_REC.length; i++){
+					if(res.OUT_REC[i]["inst_type"] =="ADV"){
+						$("#txtPayCash").val(stock.comm.formatCurrency(res.OUT_REC[i]["inst_loan_amount"]));
+						advPerPay += parseFloat(res.OUT_REC[i]["inst_pay_per"]);
+						advTimePay+=1;
+						$("#txtDisPer").val(res.OUT_REC[i]["inst_dis_per"] == 0? "" : res.OUT_REC[i]["inst_dis_per"]);
+						$("#txtDisCash").val(res.OUT_REC[i]["inst_dis_amt"] == 0 ? "" : stock.comm.formatCurrency(res.OUT_REC[i]["inst_dis_amt"]));
+					}
+					
+					if(res.OUT_REC[i]["inst_type"] =="LOAN"){
+						$("#txtTotalLeftInst").val(stock.comm.formatCurrency(res.OUT_REC[i]["inst_loan_amount"]));
+						$("#txtInterstRate").val(res.OUT_REC[i]["inst_interest_rate"]);
+						$("#txtPeriod").val(res.OUT_REC[i]["inst_period_month"]);
+						$("#monthlyPay").html("$ "+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_pay"]));
+						
+						totalPayInterest += parseFloat(res.OUT_REC[i]["inst_amt_interest"]);
+				        totalPayInstallment += parseFloat(res.OUT_REC[i]["inst_amt_interest"]);
+				        instLoanAmount = parseFloat(res.OUT_REC[i]["inst_loan_amount"]);
+					}
+					
 					var statusPay="";
 					if(res.OUT_REC[i]["inst_paid_status"] == "Y"){
 						statusPay='<span class="label label-primary">រួចរាល់</span>';
@@ -843,21 +864,27 @@ function getInstallmentData(){
 					}
 					var html = "<tr>";
 					html += "<td class='inst_num cur-pointer '>"+res.OUT_REC[i]["inst_num"]+"</td>";
-					html += "<td class='inst_date cur-pointer text-center'>"+res.OUT_REC[i]["inst_date"]+"</td>";
-			        html += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_principle"])+"</td>";
-			        html += "<td class='inst_amt_interest cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_interest"])+"</td>";
-			        html += "<td class='inst_amt_balance cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_balance"])+"</td>";
-			        html += "<td class='inst_amt_pay​ cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_pay"])+"</td>";
+					html += "<td class='inst_date cur-pointer text-center'>"+moment(res.OUT_REC[i]["inst_date"], "YYYY-MM-DD").format("DD-MM-YYYY");+"</td>";
+					html += "<td class='inst_pay_per cur-pointer text-center'>"+res.OUT_REC[i]["inst_pay_per"]+"%</td>";
+					html += "<td class='inst_dis_amt cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_dis_amt"])+"$</td>";
+					html += "<td class='inst_amt_principle cur-pointer text-right' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_principle"])+"$</td>";
+			        html += "<td class='inst_amt_interest cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_interest"])+"$</td>";
+			        html += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_pay"])+"$</td>";
+			        html += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_balance"])+"$</td>";
 			        html += "<td class=' cur-pointer text-right'  style='padding-right: 15px;' >"+statusPay+"</td>";
 			        html += "</tr>";
 			        $("#tblInstallment tbody").append(html);
-			        totalPayInterest += parseFloat(res.OUT_REC[i]["inst_amt_interest"]);
-			        totalPayInstallment += (parseFloat(res.OUT_REC[i]["inst_amt_interest"]) + parseFloat(res.OUT_REC[i]["inst_amt_principle"]));
+			       
 				}
+				$("#txtPayPer").val(stock.comm.formatCurrency(advPerPay));
+				$("#txtPayTime").val(stock.comm.formatCurrency(advTimePay));
+				$("#totalPayInterest").html("$ "+stock.comm.formatCurrency(totalPayInterest.toFixed(2)));
+				$("#totalPayInstallment").html("$ "+stock.comm.formatCurrency( (totalPayInstallment+instLoanAmount).toFixed(2)));
+				/*
 				totalPayInstallment = parseFloat(res.OUT_REC[0]["inst_loan_amount"]) + totalPayInterest;
 				$("#monthlyPay").html("$ "+stock.comm.formatCurrency(res.OUT_REC[0]["inst_amt_pay"]));
-				$("#totalPayInterest").html("$ "+stock.comm.formatCurrency(totalPayInterest.toFixed(2)));
-				$("#totalPayInstallment").html("$ "+stock.comm.formatCurrency(totalPayInstallment.toFixed(2)));
+				
+				
 				if(checkPay == "1"){
 					$("#btnCalInst").remove();
 					$("#btnUpdateInstallment").remove();
@@ -867,6 +894,7 @@ function getInstallmentData(){
 				_firstInstDate = moment(res.OUT_REC[0]["inst_first_installment_date"], "YYYY-MM-DD").format("DD-MM-YYYY");
 				_instPeriod = res.OUT_REC[0]["inst_period_month"];
 				_interestRate=res.OUT_REC[0]["inst_interest_rate"];
+				*/
 				
 			}else{
 				console.log(res);
@@ -933,11 +961,11 @@ function showProductErr(){
 
 
 function calDiscount(id_act){
-	/*if($("#txtPayCash").val() != "" && $("#txtPayCash").val() != null && $("#txtPayCash").val() != undefined && !isNaN($("#txtPayCash").val().replace(/,/g,''))){
+	if($("#txtPayCash").val() != "" && $("#txtPayCash").val() != null && $("#txtPayCash").val() != undefined && !isNaN($("#txtPayCash").val().replace(/,/g,''))){
 		var payPrice = parseFloat($("#txtPayCash").val().replace(/,/g,''));
-		if($("#txtBookingAmt").val() != "" && $("#txtBookingAmt").val() != null && $("#txtBookingAmt").val() != undefined){
+		/*if($("#txtBookingAmt").val() != "" && $("#txtBookingAmt").val() != null && $("#txtBookingAmt").val() != undefined){
 			payPrice += parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
-		}
+		}*/
 		var proPrice = parseFloat($("#pro_price").val().replace(/,/g,''));
 		var amountAftDis=0;
 		var amtLeft=0;
@@ -985,7 +1013,7 @@ function calDiscount(id_act){
 		_amountPay = amountAftDis;
 		$("#txtRealPayAmt").val(stock.comm.formatCurrency(amountAftDis.toFixed(2)));
 		
-	}*/
+	}
 }
 
 
@@ -1050,7 +1078,7 @@ function calPay(id_act){
 		$("#txtTotalLeftInst").val(stock.comm.formatCurrency(leftAfterPay));
 	
 	}
-	//calDiscount("P");
+	calDiscount("P");
 	
 	
 }
@@ -1077,7 +1105,7 @@ function calculatePaySchedule(){
 	}
 	
 	if($("#txtPayTime").val()==""){
-		parent.$("#msgErr").html("សូមបញ្ចូល ចំនួនដងទូទាត់​ជាមុន!!!");
+		parent.$("#msgErr").html("សូមបញ្ចូល ចំនួនលើកទូទាត់​ជាមុន!!!");
 		parent.$("#msgErr").show();
 		$("#txtPayTime").focus();
 		return;
@@ -1096,22 +1124,32 @@ function calculatePaySchedule(){
 		return;
 	}
 	
+	if(parseInt($("#txtDisCash").val().replace(/,/g,'')) > 0 && parseInt($("#txtPayTime").val().replace(/,/g,'')) > 1){
+		parent.$("#msgErr").html("សូមបញ្ចូល  ចំនួនលើកតែមួយលើក ចំពោះករណីបញ្ចុះតំលៃ!!");
+		parent.$("#msgErr").show();
+		$("#txtPayTime").focus();
+		return;
+	}
+	
 	$("#tblInstallment tbody").html("");
 	var noTbl=1;
+	var bookingAmt=0;
 	var leftAmountToPay=parseFloat($("#pro_price").val().replace(/,/g,''));
 	if($("#txtBookingAmt").val() !="" && $("#txtBookingAmt").val() !=null){
 		leftAmountToPay = parseFloat($("#pro_price").val().replace(/,/g,'')) - parseFloat($("#txtBookingAmt").val().replace(/,/g,""));
-		var htmlBooked = "<tr>";
+		var htmlBooked = "<tr data-inst-type='BOOK' data-inst-dis-per='0' data-inst-dis-pay='0' data-inst-per-pay='0' data-loan-amount-per='0' data-loan-amount='"+$("#txtBookingAmt").val().replace(/,/g,"")+"' data-interest-rate='0' data-peroid='1' data-first-inst-date='"+$("#txtStartInstDate").val()+"'>";
 		htmlBooked += "<td class='inst_num cur-pointer '>"+noTbl+"</td>";
 		htmlBooked += "<td class='inst_date cur-pointer text-center'>"+$("#txtBookDate").val()+"</td>";
-		htmlBooked += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(parseFloat($("#txtBookingAmt").val().replace(/,/g,'')).toFixed(2))+"</td>";
-		htmlBooked += "<td class='inst_amt_interest cur-pointer text-right'>0.00</td>";
-		htmlBooked += "<td class='inst_amt_balance cur-pointer text-right'>"+ stock.comm.formatCurrency(leftAmountToPay)+"</td>";
-		htmlBooked += "<td class='inst_amt_pay​ cur-pointer text-right' style='padding-right: 25px;'>"+stock.comm.formatCurrency(parseFloat($("#txtBookingAmt").val().replace(/,/g,'')).toFixed(2))+"</td>";
+		htmlBooked += "<td class='inst_pay_per cur-pointer text-center'>កក់ប្រាក់</td>";
+		htmlBooked += "<td class='inst_dis_amt cur-pointer text-right'>0$</td>";
+		htmlBooked += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(parseFloat($("#txtBookingAmt").val().replace(/,/g,'')).toFixed(2))+"$</td>";
+		htmlBooked += "<td class='inst_amt_interest cur-pointer text-right'>0$</td>";
+		htmlBooked += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(parseFloat($("#txtBookingAmt").val().replace(/,/g,'')).toFixed(2))+"$</td>";
+		htmlBooked += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+ stock.comm.formatCurrency(leftAmountToPay)+"$</td>";
 		htmlBooked += "</tr>";
         
 		$("#tblInstallment tbody").append(htmlBooked);
-		
+		bookingAmt = parseFloat($("#txtBookingAmt").val().replace(/,/g,""));
 	}else{
 		noTbl=0;
 	}
@@ -1128,14 +1166,25 @@ function calculatePaySchedule(){
 	for (var j=0;j<parseInt($("#txtPayTime").val());j++){
 		noTbl +=1;
 		var principleAmount = parseFloat($("#txtPayCash").val().replace(/,/g,''))/parseInt($("#txtPayTime").val());
+		var principlePer = parseFloat($("#txtPayPer").val().replace(/,/g,''))/parseInt($("#txtPayTime").val());
 		totalSch += principleAmount;
-		var leftAmountToPay2 = leftAmountToPay - totalSch;
+		var leftAmountToPay2 = (leftAmountToPay+bookingAmt) - totalSch;
+		var disCountCash=0;
+		var disCountPer=0;
 		
 		if(j<1){
 			newDate= $("#txtContSD").val();
 			if($("#txtBookingAmt").val() !="" && $("#txtBookingAmt").val() !=null){
 				principleAmount = principleAmount - parseFloat($("#txtBookingAmt").val().replace(/,/g,""));
 			}
+			if($("#txtDisCash").val().replace(/,/g,'') !="" && $("#txtDisCash").val().replace(/,/g,'') != null){
+				principleAmount = principleAmount - parseFloat($("#txtDisCash").val().replace(/,/g,''));
+			}
+			if($("#txtDisPer").val().replace(/,/g,'') !="" && parseInt($("#txtDisPer").val()) >0){
+				disCountCash =  parseFloat($("#txtDisCash").val().replace(/,/g,''));
+				disCountPer =  $("#txtDisPer").val();
+			}
+			
 		}else{
 			
 			if(newMonth > 12){
@@ -1148,13 +1197,15 @@ function calculatePaySchedule(){
 		}
 		
 		
-		var html = "<tr>";
+		var html = "<tr data-inst-type='ADV' data-inst-dis-per='"+disCountPer+"' data-inst-dis-pay='"+disCountCash+"' data-inst-per-pay='"+principlePer+"' data-loan-amount-per='"+$("#txtPayPer").val()+"' data-loan-amount='"+$("#txtPayCash").val().replace(/,/g,'')+"' data-interest-rate='0' data-peroid='"+$("#txtPayTime").val()+"' data-first-inst-date='"+$("#txtStartInstDate").val()+"'>";
 		html += "<td class='inst_num cur-pointer '>"+noTbl+"</td>";
 		html += "<td class='inst_date cur-pointer text-center'>"+newDate+"</td>";
-        html += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(principleAmount.toFixed(2))+"</td>";
-        html += "<td class='inst_amt_interest cur-pointer text-right'>0.00</td>";
-        html += "<td class='inst_amt_balance cur-pointer text-right'>"+stock.comm.formatCurrency(leftAmountToPay2.toFixed(2))+"</td>";
-        html += "<td class='inst_amt_pay​ cur-pointer text-right' style='padding-right: 25px;'>"+stock.comm.formatCurrency(principleAmount.toFixed(2))+"</td>";
+		html += "<td class='inst_pay_per cur-pointer text-center'>"+principlePer+"%</td>";
+		html += "<td class='inst_dis_amt cur-pointer text-right'>"+(disCountCash==0 ? disCountCash : stock.comm.formatCurrency(disCountCash))+"$</td>";
+        html += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(principleAmount.toFixed(2))+"$</td>";
+        html += "<td class='inst_amt_interest cur-pointer text-right'>0$</td>";
+        html += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(principleAmount.toFixed(2))+"$</td>";
+        html += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+stock.comm.formatCurrency(leftAmountToPay2.toFixed(2))+"$</td>";
         html += "</tr>";
         $("#tblInstallment tbody").append(html);
 		//
@@ -1167,14 +1218,33 @@ function calculatePaySchedule(){
 			newM = newMonth < 10 ? "0"+newMonth : newMonth; 
 			newDate= newDay +"-"+newM +"-"+newYear;
 			newMonth +=1;
+			
+			//
+			if ($("#cboInstYn").prop("checked")) {
+				calculateInstallment(newDate,noTbl);
+		    }else{
+		    	if(parseInt($("#txtPayPer").val()) != 100 ){
+		    		noTbl+=1;
+		    		var htmlLeft = "<tr data-inst-type='LEFT' data-inst-dis-per='0' data-inst-dis-pay='0' data-inst-per-pay='"+(100-parseInt($("#txtPayPer").val()))+"' data-loan-amount='"+leftAmountToPay2.toFixed(2)+"' data-interest-rate='0' data-peroid='1' data-first-inst-date='"+$("#txtStartInstDate").val()+"'>";
+		    		htmlLeft += "<td class='inst_num cur-pointer '>"+noTbl+"</td>";
+		    		htmlLeft += "<td class='inst_date cur-pointer text-center'>"+newDate+"</td>";
+		    		htmlLeft += "<td class='inst_pay_per cur-pointer text-center'>"+(100-parseInt($("#txtPayPer").val()))+"%</td>";
+		    		htmlLeft += "<td class='inst_dis_amt cur-pointer text-right'>0$</td>";
+		    		htmlLeft += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(leftAmountToPay2.toFixed(2))+"$</td>";
+		    		htmlLeft += "<td class='inst_amt_interest cur-pointer text-right'>0$</td>";
+		    		htmlLeft += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(leftAmountToPay2.toFixed(2))+"$</td>";
+		    		htmlLeft += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>0$</td>";
+		    		
+		    		htmlLeft += "</tr>";
+		            $("#tblInstallment tbody").append(htmlLeft);
+		    	}
+		    }
         }
 	}
 	
 	
-	//
-	if ($("#cboInstYn").prop("checked")) {
-		calculateInstallment(newDate,noTbl);
-    }
+	
+	
 }
 
 function calculateInstallment(newDate,noTbl){	
@@ -1273,13 +1343,15 @@ function calculateInstallment(newDate,noTbl){
 			balanceAmount=0;
 		}
 		
-		var html = "<tr>";
-		html += "<td class='inst_num cur-pointer '>"+noTbl+"</td>";
+		var html = "<tr data-inst-type='LOAN' data-inst-dis-per='0' data-inst-dis-pay='0' data-inst-per-pay='0' data-loan-amount-per='"+(100-parseInt($("#txtPayPer").val()))+"' data-loan-amount='"+_loanAmount+"' data-interest-rate='"+_interestRate+"' data-peroid='"+_instPeriod+"' data-first-inst-date='"+_firstInstDate+"'>";
+		html += "<td class='inst_num cur-pointer'>"+noTbl+"</td>";
 		html += "<td class='inst_date cur-pointer text-center'>"+newDate+"</td>";
-        html += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(principleAmount.toFixed(2))+"</td>";
-        html += "<td class='inst_amt_interest cur-pointer text-right'>"+stock.comm.formatCurrency(interestAmount.toFixed(2))+"</td>";
-        html += "<td class='inst_amt_balance cur-pointer text-right'>"+stock.comm.formatCurrency(balanceAmount.toFixed(2))+"</td>";
-        html += "<td class='inst_amt_pay​ cur-pointer text-right' style='padding-right: 25px;'>"+stock.comm.formatCurrency(emi.toFixed(2))+"</td>";
+		html += "<td class='inst_pay_per cur-pointer text-center'>-</td>";
+		html += "<td class='inst_dis_amt cur-pointer text-right'>0$</td>";
+        html += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(principleAmount.toFixed(2))+"$</td>";
+        html += "<td class='inst_amt_interest cur-pointer text-right'>"+stock.comm.formatCurrency(interestAmount.toFixed(2))+"$</td>";
+        html += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(emi.toFixed(2))+"$</td>";
+        html += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+stock.comm.formatCurrency(balanceAmount.toFixed(2))+"$</td>";
         html += "</tr>";
         $("#tblInstallment tbody").append(html);
 		//
@@ -1289,7 +1361,7 @@ function calculateInstallment(newDate,noTbl){
 }
 
 
-function saveInstallment(){
+function saveInstallment(sell_id,str){
 	
 	var instArr = [];
 	var instObj = {};
@@ -1306,12 +1378,16 @@ function saveInstallment(){
 		var inst_amt_interest  = tblTr.find("td.inst_amt_interest").html().replace(/,/g,"");
 		var inst_amt_balance = tblTr.find("td.inst_amt_balance").html().replace(/,/g,"");
 		var inst_amt_pay = tblTr.find("td.inst_amt_pay​").html().replace(/,/g,"");
-		var loan_amount  = _loanAmount;
-		var first_inst_date  = _firstInstDate;
-		var inst_period  = _instPeriod;
-		var interest_rate  = _interestRate;
+		var loan_amount  = $(this).attr("data-loan-amount");
+		var first_inst_date  = $(this).attr("data-first-inst-date");
+		var inst_period  = $(this).attr("data-peroid");
+		var interest_rate  = $(this).attr("data-interest-rate");
+		var instType  = $(this).attr("data-inst-type");
+		var instPayPer  = $(this).attr("data-inst-per-pay");
+		var instDisPer  = $(this).attr("data-inst-dis-per");
+		var instDisPay  = $(this).attr("data-inst-dis-pay");
 		
-		
+		instData["inst_type"] 			= instType;
 		instData["inst_num"] 			= inst_num;
 		instData["inst_date"] 			= inst_date;
 		instData["inst_amt_principle"] 	= inst_amt_principle;
@@ -1322,19 +1398,38 @@ function saveInstallment(){
 		instData["first_inst_date"] 		= first_inst_date;
 		instData["inst_period"] 			= inst_period;
 		instData["interest_rate"] 			= interest_rate;
-		instData["sell_id"] 				= $("#sellId").val();
+		instData["sell_id"] 				= sell_id;
+		instData["inst_pay_per"] 			= instPayPer;
+		instData["inst_dis_amt"] 			= instDisPay;
+		instData["inst_dis_per"] 			= instDisPer;
 		instArr.push(instData);
 	});
 	
 	instObj["instObj"] = instArr;
+    
 	
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Sell/saveInstallment",
 		data: instObj,		
 		success: function(res) {
-		    if(parseInt(res) == parseInt(_instPeriod)){
-		    	parent.stock.comm.alertMsg("បង្កើតទិន្ន័យបានជោគជ័យ។");
+		    if(res != ""){
+		    	//parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
+				parent.stock.comm.confirmMsg($.i18n.prop("msg_save_com")+" \nតើអ្នកចង់បោះពុម្ពដែរឫទេ ?");
+				parent.$("#btnConfirmOk").unbind().click(function(e){
+					parent.$("#mdlConfirm").modal('hide');
+					//var dataArr =  res.split("#");
+					//printInv(dataArr[0],dataArr[1]);
+				});
+				
+				if(str == "new"){
+					clearForm();
+					$("#txtBookingAmt,#txtBookDate,#txtCusNm,#txtCusPhone,#txtRealPayAmt,#txtTotalLeft,#txtTotalLeftInst").prop("disabled",true);
+					parent.$("#msgErr").hide();
+				}else{					
+				    parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
+				    parent.$("#msgErr").hide();
+				}
 		    }else{
 		    	parent.stock.comm.alertMsg("បង្កើតទិន្ន័យមិនបានសំរេច សូមព្យាយាមម្តងទៀត");
 		        return;

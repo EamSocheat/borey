@@ -1,1 +1,7 @@
 alter table tbl_sell add column sell_inst_yn varchar(1);
+alter table tbl_installment
+add column inst_type varchar(5);
+
+alter table tbl_installment add column inst_dis_amt double;
+alter table tbl_installment add column inst_dis_per double;
+alter table tbl_installment add column inst_pay_per double;

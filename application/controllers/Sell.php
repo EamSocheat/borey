@@ -127,6 +127,7 @@ class Sell extends CI_Controller{
         	'rec_id'        => $this->input->post('cboReceiver'),
             'con_id'        => $this->input->post('txtContID'),
         	'con_type_id'        => $this->input->post('cboConType'),
+            'sell_inst_yn'        => $this->input->post('txt_com_inst_yn'),
             //'sell_price_before_dis'        => $proPriceArr[0],
             //'sell_dis_amt'        => $this->input->post('txtDisCash'),
             //'sell_dis_per'        => $this->input->post('txtDisPer'),
@@ -179,6 +180,7 @@ class Sell extends CI_Controller{
         	$this->M_house->update($dataHouse);
         	
         }
+        /* 
         $sale_pay_code="";
         if($this->input->post('txtContID') != null && $this->input->post('txtContID') != ""){
             $sale_pay_code = "000002";
@@ -205,7 +207,7 @@ class Sell extends CI_Controller{
         $dataSalePayment['regDt']  = date('Y-m-d H:i:s');
         
         $pay_id = $this->M_sale_payment->insert($dataSalePayment);
-        
+         */
         
         //
         $dataSrchPos = array(
@@ -259,8 +261,10 @@ class Sell extends CI_Controller{
 	        $datacommex['regDt']  = date('Y-m-d H:i:s');
 	        $this->M_commission->insert($datacommex);
 	    }
-       	
-	    echo $sell_id_save.'#'.$pay_id;
+	    
+	    
+	    
+	    echo $sell_id_save;
     }
     
 	public function savePayment(){
@@ -302,13 +306,9 @@ class Sell extends CI_Controller{
     }
     
     public function saveInstallment(){
-     	if(!$this->M_check_user->check()){
-            redirect('/Login');
-        }
-        
+     	
         $instObj = $this->input->post('instObj');
-        
-        
+       
         $dataUpdate = array(
             'sell_id'    => $instObj[0]['sell_id'],
             'useYn'     => "N",
@@ -321,8 +321,9 @@ class Sell extends CI_Controller{
         $cntInsert = 0;
         for($i = 0; $i<sizeof($instObj); $i++){
             $data = array(
-                    'sell_id'    => $instObj[$i]['sell_id'],
-            		'inst_num'    => $instObj[$i]['inst_num'],
+                    'sell_id'    =>  $instObj[0]['sell_id'],
+                    'inst_num'    => $instObj[$i]['inst_num'],
+            		'inst_type'    => $instObj[$i]['inst_type'],
 		            'inst_date'    => date('Y-m-d H:i:s',strtotime($instObj[$i]['inst_date'])),
 		            'inst_amt_principle'    => $instObj[$i]['inst_amt_principle'],
 		            'inst_amt_interest'    => $instObj[$i]['inst_amt_interest'],
@@ -332,6 +333,9 @@ class Sell extends CI_Controller{
 		            'inst_first_installment_date'    => date('Y-m-d H:i:s',strtotime($instObj[$i]['first_inst_date'])),
 		            'inst_period_month'    => $instObj[$i]['inst_period'],
             		'inst_interest_rate'    => $instObj[$i]['interest_rate'],
+                    'inst_pay_per'    => $instObj[$i]['inst_pay_per'],
+                    'inst_dis_amt'    => $instObj[$i]['inst_dis_amt'],
+                    'inst_dis_per'    => $instObj[$i]['inst_dis_per'],
                     'useYn'     => "Y",
                     'com_id'    => $_SESSION['comId'],
                     'regDt'      => date('Y-m-d H:i:s'),
