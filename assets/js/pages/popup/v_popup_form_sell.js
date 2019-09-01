@@ -214,7 +214,7 @@ var _thisPage = {
 			
 			//
 			$("#btnPrint").click(function(e){
-				printInv($("#sellId").val());
+				printPaymentShedule($("#sellId").val());
 			});
 			
 			//
@@ -907,19 +907,17 @@ function getInstallmentData(){
 	});
 }
 
-function printInv(sell_id,pay_id){
+function printPaymentShedule(sell_id){
 	var data = {};
 	var dataArr = [];
 	data["base_url"] = $("#base_url").val();
 	data["sell_id"] = sell_id ;
-	data["pay_id"] = pay_id ;
 	dataArr.push(data);
 	var datObj={};
 	datObj["printData"] = dataArr;
-	console.log(datObj);
 	$.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"PrintInv/printInvSelling",
+		url: $("#base_url").val() +"PrintInv/printInvPaymentShedule",
 		data: datObj,
 		async: false,
 		success: function(res) {
@@ -1419,7 +1417,7 @@ function saveInstallment(sell_id,str){
 				parent.$("#btnConfirmOk").unbind().click(function(e){
 					parent.$("#mdlConfirm").modal('hide');
 					//var dataArr =  res.split("#");
-					//printInv(dataArr[0],dataArr[1]);
+					printPaymentShedule(sell_id);
 				});
 				
 				if(str == "new"){

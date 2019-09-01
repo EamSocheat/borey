@@ -12,6 +12,7 @@ class PrintInv extends CI_Controller {
 		$this->load->model('M_contract');
 		$this->load->model('M_common');
 		$this->load->model('M_sell');
+		$this->load->model('M_installment');
 	}
 	public function index(){
 	    
@@ -58,5 +59,21 @@ class PrintInv extends CI_Controller {
 	    $dataPrint["AMT_BALANCE"] = $this->M_sell->selectSumBalancePay($dataSrch);
 	    $dataPrint["TOTAL_PAY"] = $this->M_sell->selectSumTotalPay($dataSrch);
 	    return $this->load->view('popup/v_print_inv_sell',$dataPrint);
+	}
+	
+	
+	public function printInvPaymentShedule(){
+	    
+	    if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	    $dataPrint["printData"] = $this->input->post('printData');
+	    $data = $this->input->post('printData');
+	    $dataSrch = array(
+	        'sell_id'        => $data[0]["sell_id"]
+	    );
+	    
+	    $dataPrint["OUT_REC"] = $this->M_installment->selectInstallmentDetail($dataSrch);
+	    return $this->load->view('popup/v_print_payment_shedule',$dataPrint);
 	}
 }   

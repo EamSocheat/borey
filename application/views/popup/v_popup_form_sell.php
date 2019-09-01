@@ -163,7 +163,7 @@
 		                    </div>
 		                    <div class="col-xs-3 padding-forms-right">
 		                        <div class="form-group">
-		        		      		<label  for="txtPayTime" > ចំនួនដងទូទាត់​ជាមុន</label><span> </span>
+		        		      		<label  for="txtPayTime" > ចំនួនលើកទូទាត់​ជាមុន</label><span> </span>
 		        		        	<input type="text" class="form-control text-right" id="txtPayTime" required="required"  placeholder="Enter loan amount" name="txtPayTime" autocomplete="off" />
 		        		    	</div>
 		                    </div>
@@ -431,7 +431,7 @@
 		        	</div>
 		        	<div class="modal-footer" >
 			            <input type="hidden" value="" id="statusID" name="statusID" />
-			            <button type="button" class="btn btn-info btn-sm" id="btnPrint" style="display: none;">បោះពុម្ព</button> 
+			            <button type="button" class="btn btn-info btn-sm" id="btnPrint" style="display: none;"><i class="fa fa-print" aria-hidden="true"></i> បោះពុម្ពតារាងបង់ប្រាក់​</button> 
 			            <!--<button type="submit" class="btn btn-primary btn-sm" id="btnAddPayment" style="display: none;"><i class="fa fa-plus"></i> បង់ប្រាក់បន្ថែម</button>-->
 			            <button data-i18ncd="btn_save_new" type="submit" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
 			            <button data-i18ncd="btn_save" type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>
