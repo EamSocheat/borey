@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set("Asia/Bangkok");
 
-class Sell extends CI_Controller{
+class InstallmentPayment extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model('M_login');
@@ -29,12 +29,12 @@ class Sell extends CI_Controller{
             redirect('/Login');
         }
         
-        $dataMenu['menu_active'] = "Sell";
+        $dataMenu['menu_active'] = "InstallmentPayment";
         $data['header'] = $this->load->view('v_header', $dataMenu, TRUE);
         $data['footer'] = $this->load->view('v_footer', NULL, TRUE);
         $data['iframe'] = $this->load->view('v_iframe', NULL, TRUE);
         
-        $this->load->view('v_sell',$data);
+        $this->load->view('v_installment_payment',$data);
     }
 	public function getPaymentMethod(){
 		$data["OUT_REC"] = $this->M_common->selectPaymentMethod();
@@ -61,7 +61,7 @@ class Sell extends CI_Controller{
 	    echo json_encode($data);
 	}
 	
-    public function getSell(){
+    public function getInstallment(){
         if(!$this->M_check_user->check()){
             redirect('/Login');
         }
@@ -80,20 +80,16 @@ class Sell extends CI_Controller{
         $dataSrch = array(
             'limit'         => $this->input->post('perPage'),
             'offset'        => $this->input->post('offset'),
-            'con_id'        => $this->input->post('conId'),
-            // 'con_nm'        => $this->input->post('txtSrchContNm'),
+            'inst_id'        => $this->input->post('instId'),
             'sell_code'        => $this->input->post('txtSrchContCode'),
-            'sell_start_dt'  => $startDate,
-            'sell_end_dt'    => $endDate,
-            'srch_status'   => $this->input->post('srch_status'),
-            'srch_customer' => $this->input->post('txtSrchCusNm'),
-            'srch_seller' 	=> $this->input->post('cboSeller'),
+            'inst_start_dt'  => $startDate,
+            'inst_end_dt'    => $endDate,
         	'srch_all'		=> $this->input->post('srchAll'),
             'pro_code'		=> $this->input->post('txtSrchProCode')
         );
 
-        $data["OUT_REC"] = $this->M_sell->selectSellData($dataSrch);
-        $data["OUT_REC_CNT"] = $this->M_sell->countSellData($dataSrch);
+        $data["OUT_REC"] = $this->M_installment->selectInstallmentData($dataSrch);
+        $data["OUT_REC_CNT"] = $this->M_installment->countInstallmentData($dataSrch);
         echo json_encode($data);
     }
 
@@ -335,19 +331,6 @@ class Sell extends CI_Controller{
         echo $cntInsert;
     }
 
-    public function getInstallment(){
-    	if(!$this->M_check_user->check()){
-	        redirect('/Login');
-	    }
-	   
-	    $dataSrch = array(
-	        'sell_id'        => $this->input->post('sellId'),
-	    );
-	    
-	    $data["OUT_REC"] = $this->M_installment->selectInstallmentDetail($dataSrch);
-	    echo json_encode($data);
-    }
-    	
     public function udpateStatus(){
         if(!$this->M_check_user->check()){
             redirect('/Login');

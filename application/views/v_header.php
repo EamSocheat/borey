@@ -71,7 +71,9 @@
 	 #tblCustomer tbody > tr.cust-data:hover{ cursor: pointer; }
 	.cur-pointer{ cursor: pointer; }
 	.line-height{ line-height: 48px; font-size: 1.2em; }
- 
+    .box-search .form-group input, .box-search .form-group select{
+        width: 100%;
+    } 
   </style>
 </head>
 <body class="hold-transition skin-black-light sidebar-mini fixed">

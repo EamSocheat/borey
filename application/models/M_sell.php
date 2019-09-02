@@ -76,51 +76,30 @@
             $this->db->where('tbl_sell.com_id', $_SESSION['comId']);
             $this->db->where('tbl_sell.useYn', 'Y');
 
-            if($dataSrch['srch_status'] != null && $dataSrch['srch_status'] != ""){
-                $this->db->where('tbl_contract.con_sta = ', $dataSrch['srch_status']);
+            if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
+                $this->db->like('tbl_product.pro_code', $dataSrch['pro_code']);
             }
             
-            if($dataSrch['conIdArr'] != null && $dataSrch['conIdArr'] != ""){
-                $integerIDs = array_map('intval', explode(',', $dataSrch['conIdArr']));
-                $this->db->where_in('tbl_contract.con_id', $integerIDs);
+            if($dataSrch['sell_code'] != null && $dataSrch['sell_code'] != ""){
+                $this->db->like('tbl_sell.sell_code', $dataSrch['sell_code']);
             }
 
-            if($dataSrch['con_id'] != null && $dataSrch['con_id'] != ""){
-                $this->db->where('tbl_contract.con_id', $dataSrch['con_id']);
-            }
-            
-            if($dataSrch['con_no'] != null && $dataSrch['con_no'] != ""){
-                $this->db->like('tbl_contract.con_code', $dataSrch['con_no']);
-            }
-
-    	 	if(($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != "") 
-                && ($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != "")){
-                $this->db->where('tbl_contract.con_date >=', date('Y-m-d', strtotime($dataSrch['con_start_dt'])));
-                $this->db->where('tbl_contract.con_date <=', date('Y-m-d', strtotime($dataSrch['con_end_dt'])));
+    	 	if(($dataSrch['sell_start_dt'] != null && $dataSrch['sell_start_dt'] != "") 
+                && ($dataSrch['sell_end_dt'] != null && $dataSrch['sell_end_dt'] != "")){
+                $this->db->where('tbl_sell.sell_date >=', date('Y-m-d', strtotime($dataSrch['sell_start_dt'])));
+                $this->db->where('tbl_sell.sell_date <=', date('Y-m-d', strtotime($dataSrch['sell_end_dt'])));
             }else{
-                if($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != ""){
-                    $this->db->where('tbl_contract.con_date >=', date('Y-m-d', strtotime($dataSrch['con_start_dt'])));
+                if($dataSrch['sell_start_dt'] != null && $dataSrch['sell_start_dt'] != ""){
+                    $this->db->where('tbl_sell.sell_date >=', date('Y-m-d', strtotime($dataSrch['sell_start_dt'])));
                 }
-                if($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != ""){
-                    $this->db->where('tbl_contract.con_date <=', date('Y-m-d', strtotime($dataSrch['con_end_dt'])));
-                }
-            }
-            
-            if(($dataSrch['con_start_dt_exp'] != null && $dataSrch['con_start_dt_exp'] != "")
-                && ($dataSrch['con_end_dt_exp'] != null && $dataSrch['con_end_dt_exp'] != "")){
-                    $this->db->where('tbl_contract.con_date_exp >=', date('Y-m-d', strtotime($dataSrch['con_start_dt_exp'])));
-                    $this->db->where('tbl_contract.con_date_exp <=', date('Y-m-d', strtotime($dataSrch['con_end_dt_exp'])));
-            }else{
-                if($dataSrch['con_start_dt_exp'] != null && $dataSrch['con_start_dt_exp'] != ""){
-                    $this->db->where('tbl_contract.con_date_exp >=', date('Y-m-d', strtotime($dataSrch['con_start_dt_exp'])));
-                }
-                if($dataSrch['con_end_dt_exp'] != null && $dataSrch['con_end_dt_exp'] != ""){
-                    $this->db->where('tbl_contract.con_date_exp <=', date('Y-m-d', strtotime($dataSrch['con_end_dt_exp'])));
+                if($dataSrch['sell_end_dt'] != null && $dataSrch['sell_end_dt'] != ""){
+                    $this->db->where('tbl_sell.sell_date <=', date('Y-m-d', strtotime($dataSrch['sell_end_dt'])));
                 }
             }
+       
             
             if($dataSrch['srch_seller'] != null && $dataSrch['srch_seller'] != ""){
-                $this->db->where('tbl_contract.seller_id', $dataSrch['srch_seller']);
+                $this->db->where('tbl_sell.seller_id', $dataSrch['srch_seller']);
                 
             }
             
@@ -130,14 +109,7 @@
                 $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_customer']);
                 $this->db->or_like('tbl_customer.cus_phone2', $dataSrch['srch_customer']);
             }
-            
-    	  	if($dataSrch['filter_status'] != null && $dataSrch['filter_status'] != ""){
-    	  	    $this->db->where('tbl_contract.con_sta', $dataSrch['filter_status']);
                 
-            }
-            
-    	
-            
     		if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
                 $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_all']);
                 $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_all']);
@@ -164,52 +136,30 @@
 		    $this->db->where('tbl_sell.com_id', $_SESSION['comId']);
 		    $this->db->where('tbl_sell.useYn', 'Y');
 		    
-		    
-		    if($dataSrch['srch_status'] != null && $dataSrch['srch_status'] != ""){
-		        $this->db->where('tbl_contract.con_sta = ', $dataSrch['srch_status']);
+		    if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
+		        $this->db->like('tbl_product.pro_code', $dataSrch['pro_code']);
 		    }
 		    
-		    if($dataSrch['conIdArr'] != null && $dataSrch['conIdArr'] != ""){
-		        $integerIDs = array_map('intval', explode(',', $dataSrch['conIdArr']));
-		        $this->db->where_in('tbl_contract.con_id', $integerIDs);
+		    if($dataSrch['sell_code'] != null && $dataSrch['sell_code'] != ""){
+		        $this->db->like('tbl_sell.sell_code', $dataSrch['sell_code']);
 		    }
 		    
-		    if($dataSrch['con_id'] != null && $dataSrch['con_id'] != ""){
-		        $this->db->where('tbl_contract.con_id', $dataSrch['con_id']);
-		    }
-		    
-		    if($dataSrch['con_no'] != null && $dataSrch['con_no'] != ""){
-		        $this->db->like('tbl_contract.con_code', $dataSrch['con_no']);
-		    }
-		    
-		    if(($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != "")
-		        && ($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != "")){
-		            $this->db->where('tbl_contract.con_date >=', date('Y-m-d', strtotime($dataSrch['con_start_dt'])));
-		            $this->db->where('tbl_contract.con_date <=', date('Y-m-d', strtotime($dataSrch['con_end_dt'])));
+		    if(($dataSrch['sell_start_dt'] != null && $dataSrch['sell_start_dt'] != "")
+		        && ($dataSrch['sell_end_dt'] != null && $dataSrch['sell_end_dt'] != "")){
+		            $this->db->where('tbl_sell.sell_date >=', date('Y-m-d', strtotime($dataSrch['sell_start_dt'])));
+		            $this->db->where('tbl_sell.sell_date <=', date('Y-m-d', strtotime($dataSrch['sell_end_dt'])));
 		    }else{
-		        if($dataSrch['con_start_dt'] != null && $dataSrch['con_start_dt'] != ""){
-		            $this->db->where('tbl_contract.con_date >=', date('Y-m-d', strtotime($dataSrch['con_start_dt'])));
+		        if($dataSrch['sell_start_dt'] != null && $dataSrch['sell_start_dt'] != ""){
+		            $this->db->where('tbl_sell.sell_date >=', date('Y-m-d', strtotime($dataSrch['sell_start_dt'])));
 		        }
-		        if($dataSrch['con_end_dt'] != null && $dataSrch['con_end_dt'] != ""){
-		            $this->db->where('tbl_contract.con_date <=', date('Y-m-d', strtotime($dataSrch['con_end_dt'])));
+		        if($dataSrch['sell_end_dt'] != null && $dataSrch['sell_end_dt'] != ""){
+		            $this->db->where('tbl_sell.sell_date <=', date('Y-m-d', strtotime($dataSrch['sell_end_dt'])));
 		        }
 		    }
 		    
-		    if(($dataSrch['con_start_dt_exp'] != null && $dataSrch['con_start_dt_exp'] != "")
-		        && ($dataSrch['con_end_dt_exp'] != null && $dataSrch['con_end_dt_exp'] != "")){
-		            $this->db->where('tbl_contract.con_date_exp >=', date('Y-m-d', strtotime($dataSrch['con_start_dt_exp'])));
-		            $this->db->where('tbl_contract.con_date_exp <=', date('Y-m-d', strtotime($dataSrch['con_end_dt_exp'])));
-		    }else{
-		        if($dataSrch['con_start_dt_exp'] != null && $dataSrch['con_start_dt_exp'] != ""){
-		            $this->db->where('tbl_contract.con_date_exp >=', date('Y-m-d', strtotime($dataSrch['con_start_dt_exp'])));
-		        }
-		        if($dataSrch['con_end_dt_exp'] != null && $dataSrch['con_end_dt_exp'] != ""){
-		            $this->db->where('tbl_contract.con_date_exp <=', date('Y-m-d', strtotime($dataSrch['con_end_dt_exp'])));
-		        }
-		    }
 		    
 		    if($dataSrch['srch_seller'] != null && $dataSrch['srch_seller'] != ""){
-		        $this->db->where('tbl_contract.seller_id', $dataSrch['srch_seller']);
+		        $this->db->where('tbl_sell.seller_id', $dataSrch['srch_seller']);
 		        
 		    }
 		    
@@ -219,13 +169,6 @@
 		        $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_customer']);
 		        $this->db->or_like('tbl_customer.cus_phone2', $dataSrch['srch_customer']);
 		    }
-		    
-		    if($dataSrch['filter_status'] != null && $dataSrch['filter_status'] != ""){
-		        $this->db->where('tbl_contract.con_sta', $dataSrch['filter_status']);
-		        
-		    }
-		    
-		    
 		    
 		    if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
 		        $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_all']);

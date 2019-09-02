@@ -7,9 +7,11 @@ $(document).ready(function(){
 var _thisPage = {
 		onload : function(){
 			this.event();
+			stock.comm.todayDate("#txtSrchContSD","-");
+			stock.comm.todayDate("#txtSrchContED","-");
 			this.loadData();
 			getSeller();
-			stock.comm.checkAllTblChk("chkAllBox","tblSell","chk_box");
+			stock.comm.checkAllTblChk("chkAllBox","tblInstallment","chk_box");
 
 			$('#txtSrchContSD').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
@@ -74,22 +76,22 @@ var _thisPage = {
 		    dat["txtSrchContCode"]	= $("#txtSrchContCode").val();
 		    dat["txtSrchContSD"]	= $("#txtSrchContSD").val();
 		    dat["txtSrchContED"]	= $("#txtSrchContED").val();
-		    dat["txtSrchCusNm"]		= $("#txtSrchCusNm").val();
-		    dat["cboSeller"]		= $("#cboSeller").val();
 		    dat["txtSrchProCode"]	= $("#txtSrchProCode").val();
 		    
 		    $("#loading").show();
 		    $.ajax({
 				type: "POST",
-				url : $("#base_url").val() +"Sell/getSell",
+				url : $("#base_url").val() +"InstallmentPayment/getInstallment",
 				data: dat,
 				dataType: "json",
 				success: function(res) {
+					$("#loading").hide();
 					console.log(res);
+					return;
 					var html = "", strTotal = "", totalDollar = 0, totalRiels = 0;
 					var strTotalPaidInt="",strTotalPaidPrin="",totalPaidIntDollar = 0,totalPaidIntRiels = 0,totalPaidPrinDollar=0, totalPaidPrinRiels=0;
-					$("#loading").hide();
-					$("#tblSell tbody").html("");
+					
+					$("#tblInstallment tbody").html("");
 					if(res.OUT_REC != null && res.OUT_REC.length >0){
 						
 					    for(var i=0; i<res.OUT_REC.length;i++){
@@ -118,12 +120,12 @@ var _thisPage = {
 						strTotal += '<td colspan="6"></td>';
 						strTotal += '</tr>';
 						
-					    $("#tblSell tbody").html(html);
-					    $("#tblSell tbody").append(strTotal);
+					    $("#tblInstallment tbody").html(html);
+					    $("#tblInstallment tbody").append(strTotal);
 					    stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 					}else{
 						$("#chkAllBox").hide();
-					    $("#tblSell tbody").append("<tr><td colspan='10' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+					    $("#tblInstallment tbody").append("<tr><td colspan='10' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 					    stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 					}
 				},
@@ -171,7 +173,7 @@ var _thisPage = {
 			});			
 			//
 			$("#btnEdit").click(function(){
-				var chkVal = $('#tblSell tbody tr td.chk_box input[type="checkbox"]:checked');
+				var chkVal = $('#tblInstallment tbody tr td.chk_box input[type="checkbox"]:checked');
 				if(chkVal.length != 1){
 					stock.comm.alertMsg($.i18n.prop("msg_con_edit1"));
 					return;
@@ -183,13 +185,13 @@ var _thisPage = {
 			});			
 			//
 			$("#btnDelete").click(function(e){
-				var chkVal = $('#tblSell tbody tr td.chk_box input[type="checkbox"]:checked');
+				var chkVal = $('#tblInstallment tbody tr td.chk_box input[type="checkbox"]:checked');
 				
 				if(chkVal.length <= 0){
 					stock.comm.alertMsg($.i18n.prop("msg_con_del"));
 					return;
 				}
-				/*var chkDeleteFail='';
+				var chkDeleteFail='';
 				chkVal.each(function(i){
 					var tblTr   = $(this).parent().parent();
 					if(tblTr.find("td.con-status").attr("data-val") =="C" || tblTr.find("td.con-status").attr("data-val") == "E" || tblTr.find("td.con-status").attr("data-val") =="S" ){
@@ -200,7 +202,7 @@ var _thisPage = {
 				if(chkDeleteFail){
 					stock.comm.alertMsg("សូមជ្រើសរើស តែទិន្ន័យបានកក់ ទើបលុបបាន!!!");
 					return;
-				}*/
+				}
 				
 				stock.comm.confirmMsg($.i18n.prop("msg_sure_del"));
 				$("#btnConfirmOk").unbind().click(function(e){
@@ -236,7 +238,7 @@ var _thisPage = {
 			// 
 			$("#btnDownExcel").click(function(e){
 				e.preventDefault();
-				var chkVal = $('#tblSell tbody tr td.chk_box input[type="checkbox"]:checked');
+				var chkVal = $('#tblInstallment tbody tr td.chk_box input[type="checkbox"]:checked');
 
 				if(chkVal.length <= 0){
 					stock.comm.alertMsg($.i18n.prop("msg_down_excel"));
@@ -256,7 +258,7 @@ var _thisPage = {
 			
 			//
 			$("#btnShowRecord").click(function(e){
-				$( "#tblSell tr:not(.total)" ).toggle( "fast", function() {
+				$( "#tblInstallment tr:not(.total)" ).toggle( "fast", function() {
 				    // Animation complete.
 				});
 			});	

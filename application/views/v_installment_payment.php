@@ -5,13 +5,13 @@
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
-		<i class="fa fa-handshake-o"></i>
-		<span data-i18ncd="lb_contract">Contract</span>
+		<i class="fa fa-shopping-cart"></i>
+		<span >បង់ប្រាក់រំលួស</span>
 		<small data-i18ncd="lb_information">Information</small>
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="javascript:"><i class="fa fa-dashboard"></i><span data-i18ncd="lb_dasbord">Dashboard</span></a></li>
-			<li class="active" data-i18ncd="lb_contract">Contract</li>
+			<li class="active" >បង់ប្រាក់រំលួស</li>
 		</ol>
 	</section>
 	<!-- Main content -->
@@ -31,79 +31,55 @@
 									<h3 class="box-title" data-i18ncd="lb_search">Search</h3>
 								</div>
 								<!-- /.box-header -->
-								<div class="box-body">
+								<div class="box-body" style="display: block;">
 									<div class="row" >
-										<div class="col-sm-12 col-md-12 col-lg-12 row" style="
-											">
-											<div class="col-sm-2 col-md-2 col-lg-2" style="
-												">
-												<div class="form-group form-inline">
-													<label for="txtSrchContCode" class="control-label"  style="
-														margin-bottom: 7px;
-														display: -webkit-box;
-													">លេខសម្គាល់​​</label>
-													<input type="text" class="form-control input-sm" id="txtSrchContCode" placeholder="" style="
-													">
-												</div>
-											</div>
-											<div class="col-sm-2 col-md-2 col-lg-2" style="
+										<div class="col-sm-12 col-md-12 col-lg-12 row" style="">
+											
+											<div class="col-sm-3 col-md-3 col-lg-3" style="
 												">
 												<div class="input-group date" style="
 													">
 													<label for="txtSrchContSD" class="control-label" style="
 														margin-bottom: 7px;
 														display: table-caption;
-													">ថ្ងៃកក់ប្រាក់​​​</label>
+													">ថ្ងៃបង់ប្រាក់</label>
 													<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;padding: 5px 11px;">
 														<i class="fa fa-calendar"></i>
 													</div>
-													<input type="text" class="form-control pull-left date-pick input-sm" id="txtSrchContSD" name="txtSrchContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="" style="font-size: 12px;">
+													<input type="text" style="width: 100%" class="form-control pull-left date-pick input-sm" id="txtSrchContSD" name="txtSrchContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="" style="font-size: 12px;width: 60%;">
 												</div>
 											</div>
-											<div class="col-sm-2 col-md-2 col-lg-2" style="
+											<div class="col-sm-3 col-md-3 col-lg-3" style="
 												">
 												<div class="input-group date">
-													<label for="txtContEDIcon" class="control-label"  style="
+													<label for="txtSrchContED" class="control-label"  style="
 														display: table-caption;
-														margin-bottom: 7px;"> ថ្ងៃកក់ប្រាក់​​​​</label>
+														margin-bottom: 7px;">ថ្ងៃបង់ប្រាក់</label>
 													<div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
 														<i class="fa fa-calendar"></i>
 													</div>
-													<input type="text" class="form-control pull-left date-pick input-sm" id="txtSrchContED" name="txtSrchContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="áž”áž‰áŸ’áž‡áž¼áž› " style="font-size: 12px;">
+													<input type="text" style="width: 100%" class="form-control pull-left date-pick input-sm" id="txtSrchContED" name="txtSrchContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="áž”áž‰áŸ’áž‡áž¼áž› " style="font-size: 12px;width: 60%;">
 												</div>
 											</div>
 											
-                                            
-                                            <div class="col-sm-2 col-md-2 col-lg-2" style="
+											<div class="col-sm-3 col-md-3 col-lg-3" style="
 												">
-												<div class="input-group date" style="
+												<div class="form-group form-inline">
+													<label for="txtSrchContCode" class="control-label"  style="
+														margin-bottom: 7px;
+														display: -webkit-box;
+													">លេខសម្គាល់ការលក់</label>
+													<input type="text" style="width: 100%" class="form-control input-sm" id="txtSrchContCode" placeholder="" style="
 													">
-													<label for="txtSrchContSDExp" class="control-label" style="margin-bottom: 7px;display: table-caption;"> ថ្ងៃផុតកំណត់​​</label>
-													<div class="input-group-addon"  style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;padding: 5px 11px;">
-														<i class="fa fa-calendar"></i>
-													</div>
-													<input type="text" class="form-control pull-left date-pick input-sm" id="txtSrchContSDExp" name="txtSrchContSDExp" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="" style="font-size: 12px;">
-												</div>
-											</div>
-											<div class="col-sm-2 col-md-2 col-lg-2" style="
-												">
-												<div class="input-group date">
-													<label for="txtSrchContEDExp" class="control-label"  style="
-														display: table-caption;
-														margin-bottom: 7px;"> ថ្ងៃផុតកំណត់​​​​</label>
-													<div class="input-group-addon"  style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
-														<i class="fa fa-calendar"></i>
-													</div>
-													<input type="text" class="form-control pull-left date-pick input-sm" id="txtSrchContEDExp" name="txtSrchContEDExp" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="áž”áž‰áŸ’áž‡áž¼áž› " style="font-size: 12px;">
 												</div>
 											</div>
 											
-											<div class="col-sm-2 col-md-2 col-lg-2" style="">
-                                                <div class="form-group form-inline">
-                                                    <label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_customer" style="margin-bottom: 7px;display: -webkit-box;">អតិថិជន </label>
-                                                    <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="អតិថិជន">
+											<div class="col-sm-3 col-md-3 col-lg-3" style="">
+												<div class="form-group form-inline">
+                                                    <label for="txtSrchProCode" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">	លេខកូដអចនលទ្រព្យ </label>
+                                                    <input type="text" style="width: 100%" class="form-control input-sm" id="txtSrchProCode" placeholder="អតិថិជន">
                                                 </div>
-                                            </div>
+											</div>
 											
 										</div>
 										<div class="col-sm-12 col-md-12 col-lg-12">
@@ -112,36 +88,7 @@
 									</div>
 									
 									<div class="row" >
-										<div class="col-sm-12 col-md-12 col-lg-12 row" style="">
-											
-											<div class="col-sm-2 col-md-2 col-lg-2" style="">
-												<div class="form-group form-inline">
-													<label for="cboStatus" class="control-label" data-i18ncd="lb_status" style="
-														margin-bottom: 7px;
-														display: -webkit-box;
-													">ការប្រើប្រាស់ </label>
-													<select class="form-control  input-sm" id="cboStatus" name="cboStatus" style="font-size: 14px;min-width: 150px;">
-														<option value="">សូមជ្រើសរើស</option>
-														<option value="B">បើក​</option>
-														<option value="S">លក់​</option>
-														<option value="E">ផុតកំណត់ </option>
-														<option value="C">ត្រលប់ប្រាក់ </option>
-													</select>
-												</div>
-											</div>
-											
-											
-											<div class="col-sm-2 col-md-2 col-lg-2" style="">
-                                                <div class="form-group form-inline">
-                                                    <label for="txtSrchSeller" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">អ្នកលក់(បុគ្គលិក) </label>
-                                                    <select class="form-control input-sm" id="cboSeller" name="cboSeller" >
-                    	                    			
-                        			                </select>
-                                                </div>
-                                            </div>
 										
-											
-										</div>
 										<div class="col-sm-12 col-md-12 col-lg-12">
 											<button id="btnSearch" type="button" class="btn btn-success btn-sm pull-right" onclick="_thisPage.loadData(1);"><i class="fa fa-search" aria-hidden="true"></i> <span data-i18ncd="lb_search">Search</span></button>
 											<button id="btnReset" type="button" class="btn btn-warning btn-sm pull-right" style="margin-right: 5px"><i class="fa fa-refresh" aria-hidden="true"></i> <span data-i18ncd="btn_reset">Reset</span></button>
@@ -194,18 +141,17 @@
 						</div>
 						
 						<div class="box-body table-responsive">
-							<table class="table table-hover" id="tblContract">
+							<table class="table table-hover" id="tblInstallment">
 								<thead>
 									<tr>
 										<th><input type="checkbox" id="chkAllBox" ></th>
 										<th class="txt_c">លេខសម្គាល់ </th>
-										<th class="txt_c">ថ្ងៃកក់ប្រាក់</  </th>
-										<th class="txt_r">ថ្ងៃផុតកំណត់</<< </th>
-										<th class="text-right">ចំនូនលុយកក់</    </th>
-										<th class="text-right">វីធីបង់ប្រាក់</   </th>
+										<th class="txt_c">ថ្ងៃលក់</th>
+										<th class="txt_c">គំរោង</<< </th>
+										<th class="txt_c">លេខកូដអចនលទ្រព្យ</    </th>
+										<th class="text-right">តំលៃលក់</   </th>
 										<th class="text-right">អតិថិជន</  </th>
 										<th class="text-right">អ្នកលក់(បុគ្គលិក)</th>
-										<th class="text-center">ការប្រើប្រាស់</  </th>
 										<th data-i18ncd="lb_action"​ class="txt_c">Action</th>
 									</tr>
 								</thead>
@@ -240,5 +186,5 @@
 </div>
 <!-- /.content-wrapper -->
 <?php echo $footer; ?>
-<script src="<?php echo base_url('assets/') ?>js/pages/v_contract.js"></script>
+<script src="<?php echo base_url('assets/') ?>js/pages/v_installment_payment.js"></script>
 <?php echo $iframe; ?>
