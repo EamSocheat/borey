@@ -302,7 +302,7 @@ var _thisPage = {
 			//
 			$("#cboInstYn").change(function(e){
 				
-				calculatePaySchedule();
+				//calculatePaySchedule();
 				if ($(this).prop("checked")) {
 					$(".div_installment").show();
 			    }else{
@@ -420,8 +420,6 @@ function saveData(str){
     	showProductErr();
     	return;
     }
-    
-    
    	var productArr=[];
    	var productPriceArr=[];
    	productChk.each(function(i){
@@ -429,6 +427,12 @@ function saveData(str){
    		productPriceArr.push($("#pro_price").val().replace(/,/g,''));
    	});
    	
+   	var instRecord = $('#tblInstallment tbody tr');
+	if(instRecord == null || instRecord == undefined || instRecord.length <=0 ){
+		parent.stock.comm.alertMsg("សូមគណនាជាមុនសិន រួចព្យាយាមម្តងទៀត");
+		return;
+	}
+	
 	//
 	$("#txtPayCash").val($("#txtPayCash").val().replace(/,/g,''));
 	//$("#txtRealPayAmt").val($("#txtRealPayAmt").val().replace(/,/g,''));
@@ -1129,6 +1133,20 @@ function calculatePaySchedule(){
 		return;
 	}
 	
+	if($("#cboInstYn").prop("checked") && $("#txtInterstRate").val()==""){
+		parent.$("#msgErr").html("សូមបញ្ចូល អត្រាការប្រាក់ %!!!");
+		parent.$("#msgErr").show();
+		$("#txtInterstRate").focus();
+		return;
+	}
+	
+	if($("#cboInstYn").prop("checked") && $("#txtPeriod").val()==""){
+		parent.$("#msgErr").html("សូមបញ្ចូល រយៈពេលរំលួស!!!");
+		parent.$("#msgErr").show();
+		$("#txtPeriod").focus();
+		return;
+	}
+	
 	$("#tblInstallment tbody").html("");
 	var noTbl=1;
 	var bookingAmt=0;
@@ -1364,9 +1382,6 @@ function saveInstallment(sell_id,str){
 	var instArr = [];
 	var instObj = {};
 	var instRecord = $('#tblInstallment tbody tr');
-	if(instRecord == null || instRecord == undefined || instRecord.length <=0 ){
-		parent.stock.comm.alertMsg("សូមគណនាជាមុនសិន រួចព្យាយាមម្តងទៀត");
-	}
 	instRecord.each(function(i){
 		var instData = {};
 		var tblTr   = $(this);

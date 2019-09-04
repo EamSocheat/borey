@@ -73,7 +73,7 @@ class PrintInv extends CI_Controller {
 	        'sell_id'        => $data[0]["sell_id"]
 	    );
 	    
-	    $dataPrint["OUT_REC"] = $this->M_installment->selectInstallmentDetail($dataSrch);
+	    $dataPrint["OUT_REC"] = $this->M_installment->selectInstallmentDataPrint($dataSrch);
 	    return $this->load->view('popup/v_print_payment_shedule',$dataPrint);
 	}
 }   

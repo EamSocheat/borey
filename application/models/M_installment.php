@@ -56,6 +56,27 @@
             $this->db->order_by("inst_num", "asc");
             return $this->db->get('tbl_installment',$dataSrch['limit'],$dataSrch['offset'])->result();
         }
+        
+        
+		public function selectInstallmentDataPrint($dataSrch){
+            $this->db->select('*');
+            $this->db->from('tbl_installment');
+            $this->db->join('tbl_sell','tbl_sell.sell_id = tbl_installment.sell_id ');
+            $this->db->join('tbl_sell_detail','tbl_sell_detail.sell_id = tbl_sell.sell_id ');
+            $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
+            $this->db->join('tbl_contract_type','tbl_contract_type.con_type_id = tbl_sell.con_type_id');
+            $this->db->join('tbl_product','tbl_product.pro_id = tbl_sell_detail.pro_id');
+            $this->db->join('tbl_category','tbl_category.cat_id = tbl_product.cat_id');
+            $this->db->where('tbl_installment.com_id', $_SESSION['comId']);
+            $this->db->where('tbl_installment.useYn', 'Y');
+        
+            
+            if($dataSrch['sell_id'] != null && $dataSrch['sell_id'] != ""){
+                $this->db->where('tbl_installment.sell_id', $dataSrch['sell_id']);
+            }
+           	$this->db->order_by("inst_num", "asc");
+            return $this->db->get()->result();
+        }
     	
         public function countInstallmentData($dataSrch){
             $this->db->select('count(tbl_installment.inst_id) as total_rec');
