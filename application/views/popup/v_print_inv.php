@@ -13,6 +13,13 @@
 		  td, th {
 			border: 1px solid #000000;
 		  	text-align: left;
+		  	padding-left: 5px;
+		  	padding-right: 5px;
+		  }
+		  
+		  table.show-amount td, th {
+			border: 1px solid #000000;
+		  	text-align: left;
 		  	padding: 5px;
 		  }
 		  
@@ -21,8 +28,8 @@
 		  }
 		  .div-box{
 				border: 2px solid #D4AF37;border-radius: 15px;padding:10px;
-			    min-height: 130px;
-				max-height: 130px;
+			    min-height: 100px;
+				max-height: 100px;
 		  }
 		  .with-100{
 			width: 50px;
@@ -93,7 +100,7 @@
 					</tr>
 					<tr>
 						<td>
-							<table class="tbl-head">
+							<table class="tbl-head ">
 								<tr>
 									<td class="with-200">លេខវិក័យបត្រ</td><td class="with-10">៖</td><td>000001</td>
 								</tr>
@@ -112,7 +119,7 @@
 							</table>
 						</td>
 						<td>
-							<table class="tbl-head">
+							<table class="tbl-head ">
 								<tr>
 									<td class="with-200">ថ្ងៃត្រូវបង់</td><td class="with-10">៖</td><td><?php echo date('d-m-Y',strtotime($OUT_REC[0]->con_date));?></td>
 								</tr>
@@ -135,17 +142,17 @@
 			</table>
 		</div>
 		<div style="">
-			<table>
+			<table class="show-amount">
 				<tr>
-					<th>ល.រ</th>
-					<th>ប្រភេទបង់</th>
-					<th>កំណត់សំគាល់</th>
+					<th style="text-align: center">ល.រ</th>
+					<th style="text-align: center">ប្រភេទបង់</th>
+					<th style="text-align: center">កំណត់សំគាល់</th>
 					<th>ប្រាក់បានបង់</th>
 				</tr>
 				<tr>
-					<td>1</td>
-					<td><?php echo $OUT_REC[0]->met_nm_kh;?></td>
-					<td>បង់កក់ទ្រនាប់ដៃ</td>
+					<td style="text-align: center">1</td>
+					<td style="text-align: center"><?php echo $OUT_REC[0]->met_nm_kh;?></td>
+					<td style="text-align: center">បង់កក់ទ្រនាប់ដៃ</td>
 					<td>$<?php echo number_format($OUT_REC[0]->con_total_price);?></td>
 				</tr>
 				<tr>
@@ -182,7 +189,7 @@
 				
 			</table>
 		</div>
-		<div style="">
+		<div style="margin-top: 5px;">
 			<table class="tbl-head">
 				<tr>
 					<td style="width: 25%">ស្នាមមេដៃម្ចាស់ផ្ទះ</td>
@@ -196,7 +203,9 @@
 				<tr>
 					<td>&nbsp;</td>
 				</tr>
-				
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
 				<tr>
 					<td>ឈ្មោះ........................</td>
 					<td>ឈ្មោះ........................</td>
@@ -204,10 +213,22 @@
 					<td>ឈ្មោះ........................</td>
 				</tr>
 				<tr>
-					<td style="font-weight: bold;color: #D4AF37;">BOREY GALAXY11</td>
+					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td colspan="4">ការិយាល័យ: ផ្សារព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ (ជិតផ្លូវ៦០សម្តេចតេជោ)ទូរសព្ទ័០17 661 122/098 66 11 22</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="font-weight: bold;color: #D4AF37;font-size: 11px;">BOREY GALAXY11</td>
+				</tr>
+				<tr>
+					<td colspan="4" style="font-size: 11px;">ការិយាល័យ: ផ្សារព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ (ជិតផ្លូវ៦០សម្តេចតេជោ)ទូរសព្ទ័០17 661 122/098 66 11 22</td>
 				</tr>
 			</table>
 		</div>

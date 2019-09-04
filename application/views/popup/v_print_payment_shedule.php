@@ -2,12 +2,16 @@
 				<?php
 					$advPeriod=0; 
 					$loanPeriod=0; 
+					$bookTrue="";
 					for($j=0;$j<count($OUT_REC);$j++){
     				if($OUT_REC[$j]->inst_type =="ADV"){
     					$advPeriod+=1;
     				}
     				if($OUT_REC[$j]->inst_type =="LOAN"){
     					$loanPeriod+=1;
+    				}
+    				if($OUT_REC[$j]->inst_type =="BOOK"){
+    				    $bookTrue = "បង្រ្គប់";
     				}
     					
 				}?>
@@ -25,13 +29,20 @@
 		}
 		  table {
 		  	border-collapse: collapse;
-		  	font-size: 13px;
+		  	font-size: 11px;
 		   	width: 100%;
 		  }
-		  td, th {
+		  td {
 			border: 1px solid #000000;
 		  	text-align: left;
-		  	padding: 5px;
+		  	font-weight: bold;
+		  	/* padding: 5px; */
+		  }
+		  
+		 th {
+			border: 1px solid #000000;
+		  	text-align: center;
+		  	/* padding: 5px; */
 		  }
 		  
 		  table.tbl-head tr td{
@@ -64,10 +75,11 @@
 		  }
 		  
 		  p{
-			font-size: 13px;
+			font-size: 11px;
 		  }
 		  .text-right{
 		  	text-align: right;
+		  	padding-right: 10px;
 		  }
 		  .text-center{
 		  	text-align: center;
@@ -76,20 +88,20 @@
 	</head>
 	<body style="">
 		<div style="text-align: left;"><img style="width: 200px;" src="<?php echo $printData[0]["base_url"]."/upload/fix/";?>galaxy11-logo.png" /></div>
-		<div style="text-align: center;margin-top: -70px"><h3>តារាងកាលវិភាគបង់ប្រាក់</h3></div>
+		<div style="text-align: center;margin-top: -20px"><h4>តារាងកាលវិភាគបង់ប្រាក់</h4></div>
 		
 		<div>
 			<table class="tbl-head" >
 				<colgroup>
-					<col width="50%">
-					<col width="50%">
+					<col width="60%">
+					<col width="40%">
 				</colgroup>
 				<tbody>
 					<tr>
 						<td>
 							<table class="tbl-head">
 								<tr>
-									<td class="with-200" style="font-size: 16px;">ពត៍មានអតិថិជន</td><td class="with-10"></td><td></td>
+									<td class="with-200" style="font-size: 14px;">ពត៍មានអតិថិជន</td><td class="with-10"></td><td></td>
 								</tr>
 								<tr>
 									<td class="with-200">ឈ្មោះ</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->cus_nm_kh;?></td>
@@ -97,9 +109,9 @@
 								<tr>
 									<td class="with-200">ភេទ</td><td class="with-10">៖</td>
 									<td>
-										<?php 	if($OUT_REC[0]->cus_gender=="Female"){
+										<?php 	if($OUT_REC[0]->cus_gender=="Male"){
 													echo "ប្រុស";
-												}else if($OUT_REC[0]->cus_gender=="Male"){
+												}else if($OUT_REC[0]->cus_gender=="Female"){
 													echo "ស្រី";
 												}else{
 													echo "ប្រុស&ស្រី";
@@ -124,7 +136,7 @@
 						<td>
 							<table class="tbl-head">
 								<tr>
-									<td class="with-200" style="font-size: 16px;">ពត៍មានបង់ប្រាក់</td><td class="with-10"></td><td></td>
+									<td class="with-200" style="font-size: 14px;">ពត៍មានបង់ប្រាក់</td><td class="with-10"></td><td></td>
 								</tr>
 								<tr>
 									<td class="with-200">ការិយាល័យ</td><td class="with-10">៖</td><td>ផ្សារព្រែកជ្រៃ</td>
@@ -150,8 +162,8 @@
 				</tbody>
 			</table>
 		</div>
-		<div style="padding-right: 10px;padding-left: 10px;">
-			<table style="font-size: 10px;">
+		<div >
+			<table style="font-size: 11px;">
 				<tr style="background: yellow;">
 					<th>ល.រ</th>
 					<th>ថ្ងៃត្រូវបង់</th>
@@ -162,37 +174,46 @@
 					<th>សរុបប្រាក់ត្រូវបង់</th>
 					<th>ប្រាក់ដើមនៅសល់</th>
 				</tr>
-				<?php for($i=0;$i<count($OUT_REC);$i++){?>
+				<?php $totalPrinciple=0; $totalInterest=0;$totalPayAmount=0;$totalDiscount=0;
+				    for($i=0;$i<count($OUT_REC);$i++){
+				        $totalPrinciple += floatval($OUT_REC[$i]->inst_amt_principle);
+				        $totalPayAmount += floatval($OUT_REC[$i]->inst_amt_pay);
+				         
+				?>
+				    
     				<tr>
     					<td class="text-center"><?php echo $OUT_REC[$i]->inst_num;?></td>
     					<td class="text-center"><?php echo date('d-m-Y',strtotime($OUT_REC[$i]->inst_date));?></td>
     					<?php 
     						if($OUT_REC[$i]->inst_type=="BOOK"){
     							echo "<td class='text-center'>បង់កក់ទ្រនាប់ដៃ</td>";
-    							echo "<td class='text-center'>-</td>";
+    							echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
     						}else if($OUT_REC[$i]->inst_type=="ADV"){
-    							echo "<td class='text-center'>".$OUT_REC[$i]->inst_pay_per."%</td>";
-    							echo "<td class='text-center'>".($OUT_REC[$i]->inst_dis_amt == "0" ? "-" : "$".number_format($OUT_REC[$i]->inst_dis_amt))."</td>";
+    						    echo "<td class='text-center'>".$bookTrue.$OUT_REC[$i]->inst_pay_per."%</td>";
+    							echo "<td class='text-right'>".($OUT_REC[$i]->inst_dis_amt == "0" ? "<span style='float: left; margin-left: 5px;'>$</span>-" : "<span style='float: left; margin-left: 5px;'>$</span>".number_format($OUT_REC[$i]->inst_dis_amt))."</td>";
+    							$bookTrue="";
+    							$totalDiscount += $OUT_REC[$i]->inst_dis_amt;
     						}else if($OUT_REC[$i]->inst_type=="LOAN"){
     							echo "<td class='text-center'>រំលួស</td>";
-    							echo "<td class='text-center'>-</td>";
+    							echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
+    							$totalInterest += floatval($OUT_REC[$i]->inst_amt_interest);
     						}else if($OUT_REC[$i]->inst_type=="LEFT"){
     							echo "<td class='text-center'>".$OUT_REC[$i]->inst_pay_per."%</td>";
-    							echo "<td class='text-center'>-</td>";
+    							echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
     						}
     					?>
-    					<td class="text-right">$<?php echo number_format($OUT_REC[$i]->inst_amt_principle);?></td>
+    					<td class="text-right"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($OUT_REC[$i]->inst_amt_principle);?></td>
     					
     						<?php 
     							if($OUT_REC[$i]->inst_amt_interest =="0"){
-    								echo "<td class='text-center'>-</td>";
+    								echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
     							}else{
-    								echo "<td class='text-right'>$".number_format($OUT_REC[$i]->inst_amt_interest)."</td>";
+    								echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>".number_format($OUT_REC[$i]->inst_amt_interest)."</td>";
     							}
     						?>
     					
-    					<td class="text-right">$<?php echo number_format($OUT_REC[$i]->inst_amt_pay);?></td>
-    					<td class="text-right">$<?php 
+    					<td class="text-right"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($OUT_REC[$i]->inst_amt_pay);?></td>
+    					<td class="text-right"><span style='float: left; margin-left: 5px;'>$</span><?php 
 							if($OUT_REC[$i]->inst_type=="LEFT"){
     							echo "-";
     						}else{
@@ -201,7 +222,14 @@
     					?></td>
     				</tr>
 				<?php }?>
-				
+				<tr>
+					<td colspan="3" class="text-center" style="font-weight: bold">សរុប</td>
+					<td class="text-right" style="font-weight: bold"><?php echo $totalDiscount == 0 ? "<span style='float: left; margin-left: 5px;'>$</span>-" : number_format($totalDiscount);?></td>
+					<td class="text-right" style="font-weight: bold"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($totalPrinciple);?></td>
+					<td class="text-right" style="font-weight: bold"><?php echo $totalInterest == 0 ? "<span style='float: left; margin-left: 5px;'>$</span>-" : number_format($totalInterest);?></td>
+					<td class="text-right" style="font-weight: bold"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($totalPayAmount);?></td>
+					<td></td>
+				</tr>	
 			</table>
 		</div>
 		
@@ -223,8 +251,8 @@
 		<div style="">
 			<table class="tbl-head">
 				<tr>
-					<td style="width: 50%;font-weight: bold;">ស្នាមមេដៃស្ដាំភាគី ខ</td>
-					<td style="width: 50%;font-weight: bold;text-align: right;">ស្នាមមេដៃស្ដាំភាគី ក</td>
+					<td style="width: 50%;font-weight: bold;padding-left: 100px;">ស្នាមមេដៃស្ដាំភាគី ខ</td>
+					<td style="width: 50%;font-weight: bold;padding-left: 150px;">ស្នាមមេដៃស្ដាំភាគី ក</td>
 					
 				</tr>
 				<tr>
@@ -233,17 +261,21 @@
 				<tr>
 					<td>&nbsp;</td>
 				</tr>
-				
 				<tr>
-					<td><?php echo $OUT_REC[0]->cus_nm_kh;?></td>
-					<td style="text-align: right;">ហេង ពិសិដ្ឋ</td>
+					<td>&nbsp;</td>
 				</tr>
+				<tr>
+					<td style="width: 50%;font-weight: bold;padding-left: 100px;"><?php echo $OUT_REC[0]->cus_nm_kh;?></td>
+					<td style="width: 50%;font-weight: bold;padding-left: 150px;">ហេង ពិសិដ្ឋ</td>
+				</tr>
+				<!-- 
 				<tr>
 					<td style="font-weight: bold;color: #D4AF37;">BOREY GALAXY11</td>
 				</tr>
 				<tr>
 					<td colspan="4">ការិយាល័យ: ផ្សារព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ (ជិតផ្លូវ៦០សម្តេចតេជោ)ទូរសព្ទ័០17 661 122/098 66 11 22</td>
 				</tr>
+				 -->
 			</table>
 		</div>
 		
