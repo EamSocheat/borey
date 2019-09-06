@@ -59,7 +59,7 @@ var _thisPage = {
 			$("#txtStartInstDate").inputmask();
 			
 			//
-
+			stock.comm.todayDate("#txtContSD","-");
 			if($("#frmAct").val() == "U"){
 			    getDataEdit($("#sellId").val());
 			    $("#lAmt").attr("readonly","readonly");
@@ -69,7 +69,7 @@ var _thisPage = {
 			    $("#btnSaveNew").show();			    
 			    $("#popupTitle").html("<i class='fa fa-shopping-cart'></i> "+$.i18n.prop("btn_add_new")+" ការល​ក់" );
 			}
-			stock.comm.todayDate("#txtContSD","-");
+			
 			//stock.comm.todayDate("#txtStartInstDate","-");
 			$("#frmSell").show();
 			$("#braNm").focus();						
@@ -587,6 +587,7 @@ function getDataEdit(cont_id){
 			    $("#txtContract").val(res.OUT_REC[0]["con_code"]);
 		    	$("#cboConType").val(res.OUT_REC[0]["sell_con_type_id"]);
 		    	
+		    	$("#txtContSD").val(res.OUT_REC[0]["sell_date"] == null ? "" : moment(res.OUT_REC[0]["sell_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
 			    $("#btnSelectPro").hide();
 			    /*
 			    $("#txtRealPayAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["sell_total_price"]));
@@ -873,7 +874,7 @@ function getInstallmentData(){
 						percentPay="កក់ប្រាក់";
 						checkBooked="បង្គ្រប់";
 					}else if(res.OUT_REC[i]["inst_type"] =="LOAN"){
-						percentPay="រំលួស";
+						percentPay="រំលស់";
 					}else if(res.OUT_REC[i]["inst_type"] =="ADV"){
 						percentPay=checkBooked+res.OUT_REC[i]["inst_pay_per"]+"%";
 						checkBooked="";
@@ -1153,7 +1154,7 @@ function calculatePaySchedule(){
 	}
 	
 	if($("#cboInstYn").prop("checked") && $("#txtPeriod").val()==""){
-		parent.$("#msgErr").html("សូមបញ្ចូល រយៈពេលរំលួស!!!");
+		parent.$("#msgErr").html("សូមបញ្ចូល រយៈពេលរំលស់!!!");
 		parent.$("#msgErr").show();
 		$("#txtPeriod").focus();
 		return;
@@ -1289,7 +1290,7 @@ function calculateInstallment(newDate,noTbl){
 	}
 	
 	if($("#txtPeriod").val()==""){
-		parent.$("#msgErr").html("សូមបញ្ចូល រយៈពេលរំលួស!!!");
+		parent.$("#msgErr").html("សូមបញ្ចូល រយៈពេលរំលស់!!!");
 		parent.$("#msgErr").show();
 		$("#txtPeriod").focus();
 		return;

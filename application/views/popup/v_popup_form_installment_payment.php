@@ -30,10 +30,7 @@
             		<div class="col-xs-4 padding-forms-left">
             			<div class="form-group">
 							<label for="cusNm2" data-i18ncd="lb_customer_name">Customer Name</label>
-							<div class="input-group">
-								<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm" autocomplete="off" />
-								<span id="btnPopupCusch" class="input-group-addon label-info" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"></i></span>
-							</div>
+							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm" autocomplete="off" />
 							<input type="hidden" id="txtCusId" name="txtCusId">
 						</div>
             		</div>
@@ -41,21 +38,15 @@
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
 							<label for="txtCusPhone" data-i18ncd="lb_customer_phone">Customer Phone</label>
-							<div class="input-group" style="width:100%;">
-								<input style="height: 34px; border-radius: 3px;font-size: 14px;" type="text"  class="form-control input-sm" disabled="disabled" id="txtCusPhone" name="txtCusPhone" autocomplete="off" />
-							</div>
+							<input style="height: 34px; border-radius: 3px;font-size: 14px;" type="text"  class="form-control input-sm" disabled="disabled" id="txtCusPhone" name="txtCusPhone" autocomplete="off" />
+							
 						</div>
             		</div>
 
             		<div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
-            				<label for="txtContSD" >ថ្ងៃកក់ប្រាក់</label>
-							<div class="input-group date">
-								<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
-									<i class="fa fa-calendar"></i>
-								</div>
-								<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
-							</div>
+							<label for="txtProCode">លេខកូដផ្ទះ</label>
+							<input style="height: 34px; border-radius: 3px;font-size: 14px;" type="text"  class="form-control input-sm" disabled="disabled" id="txtProCode" name="txtProCode" autocomplete="off" />
             			</div>
             		</div>
             	</div>
@@ -64,11 +55,14 @@
             	<div class="col-xs-12 row" style="padding:0px">
             		<div class="col-xs-4 padding-forms-left">
             			<div class="form-group">
-            				<label  for="cboSeller" >អ្នកលក់(បុគ្គលិក)</label>
-                			<select class="form-control" id="cboSeller" name="cboSeller" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
-	                    		
-			                </select>
-			        	</div>
+            				<label for="txtContED">ថ្ងៃបង់ប្រាក់ </label>
+							<div class="input-group date">
+								<div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+									<i class="fa fa-calendar"></i>
+								</div>
+								<input type="text" class="form-control pull-right date-pick" id="txtContED" name="txtContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
+							</div>
+            			</div>
             		</div>
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
@@ -81,14 +75,10 @@
             		
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-            				<label for="txtContED" >ថ្ងៃផុតកំណត់</label>
-							<div class="input-group date">
-								<div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
-									<i class="fa fa-calendar"></i>
-								</div>
-								<input type="text" class="form-control pull-right date-pick" id="txtContED" name="txtContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
-							</div>
-            			</div>
+							<label for="cusNm2" >ប្រាក់ត្រូវបង់ </label>
+							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm" autocomplete="off" />
+							<input type="hidden" id="txtCusId" name="txtCusId">
+						</div>
             		</div>
             	</div>
             	<!-- 3 row -->
@@ -112,8 +102,8 @@
                     <div class="col-xs-4 padding-forms-right">
             			
 		                <div class="form-group">
-				      		<label  for="txtAmtBooking" >ចំនូនលុយកក់</label>
-				        	<input type="text" class="form-control" id="txtAmtBooking" placeholder="Enter loan amount" name="txtAmtBooking" autocomplete="off" required="required" />
+				      		<label  for="txtPenaltyAmt" >ប្រាក់ពិន័យ​</label>
+				        	<input type="text" class="form-control" id="txtPenaltyAmt" placeholder="Enter loan amount" name="txtPenaltyAmt" autocomplete="off" required="required" />
 				    	</div>
 			    	
             		</div>
@@ -127,40 +117,13 @@
                         </div>
                     </div>
                     <div class="col-xs-4 padding-forms-right">
-                        <div class="form-group">
-	                        <label  for="cboConType" >ប្រភេទកិច្ចសន្យា</label>
-	                		<select class="form-control" id="cboConType" name="cboConType" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសប្រភេទកិច្ចសន្យា ')" oninput="setCustomValidity('')">
-	                    		
-		                	</select>
-	                	</div>
+                       <div class="form-group">
+							<label for="txtTotalPayAmt">ប្រាក់ត្រូវបង់សរុប </label>
+							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtTotalPayAmt" name="txtTotalPayAmt" autocomplete="off" />
+						</div>
                     </div>
                 </div>
-                <div class="col-xs-12 row" style="padding:0px">
-                	<div style="text-align: right;    margin-right: 5px;">
-                		<button  type="button" class="btn btn-info btn-sm" id="btnSelectPro"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
-                	</div>
-                	<!--  -->
-                	<br>
-                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
-                    	<div class="box-body table-responsive fix-header-tbl" style="height: 150px;padding: 0px;">
-        				  <table class="table table-hover" id="tblProduct" >
-        				    <thead>  
-            					<tr>
-            					  <th>លេខកូដ</th>
-	        					  <th>ប្រភេទ</th>
-	        					  <th>គំរោង</th>
-	        					  <th>តំលៃ $</th>
-            					</tr>
-        					</thead>
-        					<tbody>
-        					   
-        					</tbody>
-        					
-        				  </table>
-        				</div> 	
-                	</div>
-    				<!--  --> 
-                </div>
+               
                              
             <!-- end modal body  -->
         </div>
@@ -168,7 +131,6 @@
         <div class="modal-footer" >
             <input type="hidden" value="" id="statusID" name="statusID" />
             <button type="button" class="btn btn-info btn-sm" id="btnPrint" style="display: none;"><i class='fa fa-print' aria-hidden='true'></i> បោះពុម្ព</button>
-            <button data-i18ncd="btn_save_new" type="submit" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
             <button data-i18ncd="btn_save" type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>
             <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
         </div>

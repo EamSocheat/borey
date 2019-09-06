@@ -9,13 +9,14 @@ var _thisPage = {
 			this.event();
 			stock.comm.todayDate("#txtSrchContSD","-");
 			stock.comm.todayDate("#txtSrchContED","-");
+			/*
 			var date = new Date(moment($("#txtSrchContSD").val(), "DD-MM-YYYY").format("MM-DD-YYYY"));
 	        var days = 7;
 	        if(!isNaN(date.getTime())){
 	            date.setDate(date.getDate() + days);
 	            $("#txtSrchContED").val(moment(date).format("DD-MM-YYYY"));
 	        } 
-	        
+	        */
 			this.loadData();
 			getSeller();
 			stock.comm.checkAllTblChk("chkAllBox","tblInstallment","chk_box");
@@ -110,7 +111,7 @@ var _thisPage = {
 							if(res.OUT_REC[i]["inst_type"] =="BOOK"){
 								percentPay="កក់ប្រាក់";
 							}else if(res.OUT_REC[i]["inst_type"] =="LOAN"){
-								percentPay="រំលួស";
+								percentPay="រំលស់";
 							}else if(res.OUT_REC[i]["inst_type"] =="ADV"){
 								percentPay=res.OUT_REC[i]["inst_pay_per"]+"%";
 								//
@@ -201,24 +202,13 @@ var _thisPage = {
 			//
 			$("#btnAddNew").click(function(){
 				$("#loading").show();
-				var controllerNm = "PopupFormSell";
+				var controllerNm = "PopupFormInstallmentPayment";
 				var option = {};
 				option["height"] = "910px";
 				
 				stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
 			});			
-			//
-			$("#btnEdit").click(function(){
-				var chkVal = $('#tblInstallment tbody tr td.chk_box input[type="checkbox"]:checked');
-				if(chkVal.length != 1){
-					stock.comm.alertMsg($.i18n.prop("msg_con_edit1"));
-					return;
-				}
-				
-				var tblTr   = chkVal.parent().parent();
-				var constId = tblTr.attr("data-id");
-				editData(constId);
-			});			
+	
 			//
 			$("#btnDelete").click(function(e){
 				var chkVal = $('#tblInstallment tbody tr td.chk_box input[type="checkbox"]:checked');
@@ -301,7 +291,7 @@ var _thisPage = {
 		}
 }
 
-function popupContractCallback(){
+function popupInstallmentPaymentCallback(){
     _thisPage.loadData(_pageNo);
 }
 
@@ -340,10 +330,10 @@ function deleteDataArr(dataArr){
 
 function editData(cont_id){	
     $("#loading").show();
-	var controllerNm = "PopupFormSell";
+	var controllerNm = "PopupFormInstallmentPayment";
 	var option = {};
 	var data   = "id="+cont_id+"&action=U";
-	option["height"] = "930px";
+	option["height"] = "500px";
 	
 	stock.comm.openPopUpForm(controllerNm, option, data, "modal-lg");
 }

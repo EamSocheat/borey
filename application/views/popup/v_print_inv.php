@@ -56,8 +56,8 @@
 		<div style="text-align: left;"><img style="width: 200px;" src="<?php echo $printData[0]["base_url"]."/upload/fix/";?>galaxy11-logo.png" /></div>
 		<div style="text-align: center;margin-top: -20px"><h3>បង្កាន់ដៃបង់ប្រាក់</h3></div>
 		<div style="text-align: right; margin-top: -30px">		
-			<p>លេខបង្កាន់ដៃកក់ប្រាក់ ៖ <span><?php echo $OUT_REC[0]->con_code;?></span></p>
-			<p>កាលបរិច្ឆេទ ៖ <span><?php echo date('d-m-Y',strtotime($OUT_REC[0]->con_date));?></span></p>  
+			<p>លេខបង្កាន់ដៃកក់ប្រាក់ : <span><?php echo $OUT_REC[0]->con_code;?></span></p>
+			<p>កាលបរិច្ឆេទ : <span><?php echo date('d-m-Y',strtotime($OUT_REC[0]->con_date));?></span></p>  
 		</div>
 		<div>
 			<table class="tbl-head" >
@@ -70,29 +70,29 @@
 						<td><div class="div-box">
 							<table class="tbl-head">
 								<tr>
-									<td class="with-100">គម្រោង</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->bra_nm_kh;?></td>
+									<td class="with-100">គម្រោង</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->bra_nm_kh;?></td>
 								</tr>
 								<tr>
 								</tr>
-									<td class="with-100">កូដផ្ទះ</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->pro_code;?></td>
+									<td class="with-100">កូដផ្ទះ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->pro_code;?></td>
 								<tr>
-									<td class="with-100">តំលៃផ្ទះ</td><td class="with-10">៖</td><td>$<?php echo number_format($OUT_REC[0]->pro_book_price);?></td>
+									<td class="with-100">តំលៃផ្ទះ</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->pro_book_price);?></td>
 								</tr>
 								<tr>
-									<td class="with-100">ភ្នាក់ងារ</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->seller_nm;?></td>
+									<td class="with-100">ភ្នាក់ងារ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->seller_nm;?></td>
 								</tr>
 							</table>
 						<div></td>
 						<td><div class="div-box">
 							<table class="tbl-head">
 								<tr>
-									<td class="with-150">ឈ្មោះអតិថិជន</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->cus_nm_kh;?></td>
+									<td class="with-150">ឈ្មោះអតិថិជន</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_nm_kh;?></td>
 								</tr>
 								<tr>
 								</tr>
-									<td class="with-150">លេខទូរស័ព្ទ</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->cus_phone1;?></td>
+									<td class="with-150">លេខទូរស័ព្ទ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_phone1;?></td>
 								<tr>
-									<td class="with-150">អាស័យដ្ឋាន</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->cus_addr;?></td>
+									<td class="with-150">អាស័យដ្ឋាន</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_addr;?></td>
 								</tr>
 								
 							</table>
@@ -102,38 +102,38 @@
 						<td>
 							<table class="tbl-head ">
 								<tr>
-									<td class="with-200">លេខវិក័យបត្រ</td><td class="with-10">៖</td><td>000001</td>
+									<td class="with-200">លេខវិក័យបត្រ</td><td class="with-10">:</td><td>000001</td>
 								</tr>
 								<tr>
 								</tr>
-									<td class="with-200">ប្រភេទកិច្ចសន្យា</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->con_type_nm_kh;?></td>
+									<td class="with-200">ប្រភេទកិច្ចសន្យា</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->con_type_nm_kh;?></td>
 								<tr>
-									<td class="with-200">ប្រាក់ដើមបានបង់សរុប</td><td class="with-10">៖</td><td>$<?php echo number_format($OUT_REC[0]->con_total_price);?></td>
+									<td class="with-200">ប្រាក់ដើមបានបង់សរុប</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->con_total_price);?></td>
 								</tr>
 								<tr>
-									<td class="with-200">ប្រាក់ដើមនៅសល់</td><td class="with-10">៖</td><td>$<?php echo number_format((floatval($OUT_REC[0]->pro_book_price) - floatval($OUT_REC[0]->con_total_price))) ?></td>
+									<td class="with-200">ប្រាក់ដើមនៅសល់</td><td class="with-10">:</td><td>$<?php echo number_format((floatval($OUT_REC[0]->pro_book_price) - floatval($OUT_REC[0]->con_total_price))) ?></td>
 								</tr>
 								<tr>
-									<td class="with-200">បរិយាយ</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->con_des;?></td>
+									<td class="with-200">បរិយាយ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->con_des;?></td>
 								</tr>
 							</table>
 						</td>
 						<td>
 							<table class="tbl-head ">
 								<tr>
-									<td class="with-200">ថ្ងៃត្រូវបង់</td><td class="with-10">៖</td><td><?php echo date('d-m-Y',strtotime($OUT_REC[0]->con_date));?></td>
+									<td class="with-200">ថ្ងៃត្រូវបង់</td><td class="with-10">:</td><td><?php echo date('d-m-Y',strtotime($OUT_REC[0]->con_date));?></td>
 								</tr>
 								<tr>
 								</tr>
-									<td class="with-200">ប្រាក់ត្រូវបង់</td><td class="with-10">៖</td><td>$<?php echo number_format($OUT_REC[0]->con_total_price);?></td>
+									<td class="with-200">ប្រាក់ត្រូវបង់</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->con_total_price);?></td>
 								<tr>
-									<td class="with-200">បន្ថែមដើម</td><td class="with-10">៖</td><td>$0.00</td>
+									<td class="with-200">បន្ថែមដើម</td><td class="with-10">:</td><td>$0.00</td>
 								</tr>
 								<tr>
-									<td class="with-200">ប្រាក់ពិន័យ</td><td class="with-10">៖</td><td>$0.00</td>
+									<td class="with-200">ប្រាក់ពិន័យ</td><td class="with-10">:</td><td>$0.00</td>
 								</tr>
 								<tr>
-									<td class="with-200">ប្រាក់ត្រូវបង់សរុប</td><td class="with-10">៖</td><td>$<?php echo number_format($OUT_REC[0]->con_total_price);?></td>
+									<td class="with-200">ប្រាក់ត្រូវបង់សរុប</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->con_total_price);?></td>
 								</tr>
 							</table>
 						</td>

@@ -67,6 +67,7 @@
             $this->db->where('tbl_installment.com_id', $_SESSION['comId']);
             $this->db->where('tbl_installment.useYn', 'Y');
         	$this->db->where('tbl_sell.useYn', 'Y');
+        	$this->db->where("tbl_installment.inst_paid_yn","N");
         	
             if($dataSrch['inst_id'] != null && $dataSrch['inst_id'] != ""){
                 $this->db->where('tbl_installment.inst_id', $dataSrch['inst_id']);
@@ -95,7 +96,7 @@
         	if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
                 $this->db->like('tbl_product.pro_code', $dataSrch['pro_code']);
             }
-            $this->db->where_not_in("tbl_installment.inst_paid_yn","N");
+            
            
             $this->db->order_by("tbl_installment.inst_date", "asc");
             $this->db->order_by("tbl_installment.inst_num", "asc");
@@ -115,6 +116,7 @@
             $this->db->where('tbl_installment.com_id', $_SESSION['comId']);
             $this->db->where('tbl_installment.useYn', 'Y');
         	$this->db->where('tbl_sell.useYn', 'Y');
+        	$this->db->where("tbl_installment.inst_paid_yn","N");
         	
             if($dataSrch['inst_id'] != null && $dataSrch['inst_id'] != ""){
                 $this->db->where('tbl_installment.inst_id', $dataSrch['inst_id']);

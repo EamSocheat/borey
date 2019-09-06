@@ -12,7 +12,7 @@
             <!--
             <ul class="nav nav-tabs" style="line-height: 5px; border: none ">
 			    <li class="active" id="divSell"><a data-toggle="tab" href="#divSellView" style="line-height: 5px;font-size: 15px;font-weight: bold;"><i class="fa fa-shopping-cart"></i> ពត៌មាន ការល​ក់</a></li>
-			    <li id="divInstallment" class="totalPaidDiv" style="display: none"><a data-toggle="tab" href="#divInstallmentView" style="line-height: 5px;font-size: 15px;font-weight: bold;"><i class="fa fa-line-chart"></i> ពត៌មាន បង់រំលួស</a></li>
+			    <li id="divInstallment" class="totalPaidDiv" style="display: none"><a data-toggle="tab" href="#divInstallmentView" style="line-height: 5px;font-size: 15px;font-weight: bold;"><i class="fa fa-line-chart"></i> ពត៌មាន បង់រំលស់</a></li>
 			</ul>
 			-->
             <h5 class="modal-title" id="balanceLeft" style="float: right;margin-top: -24px;margin-right: 45%;"></h5>
@@ -205,7 +205,7 @@
 		                <div class="col-xs-12 row" style="padding:0px;margin-top: -10px;">
 		                	<div class="col-xs-4 padding-forms-left">
 		                		<div class="form-group">
-		                			<input type="checkbox" id="cboInstYn" name="cboInstYn"> <label  for="cboInstYn" > ធ្វើការរំលួសជាមួយក្រុមហ៊ុន</label><span> </span>
+		                			<input type="checkbox" id="cboInstYn" name="cboInstYn"> <label  for="cboInstYn" > ធ្វើការរំលស់ជាមួយក្រុមហ៊ុន</label><span> </span>
 		                			<input type="hidden" name="txt_com_inst_yn" id="txt_com_inst_yn" value="N"/>
 		                		</div>
 		                	</div>
@@ -228,7 +228,7 @@
 		                    </div>
 		                    <div class="col-xs-4 padding-forms-right">
 		                        <div class="form-group">
-		        		      		<label  for="txtPeriod" > រយៈពេលរំលួស(ខែ)</label><span> </span>
+		        		      		<label  for="txtPeriod" > រយៈពេលរំលស់(ខែ)</label><span> </span>
 		        		        	<input type="text" maxlength="3" class="form-control text-right" id="txtPeriod" placeholder="Enter loan amount" name="txtPeriod" autocomplete="off" />
 		        		    	</div>
 		                    </div>
@@ -444,8 +444,8 @@
 			         
 			    	
 	                <div class="modal-footer" >
-	                	<button type="button" style="display: none" class="btn btn-danger btn-sm" id="btnUpdateInstallment"><i class="fa fa-refresh" aria-hidden="true"></i> កែប្រែ ទិន្ន័យបង់រំលួស</button>
-			            <button type="button" class="btn btn-primary btn-sm" id="btnSaveInstallment"><i class="fa fa-check" aria-hidden="true"></i> រក្សាទុក ទិន្ន័យបង់រំលួស</button>
+	                	<button type="button" style="display: none" class="btn btn-danger btn-sm" id="btnUpdateInstallment"><i class="fa fa-refresh" aria-hidden="true"></i> កែប្រែ ទិន្ន័យបង់រំលស់</button>
+			            <button type="button" class="btn btn-primary btn-sm" id="btnSaveInstallment"><i class="fa fa-check" aria-hidden="true"></i> រក្សាទុក ទិន្ន័យបង់រំលស់</button>
 			            <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
 			        </div>
 			    </div>

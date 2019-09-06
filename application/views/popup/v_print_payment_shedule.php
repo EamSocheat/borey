@@ -104,10 +104,10 @@
 									<td class="with-200" style="font-size: 14px;">ពត៍មានអតិថិជន</td><td class="with-10"></td><td></td>
 								</tr>
 								<tr>
-									<td class="with-200">ឈ្មោះ</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->cus_nm_kh;?></td>
+									<td class="with-200">ឈ្មោះ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_nm_kh;?></td>
 								</tr>
 								<tr>
-									<td class="with-200">ភេទ</td><td class="with-10">៖</td>
+									<td class="with-200">ភេទ</td><td class="with-10">:</td>
 									<td>
 										<?php 	if($OUT_REC[0]->cus_gender=="Male"){
 													echo "ប្រុស";
@@ -120,16 +120,16 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="with-200">ផ្ទះលេខ</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->pro_code;?></td>
+									<td class="with-200">ផ្ទះលេខ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->pro_code;?></td>
 								</tr>
 								<tr>
-									<td class="with-200">ប្រភេទ</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->cat_nm_kh ?></td>
+									<td class="with-200">ប្រភេទ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cat_nm_kh ?></td>
 								</tr>
 								<tr>
-									<td class="with-200">ប្រភេទកិច្ចសន្យា</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->con_type_nm_kh;?></td>
+									<td class="with-200">ប្រភេទកិច្ចសន្យា</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->con_type_nm_kh;?></td>
 								</tr>
 								<tr>
-									<td class="with-200">ទូរសព្ទ័លេខ</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->cus_phone1;?></td>
+									<td class="with-200">ទូរសព្ទ័លេខ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_phone1;?></td>
 								</tr>
 							</table>
 						</td>
@@ -139,22 +139,22 @@
 									<td class="with-200" style="font-size: 14px;">ពត៍មានបង់ប្រាក់</td><td class="with-10"></td><td></td>
 								</tr>
 								<tr>
-									<td class="with-200">ការិយាល័យ</td><td class="with-10">៖</td><td>ផ្សារព្រែកជ្រៃ</td>
+									<td class="with-200">ការិយាល័យ</td><td class="with-10">:</td><td>ផ្សារព្រែកជ្រៃ</td>
 								</tr>
 								<tr>
-									<td class="with-200">កាលបរិច្ឆេទលក់</td><td class="with-10">៖</td><td><?php echo date('d-m-Y',strtotime($OUT_REC[0]->sell_date));?></td>
+									<td class="with-200">កាលបរិច្ឆេទលក់</td><td class="with-10">:</td><td><?php echo date('d-m-Y',strtotime($OUT_REC[0]->sell_date));?></td>
 								</tr>
 								<tr>
-									<td class="with-200">រយះពេល</td><td class="with-10">៖</td><td><?php echo ($advPeriod+$loanPeriod);?>ខែ</td>
+									<td class="with-200">រយះពេល</td><td class="with-10">:</td><td><?php echo ($advPeriod+$loanPeriod);?>ខែ</td>
 								</tr>
 								<tr>
-									<td class="with-200">អត្រាការប្រាក់</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->inst_interest_rate;?>%</td>
+									<td class="with-200">អត្រាការប្រាក់</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->inst_interest_rate;?>%</td>
 								</tr>
 								<tr>
-									<td class="with-200">តំលៃផ្ទះ</td><td class="with-10">៖</td><td>$<?php echo number_format($OUT_REC[0]->pro_sell_price);?></td>
+									<td class="with-200">តំលៃផ្ទះ</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->pro_sell_price);?></td>
 								</tr>
 								<tr>
-									<td class="with-200">លេខបង្កាន់ដៃលក់</td><td class="with-10">៖</td><td><?php echo $OUT_REC[0]->sell_code;?></td>
+									<td class="with-200">លេខបង្កាន់ដៃលក់</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->sell_code;?></td>
 								</tr>
 							</table>
 						</td>
@@ -168,7 +168,7 @@
 					<th>ល.រ</th>
 					<th>ថ្ងៃត្រូវបង់</th>
 					<th>ភាគរយ%</th>
-					<th>បញ្ចុះតំលៃ</th>
+					<!-- <th>បញ្ចុះតំលៃ</th> -->
 					<th>ប្រាក់ដើមត្រូវបង់</th>
 					<th>ការប្រាក់ត្រូវបង់</th>
 					<th>សរុបប្រាក់ត្រូវបង់</th>
@@ -187,19 +187,19 @@
     					<?php 
     						if($OUT_REC[$i]->inst_type=="BOOK"){
     							echo "<td class='text-center'>បង់កក់ទ្រនាប់ដៃ</td>";
-    							echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
+    							//echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
     						}else if($OUT_REC[$i]->inst_type=="ADV"){
     						    echo "<td class='text-center'>".$bookTrue.$OUT_REC[$i]->inst_pay_per."%</td>";
-    							echo "<td class='text-right'>".($OUT_REC[$i]->inst_dis_amt == "0" ? "<span style='float: left; margin-left: 5px;'>$</span>-" : "<span style='float: left; margin-left: 5px;'>$</span>".number_format($OUT_REC[$i]->inst_dis_amt))."</td>";
+    							//echo "<td class='text-right'>".($OUT_REC[$i]->inst_dis_amt == "0" ? "<span style='float: left; margin-left: 5px;'>$</span>-" : "<span style='float: left; margin-left: 5px;'>$</span>".number_format($OUT_REC[$i]->inst_dis_amt))."</td>";
     							$bookTrue="";
     							$totalDiscount += $OUT_REC[$i]->inst_dis_amt;
     						}else if($OUT_REC[$i]->inst_type=="LOAN"){
-    							echo "<td class='text-center'>រំលួស</td>";
-    							echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
+    						    echo "<td class='text-center'>".$OUT_REC[$i]->con_type_nm_kh."</​​td>";
+    							//echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
     							$totalInterest += floatval($OUT_REC[$i]->inst_amt_interest);
     						}else if($OUT_REC[$i]->inst_type=="LEFT"){
     							echo "<td class='text-center'>".$OUT_REC[$i]->inst_pay_per."%</td>";
-    							echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
+    							//echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
     						}
     					?>
     					<td class="text-right"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($OUT_REC[$i]->inst_amt_principle);?></td>
@@ -224,7 +224,6 @@
 				<?php }?>
 				<tr>
 					<td colspan="3" class="text-center" style="font-weight: bold">សរុប</td>
-					<td class="text-right" style="font-weight: bold"><?php echo $totalDiscount == 0 ? "<span style='float: left; margin-left: 5px;'>$</span>-" : "<span style='float: left; margin-left: 5px;'>$</span>".number_format($totalDiscount);?></td>
 					<td class="text-right" style="font-weight: bold"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($totalPrinciple);?></td>
 					<td class="text-right" style="font-weight: bold"><?php echo $totalInterest == 0 ? "<span style='float: left; margin-left: 5px;'>$</span>-" : "<span style='float: left; margin-left: 5px;'>$</span>".number_format($totalInterest);?></td>
 					<td class="text-right" style="font-weight: bold"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($totalPayAmount);?></td>
