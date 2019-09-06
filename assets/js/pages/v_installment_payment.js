@@ -9,10 +9,17 @@ var _thisPage = {
 			this.event();
 			stock.comm.todayDate("#txtSrchContSD","-");
 			stock.comm.todayDate("#txtSrchContED","-");
+			var date = new Date(moment($("#txtSrchContSD").val(), "DD-MM-YYYY").format("MM-DD-YYYY"));
+	        var days = 7;
+	        if(!isNaN(date.getTime())){
+	            date.setDate(date.getDate() + days);
+	            $("#txtSrchContED").val(moment(date).format("DD-MM-YYYY"));
+	        } 
+	        
 			this.loadData();
 			getSeller();
 			stock.comm.checkAllTblChk("chkAllBox","tblInstallment","chk_box");
-
+			
 			$('#txtSrchContSD').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
 				weekStart: true,
@@ -60,6 +67,9 @@ var _thisPage = {
 				format: "dd-mm-yyyy",
 		    });
 			$("#txtSrchContEDExp").inputmask();
+			
+			
+	        
 		}, loadData : function(page_no){
 			$("#chkAllBox").prop( "checked", false );
 		    var pageNo = 1;
@@ -73,7 +83,7 @@ var _thisPage = {
 		    //paging
 		    dat["perPage"] = $("#perPage").val();
 		    dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
-		    dat["txtSrchContCode"]	= $("#txtSrchContCode").val();
+		    dat["txtSrchSellCode"]	= $("#txtSrchSellCode").val();
 		    dat["txtSrchContSD"]	= $("#txtSrchContSD").val();
 		    dat["txtSrchContED"]	= $("#txtSrchContED").val();
 		    dat["txtSrchProCode"]	= $("#txtSrchProCode").val();
@@ -86,38 +96,64 @@ var _thisPage = {
 				dataType: "json",
 				success: function(res) {
 					$("#loading").hide();
-					console.log(res);
-					return;
-					var html = "", strTotal = "", totalDollar = 0, totalRiels = 0;
-					var strTotalPaidInt="",strTotalPaidPrin="",totalPaidIntDollar = 0,totalPaidIntRiels = 0,totalPaidPrinDollar=0, totalPaidPrinRiels=0;
-					
+					//return;
+					var html = "";
+					var total_inst_amt_pay=0,total_inst_amt_interest = 0,total_inst_amt_principle = 0,total_inst_dis_amt=0;
+					var checkBooked="";
 					$("#tblInstallment tbody").html("");
 					if(res.OUT_REC != null && res.OUT_REC.length >0){
-						
+						var checkBooked="";
 					    for(var i=0; i<res.OUT_REC.length;i++){
 					    	
-					    	html += '<tr data-id='+res.OUT_REC[i]["sell_id"]+'>';
-					        html += 	'<td class="chk_box"><input type="checkbox"></td>';
-							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["sell_code"])+'</div></td>';
-							html += 	'<td><div class="txt_c">'+stringDate(res.OUT_REC[i]["sell_date"].substr(0,10))+'</div></td>';
-							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["bra_nm_kh"]+'</div></td>';
-							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["pro_code"]+'</div></td>';
-							html += 	'<td><div class="text-right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sell_total_price"])+' $</div></td>';
-							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["cus_nm_kh"]+'</div></td>';
-							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["sta_nm_kh"] +'</div></td>';
-							html += 	'<td class="text-center">';
-							html +=			'<button onclick="editData('+res.OUT_REC[i]["sell_id"]+')" type="button" class="btn btn-primary btn-xs">';
-							html += 		'<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
-							html += 	'</td>';
-							html += '</tr>';
+					    	var percentPay=res.OUT_REC[i]["inst_pay_per"]+"%";
 							
-							totalDollar += parseFloat(res.OUT_REC[i]["sell_total_price"]);
+							if(res.OUT_REC[i]["inst_type"] =="BOOK"){
+								percentPay="កក់ប្រាក់";
+							}else if(res.OUT_REC[i]["inst_type"] =="LOAN"){
+								percentPay="រំលួស";
+							}else if(res.OUT_REC[i]["inst_type"] =="ADV"){
+								percentPay=res.OUT_REC[i]["inst_pay_per"]+"%";
+								//
+								if(res.OUT_REC[i]["booked_yn"] =="BOOK" && checkBooked==""){
+									percentPay="បង្រ្គប់"+percentPay;
+									checkBooked="done";
+								}
+							}
+							
+							html += "<tr data-id="+res.OUT_REC[i]["inst_id"]+">";
+					    	//html += 	'<td class="chk_box"><input type="checkbox"></td>';
+							html += "<td class='inst_num cur-pointer text-center'>"+res.OUT_REC[i]["pro_code"]+"</td>";
+							html += "<td class='inst_num cur-pointer text-center'>"+res.OUT_REC[i]["sell_code"]+"</td>";
+							html += "<td class='inst_num cur-pointer text-center'>"+res.OUT_REC[i]["cus_nm_kh"]+"</td>";
+							html += "<td class='inst_num cur-pointer text-center'>"+res.OUT_REC[i]["inst_num"]+"</td>";
+							html += "<td class='inst_date cur-pointer text-center'>"+moment(res.OUT_REC[i]["inst_date"], "YYYY-MM-DD").format("DD-MM-YYYY");+"</td>";
+							html += "<td class='inst_pay_per cur-pointer text-center'>"+percentPay+"</td>";
+							html += "<td class='inst_dis_amt cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_dis_amt"])+"$</td>";
+							html += "<td class='inst_amt_principle cur-pointer text-right' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_principle"])+"$</td>";
+					        html += "<td class='inst_amt_interest cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_interest"])+"$</td>";
+					        html += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_pay"])+"$</td>";
+					        html += "<td class='inst_amt_balance cur-pointer text-right' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_balance"])+"$</td>";
+					        html += '<td class="text-center">';
+							html +=		'<button onclick="editData('+res.OUT_REC[i]["sell_id"]+')" type="button" class="btn btn-primary btn-xs">';
+							html += 	'<i class="fa fa-plus" aria-hidden="true"></i> បង់ប្រាក់</button>';
+							html += '</td>';
+					        html += "</tr>";
+					        total_inst_dis_amt += parseFloat(res.OUT_REC[i]["inst_dis_amt"]);
+					        total_inst_amt_principle += parseFloat(res.OUT_REC[i]["inst_amt_principle"]);
+					        total_inst_amt_interest += parseFloat(res.OUT_REC[i]["inst_amt_interest"]);
+					        total_inst_amt_pay += parseFloat(res.OUT_REC[i]["inst_amt_pay"]);
+					       
+					        
 					    }
 
-					    strTotal += '<tr class="total" >';
-						strTotal += '	<td colspan="5" ><b>សរុប​</b></td>';
-						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(totalDollar)+' $ </b></td>';
-						strTotal += '<td colspan="6"></td>';
+					    var strTotal = '<tr class="total" >';
+						strTotal += '	<td colspan="6" class="text-right"><b>សរុប​</b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_inst_dis_amt ==0 ? "0" : stock.comm.formatCurrency(total_inst_dis_amt))+'$ </b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(total_inst_amt_principle)+'$ </b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_inst_amt_interest ==0 ? "0" : stock.comm.formatCurrency(total_inst_amt_interest))+'$ </b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(total_inst_amt_pay)+'$ </b></td>';
+						
+						strTotal += '	<td colspan="2" ></td>';
 						strTotal += '</tr>';
 						
 					    $("#tblInstallment tbody").html(html);
@@ -125,7 +161,7 @@ var _thisPage = {
 					    stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 					}else{
 						$("#chkAllBox").hide();
-					    $("#tblInstallment tbody").append("<tr><td colspan='10' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+					    $("#tblInstallment tbody").append("<tr><td colspan='12' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 					    stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 					}
 				},
@@ -142,7 +178,7 @@ var _thisPage = {
 		}, deleteData : function(dataArr){
 			
 		}, event : function(){
-			$("#txtSrchCusNm, #txtSrchContCode").on("keypress", function(e){
+			$("#txtSrchCusNm, #txtSrchSellCode").on("keypress", function(e){
 				if(e.which == 13){
 					_thisPage.loadData(1);
 				}
@@ -383,7 +419,7 @@ function calDayBetweenTwoDate(date1,date2,str){
  * 
  */
 function resetFormSearch(){
-	$("#txtSrchContCode").val("");
+	$("#txtSrchSellCode").val("");
     $("#txtSrchContSD").val("");
     $("#txtSrchContED").val("");
     $("#txtSrchCusNm").val("");

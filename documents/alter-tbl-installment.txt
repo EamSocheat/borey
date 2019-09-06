@@ -1,0 +1,1 @@
+alter table tbl_installment add COLUMN inst_paid_yn varchar(1);

@@ -81,7 +81,7 @@ class InstallmentPayment extends CI_Controller{
             'limit'         => $this->input->post('perPage'),
             'offset'        => $this->input->post('offset'),
             'inst_id'        => $this->input->post('instId'),
-            'sell_code'        => $this->input->post('txtSrchContCode'),
+            'sell_code'        => $this->input->post('txtSrchSellCode'),
             'inst_start_dt'  => $startDate,
             'inst_end_dt'    => $endDate,
         	'srch_all'		=> $this->input->post('srchAll'),

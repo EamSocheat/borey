@@ -839,6 +839,7 @@ function getInstallmentData(){
 				var advPerPay=0;
 				var advTimePay=0;
 				var instLoanAmount =0;
+				var checkBooked="";
 				for(var i=0; i<res.OUT_REC.length; i++){
 					if(res.OUT_REC[i]["inst_type"] =="ADV"){
 						$("#txtPayCash").val(stock.comm.formatCurrency(res.OUT_REC[i]["inst_loan_amount"]));
@@ -860,16 +861,27 @@ function getInstallmentData(){
 					}
 					
 					var statusPay="";
-					if(res.OUT_REC[i]["inst_paid_status"] == "Y"){
+					if(res.OUT_REC[i]["inst_paid_yn"] == "Y"){
 						statusPay='<span class="label label-primary">រួចរាល់</span>';
 						checkPay="1";
 					}else{
 						statusPay=' - ​';
 					}
+					var percentPay=res.OUT_REC[i]["inst_pay_per"]+"%";
+					
+					if(res.OUT_REC[i]["inst_type"] =="BOOK"){
+						percentPay="កក់ប្រាក់";
+						checkBooked="បង្គ្រប់";
+					}else if(res.OUT_REC[i]["inst_type"] =="LOAN"){
+						percentPay="រំលួស";
+					}else if(res.OUT_REC[i]["inst_type"] =="ADV"){
+						percentPay=checkBooked+res.OUT_REC[i]["inst_pay_per"]+"%";
+						checkBooked="";
+					}
 					var html = "<tr>";
 					html += "<td class='inst_num cur-pointer '>"+res.OUT_REC[i]["inst_num"]+"</td>";
 					html += "<td class='inst_date cur-pointer text-center'>"+moment(res.OUT_REC[i]["inst_date"], "YYYY-MM-DD").format("DD-MM-YYYY");+"</td>";
-					html += "<td class='inst_pay_per cur-pointer text-center'>"+res.OUT_REC[i]["inst_pay_per"]+"%</td>";
+					html += "<td class='inst_pay_per cur-pointer text-center'>"+percentPay+"</td>";
 					html += "<td class='inst_dis_amt cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_dis_amt"])+"$</td>";
 					html += "<td class='inst_amt_principle cur-pointer text-right' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_principle"])+"$</td>";
 			        html += "<td class='inst_amt_interest cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_interest"])+"$</td>";
@@ -878,7 +890,7 @@ function getInstallmentData(){
 			        html += "<td class=' cur-pointer text-right'  style='padding-right: 15px;' >"+statusPay+"</td>";
 			        html += "</tr>";
 			        $("#tblInstallment tbody").append(html);
-			       
+			        
 				}
 				$("#txtPayPer").val(stock.comm.formatCurrency(advPerPay));
 				$("#txtPayTime").val(stock.comm.formatCurrency(advTimePay));
@@ -1150,6 +1162,7 @@ function calculatePaySchedule(){
 	$("#tblInstallment tbody").html("");
 	var noTbl=1;
 	var bookingAmt=0;
+	var checkBooked="";
 	var leftAmountToPay=parseFloat($("#pro_price").val().replace(/,/g,''));
 	if($("#txtBookingAmt").val() !="" && $("#txtBookingAmt").val() !=null){
 		leftAmountToPay = parseFloat($("#pro_price").val().replace(/,/g,'')) - parseFloat($("#txtBookingAmt").val().replace(/,/g,""));
@@ -1166,6 +1179,7 @@ function calculatePaySchedule(){
         
 		$("#tblInstallment tbody").append(htmlBooked);
 		bookingAmt = parseFloat($("#txtBookingAmt").val().replace(/,/g,""));
+		checkBooked ="បង្គ្រប់";
 	}else{
 		noTbl=0;
 	}
@@ -1216,7 +1230,7 @@ function calculatePaySchedule(){
 		var html = "<tr data-inst-type='ADV' data-inst-dis-per='"+disCountPer+"' data-inst-dis-pay='"+disCountCash+"' data-inst-per-pay='"+principlePer+"' data-loan-amount-per='"+$("#txtPayPer").val()+"' data-loan-amount='"+$("#txtPayCash").val().replace(/,/g,'')+"' data-interest-rate='0' data-peroid='"+$("#txtPayTime").val()+"' data-first-inst-date='"+$("#txtStartInstDate").val()+"'>";
 		html += "<td class='inst_num cur-pointer '>"+noTbl+"</td>";
 		html += "<td class='inst_date cur-pointer text-center'>"+newDate+"</td>";
-		html += "<td class='inst_pay_per cur-pointer text-center'>"+principlePer+"%</td>";
+		html += "<td class='inst_pay_per cur-pointer text-center'>"+checkBooked+principlePer+"%</td>";
 		html += "<td class='inst_dis_amt cur-pointer text-right'>"+(disCountCash==0 ? disCountCash : stock.comm.formatCurrency(disCountCash))+"$</td>";
         html += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(principleAmount.toFixed(2))+"$</td>";
         html += "<td class='inst_amt_interest cur-pointer text-right'>0$</td>";
@@ -1225,7 +1239,7 @@ function calculatePaySchedule(){
         html += "</tr>";
         $("#tblInstallment tbody").append(html);
 		//
-        
+        checkBooked="";
         if(j==(parseInt($("#txtPayTime").val())-1)){
         	if(newMonth > 12){
 				newMonth=1;
@@ -1403,10 +1417,10 @@ function saveInstallment(sell_id,str){
 		instData["inst_type"] 			= instType;
 		instData["inst_num"] 			= inst_num;
 		instData["inst_date"] 			= inst_date;
-		instData["inst_amt_principle"] 	= inst_amt_principle;
-		instData["inst_amt_interest"] 	= inst_amt_interest;
-		instData["inst_amt_balance"] 	= inst_amt_balance;
-		instData["inst_amt_pay"] 		= inst_amt_pay;
+		instData["inst_amt_principle"] 	= inst_amt_principle.replace("$", "");
+		instData["inst_amt_interest"] 	= inst_amt_interest.replace("$", "");
+		instData["inst_amt_balance"] 	= inst_amt_balance.replace("$", "");
+		instData["inst_amt_pay"] 		= inst_amt_pay.replace("$", "");
 		instData["loan_amount"] 			= loan_amount;
 		instData["first_inst_date"] 		= first_inst_date;
 		instData["inst_period"] 			= inst_period;
@@ -1415,12 +1429,13 @@ function saveInstallment(sell_id,str){
 		instData["inst_pay_per"] 			= instPayPer;
 		instData["inst_dis_amt"] 			= instDisPay;
 		instData["inst_dis_per"] 			= instDisPer;
+		instData["con_id"] 			= $("#txtContID").val();
 		instArr.push(instData);
 	});
 	
 	instObj["instObj"] = instArr;
-    
-	
+    //console.log(instObj);
+	//return;
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Sell/saveInstallment",
@@ -1431,8 +1446,8 @@ function saveInstallment(sell_id,str){
 				parent.stock.comm.confirmMsg($.i18n.prop("msg_save_com")+" \nតើអ្នកចង់បោះពុម្ពដែរឫទេ ?");
 				parent.$("#btnConfirmOk").unbind().click(function(e){
 					parent.$("#mdlConfirm").modal('hide');
-					//var dataArr =  res.split("#");
 					printPaymentShedule(sell_id);
+					
 				});
 				
 				if(str == "new"){
@@ -1443,6 +1458,7 @@ function saveInstallment(sell_id,str){
 				    parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
 				    parent.$("#msgErr").hide();
 				}
+				
 		    }else{
 		    	parent.stock.comm.alertMsg("បង្កើតទិន្ន័យមិនបានសំរេច សូមព្យាយាមម្តងទៀត");
 		        return;

@@ -324,13 +324,30 @@ class Sell extends CI_Controller{
                     'inst_pay_per'    => $instObj[$i]['inst_pay_per'],
                     'inst_dis_amt'    => $instObj[$i]['inst_dis_amt'],
                     'inst_dis_per'    => $instObj[$i]['inst_dis_per'],
+            		'inst_paid_yn'    => $instObj[$i]['inst_type'] == "BOOK" ? "Y" : "N",
                     'useYn'     => "Y",
                     'com_id'    => $_SESSION['comId'],
                     'regDt'      => date('Y-m-d H:i:s'),
                     'regUsr'     => $_SESSION['usrId']
             );
-            $this->M_installment->insert($data);
+            $inst_id = $this->M_installment->insert($data);
             $cntInsert += 1;
+            if($instObj[$i]['inst_type'] =="BOOK"){
+            	$dataPaid=$data = array(
+                    'con_id'    =>  $instObj[$i]['con_id'],
+                    'inst_id'    => $inst_id,
+            	);
+            	$this->M_installment->selectInsertBookedInstallment($dataPaid);
+            	
+	            $dataBook = array(
+	                    'con_id'    =>  $instObj[$i]['con_id'],
+	                    'con_sta'   => "S",
+	                    'com_id'    => $_SESSION['comId'],
+	                    'upDt'      => date('Y-m-d H:i:s'),
+	                    'upUsr'     => $_SESSION['usrId']
+	            );
+	            $this->M_contract->update($dataBook);
+            }
         }
         echo $cntInsert;
     }
@@ -377,14 +394,22 @@ class Sell extends CI_Controller{
         $cntDel = 0;
         for($i = 0; $i<sizeof($delObj); $i++){
             $data = array(
-                    'con_id'    => $delObj[$i]['contId'],
+                    'sell_id'    => $delObj[$i]['sellId'],
                     'useYn'     => "N",
                     'com_id'    => $_SESSION['comId'],
                     'upDt'      => date('Y-m-d H:i:s'),
                     'upUsr'     => $_SESSION['usrId']
             );
-            $this->M_contract->update($data);
+            $this->M_sell->update($data);
             $cntDel += 1;
+            $dataBook = array(
+                    'con_id'    =>  $delObj[$i]['conId'],
+                    'con_sta'   => "B",
+                    'com_id'    => $_SESSION['comId'],
+                    'upDt'      => date('Y-m-d H:i:s'),
+                    'upUsr'     => $_SESSION['usrId']
+            );
+            $this->M_contract->update($dataBook);
         }
         echo $cntDel;
     }

@@ -224,9 +224,9 @@
 				<?php }?>
 				<tr>
 					<td colspan="3" class="text-center" style="font-weight: bold">សរុប</td>
-					<td class="text-right" style="font-weight: bold"><?php echo $totalDiscount == 0 ? "<span style='float: left; margin-left: 5px;'>$</span>-" : number_format($totalDiscount);?></td>
+					<td class="text-right" style="font-weight: bold"><?php echo $totalDiscount == 0 ? "<span style='float: left; margin-left: 5px;'>$</span>-" : "<span style='float: left; margin-left: 5px;'>$</span>".number_format($totalDiscount);?></td>
 					<td class="text-right" style="font-weight: bold"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($totalPrinciple);?></td>
-					<td class="text-right" style="font-weight: bold"><?php echo $totalInterest == 0 ? "<span style='float: left; margin-left: 5px;'>$</span>-" : number_format($totalInterest);?></td>
+					<td class="text-right" style="font-weight: bold"><?php echo $totalInterest == 0 ? "<span style='float: left; margin-left: 5px;'>$</span>-" : "<span style='float: left; margin-left: 5px;'>$</span>".number_format($totalInterest);?></td>
 					<td class="text-right" style="font-weight: bold"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($totalPayAmount);?></td>
 					<td></td>
 				</tr>	

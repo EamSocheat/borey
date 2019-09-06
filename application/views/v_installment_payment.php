@@ -6,12 +6,12 @@
 	<section class="content-header">
 		<h1>
 		<i class="fa fa-shopping-cart"></i>
-		<span >បង់ប្រាក់រំលួស</span>
+		<span >បង់ប្រាក់</span>
 		<small data-i18ncd="lb_information">Information</small>
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="javascript:"><i class="fa fa-dashboard"></i><span data-i18ncd="lb_dasbord">Dashboard</span></a></li>
-			<li class="active" >បង់ប្រាក់រំលួស</li>
+			<li class="active" >បង់ប្រាក់</li>
 		</ol>
 	</section>
 	<!-- Main content -->
@@ -61,22 +61,21 @@
 													<input type="text" style="width: 100%" class="form-control pull-left date-pick input-sm" id="txtSrchContED" name="txtSrchContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="áž”áž‰áŸ’áž‡áž¼áž› " style="font-size: 12px;width: 60%;">
 												</div>
 											</div>
-											
 											<div class="col-sm-3 col-md-3 col-lg-3" style="
 												">
 												<div class="form-group form-inline">
-													<label for="txtSrchContCode" class="control-label"  style="
+													<label for="txtSrchSellCode" class="control-label"  style="
 														margin-bottom: 7px;
 														display: -webkit-box;
-													">លេខសម្គាល់ការលក់</label>
-													<input type="text" style="width: 100%" class="form-control input-sm" id="txtSrchContCode" placeholder="" style="
+													">លេខការលក់</label>
+													<input type="text" style="width: 100%" class="form-control input-sm" id="txtSrchSellCode" placeholder="" style="
 													">
 												</div>
 											</div>
 											
 											<div class="col-sm-3 col-md-3 col-lg-3" style="">
 												<div class="form-group form-inline">
-                                                    <label for="txtSrchProCode" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">	លេខកូដអចនលទ្រព្យ </label>
+                                                    <label for="txtSrchProCode" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">	លេខកូដផ្ទះ </label>
                                                     <input type="text" style="width: 100%" class="form-control input-sm" id="txtSrchProCode" placeholder="អតិថិជន">
                                                 </div>
 											</div>
@@ -107,16 +106,7 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="col-xs-12">
-									<button type="button" id="btnDelete" class="btn btn-danger btn-sm" style="margin-right: 5px"><i class="fa fa-trash" aria-hidden="true"></i> <span data-i18ncd="btn_delete">Delete</span></button>
-									<!-- <button type="button" id="btnEdit" class="btn btn-primary btn-sm" style="margin-right: 5px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span data-i18ncd="btn_edit">Edit</span></button> -->
-									<button type="button" id="btnAddNew" class="btn btn-default btn-sm" onclick="_thisPage.addNewData();"><i class="fa fa-plus" aria-hidden="true"></i> <span data-i18ncd="btn_add_new">Add New</span></button>
-									<!-- <button type="button" id="btnDownExcel" class="btn btn-success btn-sm" style="margin-left: 7px;"><i class="fa fa-download" aria-hidden="true"></i> <span data-i18ncd="btn_excel">Download Excel</span></button>-->
-									<div style="margin-left: 5px;display: none;">
-		                                <form method="post" action="<?php echo base_url(); ?>Contract/download_excel" id="btnExcel">
-		                                    <input type="submit" value="Submit">
-		                                    <input type="hidden" name="conIdArray" id="contId" class="btn btn-success" value="" />
-		                                </form>
-		                            </div>
+									<!-- -->
 								</div>
 							</div>
 						</div>
@@ -144,15 +134,19 @@
 							<table class="table table-hover" id="tblInstallment">
 								<thead>
 									<tr>
-										<th><input type="checkbox" id="chkAllBox" ></th>
-										<th class="txt_c">លេខសម្គាល់ </th>
-										<th class="txt_c">ថ្ងៃលក់</th>
-										<th class="txt_c">គំរោង</<< </th>
-										<th class="txt_c">លេខកូដអចនលទ្រព្យ</    </th>
-										<th class="text-right">តំលៃលក់</   </th>
-										<th class="text-right">អតិថិជន</  </th>
-										<th class="text-right">អ្នកលក់(បុគ្គលិក)</th>
-										<th data-i18ncd="lb_action"​ class="txt_c">Action</th>
+										<!--<th><input type="checkbox" id="chkAllBox" ></th> -->
+										<th class="text-center">លេខកូដផ្ទះ </th>
+										<th class="text-center">លេខការលក់</th>
+										<th class="text-center">អតិថិជន</th>
+										<th class="text-center">ល.រ</th>
+										<th class="text-center">ថ្ងៃបង់ប្រាក់</th>
+										<th class="text-center">ភាគរយ%</th>
+										<th class="text-right">បញ្ចុះ$</th>
+										<th class="text-right">ប្រាក់ដើម$</th>
+										<th class="text-right">ប្រាក់ការ$</th>
+										<th class="text-right">ប្រាក់បង់សរុប$</th>
+										<th class="text-right">ប្រាក់ដើមនៅសល់$</th>
+										<th data-i18ncd="lb_action"​ class="text-center">Action</th>
 									</tr>
 								</thead>
 								<tbody>

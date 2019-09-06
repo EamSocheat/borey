@@ -8,12 +8,13 @@
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <!--<h4 class="modal-title" id="popupTitle">Default Modal</h4>-->
+            <h4 class="modal-title" id="popupTitle">Default Modal</h4>
+            <!--
             <ul class="nav nav-tabs" style="line-height: 5px; border: none ">
 			    <li class="active" id="divSell"><a data-toggle="tab" href="#divSellView" style="line-height: 5px;font-size: 15px;font-weight: bold;"><i class="fa fa-shopping-cart"></i> ពត៌មាន ការល​ក់</a></li>
 			    <li id="divInstallment" class="totalPaidDiv" style="display: none"><a data-toggle="tab" href="#divInstallmentView" style="line-height: 5px;font-size: 15px;font-weight: bold;"><i class="fa fa-line-chart"></i> ពត៌មាន បង់រំលួស</a></li>
 			</ul>
-			
+			-->
             <h5 class="modal-title" id="balanceLeft" style="float: right;margin-top: -24px;margin-right: 45%;"></h5>
             <h5 class="modal-title" id="contractNo" style="float: right;margin-top: -24px;margin-right: 31px;"></h5>
             
@@ -51,7 +52,7 @@
 		            		</div>
 		            	</div>
 						
-						<div class="col-xs-12 row" style="padding:0px">
+						<div class="col-xs-12 row" style="padding:0px;margin-top: -10px;">
 		            		<div class="col-xs-4 padding-forms-left">
 		            			<div class="form-group">
 									<label for="cusNm2" data-i18ncd="lb_customer_name">Customer Name</label>
@@ -82,7 +83,7 @@
 		            		</div>
 		            	</div>
 		            	<!-- 3 row -->
-		                <div class="col-xs-12 row" style="padding:0px">
+		                <div class="col-xs-12 row" style="padding:0px;margin-top: -10px;">
 		                    <div class="col-xs-4 padding-forms-left">
 		                    	<div class="form-group">
 			                        <label  for="cboConType" >ប្រភេទកិច្ចសន្យា</label>
@@ -109,14 +110,14 @@
 		                    -->
 		                </div>
 		                
-		                <div class="col-xs-12 row" style="padding:0px">
+		                <div class="col-xs-12 row" style="padding:0px;">
 		                	<div style="text-align: right;    margin-right: 5px;">
 		                		<button  type="button" class="btn btn-info btn-sm" id="btnSelectPro"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
 		                	</div>
 		                	
-		                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
+		                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;margin-top: -15px;">
 		                		<span><b>ពត៍មានអចលនទ្រព្យ</b></span>
-		                    	<div class="box-body table-responsive fix-header-tbl" style="height: 100px;padding: 0px;">
+		                    	<div class="box-body table-responsive fix-header-tbl" style="height: 80px;padding: 0px;">
 		        				  <table class="table table-hover" id="tblProduct" >
 		        				    <thead>  
 		            					<tr>
@@ -169,7 +170,7 @@
 		                    </div>
 		                </div>
 		                
-		                <div class="col-xs-12 row" style="padding:0px;" >
+		                <div class="col-xs-12 row" style="padding:0px;margin-top: -10px;" >
 		                	<div class="col-xs-3 padding-forms-left">
 		                		<div class="form-group">
 			                    	<label for="txtStartInstDate" >ថ្ងៃបង់បន្ទាប់</label>
@@ -201,7 +202,7 @@
 		                	
 		                </div>
 		                
-		                <div class="col-xs-12 row" style="padding:0px;">
+		                <div class="col-xs-12 row" style="padding:0px;margin-top: -10px;">
 		                	<div class="col-xs-4 padding-forms-left">
 		                		<div class="form-group">
 		                			<input type="checkbox" id="cboInstYn" name="cboInstYn"> <label  for="cboInstYn" > ធ្វើការរំលួសជាមួយក្រុមហ៊ុន</label><span> </span>
@@ -211,7 +212,7 @@
 		                	
 		                </div>
 		                
-		                <div class="col-xs-12 row div_installment" style="padding:0px;display: none;">
+		                <div class="col-xs-12 row div_installment" style="padding:0px;display: none;margin-top: -10px;">
 		                	<!--  -->
 				    		<div class="col-xs-4 padding-forms-left">
 		                        <div class="form-group" >
@@ -234,7 +235,7 @@
 		                   <!--  -->
 		                </div>
 		                
-		                <div class="col-xs-12 row div_installment" style="padding:0px;display: none">
+		                <div class="col-xs-12 row div_installment" style="padding:0px;display: none;margin-top: -10px;">
 		                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
 		                		<table style="width:100%" class="table">
 		                			<colgroup>
@@ -271,7 +272,7 @@
 		                	
 		    				<!--  --> 
 		                </div>
-		                <div class="col-xs-12 row" style="padding:0px;">
+		                <div class="col-xs-12 row" style="padding:0px;margin-top: -10px;">
 		                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
 		                		<!-- <span><b>ប្រវត្តិនៃការបង់ប្រាក់</b></span>--> 
 		                    	<div class="box-body table-responsive fix-header-tbl" style="height: 185px;padding: 0px;">

@@ -94,7 +94,7 @@ var _thisPage = {
 						
 					    for(var i=0; i<res.OUT_REC.length;i++){
 					    	
-					    	html += '<tr data-id='+res.OUT_REC[i]["sell_id"]+'>';
+					    	html += '<tr data-con-id='+res.OUT_REC[i]["con_id"]+' data-id='+res.OUT_REC[i]["sell_id"]+'>';
 					        html += 	'<td class="chk_box"><input type="checkbox"></td>';
 							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["sell_code"])+'</div></td>';
 							html += 	'<td><div class="txt_c">'+stringDate(res.OUT_REC[i]["sell_date"].substr(0,10))+'</div></td>';
@@ -189,6 +189,11 @@ var _thisPage = {
 					stock.comm.alertMsg($.i18n.prop("msg_con_del"));
 					return;
 				}
+				if(chkVal.length > 1){
+					stock.comm.alertMsg("សូមជ្រើសរើសទិន្នន័យ តែមួយ ដើម្បីលុប!");
+					return;
+				}
+				
 				/*var chkDeleteFail='';
 				chkVal.each(function(i){
 					var tblTr   = $(this).parent().parent();
@@ -211,8 +216,10 @@ var _thisPage = {
 					chkVal.each(function(i){
 						var delData = {};
 						var tblTr   = $(this).parent().parent();
-						var contId  = tblTr.attr("data-id");
-						delData["contId"] = contId;
+						var contId  = tblTr.attr("data-con-id");
+						var sellId  = tblTr.attr("data-id");
+						delData["sellId"] = sellId;
+						delData["conId"] = contId;
 						delArr.push(delData);
 					});
 					
@@ -281,7 +288,7 @@ function deleteDataArr(dataArr){
 	console.log(dataArr)
 	$.ajax({
 		type: "POST",
-		url : $("#base_url").val() +"Contract/delete",
+		url : $("#base_url").val() +"Sell/delete",
 		data: dataArr,		
 		success: function(res) {
 		    if(res > 0){
