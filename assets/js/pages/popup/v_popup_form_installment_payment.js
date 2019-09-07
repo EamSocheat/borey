@@ -15,12 +15,12 @@ var _thisPage = {
 			//
 			getStaff();
 			getPaymentMethod()
-			stock.comm.inputCurrency("txtAmtBooking");
+			stock.comm.inputCurrency("txtPenaltyAmt");
 			getContractType();
 			//stock.comm.inputCurrency("lAmt");
 			
 			//
-			$('#txtContSD').datepicker({
+			$('#txtPayDate').datepicker({
 				language: "kh",
 				weekStart: true,
 		        todayBtn:  true,
@@ -30,35 +30,36 @@ var _thisPage = {
 				sideBySide: true,
 				format: "dd-mm-yyyy",
 		    });
-			$("#txtContSD").inputmask();
+			$("#txtPayDate").inputmask();
 			
 			//
 
-			if($("#frmAct").val() == "U"){
-			    getDataEdit($("#contId").val());
-			    $("#lAmt").attr("readonly","readonly");
-			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_contract"));
-			}else{
-				stock.comm.todayDate("#txtContSD","-");
-			  			    
-			    $("#popupTitle").html("<i class='fa fa-handshake-o'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_contract"));
-			}
-			$("#frmContract").show();
+			
+			getDataEdit($("#instId").val());
+			$("#popupTitle").html("<i class='fa fa-line-chart'></i> ពត៌មានបង់ប្រាក់")
+			stock.comm.todayDate("#txtPayDate","-");
+			$("#frmPayment").show();
 			$("#braNm").focus();						
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
 			
-			settingEndDate();
-			
 		},
 		event : function(){
+			/*$('#txtPayDate').click(function(){
+			    var popup =$(this).offset();
+			    var popupTop = popup.top - 40;
+			    $('.input-group-addon').css({
+			      'top' : popupTop
+			     });
+			});*/
+			
 			//
 			$("#btnClose,#btnExit").click(function(e){
 				//parent.$("#modalMd").modal('hide');
 				parent.stock.comm.closePopUpForm("PopupFormInstallmentPayment",parent.popupInstallmentPaymentCallback);
 			});
 			//
-			$("#frmContract").submit(function(e){
+			$("#frmPayment").submit(function(e){
 				e.preventDefault();
 				if(_btnId == "btnSave"){
 			    	saveData();
@@ -77,114 +78,24 @@ var _thisPage = {
 				_btnId = $(this).attr("id");
 				
 			});
+			
 			//
-			$("#btnSelectPhoto").click(function(e){
-				$("#fileContPhoto").trigger( "click" );
-				
-			});
-			//
-			$("#fileContPhoto").change(function(){
-			    readURL(this);
-			});
-			//
-			//
-			$("#btnPopupCusch").click(function(e){
-				var data="parentId=ifameStockForm";
-				data+="&dataSrch="+$("#txtCusNm").val();
-				var controllerNm = "PopupSelectCustomer";
-				var option={};
-				option["height"] = "445px";
-			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
-			});
-			//
-			$("#btnPopupPosition").click(function(e){
-				var data = "parentId=ifameStockForm";
-				data+="&dataSrch="+$("#txtPosNm").val();
-				var controllerNm = "PopupSelectPosition";
-				var option = {};
-				option["height"] = "445px";
-			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
-			});
-			//
-			$("#btnCal").click(function(e){
-				//resetEmi();
-				calculateEMI();
-			});
-			//
-			$("#btnReset").click(function(e){
-				resetEmi();
-			});
-			//
-			$("#txtContSDIcon").click(function(e){
-				$(this).next().focus();
-			});
-			//
-			$("#btnStatusActive, #btnStatusClose").click(function(e){
-				var statusID = $("#statusID").val();
-				if(statusID == "0" || statusID == 0){
-					top.stock.comm.confirmMsg($.i18n.prop("msg_sure_close"));
+			$("#txtPenaltyAmt").keyup(function(e){
+				if($(this).val().replace(/,/g,"") !=""){
+					var totalPayment = parseFloat($(this).val().replace(/,/g,"")) + parseFloat($("#txtInstPayAmt").val().replace(/,/g,""));
+					$("#txtTotalPayAmt").val(stock.comm.formatCurrency(totalPayment));
 				}else{
-					top.stock.comm.confirmMsg($.i18n.prop("msg_sure_active"));
+					$("#txtTotalPayAmt").val($("#txtInstPayAmt").val());
 				}
 				
-				top.$("#btnConfirmOk").unbind().click(function(e){
-					top.$("#mdlConfirm").modal('hide');
-					updateContractStatus(statusID);
-				});
-			});
-
-			$("input").focus(function(){
-				$("#lRate").css("border","1px solid #d2d6de");
 			});
 			
-			//
-			$("#btnSelectPro").click(function(e){
-				var data="parentId=ifameStockForm";
-				//data+="&dataSrch="+$("#txtCusNm").val();
-				var controllerNm = "PopupSelectProduct";
-				var option={};
-				option["height"] = "460px";
-			    stock.comm.openPopUpSelect(controllerNm,option, data,"modal-md");
-			});
-			
-			
-			$("#btnReturn").click(function(e){
-				top.stock.comm.confirmMsg("តើអ្នកប្រាកដថា ត្រលប់ប្រាក់ ទៅអតិថិជនមែនទេ ?");
-				
-				top.$("#btnConfirmOk").unbind().click(function(e){
-					top.$("#mdlConfirm").modal('hide');
-					updateContractStatus("C");
-				});
-			});
-			
-			
-			$("#btnExp").click(function(e){
-				top.stock.comm.confirmMsg("តើអ្នកប្រាកដថា ផុតកំណត់មែនទេ ?");
-				
-				top.$("#btnConfirmOk").unbind().click(function(e){
-					top.$("#mdlConfirm").modal('hide');
-					updateContractStatus("E");
-				});
-			});
-			
-			$("#btnOpen").click(function(e){
-				top.stock.comm.confirmMsg("តើអ្នកប្រាកដថា បានកក់មែនទេ ?");
-				
-				top.$("#btnConfirmOk").unbind().click(function(e){
-					top.$("#mdlConfirm").modal('hide');
-					updateContractStatus("B");
-				});
-			});
-			
-			$("#btnPrint").click(function(e){
-				printInv($("#contId").val());
-			});
 		}
 };
 
 
 function saveData(str){
-	$("#contId").appendTo("#frmContract");    
+	$("#instId").appendTo("#frmPayment");    
     
     var isCusomterEmpty = $("#txtCusNm").val().trim();
    if(stock.comm.isNull(isCusomterEmpty) || stock.comm.isEmpty(isCusomterEmpty)){
@@ -215,7 +126,7 @@ function saveData(str){
 	$.ajax({
 		type : "POST",
 		url  : $("#base_url").val() +"Contract/saveContract",
-		data: $("#frmContract").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr ,
+		data: $("#frmPayment").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr ,
 		success: function(res) {
 		    parent.$("#loading").hide();
 			if(res !=""){
@@ -242,7 +153,7 @@ function saveData(str){
 
 function updateContractStatus(status){
 	var input = {};
-	input["contId"] = $("#contId").val();
+	input["instId"] = $("#instId").val();
 	input["statusID"] = status;
 	$.ajax({
 		type: "POST",
@@ -274,69 +185,24 @@ function getDataEdit(cont_id){
     $("#loading").show();
     $.ajax({
 		type: "POST",
-		url : $("#base_url").val() +"Contract/getContractDetail",
-		data: {"conId":cont_id},
+		url : $("#base_url").val() +"InstallmentPayment/getInstallment",
+		data: {"instId":cont_id},
 		dataType: "json",
 		async: false,
 		success: function(res) {
-			//$("#btnSave").hide();
-			console.log(res.OUT_REC);
+			
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
-				var status = res.OUT_REC[0]["con_sta"];
-				if(status != "S"){
-					if(status =="E"){
-						$("#btnExp").hide();
-					}else if(status =="C"){
-						$("#btnReturn").hide();
-					}else{
-						$("#btnOpen").hide();
-					}
-					$("#btnEditDiv").show();
-				}
-				
-				
-				$("#btnPrint").show();
-				
-				
 				//$("#balanceLeft").text( $.i18n.prop("lb_pay_balance") +" : "+ stock.comm.formatCurrency(res.OUT_REC[0]["loan_amount_left"])+res.OUT_REC[0]["cur_syn"]);	
-				$("#contractNo").text( $.i18n.prop("lb_contract_no") +" : "+ res.OUT_REC[0]["con_code"]);		
 				
 			    $("#txtCusNm").val(res.OUT_REC[0]["cus_nm_kh"]);
 			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
 			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
-			    $("#txtContSD").val(moment(res.OUT_REC[0]["con_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#lAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_principle"]));
-			    $("#cboSeller").val(res.OUT_REC[0]["seller_id"]);
-			    $("#cboReceiver").val(res.OUT_REC[0]["rec_id"]);
-			    $("#txtTran").val(res.OUT_REC[0]["con_tran_id"]);
-			    $("#txtDesc").val(res.OUT_REC[0]["con_des"]);
-			    $("#cboPaymentMet").val(res.OUT_REC[0]["con_pay_met"]);
-			    $("#txtContED").val(moment(res.OUT_REC[0]["con_date_exp"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-		    	$("#txtAmtBooking").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
-		    	$("#cboConType").val(res.OUT_REC[0]["con_type_id"]);
-		    	
-			    $("#btnSelectPro").hide();
-		    	
-			    $("#divEnd1").show();
-		    	$("#divEnd2").show();
-			    $("#divEnd3").show();
-			 
-			    $("#tblProduct tbody").html("");
-			    for(var i=0;i<res.OUT_REC.length; i++){
-			    	
-					var rec = res.OUT_REC[i];
-					var html = "<tr data-id='"+rec["pro_id"]+"'>";
-			        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
-			        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm_kh"]+"</td>";
-			        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm_kh"]+"</td>";
-			        html += "<td class='pro_price cur-pointer'>"+stock.comm.formatCurrency(rec["pro_book_price"])+"</td>";
-			        html += "</tr>";
-			        
-			        $("#tblProduct tbody").append(html);
-					
-			    }
+			    $("#txtProCode").val(res.OUT_REC[0]["pro_code"]);
+			    $("#txtInstPayAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["inst_amt_pay"]));
+			    $("#txtTotalPayAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["inst_amt_pay"]));
+			    
 
-			    $("#frmContract input,#frmContract textarea,#frmContract select").prop("disabled",true);
+			    //$("#frmPayment input,#frmPayment textarea,#frmPayment select").prop("disabled",true);
 			}else{
 			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -352,8 +218,8 @@ function getDataEdit(cont_id){
 }
 
 function clearForm(){
-    $("#frmContract input").val("");
-    $("#frmContract textarea").val("");
+    $("#frmPayment input").val("");
+    $("#frmPayment textarea").val("");
     $("#staImgView").attr("src",$("#base_url").val()+"assets/image/default-staff-photo.png");
     $("#txtContractNm").focus();
     $("#tblProduct tbody").html("");
@@ -556,7 +422,7 @@ function settingEndDate(){
 	var myDate = moment(newDate, 'dd-mm-yyyy').toDate();
 	console.log(myDate);*/
 	//
-	$('#txtContED').datepicker({
+	$('#txtPayDate').datepicker({
 		language: "kh" ,
 		weekStart: true,
         todayBtn:  true,
@@ -566,5 +432,5 @@ function settingEndDate(){
 		sideBySide: true,
 		format: "dd-mm-yyyy"
     });
-	$("#txtContED").inputmask();
+	$("#txtPayDate").inputmask();
 }

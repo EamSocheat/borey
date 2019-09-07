@@ -135,7 +135,7 @@ var _thisPage = {
 					        html += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_pay"])+"$</td>";
 					        html += "<td class='inst_amt_balance cur-pointer text-right' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_balance"])+"$</td>";
 					        html += '<td class="text-center">';
-							html +=		'<button onclick="editData('+res.OUT_REC[i]["sell_id"]+')" type="button" class="btn btn-primary btn-xs">';
+							html +=		'<button onclick="editData('+res.OUT_REC[i]["inst_id"]+')" type="button" class="btn btn-primary btn-xs">';
 							html += 	'<i class="fa fa-plus" aria-hidden="true"></i> បង់ប្រាក់</button>';
 							html += '</td>';
 					        html += "</tr>";

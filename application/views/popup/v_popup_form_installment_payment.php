@@ -1,31 +1,21 @@
 <?php include 'v_popup_header.php';?>
     <!-- general form elements -->
-	<input type="hidden" id="contId" name="contId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
+	<input type="hidden" id="instId" name="instId" value="<?php if(isset($_GET["id"])){ echo $_GET["id"]; }?>"/>
 	<input type="hidden" id="frmAct" name="frmAct" value="<?php if(isset($_GET["action"])){ echo $_GET["action"]; }?>"/>
     <!-- form start -->
-	<form role="form" class="form-horizontal" id="frmContract" action="" style="display: none">
+	<form role="form" class="form-horizontal" id="frmPayment" action="" style="display: none">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
                 <span aria-hidden="true">&times;</span>
             </button>
             <h4 class="modal-title" id="popupTitle">Default Modal</h4>
-            <h5 class="modal-title" id="balanceLeft" style="float: right;margin-top: -24px;margin-right: 45%;"></h5>
-            <h5 class="modal-title" id="contractNo" style="float: right;margin-top: -24px;margin-right: 31px;"></h5>
             
 		</div>
 
 		<div class="modal-body" id="modalMdBody">
 		<!-- modal body  -->
 			<div class="row">
-				<div class="col-xs-12 row" style="padding:0px;display:none" id="btnEditDiv">
-					
-					<div class="col-xs-12 padding-forms-left text-left" style="padding-left: 35px;margin-bottom: 10px;">
-						<button type="button" class="btn btn-warning btn-xs" id="btnExp"><i class="fa fa-check" aria-hidden="true"></i> កំណត់ផុតកំណត់</button>
-						<button type="button" class="btn btn-danger btn-xs" id="btnReturn"><i class="fa fa-check" aria-hidden="true"></i> កំណត់ត្រលប់ប្រាក់ </button>
-						<button type="button" class="btn btn-success btn-xs" id="btnOpen"><i class="fa fa-check" aria-hidden="true"></i> កំណត់កក់ </button>
-					</div>
-					
-				</div>
+				
 				<div class="col-xs-12 row" style="padding:0px">
             		<div class="col-xs-4 padding-forms-left">
             			<div class="form-group">
@@ -55,12 +45,12 @@
             	<div class="col-xs-12 row" style="padding:0px">
             		<div class="col-xs-4 padding-forms-left">
             			<div class="form-group">
-            				<label for="txtContED">ថ្ងៃបង់ប្រាក់ </label>
+            				<label for="txtPayDate">ថ្ងៃបង់ប្រាក់ </label>
 							<div class="input-group date">
-								<div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+								<div class="input-group-addon" id="txtPayDateIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 									<i class="fa fa-calendar"></i>
 								</div>
-								<input type="text" class="form-control pull-right date-pick" id="txtContED" name="txtContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
+								<input type="text" class="form-control pull-right date-pick" id="txtPayDate" name="txtPayDate" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
 							</div>
             			</div>
             		</div>
@@ -75,9 +65,9 @@
             		
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
-							<label for="cusNm2" >ប្រាក់ត្រូវបង់ </label>
-							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm" autocomplete="off" />
-							<input type="hidden" id="txtCusId" name="txtCusId">
+							<label for="txtInstPayAmt" >ប្រាក់ត្រូវបង់ $</label>
+							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtInstPayAmt" name="txtInstPayAmt" autocomplete="off" />
+							
 						</div>
             		</div>
             	</div>
@@ -102,7 +92,7 @@
                     <div class="col-xs-4 padding-forms-right">
             			
 		                <div class="form-group">
-				      		<label  for="txtPenaltyAmt" >ប្រាក់ពិន័យ​</label>
+				      		<label  for="txtPenaltyAmt" >ប្រាក់ពិន័យ​ $</label>
 				        	<input type="text" class="form-control" id="txtPenaltyAmt" placeholder="Enter loan amount" name="txtPenaltyAmt" autocomplete="off" required="required" />
 				    	</div>
 			    	
@@ -118,7 +108,7 @@
                     </div>
                     <div class="col-xs-4 padding-forms-right">
                        <div class="form-group">
-							<label for="txtTotalPayAmt">ប្រាក់ត្រូវបង់សរុប </label>
+							<label for="txtTotalPayAmt">ប្រាក់ត្រូវបង់សរុប $</label>
 							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtTotalPayAmt" name="txtTotalPayAmt" autocomplete="off" />
 						</div>
                     </div>
@@ -130,7 +120,6 @@
      
         <div class="modal-footer" >
             <input type="hidden" value="" id="statusID" name="statusID" />
-            <button type="button" class="btn btn-info btn-sm" id="btnPrint" style="display: none;"><i class='fa fa-print' aria-hidden='true'></i> បោះពុម្ព</button>
             <button data-i18ncd="btn_save" type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>
             <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
         </div>
