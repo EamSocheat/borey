@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set("Asia/Bangkok");
 
-class InstallmentPayment extends CI_Controller{
+class PaymentReport extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model('M_login');
@@ -29,12 +29,12 @@ class InstallmentPayment extends CI_Controller{
             redirect('/Login');
         }
         
-        $dataMenu['menu_active'] = "InstallmentPayment";
+        $dataMenu['menu_active'] = "PaymentReport";
         $data['header'] = $this->load->view('v_header', $dataMenu, TRUE);
         $data['footer'] = $this->load->view('v_footer', NULL, TRUE);
         $data['iframe'] = $this->load->view('v_iframe', NULL, TRUE);
         
-        $this->load->view('v_installment_payment',$data);
+        $this->load->view('v_payment_report',$data);
     }
 	public function getPaymentMethod(){
 		$data["OUT_REC"] = $this->M_common->selectPaymentMethod();
@@ -73,8 +73,7 @@ class InstallmentPayment extends CI_Controller{
 	        'inst_total_paid_amount'        => $this->input->post('txtInstPayAmt'),
 	        'inst_paid_penalty'        => $this->input->post('txtPenaltyAmt'),
 	        'inst_paid_yn'        => "Y",
-	        'inst_paid_inv_code'        =>$inv_code,
-	        'inst_paid_tran_id'        =>$this->input->post('txtTran')
+	        'inst_paid_inv_code'        =>$inv_code
 	        
 	    );
 	    
@@ -85,18 +84,6 @@ class InstallmentPayment extends CI_Controller{
 	    $dataPay['regDt']  = date('Y-m-d H:i:s');
 	    
 	    $id = $this->M_installment->insertPayment($dataPay);
-	    $code_id = $id;
-	    $max_id = (string)$code_id;
-	    $zero   = '';
-	    for($i = strlen($max_id); $i <= 5; $i++){
-	        $zero = '0'.$zero;
-	    }
-	    $code_id = $zero.$max_id;
-	    $dataUpdate = array(
-	        'inst_paid_code' => $code_id,
-	        'inst_paid_id' => $id,
-	    );
-	    $this->M_installment->updatePayment($dataUpdate);
 	    
 	    $data = array(
 	        'inst_id'      => $this->input->post('instId'),
@@ -137,38 +124,6 @@ class InstallmentPayment extends CI_Controller{
 
         $data["OUT_REC"] = $this->M_installment->selectInstallmentData($dataSrch);
         $data["OUT_REC_CNT"] = $this->M_installment->countInstallmentData($dataSrch);
-        echo json_encode($data);
-    }
-    
-    public function getPayment(){
-        if(!$this->M_check_user->check()){
-            redirect('/Login');
-        }
-        $startDate = $this->input->post('txtSrchContSD');
-        $endDate   = $this->input->post('txtSrchContED');
-        
-        if($startDate != null || $startDate != ""){
-            $startDate = date('Y-m-d H:i:s',strtotime($startDate));
-        }
-        
-        if($endDate != null || $endDate != ""){
-            $endDate = date('Y-m-d H:i:s',strtotime($endDate));
-        }
-        
-        
-        $dataSrch = array(
-            'limit'         => $this->input->post('perPage'),
-            'offset'        => $this->input->post('offset'),
-            'inst_id'        => $this->input->post('instId'),
-            'sell_code'        => $this->input->post('txtSrchSellCode'),
-            'inst_start_dt'  => $startDate,
-            'inst_end_dt'    => $endDate,
-            'srch_all'		=> $this->input->post('srchAll'),
-            'pro_code'		=> $this->input->post('txtSrchProCode')
-        );
-        
-        $data["OUT_REC"] = $this->M_installment->selectPaymentData($dataSrch);
-        $data["OUT_REC_CNT"] = $this->M_installment->countPaymentData($dataSrch);
         echo json_encode($data);
     }
 

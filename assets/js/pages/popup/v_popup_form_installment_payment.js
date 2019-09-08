@@ -45,13 +45,7 @@ var _thisPage = {
 			
 		},
 		event : function(){
-			/*$('#txtPayDate').click(function(){
-			    var popup =$(this).offset();
-			    var popupTop = popup.top - 40;
-			    $('.input-group-addon').css({
-			      'top' : popupTop
-			     });
-			});*/
+			
 			
 			//
 			$("#btnClose,#btnExit").click(function(e){
@@ -61,7 +55,7 @@ var _thisPage = {
 			//
 			$("#frmPayment").submit(function(e){
 				e.preventDefault();
-				if(_btnId == "btnSave"){
+				if(_btnId == "btnPay"){
 			    	saveData();
 				}else{
 			    	saveData("new");
@@ -69,12 +63,12 @@ var _thisPage = {
 			
 			});
 			//
-			$("#btnSave").click(function(e){
+			$("#btnPay").click(function(e){
 				_btnId = $(this).attr("id");
 				
 			});
 			//
-			$("#btnSaveNew").click(function(e){
+			$("#btnPayNew").click(function(e){
 				_btnId = $(this).attr("id");
 				
 			});
@@ -97,36 +91,21 @@ var _thisPage = {
 function saveData(str){
 	$("#instId").appendTo("#frmPayment");    
     
-    var isCusomterEmpty = $("#txtCusNm").val().trim();
-   if(stock.comm.isNull(isCusomterEmpty) || stock.comm.isEmpty(isCusomterEmpty)){
-	   showCustomerErr();
-	   return;
-    }
+   
        
-    var productChk=$("#tblProduct tbody tr");
-    if(productChk.length < 1){
-    	showProductErr();
-    	return;
-    }
-   	var productArr=[];
-   	var productPriceArr=[];
-   	productChk.each(function(i){
-   		productArr.push(parseInt($(this).attr("data-id")));
-   		productPriceArr.push($(this).find("td.pro_price input").val().replace(/,/g,''));
-   		
-   	});
-   	
+   
+  
 	//
-	$("#txtAmtBooking").val($("#txtAmtBooking").val().replace(/,/g,''));
-	$("#txtCusNm").css("border-color","#ced4da");
-	$("#btnSelectPro").css("border-color","#ced4da");
+	$("#txtInstPayAmt").val($("#txtInstPayAmt").val().replace(/,/g,''));
+	$("#txtInstPayAmt").prop("disabled",false);
+	$("#txtPenaltyAmt").val($("#txtPenaltyAmt").val().replace(/,/g,''));
 	parent.$("#msgErr").hide();
 	//
 	
 	$.ajax({
 		type : "POST",
-		url  : $("#base_url").val() +"Contract/saveContract",
-		data: $("#frmPayment").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr ,
+		url  : $("#base_url").val() +"InstallmentPayment/savePayment",
+		data: $("#frmPayment").serialize(),
 		success: function(res) {
 		    parent.$("#loading").hide();
 			if(res !=""){
@@ -151,33 +130,7 @@ function saveData(str){
 	});
 }
 
-function updateContractStatus(status){
-	var input = {};
-	input["instId"] = $("#instId").val();
-	input["statusID"] = status;
-	$.ajax({
-		type: "POST",
-		url : $("#base_url").val() +"Contract/udpateStatus",
-		data: input,
-		dataType: "json",
-		success: function(res) {
-			
-		    if(res > 0){
-		    	
-		    	parent.stock.comm.alertMsg("ការកំណត់បាន ជោគជ័យ");
-				parent.stock.comm.closePopUpForm("PopupFormInstallmentPayment",parent.popupInstallmentPaymentCallback);
-			}else{
-				stock.comm.alertMsg($.i18n.prop("msg_err_del"));
-		        return;
-			}
-		    $("#loading").hide();
-		},
-		error : function(data) {
-			console.log(data);
-			stock.comm.alertMsg($.i18n.prop("msg_err"));
-        }
-	});
-}
+
 
 function getDataEdit(cont_id){
 	
@@ -201,7 +154,9 @@ function getDataEdit(cont_id){
 			    $("#txtInstPayAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["inst_amt_pay"]));
 			    $("#txtTotalPayAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["inst_amt_pay"]));
 			    
-
+			    $("#txtInstType").val(res.OUT_REC[0]["inst_type"]);
+			    $("#txtInstNum").val(res.OUT_REC[0]["inst_num"]);
+			    
 			    //$("#frmPayment input,#frmPayment textarea,#frmPayment select").prop("disabled",true);
 			}else{
 			    console.log(res);
@@ -366,13 +321,15 @@ function printInv(con_id){
 	var data = {};
 	var dataArr = [];
 	data["base_url"] = $("#base_url").val();
-	data["con_id"] = con_id ;
+	data["inst_paid_id"] = con_id ;
 	dataArr.push(data);
 	var datObj={};
 	datObj["printData"] = dataArr;
+	//console.log(datObj);
+	//return;
 	$.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"PrintInv/printInvBooking",
+		url: $("#base_url").val() +"PrintInv/printInvPayment",
 		data: datObj,
 		async: false,
 		success: function(res) {

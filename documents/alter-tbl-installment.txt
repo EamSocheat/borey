@@ -1,1 +1,6 @@
 alter table tbl_installment add COLUMN inst_paid_yn varchar(1);
+
+alter TABLE tbl_installment_payment add COLUMN inst_paid_penalty double;
+alter TABLE tbl_installment_payment add COLUMN inst_paid_inv_code varchar(10);
+alter table tbl_installment_payment add COLUMN inst_paid_code varchar(10);
+alter table tbl_installment_payment add COLUMN inst_paid_tran_id varchar(100);

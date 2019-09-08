@@ -11,6 +11,7 @@ var _thisPage = {
 			_this.event();
 		},
 		onload : function(){
+			
 			parent.$("#loading").hide();
 			//
 			getStaff();

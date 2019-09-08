@@ -176,4 +176,4 @@
     <!-- form end --> 
     <!-- end general form elements -->
 <?php include 'v_popup_footer.php';?>
-<script src="<?php echo base_url('assets/') ?>js/pages/popup/v_popup_form_installment_payment.js"></script>
+<script src="<?php echo base_url('assets/') ?>js/pages/popup/v_popup_form_contract.js"></script>

@@ -42,7 +42,7 @@
 													<label for="txtSrchContSD" class="control-label" style="
 														margin-bottom: 7px;
 														display: table-caption;
-													">ថ្ងៃបង់ប្រាក់រំលស់</label>
+													">ថ្ងៃបង់ប្រាក់</label>
 													<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;padding: 5px 11px;">
 														<i class="fa fa-calendar"></i>
 													</div>
@@ -54,7 +54,7 @@
 												<div class="input-group date">
 													<label for="txtSrchContED" class="control-label"  style="
 														display: table-caption;
-														margin-bottom: 7px;">ថ្ងៃបង់ប្រាក់រំលស់</label>
+														margin-bottom: 7px;">ថ្ងៃបង់ប្រាក់</label>
 													<div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
 														<i class="fa fa-calendar"></i>
 													</div>
@@ -107,6 +107,7 @@
 							<div class="col-xs-12">
 								<div class="col-xs-12">
 									<!-- -->
+									<button type="button" id="btnDelete" class="btn btn-danger btn-sm" style="margin-right: 5px"><i class="fa fa-trash" aria-hidden="true"></i> <span data-i18ncd="btn_delete">Delete</span></button>
 								</div>
 							</div>
 						</div>
@@ -130,23 +131,33 @@
 							<br>
 						</div>
 						
-						<div class="box-body table-responsive">
-							<table class="table table-hover" id="tblInstallment">
+						<div class="box-body " style="overflow-x:auto;">
+							<table class="table table-hover" id="tblInstallment"  style="width: 2200px;">
 								<thead>
 									<tr>
-										<!--<th><input type="checkbox" id="chkAllBox" ></th> -->
+										<!-- <th><input type="checkbox" id="chkAllBox" ></th> -->
+										<th></th>
+										<th></th>
+										<th class="text-center">ថ្ងៃបង់ប្រាក់ </th>
+										<th class="text-center">អ្នកទទួលប្រាក់</th>
+										<th class="text-center">វីធីបង់ប្រាក់</th>
+										<th class="text-center">លេខប្រតិបត្តិការណ៍</th>
+										<th class="text-center">ការពិពណ៌នា</th>
+										<th class="text-right">ប្រាក់បានបង់សរុប$</th>
+										<th class="text-center">ប្រាក់ពិន័យ​$</th>
+										
 										<th class="text-center">លេខកូដផ្ទះ </th>
 										<th class="text-center">លេខការលក់</th>
 										<th class="text-center">អតិថិជន</th>
 										<th class="text-center">ល.រ</th>
-										<th class="text-center">ថ្ងៃបង់ប្រាក់រំលស់</th>
+										<th class="text-center">ថ្ងៃបង់ប្រាក់</th>
 										<th class="text-center">ភាគរយ%</th>
 										<th class="text-right">បញ្ចុះ$</th>
 										<th class="text-right">ប្រាក់ដើម$</th>
 										<th class="text-right">ប្រាក់ការ$</th>
 										<th class="text-right">ប្រាក់បង់សរុប$</th>
-										<th class="text-right">ប្រាក់ដើមនៅសល់$</th>
-										<th data-i18ncd="lb_action"​ class="text-center">Action</th>
+										<th class="text-right" style="padding-right: 20px;">ប្រាក់ដើមនៅសល់$</th>
+										<!-- <th data-i18ncd="lb_action"​ class="text-center">Action</th> -->
 									</tr>
 								</thead>
 								<tbody>
@@ -180,5 +191,5 @@
 </div>
 <!-- /.content-wrapper -->
 <?php echo $footer; ?>
-<script src="<?php echo base_url('assets/') ?>js/pages/v_installment_payment.js"></script>
+<script src="<?php echo base_url('assets/') ?>js/pages/v_payment_report.js"></script>
 <?php echo $iframe; ?>

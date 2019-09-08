@@ -4,6 +4,9 @@
 	<input type="hidden" id="frmAct" name="frmAct" value="<?php if(isset($_GET["action"])){ echo $_GET["action"]; }?>"/>
     <!-- form start -->
 	<form role="form" class="form-horizontal" id="frmPayment" action="" style="display: none">
+		<input type="hidden" id="txtInstType" name="txtInstType"/>
+		<input type="hidden" id="txtInstNum" name="txtInstNum"/>
+		<input type="hidden" id="txtPayDesPer" name="txtPayDesPer"/>
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
                 <span aria-hidden="true">&times;</span>
@@ -120,7 +123,7 @@
      
         <div class="modal-footer" >
             <input type="hidden" value="" id="statusID" name="statusID" />
-            <button data-i18ncd="btn_save" type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>
+            <button  type="submit" class="btn btn-primary btn-sm" id="btnPay"><i class="fa fa-check" aria-hidden="true"></i> បង់ប្រាក់</button>
             <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
         </div>
     </form>
