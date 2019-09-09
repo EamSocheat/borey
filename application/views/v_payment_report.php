@@ -81,8 +81,13 @@
 											</div>
 											
 										</div>
-										<div class="col-sm-12 col-md-12 col-lg-12">
-											
+										<div class="col-sm-12 col-md-12 col-lg-12 row">
+											<div class="col-sm-3 col-md-3 col-lg-3" style="">
+												<div class="form-group form-inline">
+                                                    <label for="txtSrchInstPaidCode" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">លេខបង្កាន់ដៃ  </label>
+                                                    <input type="text" style="width: 100%" class="form-control input-sm" id="txtSrchInstPaidCode" placeholder="អតិថិជន">
+                                                </div>
+											</div>
 										</div>
 									</div>
 									

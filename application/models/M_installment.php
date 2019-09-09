@@ -217,7 +217,10 @@
             if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
                 $this->db->like('tbl_product.pro_code', $dataSrch['pro_code']);
             }
-            
+            //
+            if($dataSrch['inst_paid_code'] != null && $dataSrch['inst_paid_code'] != ""){
+                $this->db->like('tbl_installment_payment.inst_paid_code', $dataSrch['inst_paid_code']);
+            }
             
             $this->db->order_by("tbl_installment_payment.inst_paid_date", "desc");
             $this->db->order_by("tbl_installment.inst_num", "asc");
@@ -268,7 +271,11 @@
             if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
                 $this->db->like('tbl_product.pro_code', $dataSrch['pro_code']);
             }
-            
+            //
+            if($dataSrch['inst_paid_code'] != null && $dataSrch['inst_paid_code'] != ""){
+                $this->db->like('tbl_installment_payment.inst_paid_code', $dataSrch['inst_paid_code']);
+            }
+			
             return $this->db->get()->result();
         }
         

@@ -88,7 +88,7 @@ var _thisPage = {
 		    dat["txtSrchContSD"]	= $("#txtSrchContSD").val();
 		    dat["txtSrchContED"]	= $("#txtSrchContED").val();
 		    dat["txtSrchProCode"]	= $("#txtSrchProCode").val();
-		    
+		    dat["txtSrchInstPaidCode"]	= $("#txtSrchInstPaidCode").val();
 		    $("#loading").show();
 		    $.ajax({
 				type: "POST",
@@ -107,7 +107,7 @@ var _thisPage = {
 					    for(var i=0; i<res.OUT_REC.length;i++){
 					    	
 					    	
-					    	var totalAmount = parseFloat(res.OUT_REC[i]["inst_paid_penalty"])+ parseFloat(res.OUT_REC[i]["inst_total_paid_amount"]);
+					    	var totalAmount = parseFloat( (res.OUT_REC[i]["inst_paid_penalty"] == null ? 0 : res.OUT_REC[i]["inst_paid_penalty"]) )+ parseFloat((res.OUT_REC[i]["inst_total_paid_amount"] == null ? 0 : res.OUT_REC[i]["inst_total_paid_amount"]));
 					    	var percentPay=res.OUT_REC[i]["inst_pay_per"]+"%";
 							
 							if(res.OUT_REC[i]["inst_type"] =="BOOK"){
@@ -131,9 +131,9 @@ var _thisPage = {
 							html += "<td class='sta_nm_kh cur-pointer text-center'>"+res.OUT_REC[i]["sta_nm_kh"]+"</td>";
 							html += "<td class='met_nm_kh cur-pointer text-center'>"+res.OUT_REC[i]["met_nm_kh"]+"</td>";
 							html += "<td class='inst_paid_tran_id cur-pointer text-center'>"+(res.OUT_REC[i]["inst_paid_tran_id"] == null ? "" : res.OUT_REC[i]["inst_paid_tran_id"])+"</td>";
-							html += "<td class='inst_paid_des cur-pointer text-center'>"+res.OUT_REC[i]["inst_paid_des"] +"</td>";
+							html += "<td class='inst_paid_des cur-pointer text-center'>"+(res.OUT_REC[i]["inst_paid_des"] == null ? "" : res.OUT_REC[i]["inst_paid_des"])  +"</td>";
 							html += "<td class='total_amount cur-pointer text-right'>"+stock.comm.formatCurrency(totalAmount)+"$</td>";
-							html += "<td class='inst_paid_penalty cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_paid_penalty"])+"$</td>";
+							html += "<td class='inst_paid_penalty cur-pointer text-right'>"+(res.OUT_REC[i]["inst_paid_penalty"] == null ? 0 : stock.comm.formatCurrency(res.OUT_REC[i]["inst_paid_penalty"]))+"$</td>";
 							
 							html += "<td class='inst_num cur-pointer text-center'>"+res.OUT_REC[i]["pro_code"]+"</td>";
 							html += "<td class='inst_num cur-pointer text-center'>"+res.OUT_REC[i]["sell_code"]+"</td>";
@@ -156,7 +156,7 @@ var _thisPage = {
 					        total_inst_amt_interest += parseFloat(res.OUT_REC[i]["inst_amt_interest"]);
 					        total_inst_amt_pay += parseFloat(res.OUT_REC[i]["inst_amt_pay"]);
 					        total_total_pay +=totalAmount;
-					        total_penalty += parseFloat(res.OUT_REC[i]["inst_paid_penalty"]);
+					        total_penalty += parseFloat(res.OUT_REC[i]["inst_paid_penalty"] == null ? 0 : res.OUT_REC[i]["inst_paid_penalty"]);
 					    }
 
 					    var strTotal = '<tr class="total" >';
@@ -437,6 +437,6 @@ function resetFormSearch(){
     $("#txtSrchContEDExp").val("");
     $("#cboSeller").val("");
     $("#txtSrchProCode").val("");
-    
+    $("#txtSrchInstPaidCode").val("");
 }
 
