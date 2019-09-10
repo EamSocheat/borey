@@ -79,7 +79,7 @@
 									<td class="with-100">តំលៃផ្ទះ</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->sell_total_price);?></td>
 								</tr>
 								<tr>
-									<td class="with-100">ភ្នាក់ងារ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->seller_nm;?></td>
+									<td class="with-100">ភ្នាក់ងារ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->sta_nm_kh;?></td>
 								</tr>
 							</table>
 						<div></td>

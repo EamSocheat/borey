@@ -40,7 +40,7 @@ $(document).ready(function() {
 	    $("#loading").show();
 		var controllerNm = "PopupFormBranch";
 		var option={};
-		option["height"] = "460px";
+		option["height"] = "480px";
 		
 		stock.comm.openPopUpForm(controllerNm,option, null);
 	});
@@ -183,7 +183,7 @@ function editData(bra_id){
 	
 	var controllerNm = "PopupFormBranch";
 	var option={};
-	option["height"] = "460px";
+	option["height"] = "480px";
     stock.comm.openPopUpForm(controllerNm,option, data);
 }
 

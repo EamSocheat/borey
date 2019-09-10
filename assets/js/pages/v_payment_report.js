@@ -123,10 +123,16 @@ var _thisPage = {
 								}
 							}
 							
-							html += "<tr data-id="+res.OUT_REC[i]["inst_paid_id"]+">";
-					    	html += 	'<td class="chk_box"><input type="checkbox"></td>';
-					    	html += "<td class='sale_pay_date cur-pointer'><button type='button' class='btn btn-primary btn-xs' onclick='printInv("+res.OUT_REC[i]["inst_paid_id"]+")'><i class='fa fa-print' aria-hidden='true'></i> </button></td>";
-					        
+							html += "<tr data-inst-id="+res.OUT_REC[i]["inst_id"]+" data-id="+res.OUT_REC[i]["inst_paid_id"]+">";
+							if(res.OUT_REC[i]["inst_type"] =="BOOK"){
+								html += 	'<td class="chk_box"></td>';
+						    	html += "<td class='sale_pay_date cur-pointer'></td>";
+							}else{
+								html += 	'<td class="chk_box"><input type="checkbox"></td>';
+						    	html += "<td class='sale_pay_date cur-pointer  text-center'><button type='button' class='btn btn-primary btn-xs' onclick='printInv("+res.OUT_REC[i]["inst_paid_id"]+")'><i class='fa fa-print' aria-hidden='true'></i> </button></td>";
+						    	html += 	'<td class="chk_box  text-center">'+(res.OUT_REC[i]["inst_paid_code"]== null ? "-" :res.OUT_REC[i]["inst_paid_code"]) +'</td>';
+							}
+					    	
 					    	html += "<td class='inst_paid_date cur-pointer text-center'>"+moment(res.OUT_REC[i]["inst_paid_date"], "YYYY-MM-DD").format("DD-MM-YYYY")+"</td>";
 							html += "<td class='sta_nm_kh cur-pointer text-center'>"+res.OUT_REC[i]["sta_nm_kh"]+"</td>";
 							html += "<td class='met_nm_kh cur-pointer text-center'>"+res.OUT_REC[i]["met_nm_kh"]+"</td>";
@@ -229,20 +235,8 @@ var _thisPage = {
 			$("#btnDelete").click(function(e){
 				var chkVal = $('#tblInstallment tbody tr td.chk_box input[type="checkbox"]:checked');
 				
-				if(chkVal.length <= 0){
-					stock.comm.alertMsg($.i18n.prop("msg_con_del"));
-					return;
-				}
-				var chkDeleteFail='';
-				chkVal.each(function(i){
-					var tblTr   = $(this).parent().parent();
-					if(tblTr.find("td.con-status").attr("data-val") =="C" || tblTr.find("td.con-status").attr("data-val") == "E" || tblTr.find("td.con-status").attr("data-val") =="S" ){
-						chkDeleteFail ='1';
-					}
-		
-				});
-				if(chkDeleteFail){
-					stock.comm.alertMsg("សូមជ្រើសរើស តែទិន្ន័យបានកក់ ទើបលុបបាន!!!");
+				if(chkVal.length != 1){
+					stock.comm.alertMsg("សូមជ្រើសរើសទិន្នន័យ តែមួយ ដើម្បីលុប!");
 					return;
 				}
 				
@@ -255,8 +249,10 @@ var _thisPage = {
 					chkVal.each(function(i){
 						var delData = {};
 						var tblTr   = $(this).parent().parent();
-						var contId  = tblTr.attr("data-id");
-						delData["contId"] = contId;
+						var instPaidId  = tblTr.attr("data-id");
+						var instId  = tblTr.attr("data-inst-id");
+						delData["instPaidId"] 	= instPaidId;
+						delData["instId"] 		= instId;
 						delArr.push(delData);
 					});
 					
@@ -322,10 +318,9 @@ function stringDate(str){
 }
 
 function deleteDataArr(dataArr){
-	console.log(dataArr)
 	$.ajax({
 		type: "POST",
-		url : $("#base_url").val() +"Contract/delete",
+		url : $("#base_url").val() +"InstallmentPayment/delete",
 		data: dataArr,		
 		success: function(res) {
 		    if(res > 0){

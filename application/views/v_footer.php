@@ -304,8 +304,28 @@ $(document).ready(function() {
 			}
 		});
 		
+	});
+
+	//
+	$("#btnLogout").click(function(e){
+		stock.comm.confirmMsg("តើអ្នកប្រាកដជាចាកចេញមែនទេ?  ");
+		$("#btnConfirmOk").unbind().click(function(e){
+			$("#mdlConfirm").modal('hide');
+			$.ajax({
+				type: "POST",
+				url: $("#base_url").val() +"Login/logout",
+				data: {},
+				async: false,
+				success: function(res) {
+					window.location.href= $("#base_url").val()+"Login";
+				},
+				error : function(data) {
+					
+		        }
+			});
+			
+		});
 	});	
-		
 });
 
 function setCookie(cname,cvalue,exdays) {
@@ -481,7 +501,8 @@ function getUserMenu(){
 			htmlMenu_2 +='  </span>';
 			htmlMenu_2 +='  </a>';
 			htmlMenu_2 +='  <ul class="treeview-menu" style="">';
-			
+
+			var checkColorMenu =0;
 			for(var i=0; i<res["menu_user"].length; i++){
 				
 				var datarow = res["menu_user"][i];
@@ -538,6 +559,38 @@ function getUserMenu(){
 					htmlMenu += '</a>';
 					htmlMenu += '</li>';
 				}
+
+				if(datarow["menu_group"] == "0"){
+					continue;
+				}
+				var cls_color = "";
+				if(checkColorMenu == 0){
+					cls_color = "bg-aqua";
+					checkColorMenu +=1;
+				}else if(checkColorMenu == 1){
+					cls_color = "bg-green";
+					checkColorMenu +=1;
+				}else if(checkColorMenu == 2){
+					cls_color = "bg-yellow";
+					checkColorMenu +=1;
+				}else if(checkColorMenu == 3){
+					cls_color = "bg-red";
+					checkColorMenu=0;
+				}
+				
+				var htmlDiv = '<div class="col-lg-3 col-xs-6">';
+				htmlDiv +='<div class="small-box '+cls_color+'">';
+				htmlDiv +='<div class="inner">';
+				htmlDiv +='<h3>150</h3>';
+				htmlDiv +='<p>'+datarow["menu_nm_kh"]+'</p>';
+				htmlDiv +='</div>';
+				htmlDiv +='<div class="icon">';
+				htmlDiv +='<i class="ion '+datarow["menu_icon_nm"]+'"></i>';
+				htmlDiv +='</div>';
+				htmlDiv +='<a href="#" class="small-box-footer">ពត៌មានលំអិត <i class="fa fa-arrow-circle-right"></i></a>';
+				htmlDiv +='</div>';
+				htmlDiv +='</div>';
+				$("#divMenuDetial").append(htmlDiv);
 			}
 			htmlMenu_1 +='  </ul>';
 			htmlMenu_1 +='</li>';

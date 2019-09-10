@@ -143,6 +143,7 @@
 										<!-- <th><input type="checkbox" id="chkAllBox" ></th> -->
 										<th></th>
 										<th></th>
+										<th class="text-center">លេខបង្កាន់ដៃ </th>
 										<th class="text-center">ថ្ងៃបង់ប្រាក់ </th>
 										<th class="text-center">អ្នកទទួលប្រាក់</th>
 										<th class="text-center">វីធីបង់ប្រាក់</th>

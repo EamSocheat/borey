@@ -183,13 +183,22 @@ class InstallmentPayment extends CI_Controller{
         $cntDel = 0;
         for($i = 0; $i<sizeof($delObj); $i++){
             $data = array(
-                    'con_id'    => $delObj[$i]['contId'],
-                    'useYn'     => "N",
+                    'inst_id'    => $delObj[$i]['instId'],
+                    'inst_paid_yn'     => "N",
                     'com_id'    => $_SESSION['comId'],
                     'upDt'      => date('Y-m-d H:i:s'),
                     'upUsr'     => $_SESSION['usrId']
             );
-            $this->M_contract->update($data);
+            $dataPayment = array(
+                'inst_paid_id'    => $delObj[$i]['instPaidId'],
+                'useYn'     => "N",
+                'com_id'    => $_SESSION['comId'],
+                'upDt'      => date('Y-m-d H:i:s'),
+                'upUsr'     => $_SESSION['usrId']
+            );
+            
+            $this->M_installment->updatePayment($dataPayment);
+            $this->M_installment->update($data);
             $cntDel += 1;
         }
         echo $cntDel;

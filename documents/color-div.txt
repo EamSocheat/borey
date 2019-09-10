@@ -1,0 +1,7 @@
+bg-green
+bg-yellow
+bg-red
+bg-aqua
+
+
+alter table tbl_menu add COLUMN color_code varchar(12);
