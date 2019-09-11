@@ -25,7 +25,7 @@ class CommissionReport extends CI_Controller{
 		$this->load->view('v_commission',$data);
 	}
 
-	public function getSalary(){
+	public function getCommissionData(){
 		if(!$this->M_check_user->check()){
 			redirect('/Login');
 		}
@@ -33,13 +33,17 @@ class CommissionReport extends CI_Controller{
 		$dataSrch = array(
 			'limit' 		=> $this->input->post('perPage'),
 			'offset' 		=> $this->input->post('offset'),
-			'sal_id' 		=> $this->input->post('salId'),
-			'sta_id'		=> $this->input->post('staffId'),
-			'sal_status'	=> $this->input->post('salStatus'),
-			'sal_month'		=> $this->input->post('salMonth')
+			'commi_id' 		=> $this->input->post('commId'),
+			'sell_code'		=> $this->input->post('sellCode'),
+//			'sell_id'		=> $this->input->post('sellId'),
+			'txtSaleSDate' 	=> $this->reOrderDate($this->input->post('saleSDate')),
+			'txtSaleEDate' 	=> $this->reOrderDate($this->input->post('saleEDate')),
+			'txtApprSDate' 	=> $this->reOrderDate($this->input->post('apprSDate')),
+			'txtApprEDate' 	=> $this->reOrderDate($this->input->post('apprEDate')),
+			'commi_is_approve'	=> $this->input->post('cboStatus')
 		);
-		$data["OUT_REC"] 	 = $this->M_salary->selectSalary($dataSrch);
-		$data["OUT_REC_CNT"] = $this->M_salary->countSalary($dataSrch);
+		$data["OUT_REC"] 	 = $this->M_commission->selectCommissionData($dataSrch);
+		$data["OUT_REC_CNT"] = $this->M_commission->countCommissionData($dataSrch);
 		echo json_encode($data);
 	}
 

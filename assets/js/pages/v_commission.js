@@ -67,7 +67,7 @@ var _thisPage = {
 			getData();
 		});
 
-		$("#txtSrchSellDateIcon").click(function(e){
+		$("#txtSrchSaleSDIcon, #txtSrchSaleEDIcon, #txtSrchApproveSDIcon, #txtSrchApproveEDIcon").click(function(e){
 			$(this).next().focus();
 		});
 
@@ -99,7 +99,7 @@ var _thisPage = {
 
 		//
 		$("#btnEdit").click(function(){
-			var chkVal = $('#tblSalary tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblCommission tbody tr td.chk_box input[type="checkbox"]:checked');
 			if(chkVal.length != 1){
 				stock.comm.alertMsg($.i18n.prop("msg_con_edit1"));
 				return;
@@ -111,7 +111,7 @@ var _thisPage = {
 
 		//
 		$("#btnDelete").click(function(e){
-			var chkVal = $('#tblSalary tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblCommission tbody tr td.chk_box input[type="checkbox"]:checked');
 
 			if(chkVal.length <= 0){
 				stock.comm.alertMsg($.i18n.prop("msg_con_del"));
@@ -145,7 +145,7 @@ var _thisPage = {
 
 		$("#btnDownExcel").click(function(e){
 			e.preventDefault();
-			var chkVal = $('#tblSalary tbody tr td.chk_box input[type="checkbox"]:checked');
+			var chkVal = $('#tblCommission tbody tr td.chk_box input[type="checkbox"]:checked');
 
 			if(chkVal.length <= 0){
 				stock.comm.alertMsg($.i18n.prop("msg_down_excel"));
@@ -174,66 +174,72 @@ function getData(page_no){
 		pageNo = page_no;
 	}
 	var dat = {};
-	var salMonth = $("#txtSrchSellDate").val();
+	var saleSDate = $("#txtSrchSaleSD").val();
+	var saleEDate = $("#txtSrchSaleED").val();
+	var apprSDate = $("#txtSrchApproveSD").val();
+	var apprEDate = $("#txtSrchApproveED").val();
 	//paging
 	dat["perPage"] = $("#perPage").val();
 	dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
 
 	// search
-	dat["staffId"]		= $("#staffNm option:selected").val();
-	dat["salStatus"]	= $("#cboStatus option:selected").val();
-	dat["salMonth"]		= (salMonth != "" ? salMonth.split("-")[1]+"-"+salMonth.split("-")[0] : "");
+	dat["sellCode"]		= $("#txtSellCode").val();
+	// dat["sellerId"]		= $("#cmboSeller option:selected").val();
+	dat["saleSDate"]	= $("#txtSrchSaleSD").val();
+	dat["saleEDate"]	= $("#txtSrchSaleED").val();
+	dat["apprSDate"]	= $("#txtSrchApproveSD").val();
+	dat["apprEDate"]	= $("#txtSrchApproveED").val();
+	dat["cboStatus"]	= $("#cboStatus option:selected").val();
 
+	console.log("datt::: "+JSON.stringify(dat));
 	$("#loading").show();
 	$.ajax({
 		type: "POST",
-		url : $("#base_url").val() +"Salary/getSalary",
+		url : $("#base_url").val() +"CommissionReport/getCommissionData",
 		data: dat,
 		dataType: "json",
 		success	: function(res) {
-			$("#tblSalary tbody").html("");
+			$("#tblCommission tbody").html("");
 			$("#chkAllBox").prop( "checked", false );
+			console.log("res.OUT_REC:: "+res.OUT_REC);
+			console.log("res.OUT_REC:: "+res.OUT_REC_CNT);
 
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				$("#chkAllBox").show();
 				var strHtml = "", strTotal = "";
-				var totalSalaryAmt = 0, totalSalary = 0;
+				var totalCommissionAmt = 0, totalSalary = 0;
 
 				for(var i = 0; i < res.OUT_REC.length; i++){
-					totalSalary = parseFloat(res.OUT_REC[i]["sal_amt"]) + parseFloat(res.OUT_REC[i]["sal_comm"]) + parseFloat(res.OUT_REC[i]["sal_overtime"]);
-
-					strHtml += '<tr data-id="'+res.OUT_REC[i]["sal_id"]+'" class="cur-pointer" ondblclick="editData('+res.OUT_REC[i]['sal_id']+')">';
-					strHtml += '	<td class="chk_box"><div class="" style="width: 10px;"><input type="checkbox"></div></td>';
-					strHtml += '	<td><div class="">'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["sal_month"]).substr(3,10)+'</div></td>';
-					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sal_amt"])+'$</div></td>';
-					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sal_comm"])+'$</div></td>';
-					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sal_overtime"])+'$</div></td>';
-					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(totalSalary)+'$</div></td>';
-					strHtml += '	<td><div class="" style="">'+convertStatusToLetter(res.OUT_REC[i]["sal_status"])+'</div></td>';
+					strHtml += '<tr class="cur-pointer">';
+					strHtml += '	<td><div class="" style="width: 10px;"><input type="checkbox"></div></td>';
+					strHtml += '	<td><div class="">'+(res.OUT_REC[i]["commi_type"] == "A" ? "ទាំងអស់" : "បុគ្គល")+'</div></td>';
+					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["commi_amt"])+'</div></td>';
+					strHtml += '	<td><div class="" style="">'+(stock.comm.isEmpty(res.OUT_REC[i]["commi_is_approve"]) ? "រង់ចាំ" : "រូចរាល់")+'</div></td>';
+					strHtml += '	<td><div class="" style="">'+(stock.comm.isEmpty(res.OUT_REC[i]["commi_approve_date"]) ? "" : stock.comm.formatDateWithoutTime(res.OUT_REC[i]["commi_approve_date"]))+'</div></td>';
+					strHtml += '	<td><div class="" style="">'+null+'</div></td>';
+					strHtml += '	<td><div class="" style="">'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["sell_date"])+'</div></td>';
+					strHtml += '	<td><div class="" style="">'+res.OUT_REC[i]["sell_code"]+'</div></td>';
 					strHtml += '	<td class="text-center">';
-					strHtml += '		<button type="button" class="btn btn-primary btn-xs" onclick="editData('+res.OUT_REC[i]["sal_id"]+')">';
-					strHtml += '			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
-					strHtml += '		</button>';
+					strHtml += '		<button type="button" class="btn btn-primary btn-xs">អនុម័ត</button>';
 					strHtml += '	</td>';
 					strHtml += '</tr>';
 
-					totalSalaryAmt += parseFloat(totalSalary);
+					totalCommissionAmt += parseFloat(res.OUT_REC[i]["commi_amt"]);
 				}
 
 				strTotal += '<tr class="total">';
-				strTotal += '	<td class="" colspan="5" style="text-align: right;font-weight: 600;">សរុបប្រាក់ខែបុគ្គលិក: </td>';
-				strTotal += '	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalSalaryAmt)+'$</b></td>';
-				strTotal += '	<td class="" style="text-align: right;"></td>';
-				strTotal += '	<td class="" style="text-align: right;"></td>';
+				strTotal += '	<td class="" colspan="2" style="text-align: right;font-weight: 600;">សរុបប្រាក់កម្រៃជើងសារ: </td>';
+				strTotal += '	<td class="" colspan="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalCommissionAmt)+'</b></td>';
+				strTotal += '	<td colspan="6"></td>';
 				strTotal += '</tr>';
 
-				$("#tblSalary tbody").append(strHtml);
-				$("#tblSalary tbody").append(strTotal);
+				$("#tblCommission tbody").append(strHtml);
+				$("#tblCommission tbody").append(strTotal);
 				stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 			}else{
 				$("#chkAllBox").hide();
-				$("#tblSalary tbody").html("");
-				$("#tblSalary tbody").append("<tr><td colspan='9' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+				$("#tblCommission tbody").html("");
+				$("#tblCommission tbody").append("<tr><td colspan='6' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 				//--pagination
 				stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 			}
@@ -243,7 +249,7 @@ function getData(page_no){
 			console.log(data);
 			$("#chkAllBox").hide();
 			$("#loading").hide();
-			$("#tblSalary tbody").append("<tr><td colspan='9' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+			$("#tblCommission tbody").append("<tr><td colspan='9' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 			stock.comm.alertMsg($.i18n.prop("msg_err"));
 		}
 	});
@@ -304,7 +310,7 @@ function filtStaffCombo(){
 		var strHtml  = '<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>';
 		strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
 		var staffStr = "";
-		$("#staffNm").empty();
+		$("#cmboSeller").empty();
 		for(var i = 0; i < Staff_REC.length; i++){
 			if(Staff_REC[i]["sta_nm_kh"] != "" && Staff_REC[i]["sta_nm_kh"] != null){
 				staffStr = Staff_REC[i]["sta_nm_kh"];
@@ -313,7 +319,7 @@ function filtStaffCombo(){
 			}
 			strHtml += '<option value="'+Staff_REC[i]["sta_id"]+'">'+staffStr+'</option>';
 		}
-		$("#staffNm").html(strHtml);
+		$("#cmboSeller").html(strHtml);
 	}
 }
 
