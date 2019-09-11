@@ -1,5 +1,5 @@
 <?php
-	class M_user extends CI_Model{
+	class M_commission extends CI_Model{
 		
 		function __construct() 
 		{
