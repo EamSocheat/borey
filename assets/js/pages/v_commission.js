@@ -128,7 +128,7 @@ var _thisPage = {
 					var delData = {};
 					var tblTr   = $(this).parent().parent().parent();
 					var data_id = tblTr.attr("data-id");
-					delData["salId"] = data_id;
+					delData["commiId"] = data_id;
 					delArr.push(delData);
 				});
 
@@ -154,7 +154,7 @@ var _thisPage = {
 
 			var objArr = [];
 			chkVal.each(function(i){
-				var tblTr   = $(this).parent().parent();
+				var tblTr   = $(this).parent();
 				var data_id = tblTr.attr("data-id");
 				objArr.push(Number(data_id));
 			});
@@ -174,17 +174,13 @@ function getData(page_no){
 		pageNo = page_no;
 	}
 	var dat = {};
-	var saleSDate = $("#txtSrchSaleSD").val();
-	var saleEDate = $("#txtSrchSaleED").val();
-	var apprSDate = $("#txtSrchApproveSD").val();
-	var apprEDate = $("#txtSrchApproveED").val();
 	//paging
 	dat["perPage"] = $("#perPage").val();
 	dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
 
 	// search
 	dat["sellCode"]		= $("#txtSellCode").val();
-	// dat["sellerId"]		= $("#cmboSeller option:selected").val();
+	dat["sellerId"]		= $("#cmboSeller option:selected").val();
 	dat["saleSDate"]	= $("#txtSrchSaleSD").val();
 	dat["saleEDate"]	= $("#txtSrchSaleED").val();
 	dat["apprSDate"]	= $("#txtSrchApproveSD").val();
@@ -210,13 +206,13 @@ function getData(page_no){
 				var totalCommissionAmt = 0, totalSalary = 0;
 
 				for(var i = 0; i < res.OUT_REC.length; i++){
-					strHtml += '<tr class="cur-pointer">';
-					strHtml += '	<td><div class="" style="width: 10px;"><input type="checkbox"></div></td>';
+					strHtml += '<tr class="cur-pointer" data-id="'+res.OUT_REC[i]["commi_id"]+'">';
+					strHtml += '	<td class="chk_box"><div class="" style="width: 10px;"><input type="checkbox"></div></td>';
 					strHtml += '	<td><div class="">'+(res.OUT_REC[i]["commi_type"] == "A" ? "ទាំងអស់" : "បុគ្គល")+'</div></td>';
 					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["commi_amt"])+'</div></td>';
 					strHtml += '	<td><div class="" style="">'+(stock.comm.isEmpty(res.OUT_REC[i]["commi_is_approve"]) ? "រង់ចាំ" : "រូចរាល់")+'</div></td>';
 					strHtml += '	<td><div class="" style="">'+(stock.comm.isEmpty(res.OUT_REC[i]["commi_approve_date"]) ? "" : stock.comm.formatDateWithoutTime(res.OUT_REC[i]["commi_approve_date"]))+'</div></td>';
-					strHtml += '	<td><div class="" style="">'+null+'</div></td>';
+					strHtml += '	<td><div class="" style="">'+(stock.comm.isEmpty(res.OUT_REC[i]["sta_nm_kh"]) ? res.OUT_REC[i]["sta_nm_kh"] : res.OUT_REC[i]["sta_nm"])+'</div></td>';
 					strHtml += '	<td><div class="" style="">'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["sell_date"])+'</div></td>';
 					strHtml += '	<td><div class="" style="">'+res.OUT_REC[i]["sell_code"]+'</div></td>';
 					strHtml += '	<td class="text-center">';
@@ -239,7 +235,7 @@ function getData(page_no){
 			}else{
 				$("#chkAllBox").hide();
 				$("#tblCommission tbody").html("");
-				$("#tblCommission tbody").append("<tr><td colspan='6' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+				$("#tblCommission tbody").append("<tr><td colspan='9' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 				//--pagination
 				stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 			}
@@ -282,7 +278,7 @@ function editData(sal_id){
 function deleteDataArr(dataArr){
 	$.ajax({
 		type: "POST",
-		url : $("#base_url").val() +"Salary/delete",
+		url : $("#base_url").val() +"CommissionReport/delete",
 		data: dataArr,
 		dataType: 'json',
 		success: function(res) {
@@ -327,9 +323,13 @@ function filtStaffCombo(){
  *
  */
 function resetFormSearch(){
-	$("#staffNm option:eq(0)").attr("selected", true);
+	$("#cmboSeller option:eq(0)").attr("selected", true);
 	$("#cboStatus option:eq(0)").attr("selected", true);
-	$("#txtSalMonth").val("");
+	$("#txtSrchSaleSD").val("");
+	$("#txtSrchSaleED").val("");
+	$("#txtSrchApproveSD").val("");
+	$("#txtSrchApproveED").val("");
+	$("#txtSellCode").val("");
 }
 
 /**

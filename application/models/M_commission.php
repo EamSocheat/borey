@@ -13,6 +13,7 @@
 			$this->db->select('*');
 			//$this->db->from('tbl_commission');
 			$this->db->join('tbl_sell','tbl_sell.sell_id = tbl_commission.sell_id');
+			$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_sell.seller_id');
 			$this->db->where('tbl_commission.com_id', $_SESSION['comId']);
 			$this->db->where('tbl_commission.useYn', 'Y');
 			$this->db->where('tbl_sell.useYn', 'Y');
@@ -25,9 +26,9 @@
 				$this->db->where('tbl_sell.sell_code', $dataSrch['sell_code']);
 			}
 
-			/*if($dataSrch['seller_id'] != null && $dataSrch['seller_id'] != ""){
-				$this->db->where('tbl_sell.sell_code', $dataSrch['seller_id']);
-			}*/
+			if($dataSrch['seller_id'] != null && $dataSrch['seller_id'] != ""){
+				$this->db->where('tbl_sell.seller_id', $dataSrch['seller_id']);
+			}
 
 			if(($dataSrch['txtSaleSDate'] != null && $dataSrch['txtSaleSDate'] != "")
 				&& ($dataSrch['txtSaleEDate'] != null && $dataSrch['txtSaleEDate'] != "")){
@@ -80,24 +81,55 @@
 			$this->db->select('count(commi_id) as total_rec');
 			$this->db->from('tbl_commission');
 			$this->db->join('tbl_sell','tbl_sell.sell_id = tbl_commission.sell_id');
+			$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_sell.seller_id');
 			$this->db->where('tbl_commission.com_id', $_SESSION['comId']);
 			$this->db->where('tbl_commission.useYn', 'Y');
 			$this->db->where('tbl_sell.useYn', 'Y');
 
-			if($dataSrch['sal_id'] != null && $dataSrch['sal_id'] != ""){
-				$this->db->where('tbl_commission.sal_id', $dataSrch['sal_id']);
+			if($dataSrch['commi_id'] != null && $dataSrch['commi_id'] != ""){
+				$this->db->where('tbl_commission.commi_id', $dataSrch['commi_id']);
 			}
 
-			if($dataSrch['sta_id'] != null && $dataSrch['sta_id'] != ""){
-				$this->db->where('tbl_commission.sta_id', $dataSrch['sta_id']);
+			if($dataSrch['sell_code'] != null && $dataSrch['sell_code'] != ""){
+				$this->db->where('tbl_sell.sell_code', $dataSrch['sell_code']);
 			}
 
-			if($dataSrch['sal_status'] != null && $dataSrch['sal_status'] != ""){
-				$this->db->where('tbl_commission.sal_status', $dataSrch['sal_status']);
+			if($dataSrch['seller_id'] != null && $dataSrch['seller_id'] != ""){
+				$this->db->where('tbl_sell.seller_id', $dataSrch['seller_id']);
 			}
 
-			if($dataSrch['sal_month'] != null && $dataSrch['sal_month'] != ""){
-				$this->db->like('tbl_commission.sal_month', $dataSrch['sal_month']);
+			if(($dataSrch['txtSaleSDate'] != null && $dataSrch['txtSaleSDate'] != "")
+				&& ($dataSrch['txtSaleEDate'] != null && $dataSrch['txtSaleEDate'] != "")){
+
+				$this->db->where('tbl_sell.sell_date >=', $dataSrch['txtSaleSDate']);
+				$this->db->where('tbl_sell.sell_date <=', $dataSrch['txtSaleEDate']);
+			}else{
+				if(($dataSrch['txtSaleSDate'] != null && $dataSrch['txtSaleSDate'] != "")){
+					$this->db->where('tbl_sell.sell_date >=', $dataSrch['txtSaleSDate']);
+				}
+
+				if(($dataSrch['txtSaleEDate'] != null && $dataSrch['txtSaleEDate'] != "")){
+					$this->db->where('tbl_sell.sell_date <=', $dataSrch['txtSaleEDate']);
+				}
+			}
+
+			if(($dataSrch['txtApprSDate'] != null && $dataSrch['txtApprSDate'] != "")
+				&& ($dataSrch['txtApprEDate'] != null && $dataSrch['txtApprEDate'] != "")){
+
+				$this->db->where('tbl_commission.commi_approve_date >=', $dataSrch['txtApprSDate']);
+				$this->db->where('tbl_commission.commi_approve_date <=', $dataSrch['txtApprEDate']);
+			}else{
+				if(($dataSrch['txtApprSDate'] != null && $dataSrch['txtApprSDate'] != "")){
+					$this->db->where('tbl_commission.commi_approve_date >=', $dataSrch['txtApprSDate']);
+				}
+
+				if(($dataSrch['txtApprEDate'] != null && $dataSrch['txtApprEDate'] != "")){
+					$this->db->where('tbl_commission.commi_approve_date <=', $dataSrch['txtApprEDate']);
+				}
+			}
+
+			if($dataSrch['commi_is_approve'] != null && $dataSrch['commi_is_approve'] != ""){
+				$this->db->where('tbl_commission.commi_is_approve', $dataSrch['commi_is_approve']);
 			}
 
 			/*if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
@@ -198,12 +230,11 @@
         	$this->db->order_by("usr_id", "desc");
         	return $this->db->get()->result();
 		}
-		
-		
-		public function update($id,$data){
-			$this->db->where('usr_id', $id);
+
+		public function update($data){
 			$this->db->where('com_id', $_SESSION['comId']);
-			$this->db->update('tbl_user', $data);
+			$this->db->where('commi_id', $data['commi_id']);
+			$this->db->update('tbl_commission', $data);
 		}
 		
 		public function insert($data){

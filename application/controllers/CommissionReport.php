@@ -35,7 +35,7 @@ class CommissionReport extends CI_Controller{
 			'offset' 		=> $this->input->post('offset'),
 			'commi_id' 		=> $this->input->post('commId'),
 			'sell_code'		=> $this->input->post('sellCode'),
-//			'sell_id'		=> $this->input->post('sellId'),
+			'seller_id'		=> $this->input->post('sellerId'),
 			'txtSaleSDate' 	=> $this->reOrderDate($this->input->post('saleSDate')),
 			'txtSaleEDate' 	=> $this->reOrderDate($this->input->post('saleEDate')),
 			'txtApprSDate' 	=> $this->reOrderDate($this->input->post('apprSDate')),
@@ -136,13 +136,13 @@ class CommissionReport extends CI_Controller{
 		$cntDel = 0;
 		for($i=0; $i<sizeof($delObj); $i++){
 			$data = array(
-				'sal_id'	=> $delObj[$i]['salId'],
+				'commi_id'	=> $delObj[$i]['commiId'],
 				'useYn'		=> "N",
 				'com_id'	=> $_SESSION['comId'],
 				'upDt'		=> date('Y-m-d H:i:s'),
 				'upUsr'		=> $_SESSION['usrId']
 			);
-			$this->M_salary->update($data);
+			$this->M_commission->update($data);
 			$cntDel+=1;
 		}
 		echo $cntDel;
