@@ -55,58 +55,70 @@ class InstallmentPayment extends CI_Controller{
 	
 	
 	public function savePayment(){
-	    $max_id = (string)$this->input->post('txtInstNum');
-	    $zero   = '';
-	    for($i = strlen($max_id); $i <= 5; $i++){
-	        $zero = '0'.$zero;
-	    }
-	    $inv_code = $zero.$max_id;
-	    
-	    $dataPay = array(
-	        'inst_id'        	=> $this->input->post('instId'),
-	        'inst_paid_date'  	=> date('Y-m-d H:i:s',strtotime($this->input->post('txtPayDate'))),
-	        'inst_paid_des' 		=> $this->input->post('txtDesc'),
-	        'rec_id'        => $this->input->post('cboReceiver'),
-	        'inst_paid_status'        => $this->input->post('txtInstType'),
-	        'met_id'        => $this->input->post('cboPaymentMet'),
-	        'rec_id'        => $this->input->post('cboReceiver'),
-	        'inst_total_paid_amount'        => $this->input->post('txtInstPayAmt'),
-	        'inst_paid_penalty'        => $this->input->post('txtPenaltyAmt'),
-	        'inst_paid_yn'        => "Y",
-	        'inst_paid_inv_code'        =>$inv_code,
-	        'inst_paid_tran_id'        =>$this->input->post('txtTran')
-	        
+		$dataValid = array(
+	        'inst_num'        	=> $this->input->post('txtInstNum'),
+			'sell_id'        	=> $this->input->post('txtSellId')
 	    );
+		$validPay = $this->M_installment->validPayment($dataValid);
+		if( intval($validPay[0]->valid_size) > 0){
+			echo 'ERR';
+		}else{
+			
+			$max_id = (string)$this->input->post('txtInstNum');
+		    $zero   = '';
+		    for($i = strlen($max_id); $i <= 5; $i++){
+		        $zero = '0'.$zero;
+		    }
+		    $inv_code = $zero.$max_id;
+		    
+		    $dataPay = array(
+		        'inst_id'        	=> $this->input->post('instId'),
+		        'inst_paid_date'  	=> date('Y-m-d H:i:s',strtotime($this->input->post('txtPayDate'))),
+		        'inst_paid_des' 		=> $this->input->post('txtDesc'),
+		        'rec_id'        => $this->input->post('cboReceiver'),
+		        'inst_paid_status'        => $this->input->post('txtInstType'),
+		        'met_id'        => $this->input->post('cboPaymentMet'),
+		        'rec_id'        => $this->input->post('cboReceiver'),
+		        'inst_total_paid_amount'        => $this->input->post('txtInstPayAmt'),
+		        'inst_paid_penalty'        => $this->input->post('txtPenaltyAmt'),
+		        'inst_paid_yn'        => "Y",
+		        'inst_paid_inv_code'        =>$inv_code,
+		        'inst_paid_tran_id'        =>$this->input->post('txtTran')
+		        
+		    );
+		    
+		    //insert data
+		    $dataPay['useYn']  = 'Y';
+		    $dataPay['com_id'] = $_SESSION['comId'];
+		    $dataPay['regUsr'] = $_SESSION['usrId'];
+		    $dataPay['regDt']  = date('Y-m-d H:i:s');
+		    
+		    $id = $this->M_installment->insertPayment($dataPay);
+		    $code_id = $id;
+		    $max_id = (string)$code_id;
+		    $zero   = '';
+		    for($i = strlen($max_id); $i <= 5; $i++){
+		        $zero = '0'.$zero;
+		    }
+		    $code_id = $zero.$max_id;
+		    $dataUpdate = array(
+		        'inst_paid_code' => $code_id,
+		        'inst_paid_id' => $id,
+		    );
+		    $this->M_installment->updatePayment($dataUpdate);
+		    
+		    $data = array(
+		        'inst_id'      => $this->input->post('instId'),
+	            'inst_paid_yn'     => "Y",
+		        'com_id'    => $_SESSION['comId'],
+		        'upDt'      => date('Y-m-d H:i:s'),
+		        'upUsr'     => $_SESSION['usrId']
+		    );
+		    $this->M_installment->update($data);
+		    echo $id;
+		   
+		}
 	    
-	    //insert data
-	    $dataPay['useYn']  = 'Y';
-	    $dataPay['com_id'] = $_SESSION['comId'];
-	    $dataPay['regUsr'] = $_SESSION['usrId'];
-	    $dataPay['regDt']  = date('Y-m-d H:i:s');
-	    
-	    $id = $this->M_installment->insertPayment($dataPay);
-	    $code_id = $id;
-	    $max_id = (string)$code_id;
-	    $zero   = '';
-	    for($i = strlen($max_id); $i <= 5; $i++){
-	        $zero = '0'.$zero;
-	    }
-	    $code_id = $zero.$max_id;
-	    $dataUpdate = array(
-	        'inst_paid_code' => $code_id,
-	        'inst_paid_id' => $id,
-	    );
-	    $this->M_installment->updatePayment($dataUpdate);
-	    
-	    $data = array(
-	        'inst_id'      => $this->input->post('instId'),
-            'inst_paid_yn'     => "Y",
-	        'com_id'    => $_SESSION['comId'],
-	        'upDt'      => date('Y-m-d H:i:s'),
-	        'upUsr'     => $_SESSION['usrId']
-	    );
-	    $this->M_installment->update($data);
-	    echo $id;
 	}
     public function getInstallment(){
         if(!$this->M_check_user->check()){
@@ -191,6 +203,7 @@ class InstallmentPayment extends CI_Controller{
             );
             $dataPayment = array(
                 'inst_paid_id'    => $delObj[$i]['instPaidId'],
+            	'inst_paid_yn'     => "N",
                 'useYn'     => "N",
                 'com_id'    => $_SESSION['comId'],
                 'upDt'      => date('Y-m-d H:i:s'),

@@ -7,8 +7,19 @@
         	
     	}
     	
+    	public function validPayment($data){
+			$this->db->select('count(inst_id) as valid_size');
+        	$this->db->from('tbl_installment');
+        	$this->db->where('tbl_installment.com_id', $_SESSION['comId']);
+        	$this->db->where('tbl_installment.useYn', 'Y');
+        	$this->db->where('tbl_installment.sell_id', $data['sell_id']);
+        	$this->db->where('tbl_installment.inst_num < '.$data['inst_num']);
+        	$this->db->where("tbl_installment.inst_paid_yn","N");
+        	return $this->db->get()->result();
+    	}
+    	
     	public function selectInsertBookedInstallment($data){
-    		 $sql = 'INSERT tbl_installment_payment (inst_total_paid_amount,inst_paid_yn,inst_paid_date,inst_paid_inv_code
+    		 $sql = 'INSERT tbl_installment_payment (inst_total_paid_amount,inst_paid_yn,inst_paid_date,inst_paid_inv_code,
     		 				inst_paid_status,rec_id,met_id,inst_id, regDt,regUsr, useYn,com_id)
                            	SELECT con_total_price, "Y" as inst_paid_yn,con_date as inst_paid_date, "000001"
                            	,"BOOK" as inst_paid_status, rec_id,con_pay_met,'.$data['inst_id'].', now() as regDt,'.$_SESSION['usrId'].', "Y" as useYn, '.$_SESSION['comId'].'
@@ -196,6 +207,7 @@
             $this->db->where('tbl_sell.useYn', 'Y');
             $this->db->where("tbl_installment.inst_paid_yn","Y");
             $this->db->where("tbl_installment_payment.inst_paid_yn","Y");
+            $this->db->where("tbl_installment_payment.useYn","Y");
             if($dataSrch['inst_id'] != null && $dataSrch['inst_id'] != ""){
                 $this->db->where('tbl_installment.inst_id', $dataSrch['inst_id']);
             }
@@ -249,7 +261,7 @@
             $this->db->where('tbl_sell.useYn', 'Y');
             $this->db->where("tbl_installment.inst_paid_yn","Y");
             $this->db->where("tbl_installment_payment.inst_paid_yn","Y");
-            
+            $this->db->where("tbl_installment_payment.useYn","Y");
             if($dataSrch['inst_id'] != null && $dataSrch['inst_id'] != ""){
                 $this->db->where('tbl_installment.inst_id', $dataSrch['inst_id']);
             }

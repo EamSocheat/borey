@@ -91,10 +91,6 @@ var _thisPage = {
 function saveData(str){
 	$("#instId").appendTo("#frmPayment");    
     
-   
-       
-   
-  
 	//
 	$("#txtInstPayAmt").val($("#txtInstPayAmt").val().replace(/,/g,''));
 	$("#txtInstPayAmt").prop("disabled",false);
@@ -107,8 +103,9 @@ function saveData(str){
 		url  : $("#base_url").val() +"InstallmentPayment/savePayment",
 		data: $("#frmPayment").serialize(),
 		success: function(res) {
+			
 		    parent.$("#loading").hide();
-			if(res !=""){
+			if(res !="" && res !="ERR"){
 				//parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
 				parent.stock.comm.confirmMsg($.i18n.prop("msg_save_com")+" \nតើអ្នកចង់បោះពុម្ពដែរឫទេ ?");
 				parent.$("#btnConfirmOk").unbind().click(function(e){
@@ -121,11 +118,14 @@ function saveData(str){
 				}else{					
 				    parent.stock.comm.closePopUpForm("PopupFormInstallmentPayment",parent.popupInstallmentPaymentCallback);
 				}
+			}else if(res =="ERR"){
+				parent.stock.comm.alertMsg("ការបង់ប្រាក់មិនត្រឹមត្រូវ សូមបង់ប្រាក់មានលេខរៀងពីតូចទៅធំ");
+				return;
 			}
 		},
 		error : function(data) {
 			console.log(data);
-			stock.comm.alertMsg($.i18n.prop("msg_err"));
+			parent.stock.comm.alertMsg($.i18n.prop("msg_err"));
         }
 	});
 }
@@ -156,6 +156,7 @@ function getDataEdit(cont_id){
 			    
 			    $("#txtInstType").val(res.OUT_REC[0]["inst_type"]);
 			    $("#txtInstNum").val(res.OUT_REC[0]["inst_num"]);
+			    $("#txtSellId").val(res.OUT_REC[0]["sell_id"]);
 			    
 			    //$("#frmPayment input,#frmPayment textarea,#frmPayment select").prop("disabled",true);
 			}else{

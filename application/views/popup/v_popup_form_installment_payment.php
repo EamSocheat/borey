@@ -7,6 +7,7 @@
 		<input type="hidden" id="txtInstType" name="txtInstType"/>
 		<input type="hidden" id="txtInstNum" name="txtInstNum"/>
 		<input type="hidden" id="txtPayDesPer" name="txtPayDesPer"/>
+		<input type="hidden" id="txtSellId" name="txtSellId"/>
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
                 <span aria-hidden="true">&times;</span>

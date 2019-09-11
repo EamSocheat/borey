@@ -127,6 +127,7 @@ var _thisPage = {
 							if(res.OUT_REC[i]["inst_type"] =="BOOK"){
 								html += 	'<td class="chk_box"></td>';
 						    	html += "<td class='sale_pay_date cur-pointer'></td>";
+						    	html += "<td class='cur-pointer text-center'>កក់ប្រាក់</td>";
 							}else{
 								html += 	'<td class="chk_box"><input type="checkbox"></td>';
 						    	html += "<td class='sale_pay_date cur-pointer  text-center'><button type='button' class='btn btn-primary btn-xs' onclick='printInv("+res.OUT_REC[i]["inst_paid_id"]+")'><i class='fa fa-print' aria-hidden='true'></i> </button></td>";
