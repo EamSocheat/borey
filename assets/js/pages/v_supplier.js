@@ -94,7 +94,6 @@ var _thisPage = {
 
 			stock.comm.openPopUpForm(controllerNm, option, data);
 		}, deleteData : function(dataArr){
-			console.log(dataArr)
 			$.ajax({
 				type: "POST",
 				url: $("#base_url").val() +"Supplier/deleteSupplier",

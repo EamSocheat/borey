@@ -1,3 +1,0 @@
-INSERT INTO `tbl_menu`( `menu_nm`, `menu_nm_kh`, `regDt`, `menu_icon_nm`, `menu_order`, `menu_group`) VALUES ('Commission Report','??????????',now(),'aaa','13','2');
-----
-INSERT INTO `tbl_menu_company`(`menu_id`, `com_id`, `upDt`, `regDt`, `useYn`) VALUES (19,9,now(),now(),'Y');

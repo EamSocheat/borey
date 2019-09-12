@@ -219,6 +219,7 @@ function saveData(str){
 		data: $("#frmContract").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr ,
 		success: function(res) {
 		    parent.$("#loading").hide();
+
 			if(res !=""){
 				//parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
 				parent.stock.comm.confirmMsg($.i18n.prop("msg_save_com")+" \nតើអ្នកចង់បោះពុម្ពដែរឫទេ ?");
@@ -227,6 +228,7 @@ function saveData(str){
 					printInv(res);
 				});
 				
+
 				if(str == "new"){
 				    clearForm();
 				}else{					
@@ -251,7 +253,6 @@ function updateContractStatus(status){
 		data: input,
 		dataType: "json",
 		success: function(res) {
-			
 		    if(res > 0){
 		    	
 		    	parent.stock.comm.alertMsg("ការកំណត់បាន ជោគជ័យ");
@@ -339,7 +340,6 @@ function getDataEdit(cont_id){
 
 			    $("#frmContract input,#frmContract textarea,#frmContract select").prop("disabled",true);
 			}else{
-			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
 			}
 			$("#loading").hide();

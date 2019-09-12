@@ -289,7 +289,6 @@ var _thisPage = {
 					var data_id = tblTr.attr("data-id");
 					objArr.push(Number(data_id));
 				});
-				console.log(objArr);
 				$("#contId").val(objArr);
 				$("#btnExcel").submit();
 			});
@@ -318,7 +317,6 @@ function stringDate(str){
 }
 
 function deleteDataArr(dataArr){
-	console.log(dataArr)
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Contract/delete",
@@ -431,4 +429,5 @@ function resetFormSearch(){
     $("#txtSrchContEDExp").val("");
     $("#cboSeller").val("");
 }
+
 

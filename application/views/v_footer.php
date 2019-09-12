@@ -539,7 +539,6 @@ function getUserMenu(){
 					activeClass = "active";
 					styleFont="font-weight: 600;";
 					menu_tree = datarow["menu_group"];
-					console.log(menu_tree);
 				}
 				
 				if(datarow["menu_group"] == "0"){

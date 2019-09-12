@@ -76,7 +76,6 @@ function register(){
 					window.location.href= $("#base_url").val()+"Login";
 				});
 			}else{
-				console.log(res);
 	            stock.comm.alertMsg("System Error!!! PLease connect again.");
 			}
 		},

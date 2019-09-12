@@ -58,7 +58,7 @@
 											</div>
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
 												<div class="form-group form-inline">
-													<label for="txtCodePay" class="control-label" data-i18ncd="lb_pro_code" style="margin-bottom: 7px;display: -webkit-box;">លេខកូដ</label>
+													 <label for="txtCodePay" class="control-label" data-i18ncd="lb_pro_code" style="margin-bottom: 7px;display: -webkit-box;">លេខកូដ</label>
 													 <input type="text" class="form-control input-sm" id="txtCodePay" name="txtCodePay" placeholder="េខកូដ" style="width: 100%;">
 												</div>
 											</div>

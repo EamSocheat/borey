@@ -249,8 +249,6 @@ function getPosition(){
 					$("#cboPosition").append("<option value='"+res.OUT_REC[i]["pos_id"]+"'>"+braNm+"</option>");
 				}
 				
-			}else{
-				console.log(res);
 			}
 		},
 		error : function(data) {
@@ -281,8 +279,6 @@ function getBranch(){
 					$("#cboBranch").append("<option value='"+res.OUT_REC[i]["bra_id"]+"'>"+braNm+"</option>");
 				}
 				
-			}else{
-				console.log(res);
 			}
 		},
 		error : function(data) {

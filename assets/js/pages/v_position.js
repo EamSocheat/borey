@@ -174,7 +174,6 @@ function null2Void(dat){
 }
 
 function popupPositionCallback(){
-	console.log(true)
 	_thisPage.loadData(_pageNo);
 }
 
