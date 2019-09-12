@@ -39,7 +39,7 @@
 													<label for="projectNm" class="control-label" data-i18ncd="lb_project" style="
                                                         margin-bottom: 7px;display: -webkit-box;
                                                     ">គម្រោង</label>
-													<select class="form-control" id="projectNm" name="projectNm" style="font-size: 14px;" onchange="getData()">
+													<select class="form-control input-sm" id="projectNm" name="projectNm" style="font-size: 14px;" onchange="getData()">
 														<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>
 														<option value="1" data-i18ncd="lb_project_1">static</option>
 													</select>
@@ -49,8 +49,8 @@
 												<div class="form-group form-inline" >
 													<label for="cboCatNm" class="control-label" data-i18ncd="lb_cat" style="
                                                         margin-bottom: 7px;display: -webkit-box;
-                                                    ">ប្រភេទទំនិញ</label>
-													<select class="form-control" id="cboCatNm" name="cboCatNm" style="width: 143px;font-size: 14px;" onchange="getData()">
+                                                    ">ប្រភេទអចលនទ្រព្យ</label>
+													<select class="form-control input-sm" id="cboCatNm" name="cboCatNm" style="font-size: 14px;" onchange="getData()">
 														<option value="" data-i18ncd="lb_cat_choose">សូមជ្រើសរើស</option>
 														<option value="1" data-i18ncd="lb_category_1">static</option>
 													</select>
@@ -67,9 +67,11 @@
 													<label for="cboStatusNm" class="control-label" data-i18ncd="lb_status" style="
                                                         margin-bottom: 7px;display: -webkit-box;
                                                     ">ការប្រើប្រាស់</label>
-													<select class="form-control" id="cboStatusNm" name="cboStatusNm" style="width: 143px;font-size: 14px;" onchange="getData()">
-														<option value="1" data-i18ncd="lb_status_active">នៅប្រើប្រាស់</option>
-														<option value="0" data-i18ncd="lb_status_inactive">ឈប់ប្រើប្រាស់</option>
+													<select class="form-control input-sm" id="cboStatusNm" name="cboStatusNm" style="font-size: 14px;" onchange="getData()">
+														<option value="" >សូមជ្រើសរើស</option>
+														<option value="F" >ទំនេរ</option>
+														<option value="B">កក់</option>
+														<option value="S">លក់</option>
 													</select>
 												</div>
 											</div>
@@ -139,10 +141,12 @@
 								<colgroup>
 									<col style="width:5px;">
 									<col style="width:5px;">
-									<col style="width:130px;">
+									<col style="width:70px;">
+									<col style="width:70px;">
+									<col style="width:70px;">
+									<col style="width:70px;">
 									<col style="width:50px;">
-									<col style="width:50px;">
-									<col style="width:50px;">
+									<col style="width:50px">
 									<col style="width:50px">
 									<col style="width:50px;">
 								</colgroup>
@@ -151,10 +155,13 @@
 									<th><input type="checkbox" id="chkAllBox" style="display: none;"></th>
 									<th></th>
 									<th data-i18ncd="lb_pro_cd">លេខកូដ</th>
+									<th data-i18ncd="lb_height" >ប្រភេទ</th>
 									<th data-i18ncd="lb_sale_price" style="text-align: right;">តម្លៃផ្ទះ</th>
-									<th data-i18ncd="lb_height">ប្រវែងទទឹង</th>
-									<th data-i18ncd="lb_width">ប្រវែងបណ្ដោយ</th>
-									<th data-i18ncd="lb_area">ទំហំផ្ទះ</th>
+									<th data-i18ncd="lb_height" class="text-center">ប្រវែងទទឹង</th>
+									<th data-i18ncd="lb_width" class="text-center">ប្រវែងបណ្ដោយ</th>
+									<th data-i18ncd="lb_area" class="text-center">ទំហំផ្ទះ</th>
+									<th  class="text-center">ការប្រើប្រាស់</th>
+									
 									<th style="text-align: center;" data-i18ncd="lb_action">Action</th>
 								</tr>
 								</thead>

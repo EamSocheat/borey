@@ -42,7 +42,7 @@
                                                         margin-bottom: 7px;display: -webkit-box;
                                                     ">អ្នកផ្គត់ផ្គង់</label>
 														<!-- <input type="text" class="form-control input-sm" name="txtSrchSuppNm" id="txtSrchSuppNm" placeholder="អ្នកផ្គត់ផ្គង់" style="width: 100%;">-->
-														<select class="form-control" id="cboSupNm" name="cboSupNm" style="font-size: 14px;" onchange="getData()">
+														<select class="form-control input-sm" id="cboSupNm" name="cboSupNm" style="font-size: 14px;" onchange="getData()">
 															<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>
 															<option value="1" data-i18ncd="lb_project_1">static</option>
 														</select>
@@ -54,7 +54,7 @@
                                                         margin-bottom: 7px;display: -webkit-box;
                                                     ">គម្រោង</label>
 														<!-- <input type="text" class="form-control input-sm" id="txtSrchProNm" name="txtSrchProNm" placeholder="គម្រោង" style="width: 100%;">-->
-														<select class="form-control" id="projectNm" name="projectNm" style="font-size: 14px;" onchange="getData()">
+														<select class="form-control input-sm" id="projectNm" name="projectNm" style="font-size: 14px;" onchange="getData()">
 															<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>
 															<option value="1" data-i18ncd="lb_project_1">static</option>
 														</select>
@@ -64,7 +64,7 @@
 													<div class="form-group form-inline">
 														<label for="cboStaffPay" class="control-label" data-i18ncd="lb_staff_nm" style="margin-bottom: 7px;display: -webkit-box;">បុគ្គលិក(អ្នកទូទាត់)</label>
 														<!-- <input type="text" class="form-control input-sm" id="txtSrchStaffNm" name="txtSrchStaffNm" placeholder="បុគ្គលិក(អ្នកទូទាត់)" style="width: 100%;">-->
-														<select class="form-control" id="cboStaffPay" name="cboStaffPay" style="font-size: 14px;" onchange="getData()">
+														<select class="form-control input-sm" id="cboStaffPay" name="cboStaffPay" style="font-size: 14px;" onchange="getData()">
 															<option value="" data-i18ncd="lb_project_choose" selected>សូមជ្រើសរើស</option>
 															<option value="0" data-i18ncd="lb_staff_admin">static</option>
 														</select>
@@ -76,14 +76,14 @@
 														<div class="input-group-addon" id="txtSrchExpendSDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;padding: 5px 11px;">
 															<i class="fa fa-calendar"></i>
 														</div>
-														<input type="text" class="form-control pull-left date-pick" id="txtSrchExpendSD" name="txtSrchExpendSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល ថ្ងៃចាប់ផ្ដើមការបង់លុយ" style="font-size: 12px;width: 80%;">
+														<input type="text" class="form-control input-sm pull-left date-pick" id="txtSrchExpendSD" name="txtSrchExpendSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល ថ្ងៃចាប់ផ្ដើមការបង់លុយ" style="font-size: 12px;width: 80%;">
 													</div>
 													<div class="input-group date" style="margin-top: 26px;width: 100%;">
 														<label for="txtSrchExpendED" class="control-label" data-i18ncd="lb_expend_end" style="margin-bottom: 7px;display: none;">ថ្ងៃចាប់ផ្ដើមការចំណាយ</label>
-														<div class="input-group-addon" id="txtSrchExpendEDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
+														<div class="input-group-addon " id="txtSrchExpendEDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
 															<i class="fa fa-calendar"></i>
 														</div>
-														<input type="text" class="form-control pull-left date-pick" id="txtSrchExpendED" name="txtSrchExpendED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល ថ្ងៃបញ្ចប់ការបង់លុយ" style="font-size: 12px;width: 80%;">
+														<input type="text" class="form-control input-sm pull-left date-pick" id="txtSrchExpendED" name="txtSrchExpendED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល ថ្ងៃបញ្ចប់ការបង់លុយ" style="font-size: 12px;width: 80%;">
 													</div>
 												</div>
 											</div>
@@ -158,8 +158,8 @@
 										<th><input type="checkbox" id="chkAllBox" style="display: none;"></th>
 										<th data-i18ncd="lb_supplier">អ្នកផ្គត់ផ្គង់</th>
 										<th data-i18ncd="lb_total_exp" style="text-align: right;">ការចំណាយសរុប</th>
-										<th data-i18ncd="lb_project">គម្រោង</th>
-										<th data-i18ncd="lb_date_exp">កាលបរិច្ឆេទចំណាយ</th>
+										<th data-i18ncd="lb_project" style="text-align: center;">គម្រោង</th>
+										<th style="text-align: center;">កាលបរិច្ឆេទ</th>
 										<th data-i18ncd="lb_staff_expend">បុគ្គលិក(អ្នកទូទាត់)</th>
 										<th style="text-align: center;" data-i18ncd="lb_action">Action</th>
 									</tr>

@@ -22,6 +22,18 @@ var _thisPage = {
 			minViewMode: "months"
 		});
 		$("#txtSalMonth").inputmask();
+		
+		$('#txtSalMonthEnd').datepicker({
+			language: (getCookie("lang") == "kh" ? "kh" : "en"),
+			format: "mm-yyyy",
+			viewMode: "months",
+			autoclose: true,
+			minViewMode: "months"
+		});
+		$("#txtSalMonthEnd").inputmask();
+		
+		
+		
 		filtStaffCombo();
 	},event : function(){
 		$("#perPage").change(function(e){
@@ -54,7 +66,7 @@ var _thisPage = {
 			$("#loading").show();
 			var controllerNm = "PopupFormSalary";
 			var option = {};
-			option["height"] = "455px";
+			option["height"] = "510px";
 
 			stock.comm.openPopUpForm(controllerNm, option, null, "modal-md");
 		});
@@ -137,6 +149,7 @@ function getData(page_no){
 	}
 	var dat = {};
 	var salMonth = $("#txtSalMonth").val();
+	var salMonthEnd = $("#txtSalMonthEnd").val();
 	//paging
 	dat["perPage"] = $("#perPage").val();
 	dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
@@ -145,7 +158,8 @@ function getData(page_no){
 	dat["staffId"]		= $("#staffNm option:selected").val();
 	dat["salStatus"]	= $("#cboStatus option:selected").val();
 	dat["salMonth"]		= (salMonth != "" ? salMonth.split("-")[1]+"-"+salMonth.split("-")[0] : "");
-
+	dat["salMonthEnd"]		= (salMonthEnd != "" ? salMonthEnd.split("-")[1]+"-"+salMonthEnd.split("-")[0] : "");
+	
 	$("#loading").show();
 	$.ajax({
 		type: "POST",
@@ -167,11 +181,12 @@ function getData(page_no){
 					strHtml += '<tr data-id="'+res.OUT_REC[i]["sal_id"]+'" class="cur-pointer" ondblclick="editData('+res.OUT_REC[i]['sal_id']+')">';
 					strHtml += '	<td class="chk_box"><div class="" style="width: 10px;"><input type="checkbox"></div></td>';
 					strHtml += '	<td><div class="">'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["sal_month"]).substr(3,10)+'</div></td>';
+					strHtml += '	<td><div class="" >'+res.OUT_REC[i]["sta_nm_kh"]+'</div></td>';
 					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sal_amt"])+'$</div></td>';
 					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sal_comm"])+'$</div></td>';
 					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sal_overtime"])+'$</div></td>';
 					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(totalSalary)+'$</div></td>';
-					strHtml += '	<td><div class="" style="">'+convertStatusToLetter(res.OUT_REC[i]["sal_status"])+'</div></td>';
+					strHtml += '	<td><div class="" style="text-align: center">'+convertStatusToLetter(res.OUT_REC[i]["sal_status"])+'</div></td>';
 					strHtml += '	<td class="text-center">';
 					strHtml += '		<button type="button" class="btn btn-primary btn-xs" onclick="editData('+res.OUT_REC[i]["sal_id"]+')">';
 					strHtml += '			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
@@ -183,7 +198,7 @@ function getData(page_no){
 				}
 
 				strTotal += '<tr class="total">';
-				strTotal += '	<td class="" colspan="5" style="text-align: right;font-weight: 600;">សរុបប្រាក់ខែបុគ្គលិក: </td>';
+				strTotal += '	<td class="" colspan="6" style="text-align: right;font-weight: 600;">សរុបប្រាក់ខែបុគ្គលិក: </td>';
 				strTotal += '	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalSalaryAmt)+'$</b></td>';
 				strTotal += '	<td class="" style="text-align: right;"></td>';
 				strTotal += '	<td class="" style="text-align: right;"></td>';
@@ -228,7 +243,7 @@ function editData(sal_id){
 
 	var controllerNm = "PopupFormSalary";
 	var option = {};
-	option["height"] = "455px";
+	option["height"] = "510px";
 	stock.comm.openPopUpForm(controllerNm, option, data, "modal-md");
 }
 
@@ -264,7 +279,7 @@ function filtStaffCombo(){
 
 	if(!stock.comm.isEmpty(Staff_REC)){
 		var strHtml  = '<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>';
-		strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
+		//strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
 		var staffStr = "";
 		$("#staffNm").empty();
 		for(var i = 0; i < Staff_REC.length; i++){
@@ -286,6 +301,7 @@ function resetFormSearch(){
 	$("#staffNm option:eq(0)").attr("selected", true);
 	$("#cboStatus option:eq(0)").attr("selected", true);
 	$("#txtSalMonth").val("");
+	$("#txtSalMonthEnd").val("");
 }
 
 /**

@@ -36,7 +36,8 @@ class Salary extends CI_Controller{
 			'sal_id' 		=> $this->input->post('salId'),
 			'sta_id'		=> $this->input->post('staffId'),
 			'sal_status'	=> $this->input->post('salStatus'),
-			'sal_month'		=> $this->input->post('salMonth')
+			'sal_month'		=> $this->input->post('salMonth'),
+			'sal_month_end'		=> $this->input->post('salMonthEnd')
 		);
 		$data["OUT_REC"] 	 = $this->M_salary->selectSalary($dataSrch);
 		$data["OUT_REC_CNT"] = $this->M_salary->countSalary($dataSrch);
@@ -51,6 +52,7 @@ class Salary extends CI_Controller{
 		$salGetMonth = "";
 		$staId		 = $this->input->post('txtStaffNm');
 		$salMonth	 = "01-".$this->input->post('txtSalMonth');
+		$salOldMonth	 = "01-".$this->input->post('txtOldSalMonth');
 		$salStatus   = $this->input->post('salStatus');
 		if($salStatus == "P"){
 			$salGetMonth = "";
@@ -63,7 +65,7 @@ class Salary extends CI_Controller{
 			'sal_end_dt'	=> date('Y-m-d',strtotime($this->input->post('txtSalEDate'))),
 			'sal_month'		=> date('Y-m-d',strtotime($salMonth)),
 			'sal_amt'		=> str_replace(",","",$this->input->post('txtSalAmt')),
-			'sal_comm'		=> str_replace(",","",$this->input->post('txtSalcomm')),
+			'sal_comm'		=> str_replace(",","",$this->input->post('txtSalComm')),
 			'sal_overtime'	=> str_replace(",","",$this->input->post('txtSalOT')),
 			'sal_get_date'	=> $salGetMonth,
 			'sta_id'		=> $staId,
@@ -71,14 +73,19 @@ class Salary extends CI_Controller{
 			'useYn'			=> "Y",
 			'com_id'		=> $_SESSION['comId']
 		);
-
-		$dataSalMonth = array(
-			'sal_month'	=> date('Y-m-d',strtotime($salMonth))
-		);
-		$dataCurrentMonth = $this->M_salary->countDataCurrentMonth($dataSalMonth);
-
-		if(sizeof($dataCurrentMonth) > 0){
-//			print_r("This is month already given.");
+		
+		
+		$dupCnt=0;
+		if($salOldMonth != $salMonth){
+			$dataSalMonth = array(
+				'sal_month'	=> date('Y-m-d',strtotime($salMonth)),
+				'sta_id'	=> $staId
+			);
+			$dataCurrentMonth = $this->M_salary->countDataCurrentMonth($dataSalMonth);
+			$dupCnt = sizeof($dataCurrentMonth);
+		}
+	
+		if( $dupCnt > 0){
 			echo 'DUPLICATE';
 			return;
 		}

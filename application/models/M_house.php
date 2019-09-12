@@ -6,6 +6,19 @@
 			parent::__construct();
 		}
 
+		function checkCodeHouse($dataSrch){
+
+			$this->db->select('count(pro_id) as total_rec');
+			$this->db->from('tbl_product');
+			$this->db->where('tbl_product.com_id', $_SESSION['comId']);
+			$this->db->where('tbl_product.useYn', 'Y');
+			if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
+				$this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
+			}
+			
+			return $this->db->get()->result();
+		}
+		
 		function selectHouse($dataSrch){
 
 			$this->db->select('*');
@@ -30,7 +43,11 @@
 			if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
 				$this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
 			}
-
+			
+			if($dataSrch['pro_status'] != null && $dataSrch['pro_status'] != ""){
+				$this->db->where('tbl_product.pro_status', $dataSrch['pro_status']);
+			}
+			
 			if(($dataSrch['pro_start_price'] != null && $dataSrch['pro_start_price'] != "") &&
 				$dataSrch['pro_end_price'] != null && $dataSrch['pro_end_price'] != ""){
 				$this->db->where('tbl_product.pro_price >= ', $dataSrch['pro_start_price']);
@@ -81,7 +98,11 @@
 			if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
 				$this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
 			}
-
+			
+			if($dataSrch['pro_status'] != null && $dataSrch['pro_status'] != ""){
+				$this->db->where('tbl_product.pro_status', $dataSrch['pro_status']);
+			}
+			
 			if(($dataSrch['pro_start_price'] != null && $dataSrch['pro_start_price'] != "") &&
 				$dataSrch['pro_end_price'] != null && $dataSrch['pro_end_price'] != ""){
 				$this->db->where('tbl_product.pro_price >= ', $dataSrch['pro_start_price']);

@@ -25,10 +25,23 @@
 			if($dataSrch['sal_status'] != null && $dataSrch['sal_status'] != ""){
 				$this->db->where('tbl_salary.sal_status', $dataSrch['sal_status']);
 			}
-
+			/*
 			if($dataSrch['sal_month'] != null && $dataSrch['sal_month'] != ""){
 				$this->db->like('tbl_salary.sal_month', $dataSrch['sal_month']);
 			}
+			*/
+			if(($dataSrch['sal_month'] != null && $dataSrch['sal_month'] != "")
+		        && ($dataSrch['sal_month_end'] != null && $dataSrch['sal_month_end'] != "")){
+		            $this->db->where('tbl_salary.sal_month >=', date('Y-m-d', strtotime($dataSrch['sal_month'])));
+		            $this->db->where('tbl_salary.sal_month <=', date('Y-m-d', strtotime($dataSrch['sal_month_end'])));
+		    }else{
+		        if($dataSrch['sal_month'] != null && $dataSrch['sal_month'] != ""){
+		            $this->db->where('tbl_salary.sal_month >=', date('Y-m-d', strtotime($dataSrch['sal_month'])));
+		        }
+		        if($dataSrch['sal_month_end'] != null && $dataSrch['sal_month_end'] != ""){
+		            $this->db->where('tbl_salary.sal_month <=', date('Y-m-d', strtotime($dataSrch['sal_month_end'])));
+		        }
+		    }
 
 			/*if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
 				$this->db->group_start();
@@ -61,11 +74,24 @@
 			if($dataSrch['sal_status'] != null && $dataSrch['sal_status'] != ""){
 				$this->db->where('tbl_salary.sal_status', $dataSrch['sal_status']);
 			}
-
+			
+			/*
 			if($dataSrch['sal_month'] != null && $dataSrch['sal_month'] != ""){
 				$this->db->like('tbl_salary.sal_month', $dataSrch['sal_month']);
 			}
-
+			*/
+			if(($dataSrch['sal_month'] != null && $dataSrch['sal_month'] != "")
+		        && ($dataSrch['sal_month_end'] != null && $dataSrch['sal_month_end'] != "")){
+		            $this->db->where('tbl_salary.sal_month >=', date('Y-m-d', strtotime($dataSrch['sal_month'])));
+		            $this->db->where('tbl_salary.sal_month <=', date('Y-m-d', strtotime($dataSrch['sal_month_end'])));
+		    }else{
+		        if($dataSrch['sal_month'] != null && $dataSrch['sal_month'] != ""){
+		            $this->db->where('tbl_salary.sal_month >=', date('Y-m-d', strtotime($dataSrch['sal_month'])));
+		        }
+		        if($dataSrch['sal_month_end'] != null && $dataSrch['sal_month_end'] != ""){
+		            $this->db->where('tbl_salary.sal_month <=', date('Y-m-d', strtotime($dataSrch['sal_month_end'])));
+		        }
+		    }
 			return $this->db->get()->result();
 		}
 
@@ -74,7 +100,7 @@
 			$this->db->from('tbl_salary as sal');
 			$this->db->where('sal.useYn', 'Y');
 			$this->db->where('sal.sal_month', $dataSalMonth['sal_month']);
-
+			$this->db->where('sal.sta_id', $dataSalMonth['sta_id']);
 			$result = $this->db->get()->result();
 
 			return $result;

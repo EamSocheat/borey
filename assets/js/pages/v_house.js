@@ -105,7 +105,7 @@ var _thisPage = {
 					var delData = {};
 					var tblTr   = $(this).parent().parent();
 					var data_id = tblTr.attr("data-id");
-					delData["expId"] = data_id;
+					delData["proId"] = data_id;
 					delArr.push(delData);
 				});
 
@@ -159,9 +159,9 @@ function getData(page_no){
 	dat["catNm"]	= $("#cboCatNm option:selected").val();
 	dat["codePay"] 	= $("#txtCodePay").val();
 	dat["proStat"]	= $("#cboStatusNm option:selected").val();
-	dat["txtMinPrice"]	= $("#txtMinPrice").val();
-	dat["txtMaxPrice"]	= $("#txtMaxPrice").val();
-	console.log(dat)
+	dat["txtMinPrice"]	= $("#txtMinPrice").val().replace(/,/g,"");
+	dat["txtMaxPrice"]	= $("#txtMaxPrice").val().replace(/,/g,"");
+	//console.log(dat)
 
 	$("#loading").show();
 	$.ajax({
@@ -194,10 +194,13 @@ function getData(page_no){
 					strHmtl += '		<img style="width: 35px;height: 35px;" src="'+ urlPhoto +'" class="img-circle" />';
 					strHmtl += '	</div></td>';
 					strHmtl += '	<td><div>'+res.OUT_REC[i]["pro_code"]+'</div></td>';
+					strHmtl += '	<td><div >'+res.OUT_REC[i]["cat_nm_kh"]+'</div></td>';
 					strHmtl += '	<td><div style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["pro_price"])+'</div></td>';
-					strHmtl += '	<td><div>'+stock.comm.null2Void(res.OUT_REC[i]["pro_length"])+' ម៉ែត្រ</div></td>';
-					strHmtl += '	<td><div>'+stock.comm.null2Void(res.OUT_REC[i]["pro_width"])+' ម៉ែត្រ</div></td>';
-					strHmtl += '	<td><div>'+stock.comm.null2Void(res.OUT_REC[i]["pro_area"])+' ម៉ែត្រការ៉េ</div></td>';
+					
+					strHmtl += '	<td><div class="text-center">'+stock.comm.null2Void(res.OUT_REC[i]["pro_length"])+' ម៉ែត្រ</div></td>';
+					strHmtl += '	<td><div class="text-center">'+stock.comm.null2Void(res.OUT_REC[i]["pro_width"])+' ម៉ែត្រ</div></td>';
+					strHmtl += '	<td><div class="text-center">'+stock.comm.null2Void(res.OUT_REC[i]["pro_area"])+' ម៉ែត្រការ៉េ</div></td>';
+					strHmtl += '	<td><div class="text-center">'+renderHouseStatus(res.OUT_REC[i]["pro_status"])+'</div></td>';
 					strHmtl += '	<td class="text-center">';
 					strHmtl += '		<button type="button" class="btn btn-primary btn-xs" onclick="editData('+res.OUT_REC[i]["pro_id"]+')">';
 					strHmtl += '			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
@@ -209,7 +212,7 @@ function getData(page_no){
 				}
 
 				strTotal +='<tr class="total">';
-				strTotal +='	<td class="" colspan="3" style="text-align: right;">ថ្លៃទំនិញសរុប: </td>';
+				strTotal +='	<td class="" colspan="3" style="text-align: right;">ថ្លៃអចលនទ្រព្យសរុប: </td>';
 				strTotal +='	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalAmt)+'</b></td>';
 				strTotal +='</tr>';
 
@@ -367,4 +370,16 @@ function resetFormSearch(){
  */
 function popupHouseCallback(){
 	getData(_pageNo);
+}
+
+function renderHouseStatus(val){
+	var html="";
+	if(val == "B"){
+		html='<span class="label label-warning">កក់ &nbsp;</span>';
+	}else if(val == "S"){
+		html='<span class="label label-success">លក់</span>';
+	}else{
+		html='<span class="label label-default">ទំនេរ</span>';
+	}
+	return html;
 }

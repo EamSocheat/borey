@@ -4,13 +4,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class CommissionReport extends CI_Controller{
     public function __construct(){
         parent::__construct();
-        $this->load->model('M_login');
+        //$this->load->model('M_login');
         $this->load->library('session');
         $this->load->model('M_check_user');
         $this->load->model('M_menu');
         $this->load->helper('form');
         $this->load->model('M_commission');
         $this->load->model('M_common');
+        //$this->load->model('M_salary');
+        $this->load->model('M_branch');
     }
 
 	public function index(){
@@ -24,7 +26,8 @@ class CommissionReport extends CI_Controller{
 
 		$this->load->view('v_commission',$data);
 	}
-
+	
+	
 	public function getCommissionData(){
 		if(!$this->M_check_user->check()){
 			redirect('/Login');
@@ -155,6 +158,7 @@ class CommissionReport extends CI_Controller{
 		}
 		return $output_date;
 	}
+	
 }
 
 ?>

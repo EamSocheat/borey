@@ -32,7 +32,7 @@ var _thisPage = {
 		    parent.$("#loading").show();
 			var controllerNm = "PopupFormBranch";
 			var option={};
-			option["height"] = "460px";
+			option["height"] = "470px";
 			var data="parentId="+"ifameStockSelect";
 			
 			parent.stock.comm.openPopUpForm(controllerNm,option, data,null,"modalMdBranch","modalMdContentBranch","ifameStockFormBranch");
@@ -216,7 +216,7 @@ function editData(bra_id){
 	data+="&parentId="+"ifameStockSelect";
 	var controllerNm = "PopupFormBranch";
 	var option={};
-	option["height"] = "460px";
+	option["height"] = "470px";
     parent.stock.comm.openPopUpForm(controllerNm,option, data,null,"modalMdBranch","modalMdContentBranch","ifameStockFormBranch");
 }
 

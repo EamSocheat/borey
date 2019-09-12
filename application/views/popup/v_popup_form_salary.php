@@ -36,6 +36,7 @@
 									<i class="fa fa-calendar"></i>
 								</div>
 								<input type="text" class="form-control" id="txtSalMonth" name="txtSalMonth" required="required" autocomplete="off" />
+								<input type="hidden" class="form-control" id="txtOldSalMonth" name="txtOldSalMonth"  />
 							</div>
 						</div>
 					</div>

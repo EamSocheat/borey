@@ -116,7 +116,7 @@ function saveData(str){
 		parent.$("#loading").hide();
 		return;
 	}
-
+    $("#txtStaffNm").prop("disabled",false);
 	$.ajax({
 		type : "POST",
 		url  : $("#base_url").val() +"Salary/save",
@@ -164,7 +164,6 @@ function updateSalaryStatus(statusValue){
 		type: "POST",
 		url : $("#base_url").val() +"Salary/updateSalaryStatus",
 		data: input,
-		dataType: "json",
 		async	: false,
 		success	: function(res) {
 			if(res =="OK"){
@@ -193,6 +192,8 @@ function getDataEdit(sal_id){
 				salTotalAmt = parseFloat(res.OUT_REC[0]["sal_amt"]) + parseFloat(res.OUT_REC[0]["sal_comm"]) + parseFloat(res.OUT_REC[0]["sal_overtime"])
 				$("#txtStaffNm option[value='"+res.OUT_REC[0]["sta_id"]+"']").attr("selected","selected");
 				$("#txtSalMonth").val(stock.comm.formatDateWithoutTime(res.OUT_REC[0]["sal_month"]).substr(3,10));
+				$("#txtOldSalMonth").val(stock.comm.formatDateWithoutTime(res.OUT_REC[0]["sal_month"]).substr(3,10));
+				
 				$("#txtSalSDate").val(stock.comm.formatDateWithoutTime(res.OUT_REC[0]["sal_start_dt"]));
 				$("#txtSalEDate").val(stock.comm.formatDateWithoutTime(res.OUT_REC[0]["sal_end_dt"]));
 			    $("#txtSalAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["sal_amt"]));
@@ -200,6 +201,8 @@ function getDataEdit(sal_id){
 			    $("#txtSalOT").val(stock.comm.formatCurrency(res.OUT_REC[0]["sal_overtime"]));
 			    $("#salTotalAmt").val(stock.comm.formatCurrency(salTotalAmt));
 				$("#salStatus option[value='"+res.OUT_REC[0]["sal_status"]+"']").attr("selected","selected");
+				
+				$("#txtStaffNm").prop("disabled",true);
 			}else{
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
 			}

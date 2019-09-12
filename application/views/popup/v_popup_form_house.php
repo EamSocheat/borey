@@ -54,11 +54,12 @@
 				  <div class="form-group">
 					  <label for="txtCode" data-i18ncd="lb_house_code">លេខកូដ</label>
 					  <input type="text" class="form-control" id="txtCode" name="txtCode" required="required" maxlength="9" autocomplete="off" />
+					  <input type="hidden" class="form-control" id="txtOldCode" name="txtOldCode" />
 				  </div>
 			  </div>
 
 			  <div class="col-xs-4 padding-forms-right">
-				  <div class="form-group input-right">
+				  <div class="form-group">
 					  <label for="txtHousePrice" data-i18ncd="lb_price">តម្លៃ</label>
 					  <input type="text" class="form-control input-right" id="txtHousePrice" name="txtHousePrice" required="required" autocomplete="off" />
 				  </div>
@@ -68,24 +69,24 @@
 		  <div class="col-xs-12 row" style="padding:0px">
 			  <div class="col-xs-3 padding-forms-left">
 				  <div class="form-group">
-					  <label for="txtHouseNo" data-i18ncd="lb_house_no">No.</label>
+					  <label for="txtHouseNo" data-i18ncd="lb_house_no">លេខផ្ទះ</label>
 					  <input type="text" class="form-control" id="txtHouseNo" name="txtHouseNo" autocomplete="off" style="font-size: 14px;">
 				  </div>
 			  </div>
 			  <div class="col-xs-3 padding-forms-right">
-				  <div class="form-group input-right">
+				  <div class="form-group">
 					  <label for="txtHouseLength" data-i18ncd="lb_house_length">ប្រវែងបណ្ដោយ</label>
 					  <input type="text" class="form-control input-right" id="txtHouseLength" name="txtHouseLength" autocomplete="off" style="font-size: 14px;">
 				  </div>
 			  </div>
 			  <div class="col-xs-3 padding-forms-right">
-				  <div class="form-group input-right">
+				  <div class="form-group">
 					  <label for="txtHouseWidth" data-i18ncd="lb_house_width">ប្រវែងទទឹង</label>
 					  <input type="text" class="form-control input-right" id="txtHouseWidth" name="txtHouseWidth" autocomplete="off" style="font-size: 14px;">
 				  </div>
 			  </div>
 			  <div class="col-xs-3 padding-forms-right">
-				  <div class="form-group input-right">
+				  <div class="form-group">
 					  <label for="txtHouseArea" data-i18ncd="lb_house_area">ផ្ទៃផ្ទះ</label>
 					  <input type="text" class="form-control input-right" id="txtHouseArea" name="txtHouseArea" autocomplete="off" style="font-size: 14px;">
 				  </div>
@@ -100,19 +101,19 @@
 				  </div>
 			  </div>
 			  <div class="col-xs-3 padding-forms-right">
-				  <div class="form-group input-right">
+				  <div class="form-group">
 					  <label for="txtFloorQty" data-i18ncd="lb_house_floor">ចំនួនជាន់</label>
 					  <input type="text" class="form-control input-right" id="txtFloorQty" name="txtFloorQty" autocomplete="off" />
 				  </div>
 			  </div>
 			  <div class="col-xs-3 padding-forms-right">
-				  <div class="form-group input-right">
+				  <div class="form-group">
 					  <label for="txtRoomQty" data-i18ncd="lb_house_room">ចំនួនបន្ទប់</label>
 					  <input type="text" class="form-control input-right" id="txtRoomQty" name="txtRoomQty" autocomplete="off" />
 				  </div>
 			  </div>
 			  <div class="col-xs-3 padding-forms-right">
-				  <div class="form-group input-right">
+				  <div class="form-group">
 					  <label for="txtToiletQty" data-i18ncd="lb_house_toilet">ចំនួនបន្ទប់ទឹក</label>
 					  <input type="text" class="form-control input-right" id="txtToiletQty" name="txtToiletQty" autocomplete="off" />
 				  </div>

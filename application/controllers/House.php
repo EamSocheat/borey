@@ -78,32 +78,34 @@ class House extends CI_Controller{
 			'useYn'			=> "Y",
 			'com_id'		=> $_SESSION['comId']
 		);
-
-		$dataCode = array(
-			'pro_code'	=> $this->input->post('txtCode')
-		);
-		$productCode = $this->M_house->countHouse($dataCode);
-
-		if(sizeof($productCode["totel_rec"]) > 0){
-			print_r("DUPLICATE CODE");
-			return;
+		
+		$dupCnt=0;
+		if($this->input->post('txtCode') != $this->input->post('txtOldCode')){
+			$dataCode = array(
+				'pro_code'	=> $this->input->post('txtCode')
+			);
+			$productCode = $this->M_house->checkCodeHouse($dataCode);
+			$dupCnt = intval($productCode[0]->total_rec);
 		}
-
-
-		if($this->input->post('houseId') != null && $this->input->post('houseId') != ""){
-			//update data
-			$data['pro_id'] = $this->input->post('houseId');
-			$data['upUsr'] = $_SESSION['usrId'];
-			$data['upDt'] = date('Y-m-d H:i:s');
-			$this->M_house->update($data);
+		
+		if( $dupCnt > 0){
+			echo "DUP";
 		}else{
-			//insert data
-			$data['regUsr'] = $_SESSION['usrId'];
-			$data['regDt'] = date('Y-m-d H:i:s');
-			$this->M_house->insert($data);
+			if($this->input->post('houseId') != null && $this->input->post('houseId') != ""){
+				//update data
+				$data['pro_id'] = $this->input->post('houseId');
+				$data['upUsr'] = $_SESSION['usrId'];
+				$data['upDt'] = date('Y-m-d H:i:s');
+				$this->M_house->update($data);
+			}else{
+				//insert data
+				$data['pro_status'] = "F";
+				$data['regUsr'] = $_SESSION['usrId'];
+				$data['regDt'] = date('Y-m-d H:i:s');
+				$this->M_house->insert($data);
+			}
+			echo 'OK';
 		}
-
-		echo 'OK';
 	}
 
 
@@ -120,51 +122,9 @@ class House extends CI_Controller{
 		$delObj = $this->input->post('delObj');
 		$cntDel = 0;
 		for($i=0; $i<sizeof($delObj); $i++){
-			/*$cntActiveContract	= 0;
-			$cntActiveSell		= 0;
-			//check contract table using branch or not
-			$dataCol = array(
-				'tbl_nm' 		=> "tbl_contract",
-				'id_nm' 		=> "exp_id",
-				'com_id' 		=> "com_id"
-			);
-
-			$dataVal = array(
-				'id_val' 		=> $delObj[$i]['expId'],
-				'com_val' 		=> $_SESSION['comId']
-			);
-			$chkData	= $this->M_common->checkActiveRecord($dataCol,$dataVal);
-			$cntActiveContract += $chkData[0]->active_rec;
-
-			$dataCol = array(
-				'tbl_nm' 		=> "tbl_sell",
-				'id_nm' 		=> "exp_id",
-				'com_id' 		=> "com_id"
-			);
-
-			$dataVal = array(
-				'id_val' 		=> $delObj[$i]['expId'],
-				'com_val' 		=> $_SESSION['comId']
-			);
-			$chkData		= $this->M_common->checkActiveRecord($dataCol,$dataVal);
-			$cntActiveSell += $chkData[0]->active_rec;
-
-			if($cntActiveContract > 0 || $cntActiveSell > 0){
-				continue;
-			}else{
-				$data = array(
-					'exp_id'	=> $delObj[$i]['expId'],
-					'useYn'		=> "N",
-					'com_id'	=> $_SESSION['comId'],
-					'upDt'		=> date('Y-m-d H:i:s'),
-					'upUsr'		=> $_SESSION['usrId']
-				);
-				$this->M_expend->update($data);
-				$cntDel+=1;
-			}*/
-
+			
 			$data = array(
-				'pro_id'	=> $delObj[$i]['houseId'],
+				'pro_id'	=> $delObj[$i]['proId'],
 				'useYn'		=> "N",
 				'com_id'	=> $_SESSION['comId'],
 				'upDt'		=> date('Y-m-d H:i:s'),

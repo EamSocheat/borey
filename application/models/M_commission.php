@@ -144,21 +144,20 @@
 			return $this->db->get()->result();
 		}
     	
-
+		/*
         public function update($data){
             $this->db->where('com_id', $_SESSION['comId']);
             $this->db->where('con_id', $data['commi_id']);
             $this->db->update('tbl_commission', $data);
         }
-        
+        */
         public function insert($data){
             $this->db->insert('tbl_commission',$data);
             return $this->db->insert_id();
         }
+        
 	
-    }
-
-	function selectUserMenu($dataSrch){
+		function selectUserMenu($dataSrch){
   
         	$this->db->select('tbl_user.*,tbl_menu_user.menu_id,tbl_staff.sta_id,tbl_staff.sta_nm_kh,tbl_user.regDt as regUsrDt');
         	//$this->db->from('tbl_staff');
@@ -252,11 +251,11 @@
 			$this->db->where('commi_id', $data['commi_id']);
 			$this->db->update('tbl_commission', $data);
 		}
-		
+		/*
 		public function insert($data){
 			$this->db->insert('tbl_user',$data);
 			return $this->db->insert_id();
-		}
+		}*/
 		
 		
 		public function selectCount(){
@@ -275,5 +274,8 @@
 		    $this->db->where('comId', $_SESSION['comId']);
 		    $this->db->update('tblcompany', $data);
 		}
-
+	
     }
+		
+
+    

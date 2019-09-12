@@ -69,7 +69,7 @@ var _thisPage = {
 			$("#loading").show();
 			var controllerNm = "PopupFormExpend";
 			var option = {};
-			option["height"] = "622px";
+			option["height"] = "630px";
 
 			stock.comm.openPopUpForm(controllerNm, option, null, "modal-md");
 		});
@@ -207,8 +207,8 @@ function getData(page_no){
 					strHmtl += '	<td class="chk_box"><input type="checkbox" /></td>';
 					strHmtl += '	<td><div>'+supNmKh+'</div></td>';
 					strHmtl += '	<td><div style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["exp_total_price"])+'</div></td>';
-					strHmtl += '	<td><div>'+res.OUT_REC[i]["bra_nm"]+'</div></td>';
-					strHmtl += '	<td><div>'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["exp_date"])+'</div></td>';
+					strHmtl += '	<td><div style="text-align: center">'+res.OUT_REC[i]["bra_nm_kh"]+'</div></td>';
+					strHmtl += '	<td><div style="text-align: center">'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["exp_date"])+'</div></td>';
 					strHmtl += '	<td><div>'+staNmKh+'</div></td>';
 					strHmtl += '	<td class="text-center">';
 					strHmtl += '		<button type="button" class="btn btn-primary btn-xs" onclick="editData('+res.OUT_REC[i]["exp_id"]+')">';
@@ -253,7 +253,7 @@ function editData(exp_id){
 
 	var controllerNm = "PopupFormExpend";
 	var option = {};
-	option["height"] = "622px";
+	option["height"] = "630px";
 	stock.comm.openPopUpForm(controllerNm,option, data,"modal-md");
 }
 

@@ -28,7 +28,7 @@ var _thisPage = {
 		    // parent.$("#loading").show();
 			var controllerNm = "PopupFormCategory";
 			var option = {};
-			option["height"] = "352px";
+			option["height"] = "360px";
 			var data="parentId="+"ifameStockSelect";
 			
 			parent.stock.comm.openPopUpForm(controllerNm,option, data,null,"modalMdPosition","modalMdContentPosition","ifameStockFormPosition");
@@ -171,13 +171,13 @@ function getCategoryData(){
 					}
 
 					html += '<tr data-id='+v.cat_id+' class="cur-pointer">';
-					html += '	<td class="radio_box line-height-30"><input type="radio"></td>';
+					html += '	<td class="radio_box line-height-30" ><input type="radio" name="checkOne"></td>';
 					html += '   <td style="height: 30px;"><div style="width: 30px;" class="image">';
 					html += '       <img id="staImgView" src="'+catPhoto+'" class="" style="width:30px;height: 30px;" alt="User Image">';
 					html += '   </div></td>';
 					html += '	<td class="line-height-30"><div class="cat_nm">'+v.cat_nm+'</div></td>';
 					html += '	<td class="line-height-30"><div class="cat_nm_kh">'+v.cat_nm_kh+'</div></td>';
-					html += '	<td class="line-height-30"><div>'+v.cat_des+'</div></td>';
+					//html += '	<td class="line-height-30"><div>'+v.cat_des+'</div></td>';
 					// html += '	<td><div>'+(null2Void(v.regDt)).substr(0,10)+'</div></td>';
 					html += '	<td class="text-center line-height-30">';
 					html += '		<button onclick="editData('+v.cat_id+')" type="button" class="btn btn-primary btn-xs">';
@@ -235,7 +235,7 @@ function editData(cat_id){
 	data += "&parentId="+"ifameStockSelect";
 	var controllerNm = "PopupFormCategory";
 	var option = {};
-	option["height"] = "352px";
+	option["height"] = "360px";
 	parent.stock.comm.openPopUpForm(controllerNm,option, data,null,"modalMdPosition","modalMdContentPosition","ifameStockFormPosition");
 }
 

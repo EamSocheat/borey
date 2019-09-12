@@ -35,23 +35,19 @@
 				</div>
 				<!-- /.button -->
 				<br>
-				<div class="box-body table-responsive fix-header-tbl" style="height: 384px;">
+				<div class="box-body table-responsive fix-header-tbl" style="height: 250px;">
 					<table class="table table-hover" id="tblCategory">
 						<colgroup>
 							<col width="5px">
 							<col width="10px">
-							<col width="100px">
-							<col width="50px">
-							<col width="50px">
+							<col width="150px">
 							<col width="50px">
 						</colgroup>
 						<thead>
 						<tr>
 							<th><input type="checkbox" id="chkAll" style="display:none;"></th>
 							<th data-i18ncd="lb_name" colspan="2" style="text-align:center;">Name</th>
-							<th data-i18ncd="lb_name_kh">Khmer Name</th>
-							<th data-i18ncd="lb_des">Description</th>
-<!--							<th data-i18ncd="lb_docreate">Register Date</th>-->
+							<th data-i18ncd="lb_name_kh"  style="text-align:center;">Khmer Name</th>
 							<th data-i18ncd="lb_action" style="text-align: center;">Action</th>
 						</tr>
 						</thead>

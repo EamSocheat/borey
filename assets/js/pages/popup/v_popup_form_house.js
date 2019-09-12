@@ -20,9 +20,9 @@ var _thisPage = {
 			    $("#popupTitle").html("<i class='fa fa-building-o'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_house"));
 			}
 			$("#frmHouse").show();
-			stock.comm.inputNumber("txtHouseLength");
-			stock.comm.inputNumber("txtHouseWidth");
-			stock.comm.inputNumber("txtHouseArea");
+			stock.comm.inputCurrency("txtHouseLength");
+			stock.comm.inputCurrency("txtHouseWidth");
+			stock.comm.inputCurrency("txtHouseArea");
 			stock.comm.inputNumber("txtFloorQty");
 			stock.comm.inputNumber("txtRoomQty");
 			stock.comm.inputNumber("txtToiletQty");
@@ -54,9 +54,11 @@ var _thisPage = {
 							$("#txtProjNm").val(res.OUT_REC[0]["bra_nm"]);
 							$("#txtProjNmVal").val(res.OUT_REC[0]["bra_nm"]);
 						}
-						$("#txtProjIdVal").val(res.OUT_REC[0]["bra_nm"]);
+						$("#txtProjIdVal").val(res.OUT_REC[0]["bra_id"]);
 
 						$("#txtCode").val(res.OUT_REC[0]["pro_code"]);
+						$("#txtOldCode").val(res.OUT_REC[0]["pro_code"]);
+						
 						$("#txtHousePrice").val(stock.comm.formatCurrency(res.OUT_REC[0]["pro_price"]));
 						$("#txtHouseNo").val(res.OUT_REC[0]["pro_number"]);
 						$("#txtHouseLength").val(res.OUT_REC[0]["pro_length"]);
@@ -101,7 +103,10 @@ var _thisPage = {
 				data: $("#frmHouse").serialize() + "&proId=" + $("#houseId").val(),
 				success: function(res) {
 				    parent.$("#loading").hide();
-					if(res =="OK"){
+				    if(res =="DUP"){
+				    	parent.stock.comm.alertMsg("លេខកូដអចលនទ្រព្យ មានរួចហើយសូមបញ្ចូល លេខកូដថ្មី","projNm");
+				    	return;
+				    }else if(res =="OK"){
 						parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"projNm");
 						if(str == "new"){
 						    clearForm();
@@ -159,7 +164,7 @@ var _thisPage = {
 				data += "&dataSrch="+$("#txtCatNm").val();
 				var controllerNm = "PopupSelectCategory";
 				var option = {};
-				option["height"] = "597px";
+				option["height"] = "500px";
 				stock.comm.openPopUpSelect(controllerNm, option, data, "modal-md");
 			});
 			//
@@ -168,7 +173,7 @@ var _thisPage = {
 				data += "&dataSrch="+$("#txtProjNm").val();
 				var controllerNm = "PopupSelectBranch";
 				var option = {};
-				option["height"] = "567px";
+				option["height"] = "500px";
 				stock.comm.openPopUpSelect(controllerNm, option, data, "modal-md");
 			});
 			//

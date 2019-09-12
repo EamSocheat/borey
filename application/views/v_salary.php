@@ -38,7 +38,7 @@
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
 												<div class="form-group form-inline">
 													<label for="staffNm" class="control-label" data-i18ncd="lb_staff" style="margin-bottom: 7px;display: -webkit-box;">បុគ្គលិក</label>
-													<select class="form-control" id="staffNm" name="staffNm" style="font-size: 14px;" onchange="getData()">
+													<select class="form-control input-sm" id="staffNm" name="staffNm" style="font-size: 14px;" onchange="getData()">
 														<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>
 														<option value="1" data-i18ncd="lb_project_1">static</option>
 													</select>
@@ -47,7 +47,7 @@
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
 												<div class="form-group form-inline">
 													<label for="cboStatus" class="control-label" data-i18ncd="lb_cat" style="margin-bottom: 7px;display: -webkit-box;">ការប្រើប្រាស់</label>
-													<select class="form-control" id="cboStatus" name="cboStatus" style="width: 143px;font-size: 14px;" onchange="getData()">
+													<select class="form-control input-sm" id="cboStatus" name="cboStatus" style="font-size: 14px;" onchange="getData()">
 														<option value="" data-i18ncd="lb_status_choose">សូមជ្រើសរើស</option>
 														<option value="P" data-i18ncd="lb_prepare">ព្រាងទុក</option>
 														<option value="G" data-i18ncd="lb_given">បានប្រគល់</option>
@@ -63,6 +63,17 @@
 													<input type="text" class="form-control input-sm" id="txtSalMonth" name="txtSalMonth" placeholder="បញ្ជូល ខែបើកប្រាក់" style="width: 100%;" onchange="getData()">
 												</div>
 											</div>
+											
+											<div class="col-sm-2 col-md-2 col-lg-2" style="">
+												<label for="txtSalMonthEnd" class="control-label" data-i18ncd="lb_pro_code" style="margin-bottom: 7px;display: -webkit-box;">ខែបើកប្រាក់</label>
+												<div class="input-group date">
+													<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="salMonthIconEnd">
+														<i class="fa fa-calendar"></i>
+													</div>
+													<input type="text" class="form-control input-sm" id="txtSalMonthEnd" name="txtSalMonthEnd" placeholder="បញ្ជូល ខែបើកប្រាក់" style="width: 100%;" onchange="getData()">
+												</div>
+											</div>
+											
 										</div>
 									</div>
 
@@ -127,51 +138,17 @@
 										<!--<th data-i18ncd="">ថៃ្ងចាប់ផ្តើម</th>
 										<th data-i18ncd="">ថ្ងៃបញ្ចប់</th>-->
 										<th data-i18ncd="">ខែបើកប្រាក់</th>
+										<th data-i18ncd="">បុគ្គលិក</th>
 										<th data-i18ncd="" style="text-align: right;">ប្រាក់ខែ</th>
 										<th data-i18ncd="" style="text-align: right;">ប្រាក់កំរៃជើងសារ</th>
 										<th data-i18ncd="" style="text-align: right;">ប្រាក់បន្ថែមម៉ោង</th>
 										<th data-i18ncd="" style="text-align: right;">ប្រាក់ខែសរុប</th>
-										<th data-i18ncd="" style="">ការប្រើប្រាស់</th>
+										<th data-i18ncd="" style="text-align: center;">ការប្រើប្រាស់</th>
 										<th style="text-align: center;" data-i18ncd="lb_action">Action</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="cur-pointer">
-										<td><div class="" style="width: 10px;"><input type='checkbox'></div></td>
-										<td><div class="">08-2019</div></td>
-										<td><div class="" style="text-align: right">$100,000</div></td>
-										<td><div class="" style="text-align: right">$100,000</div></td>
-										<td><div class="" style="text-align: right">$100,000</div></td>
-										<td><div class="" style="text-align: right">$200,000</div></td>
-										<td><div class="" style="">ព្រាងទុក</div></td>
-										<td class="text-center">
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-											</button>
-										</td>
-									</tr>
-									<tr class="cur-pointer">
-										<td><div class="" style="width: 10px;"><input type='checkbox'></div></td>
-										<!--<td><div class="">09-08-2019</div></td>
-										<td><div class="">09-08-2019</div></td>-->
-										<td><div class="">08-2019</div></td>
-										<td><div class="" style="text-align: right">$100,000</div></td>
-										<td><div class="" style="text-align: right">$100,000</div></td>
-										<td><div class="" style="text-align: right">$100,000</div></td>
-										<td><div class="" style="text-align: right">$200,000</div></td>
-										<td><div class="" style="">បានប្រគល់</div></td>
-										<td class="text-center">
-											<button type="button" class="btn btn-primary btn-xs">
-												<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-											</button>
-										</td>
-									</tr>
-									<tr class="total">
-										<td class="" colspan="5" style="text-align: right;font-weight: 600;">សរុបប្រាក់ខែបុគ្គលិក: </td>
-										<td class="" style="text-align: right;"><b>12,369,565.23</b></td>
-										<td class="" style="text-align: right;"></td>
-										<td class="" style="text-align: right;"></td>
-									</tr>
+									
 
 								</tbody>
 
