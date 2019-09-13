@@ -167,7 +167,7 @@ var _thisPage = {
 					    }
 
 					    var strTotal = '<tr class="total" >';
-					    strTotal += '	<td colspan="7" class="text-right"><b>សរុប​</b></td>';
+					    strTotal += '	<td colspan="8" class="text-right"><b>សរុប​</b></td>';
 					    strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_total_pay ==0 ? "0" : stock.comm.formatCurrency(total_total_pay))+'$ </b></td>';
 					    strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_penalty ==0 ? "0" : stock.comm.formatCurrency(total_penalty))+'$ </b></td>';
 						

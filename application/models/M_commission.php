@@ -11,9 +11,11 @@
     	}
         
     	function selectCommissionData($dataSrch){
-			$this->db->select('*');
+			$this->db->select('*,(select sum(inst_pay_per) from tbl_installment where sell_id = tbl_sell.sell_id and inst_type="ADV" and inst_paid_yn = "Y") as user_piad_percent');
 			//$this->db->from('tbl_commission');
 			$this->db->join('tbl_sell','tbl_sell.sell_id = tbl_commission.sell_id');
+			$this->db->join('tbl_sell_detail','tbl_sell_detail.sell_id = tbl_sell.sell_id');
+			$this->db->join('tbl_product','tbl_product.pro_id = tbl_sell_detail.pro_id');
 			$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_sell.seller_id');
 			$this->db->where('tbl_commission.com_id', $_SESSION['comId']);
 			$this->db->where('tbl_commission.useYn', 'Y');
@@ -63,6 +65,10 @@
 
 			if($dataSrch['commi_is_approve'] != null && $dataSrch['commi_is_approve'] != ""){
 				$this->db->where('tbl_commission.commi_is_approve', $dataSrch['commi_is_approve']);
+			}
+			
+			if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
+			    $this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
 			}
 
 			/*if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
@@ -74,6 +80,7 @@
 			}*/
 
 			$this->db->order_by("commi_id", "desc");
+			$this->db->order_by("tbl_sell.sell_id", "desc");
 			return $this->db->get('tbl_commission', $dataSrch['limit'], $dataSrch['offset'])->result();
 
     	}
@@ -83,6 +90,8 @@
 			$this->db->select('count(commi_id) as total_rec');
 			$this->db->from('tbl_commission');
 			$this->db->join('tbl_sell','tbl_sell.sell_id = tbl_commission.sell_id');
+			$this->db->join('tbl_sell_detail','tbl_sell_detail.sell_id = tbl_sell.sell_id');
+			$this->db->join('tbl_product','tbl_product.pro_id = tbl_sell_detail.pro_id');
 			$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_sell.seller_id');
 			$this->db->where('tbl_commission.com_id', $_SESSION['comId']);
 			$this->db->where('tbl_commission.useYn', 'Y');
@@ -93,7 +102,7 @@
 			}
 
 			if($dataSrch['sell_code'] != null && $dataSrch['sell_code'] != ""){
-				$this->db->where('tbl_sell.sell_code', $dataSrch['sell_code']);
+				$this->db->like('tbl_sell.sell_code', $dataSrch['sell_code']);
 			}
 
 			if($dataSrch['seller_id'] != null && $dataSrch['seller_id'] != ""){
@@ -132,6 +141,11 @@
 
 			if($dataSrch['commi_is_approve'] != null && $dataSrch['commi_is_approve'] != ""){
 				$this->db->where('tbl_commission.commi_is_approve', $dataSrch['commi_is_approve']);
+			}
+			
+			
+			if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
+			    $this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
 			}
 
 			/*if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){

@@ -53,7 +53,7 @@ var _thisPage = {
 							html += '	<td><div>'+null2Void(v.sup_phone)+'</div></td>';
 							html += '	<td><div>'+null2Void(v.sup_email)+'</div></td>';
 							html += '	<td><div>'+null2Void(v.sup_addr)+'</div></td>';
-							html += '	<td><div>'+null2Void(v.sup_desc)+'</div></td>';
+							html += '	<td><div>'+null2Void(v.sup_des)+'</div></td>';
 							html += '	<td><div>'+(null2Void(v.regDt)).substr(0,10)+'</div></td>';
 							html += '	<td class="text-center">';
 							html += '		<button onclick="_thisPage.editData('+v.sup_id+')" type="button" class="btn btn-primary btn-xs">';
@@ -68,7 +68,7 @@ var _thisPage = {
 						stock.comm.renderPaging("paging", $("#perPage").val(), data.OUT_REC_CNT[0]["total_rec"], pageNo);
 					}else{
 						$("#chkAll").hide();
-						$("#supplList").append("<tr><td colspan='9' style='text-align:center;'>No data to show.</td></tr>");
+						$("#supplList").append("<tr><td colspan='9' style='text-align:center;'>គ្មានទិន្នន័យដើម្បីបង្ហាញ</td></tr>");
 						stock.comm.renderPaging("paging", $("#perPage").val(), 0, pageNo);
 					}
 
@@ -82,7 +82,7 @@ var _thisPage = {
 			var option = {};
 			var data = "id="+sup_id;
 			var controllerNm = "PopupFormSupplier";
-			option["height"] = "463px";
+			option["height"] = "470px";
 
 			stock.comm.openPopUpForm(controllerNm, option, data);
 		}, addNewSupplier : function(){
@@ -90,7 +90,7 @@ var _thisPage = {
 			var data = "";
 			var controllerNm = "PopupFormSupplier";
 			var option = {};
-			option["height"] = "463px";
+			option["height"] = "470px";
 
 			stock.comm.openPopUpForm(controllerNm, option, data);
 		}, deleteData : function(dataArr){

@@ -35,25 +35,27 @@
 
 										<div class="row" >
 											<div class="col-sm-12 col-md-12 col-lg-12 row">
-												<div class="col-sm-3 col-md-3 col-lg-3">
+												<!--
+												<div class="col-sm-2 col-md-2 col-lg-2">
 													<div class="form-group">
 														<label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_name">Name</label>
 														<input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="Name">
 													</div>
 												</div>
-												<div class="col-sm-3 col-md-3 col-lg-3">
+												-->
+												<div class="col-sm-2 col-md-2 col-lg-2">
 													<div class="form-group">
 														<label for="txtSrchCusNmKh" class="control-label" data-i18ncd="lb_name_kh">Khmer Name </label>
 														<input type="text" class="form-control input-sm" id="txtSrchCusNmKh" placeholder="Khmer Name ">
 													</div>
 												</div>
-												<div class="col-sm-3 col-md-3 col-lg-3">
+												<div class="col-sm-2 col-md-2 col-lg-2">
 													<div class="form-group">
 														<label for="txtSrchCusPhone" class="control-label" data-i18ncd="lb_phone">Phone </label>
 														<input type="text" class="form-control input-sm"  id="txtSrchCusPhone" placeholder="Phone">
 													</div>
 												</div>
-												<div class="col-sm-3 col-md-3 col-lg-3">
+												<div class="col-sm-2 col-md-2 col-lg-2">
 													<div class="form-group">
 														<label for="txtSrchIdentityNmKh" class="control-label" data-i18ncd="lb_identity">Identity</label>
 														<input type="text" class="form-control input-sm"  id="txtSrchIdentityNmKh" placeholder="Identity" maxlength="9">
@@ -128,7 +130,7 @@
 										<th></th>
 										<th data-i18ncd="lb_identity">Identity</th>
 										<th data-i18ncd="lb_name_kh">Khmer Name</th>
-										<th data-i18ncd="lb_name">Name</th>
+										<th data-i18ncd="lb_addr">Address</th>
 										<th data-i18ncd="lb_customer_facebook">Facebook</th>
 										<th data-i18ncd="lb_gender">Gender</th>
 										<th data-i18ncd="lb_phone">Phone</th>

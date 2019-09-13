@@ -129,7 +129,7 @@ function getData(page_no){
 	dat["perPage"] = $("#perPage").val();
 	dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
 	//searching
-	dat["cusNm"]	= $("#txtSrchCusNm").val().trim();
+	//dat["cusNm"]	= $("#txtSrchCusNm").val().trim();
 	dat["cusNmKh"]	= $("#txtSrchCusNmKh").val().trim();
 	dat["cusPhone"] = $("#txtSrchCusPhone").val().trim();
 	dat["cusIdentityNmKh"] = $("#txtSrchIdentityNmKh").val().trim();
@@ -159,7 +159,7 @@ function getData(page_no){
 					html += "	<td class='cus_image' style='padding: 0 8px;'><img style='width: 35px;height: 35px;' src='"+ urlPhoto +"' class='img-circle' /></td>";
 					html += "	<td class='cus_iden'><div>"+stock.comm.nullToEmpty(res.OUT_REC[i]["cus_idnt_num"])+"</div></td>";
 					html += "	<td class='cus_nm_kh'><div title='"+res.OUT_REC[i]['cus_nm_kh']+"' class='txt-text-wrap'>"+res.OUT_REC[i]["cus_nm_kh"]+"</div></td>";
-					html += "	<td class='cus_nm'><div title='"+res.OUT_REC[i]['cus_nm']+"' class='txt-text-wrap'>"+res.OUT_REC[i]["cus_nm"]+"</div></td>";
+					html += "	<td class='cus_nm'><div title='"+res.OUT_REC[i]['cus_nm']+"' class='txt-text-wrap'>"+(res.OUT_REC[i]["cus_addr"] == null ? "" : res.OUT_REC[i]["cus_addr"])+"</div></td>";
 					html += "	<td class='cus_fb_name'><div title='"+res.OUT_REC[i]['cus_fb_name']+"' class='txt-text-wrap'>"+res.OUT_REC[i]["cus_fb_name"]+"</div></td>";
 					html += "	<td class='cus_gender'><div>"+$.i18n.prop("lb_"+res.OUT_REC[i]["cus_gender"])+"</div></td>";
 					html += "	<td class='cus_phone1'><div>"+res.OUT_REC[i]["cus_phone1"]+"</div></td>";

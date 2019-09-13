@@ -550,7 +550,12 @@ function getUserMenu(){
 				}else if(datarow["menu_group"] == "1"){
 					htmlMenu_1 +='   <li  class="'+activeClass+'"><a  href="'+datarow["menu_nm"].replace(/ /g,"")+'"><i class="'+datarow["menu_icon_nm"]+'"></i> '+datarow["menu_nm_kh"]+'</a></li>';
 				}else if(datarow["menu_group"] == "2"){
-					htmlMenu_2 +='   <li class="'+activeClass+'"><a href="'+datarow["menu_nm"].replace(/ /g,"")+'"><i class="'+datarow["menu_icon_nm"]+'"></i> '+datarow["menu_nm_kh"]+'</a></li>';
+					//htmlMenu_2 +='   <li class="'+activeClass+'"><a href="'+datarow["menu_nm"].replace(/ /g,"")+'"><i class="'+datarow["menu_icon_nm"]+'"></i> '+datarow["menu_nm_kh"]+'</a></li>';
+					htmlMenu += '<li class="'+activeClass+'">';
+					htmlMenu += '<a style="'+styleFont+'" href="'+datarow["menu_nm"].replace(/ /g,"")+'">';
+					htmlMenu += '<i class="'+datarow["menu_icon_nm"]+'"></i> <span>'+datarow["menu_nm_kh"]+'</span>';
+					htmlMenu += '</a>';
+					htmlMenu += '</li>';
 				}else{
 					htmlMenu += '<li class="'+activeClass+'">';
 					htmlMenu += '<a style="'+styleFont+'" href="'+datarow["menu_nm"].replace(/ /g,"")+'">';
@@ -562,6 +567,7 @@ function getUserMenu(){
 				if(datarow["menu_group"] == "0"){
 					continue;
 				}
+				
 				var cls_color = "";
 				if(checkColorMenu == 0){
 					cls_color = "bg-aqua";
@@ -578,15 +584,15 @@ function getUserMenu(){
 				}
 				
 				var htmlDiv = '<div class="col-lg-3 col-xs-6">';
-				htmlDiv +='<div class="small-box '+cls_color+'">';
+				htmlDiv +='<div class="small-box" style="background: #f6f6f6;min-height: 120px;">';
 				htmlDiv +='<div class="inner">';
-				htmlDiv +='<h3>150</h3>';
-				htmlDiv +='<p>'+datarow["menu_nm_kh"]+'</p>';
+				//htmlDiv +='<h4>'+datarow["menu_nm_kh"]+'</h4>';
+				htmlDiv +='<p style="font-size: 27px;">'+datarow["menu_nm_kh"]+'</p>';
 				htmlDiv +='</div>';
 				htmlDiv +='<div class="icon">';
 				htmlDiv +='<i class="ion '+datarow["menu_icon_nm"]+'"></i>';
 				htmlDiv +='</div>';
-				htmlDiv +='<a href="#" class="small-box-footer">ពត៌មានលំអិត <i class="fa fa-arrow-circle-right"></i></a>';
+				htmlDiv +='<a href="'+datarow["menu_nm"]+'" class="small-box-footer">ពត៌មានលំអិត <i class="fa fa-arrow-circle-right"></i></a>';
 				htmlDiv +='</div>';
 				htmlDiv +='</div>';
 				$("#divMenuDetial").append(htmlDiv);
@@ -598,7 +604,7 @@ function getUserMenu(){
 			
 			$("#divMenu").append(htmlMenu_0);
 			$("#divMenu").append(htmlMenu_1);
-			$("#divMenu").append(htmlMenu_2);
+			//$("#divMenu").append(htmlMenu_2);
 			$("#divMenu").append(htmlMenu);
 			$("#menu_"+menu_tree).addClass("menu-open");
 			$("#menu_"+menu_tree+ " ul.treeview-menu").show();

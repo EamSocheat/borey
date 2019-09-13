@@ -1,5 +1,6 @@
 var _pageNo=1;
 var _this;
+var _copyObj;
 $(document).ready(function(){
 	_thisPage.init();
 });
@@ -37,7 +38,8 @@ var _thisPage = {
 			sideBySide: true,
 			format: "dd-mm-yyyy",
 		});
-		stock.comm.inputNumber("txtMinPrice");
+		stock.comm.inputNumber("txtCopyQty");
+		stock.comm.inputCurrency("txtMinPrice");
 		stock.comm.inputCurrency("txtMaxPrice");
 		filtProjectCombo();
 		filtCategoryCombo();
@@ -138,6 +140,62 @@ var _thisPage = {
 			$("#expId").val(objArr);
 			$("#btnExcel").submit();
 		});
+		
+		
+		//
+		$("#btnCopy").click(function(e){
+			var chkVal = $('#tblHouse tbody tr td.chk_box input[type="checkbox"]:checked');
+
+			if(chkVal.length != 1){
+				stock.comm.alertMsg(" សូមជ្រើស ចម្លងទិន្នន័យ ចំនួនមួយ  ");
+				return;
+			}
+			
+			$("#txtCopyQty").val("");
+			$(".div-copy").show();
+			$("#txtCopyQty").focus();
+		
+		});
+		
+		//
+		$("#btnNo").click(function(e){
+			$(".div-copy").hide();
+			$("#txtCopyQty").val("");
+		});
+		
+		//
+		$("#btnYes").click(function(e){
+			
+			var chkVal = $('#tblHouse tbody tr td.chk_box input[type="checkbox"]:checked');
+			if(chkVal.length != 1){
+				stock.comm.alertMsg(" សូមជ្រើស ចម្លងទិន្នន័យ ចំនួនមួយ  ");
+				return;
+			}
+			//
+			if($("#txtCopyQty").val() == "" || $("#txtCopyQty").val() == null){
+				$("#txtCopyQty").focus();
+				return;
+			}
+			var delArr = [];
+			var delObj = {};
+			chkVal.each(function(i){
+				var delData = {};
+				var tblTr   = $(this).parent().parent();
+				var data_id = tblTr.attr("data-id");
+				var charStart = tblTr.find("td.pro_code div").html().replace(/[^a-zA-Z]+/g, '');
+				var numStart = tblTr.find("td.pro_code div").html().replace(/\D/g, '');
+				delData["proId"] = data_id;
+				delData["charStart"] = charStart;
+				delData["numStart"] = numStart;
+				delData["copyQty"] = $("#txtCopyQty").val().replace(/\D/g, '');
+				delArr.push(delData);
+			});
+
+			delObj["copyObj"] = delArr;
+			copyDataArr(delObj); 
+		});
+		
+		
 	}
 };
 
@@ -193,7 +251,7 @@ function getData(page_no){
 					strHmtl += '	<td class="pro_image" style="padding: 0 8px;"><div style="width: 10px;">';
 					strHmtl += '		<img style="width: 35px;height: 35px;" src="'+ urlPhoto +'" class="img-circle" />';
 					strHmtl += '	</div></td>';
-					strHmtl += '	<td><div>'+res.OUT_REC[i]["pro_code"]+'</div></td>';
+					strHmtl += '	<td class="pro_code"><div>'+res.OUT_REC[i]["pro_code"]+'</div></td>';
 					strHmtl += '	<td><div >'+res.OUT_REC[i]["cat_nm_kh"]+'</div></td>';
 					strHmtl += '	<td><div style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["pro_price"])+'</div></td>';
 					
@@ -212,7 +270,7 @@ function getData(page_no){
 				}
 
 				strTotal +='<tr class="total">';
-				strTotal +='	<td class="" colspan="3" style="text-align: right;">ថ្លៃអចលនទ្រព្យសរុប: </td>';
+				strTotal +='	<td class="" colspan="4" style="text-align: right;">ថ្លៃអចលនទ្រព្យសរុប: </td>';
 				strTotal +='	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalAmt)+'</b></td>';
 				strTotal +='</tr>';
 
@@ -318,7 +376,7 @@ function filtStaffCombo(){
 
 	if(!stock.comm.isEmpty(Staff_REC)){
 		var strHtml  = '<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>';
-		strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
+		//strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
 		var staffStr = "";
 		$("#cboStaffPay").empty();
 		for(var i = 0; i < Staff_REC.length; i++){
@@ -382,4 +440,34 @@ function renderHouseStatus(val){
 		html='<span class="label label-default">ទំនេរ</span>';
 	}
 	return html;
+}
+
+
+/**
+*
+*/
+function copyDataArr(dataArr){
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"House/copy",
+		data: dataArr,
+		success: function(res) {
+
+			if(res > 0){
+				stock.comm.alertMsg("ទិន្នន័យបានចម្លងដោយជោគជ័យ");
+				$(".div-copy").hide();
+				$("#txtCopyQty").val("");
+				$("#tblHouse tbody input[type=checkbox]").prop( "checked", false );
+				getData(_pageNo);
+			}else{
+				stock.comm.alertMsg("ទិន្នន័យចម្លង មិនបានជោគជ័យ សូមព្យាយាមម្ដងទៀត");
+				return;
+			}
+			$("#loading").hide();
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg($.i18n.prop("msg_err"));
+		}
+	});
 }

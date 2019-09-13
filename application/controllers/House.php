@@ -1,6 +1,6 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+date_default_timezone_set("Asia/Bangkok");
 class House extends CI_Controller{
     public function __construct(){
         parent::__construct();
@@ -40,13 +40,14 @@ class House extends CI_Controller{
 			'pro_code' 		=> $this->input->post('codePay'),
 			'pro_status' 		=> $this->input->post('proStat'),
 			'pro_start_price' 	=> $this->input->post('txtMinPrice'),
-			'pro_end_price' 	=> $this->input->post('txtMaxPrice')
+		    'pro_end_price' 	=> $this->input->post('txtMaxPrice'),
+		    'srch_all'        => $this->input->post('srchAll'),
 		);
 		$data["OUT_REC"] = $this->M_house->selectHouse($dataSrch);
 		$data["OUT_REC_CNT"] = $this->M_house->countHouse($dataSrch);
 		echo json_encode($data);
 	}
-
+    
 	public function save(){
 		if(!$this->M_check_user->check()){
 			redirect('/Login');
@@ -134,6 +135,38 @@ class House extends CI_Controller{
 			$cntDel+=1;
 		}
 		echo $cntDel;
+	}
+	
+	public function copy(){
+	    if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	    
+	    $delObj = $this->input->post('copyObj');
+	    $cntDel = 0;
+	    $copyQty = intval($delObj[0]['copyQty']);
+	    $numStart = intval($delObj[0]['numStart']);
+	    for($i=0; $i<$copyQty; $i++){
+	        $numStart +=1;
+	        $proCode = $delObj[0]['charStart'].$numStart;
+	        
+	        $dataCode = array(
+	            'pro_code'	=> $proCode
+	        );
+	        $productCode = $this->M_house->checkCodeHouse($dataCode);
+	        if(intval($productCode[0]->total_rec) >0){
+	            $copyQty+=1;
+	            continue;
+	        }
+	        
+	        $data = array(
+	            'pro_id'	=> $delObj[0]['proId'],
+	            'pro_code'		=> $proCode
+	        );
+	        $this->M_house->selectInsertHouse($data);
+	        $cntDel+=1;
+	    }
+	    echo $cntDel;
 	}
 
 	public function reOrderDate($input_date){

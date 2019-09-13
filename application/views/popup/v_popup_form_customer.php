@@ -27,14 +27,15 @@
                             	<input type="file" style="display: none" class="form-control" accept="image/*"  id="fileCusPhoto" name="fileCusPhoto" autocomplete="off" />
                             </div>
                 		</div>
+                		<!--
                 		<div class="col-xs-4 padding-forms-right">                			
                 			<div class="form-group">
                               <label for="braNm" data-i18ncd="lb_name">Name</label>
                               <input type="text" class="form-control" id="txtCustomerNm" name="txtCustomerNm" autocomplete="off" />
                             </div>
                 		</div>
-                		
-                		<div class="col-xs-4 padding-forms-right">                	
+                	    -->
+                		<div class="col-xs-8 padding-forms-right">                	
                 			<div class="form-group">
                                	<label for="txtCustomerNmKh" data-i18ncd="lb_name_kh">Khmer Name</label>
                             	<input type="text" class="form-control" id="txtCustomerNmKh" name="txtCustomerNmKh" required="required" autocomplete="off" />
@@ -61,8 +62,9 @@
                 			<div class="form-group">
                               <label for="cboGender" data-i18ncd="lb_gender">Gender</label>
                               <select class="form-control" id="cboGender" name="cboGender">
-	                    			<option value="Male" data-i18ncd="lb_Male">Male</option>
-			                    	<option value="Female" data-i18ncd="lb_Female" selected>Female</option>
+	                    			<option value="Male" data-i18ncd="lb_Male" selected>Male</option>
+			                    	<option value="Female" data-i18ncd="lb_Female" >Female</option>
+			                    	<option value="MaleFemale" data-i18ncd="lb_MaleFemale">Male&Female</option>
 			                  </select>
                             </div>
                 		</div>

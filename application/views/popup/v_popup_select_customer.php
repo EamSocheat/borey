@@ -42,8 +42,9 @@
                     </th>
                     <th class="top-zero"></th>
                     <th class="top-zero" data-i18ncd="lb_identity" class="top-zero">Identity</th>
-                    <th class="top-zero" data-i18ncd="lb_name">Name</th>
-                    <th class="top-zero" data-i18ncd="lb_name_kh">Khmer Name</th>                    
+                    <th class="top-zero" data-i18ncd="lb_name_kh">Khmer Name</th> 
+                    <th class="top-zero" data-i18ncd="lb_gender">Name</th>
+                                       
                     <th class="top-zero" data-i18ncd="lb_phone">Phone</th>
                   </tr>
     					</thead>

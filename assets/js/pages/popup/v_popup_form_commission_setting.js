@@ -286,8 +286,8 @@ function listCategory(){
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				var html = '';
 			    for(var i=0; i<res.OUT_REC.length;i++){
-			    	html += '<div class="col-xs-4"><label class="cat-data" data-id="'+res.OUT_REC[i]["cat_id"]+'" for="">'+res.OUT_REC[i]["cat_nm_kh"]+'</label></div>';
-			    	html += '<div class="col-xs-2"><select class="form-control input-sm margin-left-5px comi_type comi_type'+res.OUT_REC[i]["cat_id"]+'" ><option value="M">សាច់ប្រាក់ $</option><option value="P">ភាគរយ %</option></select></div>';
+			    	html += '<div class="col-xs-3"><label class="cat-data" data-id="'+res.OUT_REC[i]["cat_id"]+'" for="">'+res.OUT_REC[i]["cat_nm_kh"]+'</label></div>';
+			    	html += '<div class="col-xs-3"><select class="form-control input-sm margin-left-5px comi_type comi_type'+res.OUT_REC[i]["cat_id"]+'" ><option value="M">សាច់ប្រាក់ $</option><option value="P">ភាគរយ %</option></select></div>';
 			    	html += '<div class="col-xs-2"><input type="number" required="required"  oninvalid="this.setCustomValidity(\'សូមបញ្ជូលទិន្នន័យ\')" oninput="setCustomValidity(\'\')" class="form-control input-sm margin-left-5px comi_amt 999'+i+' comi_amt'+res.OUT_REC[i]["cat_id"]+'"" /></div>';
 			    	html += '<div class="col-xs-2"><select class="form-control input-sm margin-left-5px comi_type_per comi_type_per'+res.OUT_REC[i]["cat_id"]+'" ><option value="M">សាច់ប្រាក់ $</option><option value="P">ភាគរយ %</option></select></div>';
 			    	html += '<div class="col-xs-2"><input type="number" required="required" oninvalid="this.setCustomValidity(\'សូមបញ្ជូលទិន្នន័យ\')" oninput="setCustomValidity(\'\')" class="form-control input-sm margin-left-5px comi_amt_per 999'+i+' comi_amt_per'+res.OUT_REC[i]["cat_id"]+'"/></div>';

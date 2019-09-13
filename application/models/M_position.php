@@ -32,7 +32,7 @@
         		//$this->db->or_like('tbl_position.pos_nm', $dataSrch['srch_all']);
         	    //$this->db->or_like('tbl_position.pos_nm_kh', $dataSrch['srch_all']);
         	}
-        	
+        	$this->db->where_not_in('pos_get_yn', 'N');
         	$this->db->order_by("pos_id", "desc");
         	return $this->db->get('tbl_position',$dataSrch['limit'],$dataSrch['offset'])->result();
 		}
@@ -50,7 +50,7 @@
 		    if($dataSrch['pos_nm_kh'] != null && $dataSrch['pos_nm_kh'] != ""){
 		        $this->db->like('tbl_position.pos_nm_kh', $dataSrch['pos_nm_kh']);
 		    }
-		    
+		    $this->db->where_not_in('pos_get_yn', 'N');
 		    return $this->db->get()->result();
 		}
 		

@@ -111,9 +111,14 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="col-xs-12" style="display: flex;">
+									
 									<button type="button" id="btnDelete" class="btn btn-danger btn-sm" style="margin-right: 5px"><i class="fa fa-trash" aria-hidden="true"></i> <span data-i18ncd="btn_delete">Delete</span></button>
 									<!-- <button type="button" id="btnEdit" class="btn btn-primary btn-sm" style="margin-right: 5px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span data-i18ncd="btn_edit">Edit</span></button> -->
-									<button type="button" id="btnAddNew" class="btn btn-default btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> <span data-i18ncd="btn_add_new">Add New</span></button>
+									<button type="button" id="btnAddNew" class="btn btn-default btn-sm" style="margin-right: 5px"><i class="fa fa-plus" aria-hidden="true"></i> <span data-i18ncd="btn_add_new">Add New</span></button>
+									<button type="button" id="btnCopy" class="btn btn-default btn-sm" style="margin-right: 5px"><i class="fa fa-copy" aria-hidden="true"></i> <span > ចម្លងទិន្នន័យ </span></button>
+									<input type="text" class="div-copy form-control input-sm" id="txtCopyQty" name="txtCopyQty" placeholder=""  style="width: 100px;margin-right: 5px;display: none;" maxlength="2">
+									<button type="button" id="btnNo" class="btn btn-default btn-sm div-copy" style="margin-right: 5px;display: none;"><i class="fa fa-times" aria-hidden="true"></i></button>
+									<button type="button" id="btnYes" class="btn btn-success btn-sm div-copy" style="display: none;"><i class="fa fa-check" aria-hidden="true"></i> </button>
 								</div>
 							</div>
 						</div>

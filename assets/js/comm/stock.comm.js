@@ -592,8 +592,6 @@ stock.comm.formatDateWithoutTime = function(val){
     					$("#"+target_id).append("<option value='"+res.OUT_REC[i]["bra_type_id"]+"'>"+braNm+"</option>");
     				}
     				
-    			}else{
-    				stock.comm.alertMsg("System Error!!! PLease connect again.");
     			}
     		},
     		error : function(data) {
@@ -649,8 +647,6 @@ stock.comm.formatDateWithoutTime = function(val){
     					$("#"+target_id).append("<option value='"+res.OUT_REC[i]["pos_id"]+"'>"+braNm+"</option>");
     				}
     				
-    			}else{
-    				stock.comm.alertMsg("System Error!!! PLease connect again.");
     			}
     		},
     		error : function(data) {

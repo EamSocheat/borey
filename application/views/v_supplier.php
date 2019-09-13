@@ -36,13 +36,13 @@
 						<div class="box-body" id="searchLayer">
 							<div class="row" >
 							    <div class="col-sm-12 col-md-12 col-lg-12 row">
-							        <div class="col-sm-4 col-md-4 col-lg-4">
+							        <div class="col-sm-2 col-md-2 col-lg-2">
     									<div class="form-group form-inline">
                                             <label for="txtSrchSupplNm" class="control-label" data-i18ncd="lb_name">Name</label>
                                             <input type="text" class="form-control input-sm" id="txtSrchSupplNm" placeholder="Name">
                                         </div>
     								</div>
-    								<div class="col-sm-4 col-md-4 col-lg-4">
+    								<div class="col-sm-2 col-md-2 col-lg-2">
     									<div class="form-group form-inline">
                                             <label for="txtSrchSupplNmKh" class="control-label" data-i18ncd="lb_name_kh">Khmer Name</label>
                                             <input type="text" class="form-control input-sm" id="txtSrchSupplNmKh" placeholder="Khmer Name">

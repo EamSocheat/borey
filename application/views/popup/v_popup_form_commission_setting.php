@@ -70,8 +70,8 @@
 							    	<div class="panel-body">
 							    	
 							    		<div class="col-xs-12 row"  style="padding: 0;">
-								    		<div class="col-xs-4"><label style="font-weight: 600;" for="">ប្រភេទអចលនទ្រព្យ</label></div>
-								    		<div class="col-xs-2"><label style="font-weight: 600;" for="">ប្រភេទកំរៃជើងសារ</label></div>
+								    		<div class="col-xs-3"><label style="font-weight: 600;" for="">ប្រភេទអចលនទ្រព្យ</label></div>
+								    		<div class="col-xs-3"><label style="font-weight: 600;" for="">ប្រភេទកំរៃជើងសារ</label></div>
 								    		<div class="col-xs-2"><label style="font-weight: 600;" for="">កំរៃជើងសារ</label></div>
 								    		<div class="col-xs-2"><label style="font-weight: 600;" for="">ប្រភេទចំណែក</label></div>
 								    		<div class="col-xs-2"><label style="font-weight: 600;"  for="">ចំនួនចំណែក</label></div>

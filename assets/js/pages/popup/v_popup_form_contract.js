@@ -361,11 +361,9 @@ function clearForm(){
 }
 
 function selectCustomerCallback(data){
-	if(data["cus_nm"] == "" || data["cus_nm"] == null || stock.comm.isEmpty(data["cus_nm"])){
-		$("#txtCusNm").val(data["cus_nm_kh"]);
-	}else{
-		$("#txtCusNm").val(data["cus_nm"]);		
-	}
+	
+	$("#txtCusNm").val(data["cus_nm"].replace(/amp;/g,''));		
+	
 	
 	$("#txtCusId").val(data["cus_id"]);
 	$("#txtCusPhone").val(data["cus_phone1"]);
@@ -388,13 +386,14 @@ function selectProductCallback(data){
 			var rec = data["data"][i];
 			var html = "<tr data-id='"+rec["pro_id"]+"'>";
 	        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
-	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm_kh"]+"</td>";
-	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm_kh"]+"</td>";
-	        html += "<td class='pro_price cur-pointer'><input class='form-control input-sm' type='text' value ='"+rec["pro_price"]+"'></td>";
+	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
+	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
+	        html += "<td class='pro_price cur-pointer'><input id='pro_price' class='form-control input-sm text-right' type='text' value ='"+rec["pro_price"]+"'></td>";
 	        html += "</tr>";
 	        
 	        $("#tblProduct tbody").append(html);
 		}
+		stock.comm.inputCurrency("pro_price");
 	}
 	
 	$("#btnSelectPro").css("border-color","#ced4da");

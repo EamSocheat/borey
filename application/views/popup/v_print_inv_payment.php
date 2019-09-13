@@ -114,7 +114,7 @@
 									<td class="with-200">ប្រាក់ដើមនៅសល់</td><td class="with-10">:</td><td>$<?php echo number_format(floatval($OUT_REC[0]->inst_amt_balance)) ?></td>
 								</tr>
 								<tr>
-									<td class="with-200">បរិយាយ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->inst_paid_des;?></td>
+									<td class="with-200">បរិយាយ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->sell_des;?></td>
 								</tr>
 							</table>
 						</td>
@@ -127,7 +127,7 @@
 								</tr>
 									<td class="with-200">ប្រាក់ត្រូវបង់</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->inst_total_paid_amount);?></td>
 								<tr>
-									<td class="with-200">បន្ថែមដើម</td><td class="with-10">:</td><td>$0.00</td>
+									<td class="with-200">បញ្ចុះតំលៃ </td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->inst_dis_amt);?></td>
 								</tr>
 								<tr>
 									<td class="with-200">ប្រាក់ពិន័យ</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->inst_paid_penalty);?></td>
@@ -155,10 +155,10 @@
 					<td style="text-align: center">បង់<?php if($OUT_REC[0]->inst_num =="2" && $OUT_REC[0]->is_booked =="BOOK"){
 						          echo "បង្រ្គប់ ";
 						      } 
-						      if($OUT_REC[0]->inst_type=="LOAN"){
+						      if($OUT_REC[0]->inst_type=="LOAN" && $OUT_REC[0]->con_type_inst_com_yn=="Y"){
 						          echo $OUT_REC[0]->con_type_nm_kh;
 						      }else{
-						          echo $OUT_REC[0]->inst_pay_per;
+						          echo $OUT_REC[0]->inst_pay_per.'%';
 						      }
 						      
 						?>

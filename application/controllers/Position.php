@@ -1,6 +1,6 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+date_default_timezone_set("Asia/Bangkok");
 class Position extends CI_Controller{
     public function __construct(){
         parent::__construct();
@@ -54,6 +54,7 @@ class Position extends CI_Controller{
             'pos_nm'    => $this->input->post('posNm'),
             'pos_nm_kh' => $this->input->post('posNmKh'),
             'pos_des'   => $this->input->post('posDescr'),
+            'pos_get_yn'   => 'Y',
             'useYn'		=> "Y",
             'com_id'    => $_SESSION['comId']
         );

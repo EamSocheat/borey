@@ -35,7 +35,7 @@
 									<div class="row" >
 										<div class="col-sm-12 col-md-12 col-lg-12 row" style="">
 											
-											<div class="col-sm-3 col-md-3 col-lg-3" style="
+											<div class="col-sm-2 col-md-2 col-lg-2" style="
 												">
 												<div class="input-group date" style="
 													">
@@ -49,7 +49,7 @@
 													<input type="text" style="width: 100%" class="form-control pull-left date-pick input-sm" id="txtSrchContSD" name="txtSrchContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="" style="font-size: 12px;width: 60%;">
 												</div>
 											</div>
-											<div class="col-sm-3 col-md-3 col-lg-3" style="
+											<div class="col-sm-2 col-md-2 col-lg-2" style="
 												">
 												<div class="input-group date">
 													<label for="txtSrchContED" class="control-label"  style="
@@ -61,7 +61,7 @@
 													<input type="text" style="width: 100%" class="form-control pull-left date-pick input-sm" id="txtSrchContED" name="txtSrchContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="áž”áž‰áŸ’áž‡áž¼áž› " style="font-size: 12px;width: 60%;">
 												</div>
 											</div>
-											<div class="col-sm-3 col-md-3 col-lg-3" style="
+											<div class="col-sm-2 col-md-2 col-lg-2" style="
 												">
 												<div class="form-group form-inline">
 													<label for="txtSrchSellCode" class="control-label"  style="
@@ -73,7 +73,7 @@
 												</div>
 											</div>
 											
-											<div class="col-sm-3 col-md-3 col-lg-3" style="">
+											<div class="col-sm-2 col-md-2 col-lg-2" style="">
 												<div class="form-group form-inline">
                                                     <label for="txtSrchProCode" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">	លេខកូដផ្ទះ </label>
                                                     <input type="text" style="width: 100%" class="form-control input-sm" id="txtSrchProCode" placeholder="អតិថិជន">

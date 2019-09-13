@@ -327,7 +327,7 @@ function filtStaffCombo(){
 
 	if(!stock.comm.isEmpty(Staff_REC)){
 		var strHtml  = '<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>';
-		strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
+		//strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
 		var staffStr = "";
 		$("#cboStaffPay").empty();
 		for(var i = 0; i < Staff_REC.length; i++){

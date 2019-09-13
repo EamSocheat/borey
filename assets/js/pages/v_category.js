@@ -52,7 +52,7 @@ var _thisPage = {
 							html += '<tr data-id='+v.cat_id+'>';
 							html += '	<td class="chk_box"><input type="checkbox"></td>';
 							html += '   <td style="width: 30px;height: 30px;"><div class="image">';
-							html += '       <img id="staImgView" src="'+$("#base_url").val()+"/upload"+v.cat_photo+'" class="img-circle" style="width:25px;" alt="User Image">';
+							html += '       <img id="staImgView" src="'+$("#base_url").val()+"/upload"+v.cat_photo+'" class="img-circle" style="width:25px;" >';
 							html += '   </div></td>';
 							html += '	<td><div>'+null2Void(v.cat_nm)+'</div></td>';
 							html += '	<td><div>'+null2Void(v.cat_nm_kh)+'</div></td>';
@@ -73,7 +73,7 @@ var _thisPage = {
 					}else{
 						$("#chkAll").hide();
 						$("#loading").hide();
-						$("#categoryList").append("<tr><td colspan='6' style='text-align:center;'>No data to show.</td></tr>");
+						$("#categoryList").append("<tr><td colspan='7' style='text-align:center;'>គ្មានទិន្នន័យដើម្បីបង្ហាញ</td></tr>");
 						stock.comm.renderPaging("paging", $("#perPage").val(), 0, pageNo);
 					}
 					 

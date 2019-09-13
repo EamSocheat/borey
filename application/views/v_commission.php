@@ -37,14 +37,14 @@
 										<div class="col-sm-12 col-md-12 col-lg-12 row" style="">
 											<div class="col-sm-2 col-md-2 col-lg-2">
 												<div class="form-group form-inline">
-													<label for="txtSellCode" class="control-label" data-i18ncd="lb_sell_code" style="margin-bottom: 7px;display: -webkit-box;">លេខកូដនៃការលក់</label>
-													<input type="text" class="form-control input-sm" id="txtSellCode" name="txtSellCode" placeholder="លេខកូដនៃការលក់" style="width: 100%;">
+													<label for="txtSellCode" class="control-label" data-i18ncd="lb_sell_code" style="margin-bottom: 7px;display: -webkit-box;">លេខកូដលក់</label>
+													<input type="text" class="form-control input-sm" id="txtSellCode" name="txtSellCode" placeholder="លេខកូដលក់" style="width: 100%;">
 												</div>
 											</div>
 											<div class="col-sm-2 col-md-2 col-lg-2">
 												<div class="form-group form-inline">
 													<label for="cmboSeller" class="control-label" data-i18ncd="lb_seller" style="margin-bottom: 7px;display: -webkit-box;">អ្នកលក់</label>
-													<select class="form-control" id="cmboSeller" name="cmboSeller" style="width: 143px;font-size: 14px;" onchange="getData()">
+													<select class="form-control" id="cmboSeller" name="cmboSeller" style="font-size: 14px;" onchange="getData()">
 														<option value="" data-i18ncd="lb_seller_choose">សូមជ្រើសរើស</option>
 														<option value="1" data-i18ncd="lb_seller_1">static</option>
 													</select>
@@ -84,16 +84,23 @@
 											</div>
 										</div>
 										<div class="col-sm-12 col-md-12 col-lg-12 row" style="">
-											<div class="col-sm-3 col-md-3 col-lg-3" style="">
+											<div class="col-sm-2 col-md-2 col-lg-2">
+												<div class="form-group form-inline">
+													<label for="txtProCode" class="control-label" data-i18ncd="lb_sell_code" style="margin-bottom: 7px;display: -webkit-box;">លេខកូដអចនលទ្រព្យ</label>
+													<input type="text" class="form-control input-sm" id="txtProCode" name="txtProCode" placeholder="លេខកូដលក់" style="width: 100%;">
+												</div>
+											</div>
+											<div class="col-sm-2 col-md-2 col-lg-2" style="">
 												<div class="form-group form-inline">
 													<label for="cboStatus" class="control-label" data-i18ncd="lb_cat" style="margin-bottom: 7px;display: -webkit-box;">ដំណើការកម្រៃជើងសារ</label>
-													<select class="form-control" id="cboStatus" name="cboStatus" style="width: 143px;font-size: 14px;" onchange="getData()">
+													<select class="form-control input-sm" id="cboStatus" name="cboStatus" style="font-size: 14px;" onchange="getData()">
 														<option value="" data-i18ncd="lb_status_choose">សូមជ្រើសរើស</option>
 														<option value="P" data-i18ncd="lb_wating">រង់ចាំ</option>
-														<option value="G" data-i18ncd="lb_finished">រូចរាល់</option>
+														<option value="Y" data-i18ncd="lb_finished">រូចរាល់</option>
 													</select>
 												</div>
 											</div>
+											
 										</div>
 									</div>
 
@@ -113,8 +120,10 @@
 						<div class="row test-est">
 							<div class="col-xs-12">
 								<div class="col-xs-12" style="display: flex;">
+									<!--
 									<button type="button" id="btnDelete" class="btn btn-danger btn-sm" style="margin-right: 5px"><i class="fa fa-trash" aria-hidden="true"></i> <span data-i18ncd="btn_delete">លុប</span></button>
-<!--									<button type="button" id="btnAddNew" class="btn btn-default btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> <span data-i18ncd="btn_add_new">បន្ថែម&#8203;ថ្មី</span></button>-->
+								    <button type="button" id="btnAddNew" class="btn btn-default btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> <span data-i18ncd="btn_add_new">បន្ថែម&#8203;ថ្មី</span></button>
+								    -->
 								</div>
 							</div>
 						</div>
@@ -139,65 +148,25 @@
 
 						<div class="box-body table-responsive">
 							<table class="table table-hover" id="tblCommission">
-								<colgroup>
-									<col style="width:5px;">
-									<!--<col style="width:5px;">
-									<col style="width:5px;">-->
-									<col style="width:90px;">
-									<col style="width:80px;">
-									<col style="width:100px;">
-									<col style="width:50px;">
-									<col style="width:50px;">
-									<col style="width:50px">
-									<col style="width:80px;">
-									<col style="width:10px;">
-									<col style="width:10px;">
-								</colgroup>
+								
 								<thead>
 									<tr>
 										<th><input type="checkbox" id="chkAllBox" style="display: none;"></th>
 										<th data-i18ncd="">ប្រភេទកម្រៃជើងសារ</th>
 										<th data-i18ncd="" style="text-align: right;">ប្រាក់កម្រៃជើងសារ</th>
-										<th data-i18ncd="" style="">ដំណើការកម្រៃជើងសារ</th>
+										<th data-i18ncd="" style="text-align: right;">ប្រាក់អនុម័ត</th>
+										<th data-i18ncd="" style="text-align: center">ដំណើការ</th>
 										<th data-i18ncd="" style="">ថ្ងៃអនុម័ត</th>
 										<th data-i18ncd="" style="">អ្នកលក់</th>
 										<th data-i18ncd="" style="">ថ្ងៃលក់</th>
-										<th data-i18ncd="" style="">លេខកូដនៃការលក់</th>
+										<th data-i18ncd="" style="">លេខកូដលក់</th>
+										<th data-i18ncd="" style="">អចនលទ្រព្យ</th>
+										<th data-i18ncd="" style="text-align: center">ប្រាក់ដើមបានបង់</th>
 										<th style="text-align: center;" data-i18ncd="lb_action">Action</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="cur-pointer">
-										<td><div class="" style="width: 10px;"><input type='checkbox'></div></td>
-										<td><div class="">បុគ្គល</div></td>
-										<td><div class="" style="text-align: right">$100,000</div></td>
-										<td><div class="" style="">រង់ចាំ</div></td>
-										<td><div class="" style="">01-09-2019</div></td>
-										<td><div class="" style="">customer 00001</div></td>
-										<td><div class="" style="">01-08-2019</div></td>
-										<td><div class="" style="">sell 00001</div></td>
-										<td class="text-center">
-											<button type="button" class="btn btn-primary btn-xs">អនុម័ត</button>
-										</td>
-									</tr>
-									<tr class="cur-pointer">
-										<td><div class="" style="width: 10px;"><input type='checkbox'></div></td>
-										<td><div class="">ទាំងអស់</div></td>
-										<td><div class="" style="text-align: right">$100,000</div></td>
-										<td><div class="" style="">រូចរាល់</div></td>
-										<td><div class="" style="">01-09-2019</div></td>
-										<td><div class="" style="">customer 00001</div></td>
-										<td><div class="" style="">01-08-2019</div></td>
-										<td><div class="" style="">sell 00001</div></td>
-										<td class="text-center">
-											<button type="button" class="btn btn-primary btn-xs">អនុម័ត</button>
-										</td>
-									</tr>
-									<tr class="total">
-										<td class="" colspan="2" style="text-align: right;font-weight: 600;">សរុបប្រាក់កម្រៃជើងសារ: </td>
-										<td class="" colspan="" style="text-align: right;"><b>12,369,565.23</b></td>
-										<td colspan="6"></td>
-									</tr>
+									
 
 								</tbody>
 

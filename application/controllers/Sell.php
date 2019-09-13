@@ -230,6 +230,7 @@ class Sell extends CI_Controller{
 	            'sell_id'        	=> $old_sell_id,
 	    		'commi_amt'        	=> $commi_amt,
 	    	    'commi_type'        	=> "S",
+	    	    'commi_is_approve'        	=> "P",
 	        );
 	        $datacommi['useYn']  = 'Y';
 	        $datacommi['com_id'] = $_SESSION['comId'];
@@ -241,7 +242,7 @@ class Sell extends CI_Controller{
 	            'sell_id'        	=> $old_sell_id,
 	    		'commi_amt'        	=> $commi_amt_ex,
 	            'commi_type'        	=> "A",
-	            
+	            'commi_is_approve'        	=> "P",
 	        );
 	        $datacommex['useYn']  = 'Y';
 	        $datacommex['com_id'] = $_SESSION['comId'];

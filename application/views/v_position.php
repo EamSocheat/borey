@@ -36,13 +36,13 @@
 						<div class="box-body">
 							<div class="row" >
 							    <div class="col-sm-12 col-md-12 col-lg-12 row">
-							        <div class="col-sm-4 col-md-4 col-lg-4">
+							        <div class="col-sm-2 col-md-2 col-lg-2">
     									<div class="form-group form-inline">
                                             <label for="txtSrchPosNm" class="control-label" data-i18ncd="lb_name">Name</label>
                                             <input type="text" class="form-control input-sm" id="txtSrchPosNm" placeholder="Name">
                                         </div>
     								</div>
-    								<div class="col-sm-4 col-md-4 col-lg-4">
+    								<div class="col-sm-2 col-md-2 col-lg-2">
     									<div class="form-group form-inline">
                                             <label for="txtSrchPosNmKh" class="control-label" data-i18ncd="lb_name_kh">Khmer Name</label>
                                             <input type="text" class="form-control input-sm" id="txtSrchPosNmKh" placeholder="Khmer Name">

@@ -5,6 +5,16 @@
 		{
 			parent::__construct();
 		}
+		
+		public function selectInsertHouse($data){
+		    $sql = 'INSERT tbl_product (pro_code,pro_price,pro_street,pro_length,pro_width,pro_area,pro_photo,cat_id,bra_id,
+    		 				pro_room,pro_toilet,pro_floor,pro_des,pro_status, regDt,regUsr, useYn,com_id)
+                           	SELECT "'.$data["pro_code"].'" as pro_code, pro_price,pro_street, pro_length,pro_width,pro_area,pro_photo,cat_id,bra_id,
+                           	pro_room,pro_toilet,pro_floor,pro_des,"F", now() as regDt,'.$_SESSION['usrId'].', "Y" as useYn, '.$_SESSION['comId'].'
+                           	FROM tbl_product where pro_id ='.$data['pro_id'];
+		    
+		    $this->db->query($sql);
+		}
 
 		function checkCodeHouse($dataSrch){
 
@@ -63,12 +73,9 @@
 			}
 
 			if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
-				$this->db->group_start();
-				$this->db->like('tbl_product.pro_nm', $dataSrch['srch_all']);
-				$this->db->or_like('tbl_branch.bra_nm', $dataSrch['srch_all']);
-				$this->db->or_like('tbl_category.cat_nm', $dataSrch['srch_all']);
-				$this->db->group_end();
+			    $this->db->where('tbl_product.pro_code', $dataSrch['srch_all']);
 			}
+			
 
 			$this->db->order_by("pro_id", "desc");
 			return $this->db->get('tbl_product',$dataSrch['limit'],$dataSrch['offset'])->result();
@@ -118,13 +125,8 @@
 			}
 
 			if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
-				$this->db->group_start();
-				$this->db->like('tbl_product.pro_nm', $dataSrch['srch_all']);
-				$this->db->or_like('tbl_branch.bra_nm', $dataSrch['srch_all']);
-				$this->db->or_like('tbl_category.cat_nm', $dataSrch['srch_all']);
-				$this->db->group_end();
+			    $this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
 			}
-
 			return $this->db->get()->result();
 		}
 

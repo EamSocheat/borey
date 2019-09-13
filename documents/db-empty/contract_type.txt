@@ -1,0 +1,2 @@
+INSERT INTO `tbl_contract_type`(`con_type_nm_kh`, `con_type_nm`, `con_type_inst_com_yn`) VALUES ('រំលស់ជាមួយក្រុមហ៊ុន','រំលស់ជាមួយក្រុមហ៊ុន','Y');
+INSERT INTO `tbl_contract_type`(`con_type_nm_kh`, `con_type_nm`, `con_type_inst_com_yn`) VALUES ('រំលស់ជាមួយធនាគារ','រំលស់ជាមួយធនាគារ','N');

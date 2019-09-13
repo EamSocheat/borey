@@ -36,14 +36,14 @@
 							
 								<div class="row" >
 								    <div class="col-sm-12 col-md-12 col-lg-12 row">
-								        <div class="col-sm-3 col-md-3 col-lg-3">
+								        <div class="col-sm-2 col-md-2 col-lg-2">
         									<div class="form-group">
                                                 <label for="txtSrchBraNm" class="control-label" data-i18ncd="lb_name">Name</label>
                                                 <input type="text" class="form-control input-sm" id="txtSrchBraNm" placeholder="Name">
                                               
                                             </div>
         								</div>
-        								<div class="col-sm-3 col-md-3 col-lg-3">
+        								<div class="col-sm-2 col-md-2 col-lg-2">
         									<div class="form-group">
                                                 <label for="txtSrchBraNmKh" class="control-label" data-i18ncd="lb_name_kh">Khmer Name </label>
                                                 <input type="text" class="form-control input-sm" id="txtSrchBraNmKh" placeholder="Khmer Name ">
@@ -51,7 +51,7 @@
                                             </div>
         								</div>
         								
-        								<div class="col-sm-3 col-md-3 col-lg-3">
+        								<div class="col-sm-2 col-md-2 col-lg-2">
         									<div class="form-group">
                                                 <label for="txtSrchBraPhone" class="control-label" data-i18ncd="lb_phone">Phone </label>
                                                 <input type="text" class="form-control input-sm"  id="txtSrchBraPhone" placeholder="Phone">
@@ -60,7 +60,7 @@
         								</div>
         								
         								
-        								<div class="col-sm-3 col-md-3 col-lg-3">
+        								<div class="col-sm-2 col-md-2 col-lg-2">
         									<div class="form-group">
                                                 <label for="cbxSrchBraType" class="control-label" data-i18ncd="lb_branch_type">Branch Type </label>
                                                 <select class="form-control input-sm" id="cbxSrchBraType" name="cbxSrchBraType">

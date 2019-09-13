@@ -130,7 +130,7 @@ function getData(page_no){
     $("#loading").show();
     $.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"Staff/getStaff",
+		url: $("#base_url").val() +"Staff/getStaffData",
 		data: dat,
 		dataType: "json",
 		success: function(res) {
@@ -147,9 +147,9 @@ function getData(page_no){
 			        html += "<td class='sta_image'><img style='width: 30px;height: 30px;' src='"+ urlPhoto +"' class='img-circle' /></td>";
 			        html += "<td class='sta_nm'>"+res.OUT_REC[i]["sta_nm"]+"</td>";
 			        html += "<td class='sta_nm_kh'>"+res.OUT_REC[i]["sta_nm_kh"]+"</td>";
-			        html += "<td class='sta_gender'>"+res.OUT_REC[i]["sta_gender"]+"</td>";
+			        html += "<td class='sta_gender'>"+(res.OUT_REC[i]["sta_gender"] == "M" ? "ប្រុស" : "ស្រី")+"</td>";
 			        html += "<td class='sta_phone1'>"+res.OUT_REC[i]["sta_phone1"]+"</td>";
-			        html += "<td class='pos_nm'>"+res.OUT_REC[i]["pos_nm"]+"</td>";
+			        html += "<td class='pos_nm'>"+res.OUT_REC[i]["pos_nm_kh"]+"</td>";
 			        //html += "<td class='bra_nm'>"+res.OUT_REC[i]["bra_nm"]+"</td>";
 			        html += "<td class='act_btn text-center'><button onclick='editData("+res.OUT_REC[i]["sta_id"]+")' type='button' class='btn btn-primary btn-xs'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></td>";
 			

@@ -333,7 +333,7 @@ function editData(cont_id){
 	var controllerNm = "PopupFormInstallmentPayment";
 	var option = {};
 	var data   = "id="+cont_id+"&action=U";
-	option["height"] = "510px";
+	option["height"] = "480px";
 	
 	stock.comm.openPopUpForm(controllerNm, option, data, "modal-lg");
 }

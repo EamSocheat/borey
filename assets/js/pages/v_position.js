@@ -58,7 +58,7 @@ var _thisPage = {
 						stock.comm.renderPaging("paging",$("#perPage").val(),data.OUT_REC_CNT[0]["total_rec"],pageNo);
 					}else{
 						$("#chkAll").hide();
-						$("#tblPosition tbody").append("<tr><td colspan='6' style='text-align:center;'>No data to show.</td></tr>");
+						$("#tblPosition tbody").append("<tr><td colspan='6' style='text-align:center;'>គ្មានទិន្នន័យដើម្បីបង្ហាញ</td></tr>");
 						stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 					}
 					

@@ -57,7 +57,7 @@
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="dobIcon">
 				                    	<i class="fa fa-calendar"></i>
 				                  	</div>
-				                  	<input type="text" class="form-control pull-right date-pick" id="txtExpendDate" name="txtExpendDate" required="required" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" autocomplete="off" />
+				                  	<input type="text" class="form-control pull-right date-pick" id="txtExpendDate" name="txtExpendDate" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
 				                </div>
                             </div>
                 		</div>

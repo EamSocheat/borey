@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set("Asia/Bangkok");
 
 class Staff extends CI_Controller {
 	public function __construct(){
@@ -97,6 +98,27 @@ class Staff extends CI_Controller {
             
         );
 	    $data["OUT_REC"] = $this->M_staff->selectStaff($dataSrch);
+	    $data["OUT_REC_CNT"] = $this->M_staff->countStaff($dataSrch);
+	    echo json_encode($data);
+	}
+	
+	public function getStaffData(){
+	    if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	    
+	    $dataSrch = array(
+	        'limit' 		=> $this->input->post('perPage'),
+	        'offset' 		=> $this->input->post('offset'),
+	        'sta_id' 		=> $this->input->post('staId'),
+	        'sta_nm' 		=> $this->input->post('staNm'),
+	        'sta_nm_kh' 	=> $this->input->post('staNmKh'),
+	        'sta_phone' 	=> $this->input->post('staPhone'),
+	        'bra_id' 		=> $this->input->post('braId'),
+	        'pos_id' 		=> $this->input->post('posId')
+	        
+	    );
+	    $data["OUT_REC"] = $this->M_staff->selectStaffData($dataSrch);
 	    $data["OUT_REC_CNT"] = $this->M_staff->countStaff($dataSrch);
 	    echo json_encode($data);
 	}

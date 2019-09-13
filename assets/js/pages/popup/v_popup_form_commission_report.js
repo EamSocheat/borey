@@ -13,33 +13,30 @@ var _thisPage = {
 		onload : function(){
 			parent.$("#loading").hide();
 			//
-			getStaff();
-			getPaymentMethod()
-			stock.comm.inputCurrency("txtPenaltyAmt");
-			getContractType();
+			//getStaff();
+			//getPaymentMethod()
+			stock.comm.inputCurrency("txtCommiPay");
+			//getContractType();
 			//stock.comm.inputCurrency("lAmt");
 			
 			//
-			$('#txtPayDate').datepicker({
+			$('#txtCommiApprDate').datepicker({
 				language: "kh",
-				weekStart: true,
-		        //todayBtn:  true,
-				autoclose: true,
 				todayHighlight: 1,
-				minView: 2,
-				//forceParse: 0,
 				sideBySide: true,
 				format: "dd-mm-yyyy",
+			    minView: 2,
+			    autoclose: true
 		    });
-			$("#txtPayDate").inputmask();
+			$("#txtCommiApprDate").inputmask();
 			
 			//
 
 			
-			getDataEdit($("#instId").val());
-			$("#popupTitle").html("<i class='fa fa-line-chart'></i> ពត៌មានបង់ប្រាក់")
-			stock.comm.todayDate("#txtPayDate","-");
-			$("#frmPayment").show();
+			getDataEdit($("#commiId").val());
+			$("#popupTitle").html("<i class='fa fa-pie-chart'></i> ពត៌មានកំរៃជើងសារ")
+			stock.comm.todayDate("#txtCommiApprDate","-");
+			$("#frmCommission").show();
 			$("#braNm").focus();						
 			stock.comm.inputPhoneKhmer("txtPhone1");
 			stock.comm.inputPhoneKhmer("txtPhone2");
@@ -51,12 +48,12 @@ var _thisPage = {
 			//
 			$("#btnClose,#btnExit").click(function(e){
 				//parent.$("#modalMd").modal('hide');
-				parent.stock.comm.closePopUpForm("PopupFormInstallmentPayment",parent.popupInstallmentPaymentCallback);
+				parent.stock.comm.closePopUpForm("PopupFormCommissionReport",parent.popupCommissionReportCallback);
 			});
 			//
-			$("#frmPayment").submit(function(e){
+			$("#frmCommission").submit(function(e){
 				e.preventDefault();
-				if(_btnId == "btnPay"){
+				if(_btnId == "btnApprove"){
 			    	saveData();
 				}else{
 			    	saveData("new");
@@ -64,12 +61,12 @@ var _thisPage = {
 			
 			});
 			//
-			$("#btnPay").click(function(e){
+			$("#btnApprove").click(function(e){
 				_btnId = $(this).attr("id");
 				
 			});
 			//
-			$("#btnPayNew").click(function(e){
+			$("#btnApproveNew").click(function(e){
 				_btnId = $(this).attr("id");
 				
 			});
@@ -90,38 +87,24 @@ var _thisPage = {
 
 
 function saveData(str){
-	$("#instId").appendTo("#frmPayment");    
+	$("#commiId").appendTo("#frmCommission");    
     
 	//
-	$("#txtInstPayAmt").val($("#txtInstPayAmt").val().replace(/,/g,''));
-	$("#txtInstPayAmt").prop("disabled",false);
-	$("#txtPenaltyAmt").val($("#txtPenaltyAmt").val().replace(/,/g,''));
 	parent.$("#msgErr").hide();
 	//
 	
 	$.ajax({
 		type : "POST",
-		url  : $("#base_url").val() +"InstallmentPayment/savePayment",
-		data: $("#frmPayment").serialize(),
+		url  : $("#base_url").val() +"CommissionReport/approveCommision",
+		data: $("#frmCommission").serialize(),
 		success: function(res) {
 			
 		    parent.$("#loading").hide();
-			if(res !="" && res !="ERR"){
-				//parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"),"braNm");
-				parent.stock.comm.confirmMsg($.i18n.prop("msg_save_com")+" \nតើអ្នកចង់បោះពុម្ពដែរឫទេ ?");
-				parent.$("#btnConfirmOk").unbind().click(function(e){
-					parent.$("#mdlConfirm").modal('hide');
-					printInv(res);
-				});
-				
-				if(str == "new"){
-				    clearForm();
-				}else{					
-				    parent.stock.comm.closePopUpForm("PopupFormInstallmentPayment",parent.popupInstallmentPaymentCallback);
-				}
-			}else if(res =="ERR"){
-				parent.stock.comm.alertMsg("ការបង់ប្រាក់មិនត្រឹមត្រូវ សូមបង់ប្រាក់មានលេខរៀងពីតូចទៅធំ");
-				return;
+		    parent.stock.comm.alertMsg($.i18n.prop("msg_save_com"));
+			if(res !=""){
+				parent.stock.comm.closePopUpForm("PopupFormCommissionReport",parent.popupCommissionReportCallback);
+			}else {
+				parent.stock.comm.alertMsg($.i18n.prop("msg_err"));
 			}
 		},
 		error : function(data) {
@@ -139,27 +122,26 @@ function getDataEdit(cont_id){
     $("#loading").show();
     $.ajax({
 		type: "POST",
-		url : $("#base_url").val() +"InstallmentPayment/getInstallment",
-		data: {"instId":cont_id},
+		url : $("#base_url").val() +"CommissionReport/getCommissionData",
+		data: {"commId":cont_id},
 		dataType: "json",
 		async: false,
 		success: function(res) {
-			
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
-				//$("#balanceLeft").text( $.i18n.prop("lb_pay_balance") +" : "+ stock.comm.formatCurrency(res.OUT_REC[0]["loan_amount_left"])+res.OUT_REC[0]["cur_syn"]);	
 				
-			    $("#txtCusNm").val(res.OUT_REC[0]["cus_nm_kh"]);
-			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
-			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
-			    $("#txtProCode").val(res.OUT_REC[0]["pro_code"]);
-			    $("#txtInstPayAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["inst_amt_pay"]));
-			    $("#txtTotalPayAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["inst_amt_pay"]));
+			    $("#txtCommiType").val((res.OUT_REC[0]["commi_type"] == "A" ? "បុគ្គលិក" : "បុគ្គល"));
+			    $("#txtSeller").val(res.OUT_REC[0]["sta_nm_kh"]);
+			    $("#txtSellPrice").val(stock.comm.formatCurrency(res.OUT_REC[0]["sell_total_price"]));
+			    $("#txtCommiAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["commi_amt"]));
+			    $("#txtCommiPay").val((res.OUT_REC[0]["commi_amt_approve"] == null ? 0 : stock.comm.formatCurrency(res.OUT_REC[0]["commi_amt_approve"])));
+			    $("#txtDes").val(res.OUT_REC[0]["commi_approve_des"]);
 			    
-			    $("#txtInstType").val(res.OUT_REC[0]["inst_type"]);
-			    $("#txtInstNum").val(res.OUT_REC[0]["inst_num"]);
-			    $("#txtSellId").val(res.OUT_REC[0]["sell_id"]);
+			    if(res.OUT_REC[0]["commi_is_approve"] == null || res.OUT_REC[0]["commi_is_approve"] == ""){
+			    	$("#cboStatus").val("P");
+			    }else{
+			    	$("#cboStatus").val(res.OUT_REC[0]["commi_is_approve"]);
+			    }
 			    
-			    //$("#frmPayment input,#frmPayment textarea,#frmPayment select").prop("disabled",true);
 			}else{
 			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -175,8 +157,8 @@ function getDataEdit(cont_id){
 }
 
 function clearForm(){
-    $("#frmPayment input").val("");
-    $("#frmPayment textarea").val("");
+    $("#frmCommission input").val("");
+    $("#frmCommission textarea").val("");
     $("#staImgView").attr("src",$("#base_url").val()+"assets/image/default-staff-photo.png");
     $("#txtContractNm").focus();
     $("#tblProduct tbody").html("");
@@ -343,7 +325,7 @@ function printInv(con_id){
 				newWin.focus();
 				//newWin.print();
 				setTimeout(function(){ newWin.print();newWin.close();}, 200);
-				parent.stock.comm.closePopUpForm("PopupFormInstallmentPayment",parent.popupInstallmentPaymentCallback);
+				parent.stock.comm.closePopUpForm("PopupFormCommissionReport",parent.popupCommissionReportCallback);
 			}
 			
 		},

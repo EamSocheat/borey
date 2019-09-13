@@ -18,10 +18,10 @@ var _thisPage = {
 			
 			if($("#frmAct").val() == "U"){
 			    getDataEdit($("#expId").val());
-			    $("#popupTitle").html("<i class='fa fa-users'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_expend"));
+			    $("#popupTitle").html("<i class='fa fa-bar-chart'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_expend"));
 			}else{
 			    $("#btnSaveNew").show();
-			    $("#popupTitle").html("<i class='fa fa-users'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_expend"));
+			    $("#popupTitle").html("<i class='fa fa-bar-chart'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_expend"));
 			}
 
 			$("#frmExpend").show();
@@ -34,7 +34,7 @@ var _thisPage = {
 				todayHighlight: 1,
 				forceParse: 0,
 				sideBySide: true,
-				format: "dd/mm/yyyy",
+				format: "dd-mm-yyyy",
 			});
 			$("#txtExpendDate").inputmask();
 			stock.comm.inputCurrency("txtTotalExp");
@@ -198,7 +198,7 @@ function filtStaffCombo(){
 
 	if(!stock.comm.isEmpty(Staff_REC)){
 		var strHtml  = '<option value="" data-i18ncd="lb_sta_choose" selected>សូមជ្រើសរើស</option>';
-			strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
+			//strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
 		var staffStr = "";
 		$("#cboStaffPay").empty();
 		for(var i = 0; i < Staff_REC.length; i++){

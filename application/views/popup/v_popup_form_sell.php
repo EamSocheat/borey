@@ -115,7 +115,7 @@
 		                		<button  type="button" class="btn btn-info btn-sm" id="btnSelectPro"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
 		                	</div>
 		                	
-		                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;margin-top: -15px;">
+		                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;margin-top: -5px;">
 		                		<span><b>ពត៍មានអចលនទ្រព្យ</b></span>
 		                    	<div class="box-body table-responsive fix-header-tbl" style="height: 80px;padding: 0px;">
 		        				  <table class="table table-hover" id="tblProduct" >

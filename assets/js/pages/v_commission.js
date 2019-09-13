@@ -2,7 +2,6 @@ var _pageNo = 1;
 var _this;
 $(document).ready(function(){
 	_thisPage.init();
-	console.log("commission is called....")
 });
 
 var _thisPage = {
@@ -186,8 +185,8 @@ function getData(page_no){
 	dat["apprSDate"]	= $("#txtSrchApproveSD").val();
 	dat["apprEDate"]	= $("#txtSrchApproveED").val();
 	dat["cboStatus"]	= $("#cboStatus option:selected").val();
-
-	console.log("datt::: "+JSON.stringify(dat));
+	dat["proCode"]		= $("#txtProCode").val();
+	
 	$("#loading").show();
 	$.ajax({
 		type: "POST",
@@ -197,26 +196,35 @@ function getData(page_no){
 		success	: function(res) {
 			$("#tblCommission tbody").html("");
 			$("#chkAllBox").prop( "checked", false );
-			console.log("res.OUT_REC:: "+res.OUT_REC);
-			console.log("res.OUT_REC:: "+res.OUT_REC_CNT);
-
+			
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				$("#chkAllBox").show();
 				var strHtml = "", strTotal = "";
-				var totalCommissionAmt = 0, totalSalary = 0;
+				var totalCommissionAmt = 0, totalSalary = 0,totalCommissionAmtAppr=0;
 
 				for(var i = 0; i < res.OUT_REC.length; i++){
+					var approveAmt = "";
+					if(res.OUT_REC[i]["commi_amt_approve"] != null && res.OUT_REC[i]["commi_amt_approve"] != ""){
+						approveAmt =stock.comm.formatCurrency(res.OUT_REC[i]["commi_amt_approve"]);
+						approveAmt+="$";
+						totalCommissionAmtAppr+=parseFloat(res.OUT_REC[i]["commi_amt_approve"]);
+					}
 					strHtml += '<tr class="cur-pointer" data-id="'+res.OUT_REC[i]["commi_id"]+'">';
 					strHtml += '	<td class="chk_box"><div class="" style="width: 10px;"><input type="checkbox"></div></td>';
-					strHtml += '	<td><div class="">'+(res.OUT_REC[i]["commi_type"] == "A" ? "ទាំងអស់" : "បុគ្គល")+'</div></td>';
-					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["commi_amt"])+'</div></td>';
-					strHtml += '	<td><div class="" style="">'+(stock.comm.isEmpty(res.OUT_REC[i]["commi_is_approve"]) ? "រង់ចាំ" : "រូចរាល់")+'</div></td>';
+					strHtml += '	<td><div class="">'+(res.OUT_REC[i]["commi_type"] == "A" ? "បុគ្គលិក" : "បុគ្គល")+'</div></td>';
+					
+					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["commi_amt"])+'$</div></td>';
+					strHtml += '	<td><div class="" style="text-align: right">'+approveAmt+'</div></td>';
+					strHtml += '	<td><div class="" style="text-align: center">'+(renderStatus(res.OUT_REC[i]["commi_is_approve"]))+'</div></td>';
 					strHtml += '	<td><div class="" style="">'+(stock.comm.isEmpty(res.OUT_REC[i]["commi_approve_date"]) ? "" : stock.comm.formatDateWithoutTime(res.OUT_REC[i]["commi_approve_date"]))+'</div></td>';
-					strHtml += '	<td><div class="" style="">'+(stock.comm.isEmpty(res.OUT_REC[i]["sta_nm_kh"]) ? res.OUT_REC[i]["sta_nm_kh"] : res.OUT_REC[i]["sta_nm"])+'</div></td>';
+					strHtml += '	<td><div class="" style="">'+res.OUT_REC[i]["sta_nm_kh"]+'</div></td>';
 					strHtml += '	<td><div class="" style="">'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["sell_date"])+'</div></td>';
 					strHtml += '	<td><div class="" style="">'+res.OUT_REC[i]["sell_code"]+'</div></td>';
+					strHtml += '	<td><div class="" style="">'+res.OUT_REC[i]["pro_code"]+'</div></td>';
+					strHtml += '	<td><div class="" style="text-align: center">'+(res.OUT_REC[i]["user_piad_percent"] == null ? 0 :res.OUT_REC[i]["user_piad_percent"]) +'%</div></td>';
+					
 					strHtml += '	<td class="text-center">';
-					strHtml += '		<button type="button" class="btn btn-primary btn-xs">អនុម័ត</button>';
+					strHtml += '		<button type="button" onclick="editData('+res.OUT_REC[i]["commi_id"]+')" class="btn btn-primary btn-xs"><i class="fa fa-check" aria-hidden="true"></i> អនុម័ត</button>';
 					strHtml += '	</td>';
 					strHtml += '</tr>';
 
@@ -224,9 +232,10 @@ function getData(page_no){
 				}
 
 				strTotal += '<tr class="total">';
-				strTotal += '	<td class="" colspan="2" style="text-align: right;font-weight: 600;">សរុបប្រាក់កម្រៃជើងសារ: </td>';
-				strTotal += '	<td class="" colspan="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalCommissionAmt)+'</b></td>';
-				strTotal += '	<td colspan="6"></td>';
+				strTotal += '	<td class="" colspan="2" style="text-align: right;font-weight: 600;">សរុបប្រាក់: </td>';
+				strTotal += '	<td class="" colspan="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalCommissionAmt)+'$</b></td>';
+				strTotal += '	<td class="" colspan="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalCommissionAmtAppr)+'$</b></td>';
+				strTotal += '	<td colspan="9"></td>';
 				strTotal += '</tr>';
 
 				$("#tblCommission tbody").append(strHtml);
@@ -266,9 +275,9 @@ function editData(sal_id){
 	var data = "id="+sal_id;
 	data += "&action=U";
 
-	var controllerNm = "PopupFormSalary";
+	var controllerNm = "PopupFormCommissionReport";
 	var option = {};
-	option["height"] = "455px";
+	option["height"] = "415px";
 	stock.comm.openPopUpForm(controllerNm, option, data, "modal-md");
 }
 
@@ -304,7 +313,7 @@ function filtStaffCombo(){
 
 	if(!stock.comm.isEmpty(Staff_REC)){
 		var strHtml  = '<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>';
-		strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
+		//strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
 		var staffStr = "";
 		$("#cmboSeller").empty();
 		for(var i = 0; i < Staff_REC.length; i++){
@@ -335,6 +344,16 @@ function resetFormSearch(){
 /**
  *
  */
-function popupSalaryCallback(){
+function popupCommissionReportCallback(){
 	getData(_pageNo);
+}
+
+function renderStatus(val){
+	var html="";
+	if(val == "Y"){
+		html='<span class="label label-success">រូចរាល់</span>';
+	}else{
+		html='<span class="label label-default">រង់ចាំ</span>';
+	}
+	return html;
 }

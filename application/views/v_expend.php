@@ -4,7 +4,7 @@
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
-				<i class="fa fa-users"></i> <span data-i18ncd="lb_expend">Expend</span>
+				<i class="fa fa-bar-chart"></i> <span data-i18ncd="lb_expend">Expend</span>
 				<small data-i18ncd="lb_information">Information</small>
 			</h1>
 

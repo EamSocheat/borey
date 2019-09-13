@@ -110,7 +110,7 @@ var _thisPage = {
 			
 			var tblTr = chkVal.parent().parent();
 			var data={};
-			data["cus_nm"] = tblTr.find("td.cus_nm").html();
+			data["cus_nm"] = tblTr.find("td.cus_nm_kh").html();
 			data["cus_nm_kh"] = tblTr.find("td.cus_nm_kh").html();
 			data["cus_id"] = tblTr.attr("data-id");
 			data["cus_phone1"] = tblTr.find("td.cus_phone1").html();
@@ -175,8 +175,8 @@ function getData(){
 			        html += "<td class='chk_box' style='text-align:center;'><input type='radio' name='customer' style='margin-top: 10px;'></td>";
 			        html += "<td class='cus_image'><img style='width: 35px;height: 35px;' src='"+ urlPhoto +"' class='img-circle' /></td>";
 			        html += "<td class='cus_iden'>"+stock.comm.nullToEmpty(res.OUT_REC[i]["cus_idnt_num"])+"</td>";
-			        html += "<td class='cus_nm'>"+res.OUT_REC[i]["cus_nm"]+"</td>";
 			        html += "<td class='cus_nm_kh'>"+res.OUT_REC[i]["cus_nm_kh"]+"</td>";
+			        html += "<td class='cus_nm'>"+$.i18n.prop("lb_"+res.OUT_REC[i]["cus_gender"])+"</td>";
 			        html += "<td class='cus_phone1'>"+res.OUT_REC[i]["cus_phone1"]+"</td>";			       
 			        html += "</tr>";
 			        

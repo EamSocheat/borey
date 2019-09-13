@@ -1,5 +1,6 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set("Asia/Bangkok");
 
 class CommissionReport extends CI_Controller{
     public function __construct(){
@@ -43,86 +44,34 @@ class CommissionReport extends CI_Controller{
 			'txtSaleEDate' 	=> $this->reOrderDate($this->input->post('saleEDate')),
 			'txtApprSDate' 	=> $this->reOrderDate($this->input->post('apprSDate')),
 			'txtApprEDate' 	=> $this->reOrderDate($this->input->post('apprEDate')),
-			'commi_is_approve'	=> $this->input->post('cboStatus')
+			'commi_is_approve'	=> $this->input->post('cboStatus'),
+		    'pro_code'		=> $this->input->post('proCode'),
 		);
 		$data["OUT_REC"] 	 = $this->M_commission->selectCommissionData($dataSrch);
 		$data["OUT_REC_CNT"] = $this->M_commission->countCommissionData($dataSrch);
 		echo json_encode($data);
 	}
-
-	public function save(){
-		if(!$this->M_check_user->check()){
-			redirect('/Login');
-		}
-
-		$salGetMonth = "";
-		$staId		 = $this->input->post('txtStaffNm');
-		$salMonth	 = "01-".$this->input->post('txtSalMonth');
-		$salStatus   = $this->input->post('salStatus');
-		if($salStatus == "P"){
-			$salGetMonth = "";
-		}else if($salStatus == "G"){
-			$salGetMonth = date('Y-m-d H:i:s');
-		}
-
-		$data = array(
-			'sal_start_dt'	=> date('Y-m-d',strtotime($this->input->post('txtSalSDate'))),
-			'sal_end_dt'	=> date('Y-m-d',strtotime($this->input->post('txtSalEDate'))),
-			'sal_month'		=> date('Y-m-d',strtotime($salMonth)),
-			'sal_amt'		=> str_replace(",","",$this->input->post('txtSalAmt')),
-			'sal_comm'		=> str_replace(",","",$this->input->post('txtSalcomm')),
-			'sal_overtime'	=> str_replace(",","",$this->input->post('txtSalOT')),
-			'sal_get_date'	=> $salGetMonth,
-			'sta_id'		=> $staId,
-			'sal_status'	=> $salStatus,
-			'useYn'			=> "Y",
-			'com_id'		=> $_SESSION['comId']
-		);
-
-		$dataSalMonth = array(
-			'sal_month'	=> date('Y-m-d',strtotime($salMonth))
-		);
-		$dataCurrentMonth = $this->M_salary->countDataCurrentMonth($dataSalMonth);
-
-		if(sizeof($dataCurrentMonth) > 0){
-//			print_r("This is month already given.");
-			echo 'DUPLICATE';
-			return;
-		}
-
-
-		if($this->input->post('salId') != null && $this->input->post('salId') != ""){
-			//update data
-			$data['sal_id'] = $this->input->post('salId');
-			$data['upUsr'] 	= $_SESSION['usrId'];
-			$data['upDt']	= date('Y-m-d H:i:s');
-			$this->M_salary->update($data);
-		}else{
-			//insert data
-			$data['regUsr']	= $_SESSION['usrId'];
-			$data['regDt']	= date('Y-m-d H:i:s');
-			$this->M_salary->insert($data);
-		}
-
-		echo 'OK';
+	
+	public function approveCommision(){
+	    if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	    
+	    $data = array(
+	        'commi_id'	=> $this->input->post('commiId'),
+	        'commi_approve_date'=> date('Y-m-d',strtotime($this->input->post('txtCommiApprDate'))),
+	        'commi_approve_des'	=> $this->input->post('txtDes'),
+	        'commi_is_approve'	=> str_replace(",","",$this->input->post('cboStatus')),
+	        'commi_amt_approve'		=> str_replace(",","",$this->input->post('txtCommiPay')),
+	        'com_id'		=> $_SESSION['comId']
+	    );
+	    
+	    $data['upUsr']	= $_SESSION['usrId'];
+	    $data['upDt']	= date('Y-m-d H:i:s');
+	    $this->M_commission->update($data);
+	    echo 'OK';
 	}
 
-	public function updateSalaryStatus(){
-		if(!$this->M_check_user->check()){
-			redirect('/Login');
-		}
-
-		if($this->input->post('salId') != null && $this->input->post('salId') != ""){
-			//update data
-			$data['sal_status']	= $this->input->post('salStatus');
-			$data['sal_id'] = $this->input->post('salId');
-			$data['upUsr'] 	= $_SESSION['usrId'];
-			$data['upDt']	= date('Y-m-d H:i:s');
-			$this->M_salary->update($data);
-		}
-
-		echo 'OK';
-	}
 
 
 	public function getBranchType(){

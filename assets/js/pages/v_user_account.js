@@ -21,7 +21,7 @@ var _thisPage = {
 		$("#cbxSrchBraType").prepend("<option value='' selected='selected'></option>");
 		
 		
-		stock.comm.getPositionSelect("cbxSrchPos");
+		//stock.comm.getPositionSelect("cbxSrchPos");
 		$("#cbxSrchPos").prepend("<option value='' selected='selected'></option>");
 		$("#cbxSrchBranch").prepend("<option value='' selected='selected'></option>");
 	},event : function(){
