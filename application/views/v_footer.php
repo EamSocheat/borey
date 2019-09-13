@@ -592,7 +592,7 @@ function getUserMenu(){
 				htmlDiv +='<div class="icon">';
 				htmlDiv +='<i class="ion '+datarow["menu_icon_nm"]+'"></i>';
 				htmlDiv +='</div>';
-				htmlDiv +='<a href="'+datarow["menu_nm"]+'" class="small-box-footer">ពត៌មានលំអិត <i class="fa fa-arrow-circle-right"></i></a>';
+				htmlDiv +='<a href="'+datarow["menu_nm"].replace(/ /g,"")+'" class="small-box-footer">ពត៌មានលំអិត <i class="fa fa-arrow-circle-right"></i></a>';
 				htmlDiv +='</div>';
 				htmlDiv +='</div>';
 				$("#divMenuDetial").append(htmlDiv);
