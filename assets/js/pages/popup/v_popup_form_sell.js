@@ -68,6 +68,9 @@ var _thisPage = {
 			}else{
 			    $("#btnSaveNew").show();			    
 			    $("#popupTitle").html("<i class='fa fa-shopping-cart'></i> "+$.i18n.prop("btn_add_new")+" ការល​ក់" );
+			    
+			    $( "#cboInstYn" ).trigger( "click" );
+			    $(".div_installment").show();
 			}
 			
 			//stock.comm.todayDate("#txtStartInstDate","-");

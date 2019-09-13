@@ -206,7 +206,7 @@
 		                	<div class="col-xs-4 padding-forms-left">
 		                		<div class="form-group">
 		                			<input type="checkbox" id="cboInstYn" name="cboInstYn"> <label  for="cboInstYn" > ធ្វើការរំលស់ជាមួយក្រុមហ៊ុន</label><span> </span>
-		                			<input type="hidden" name="txt_com_inst_yn" id="txt_com_inst_yn" value="N"/>
+		                			<input type="hidden" name="txt_com_inst_yn" id="txt_com_inst_yn" value="Y"/>
 		                		</div>
 		                	</div>
 		                	
