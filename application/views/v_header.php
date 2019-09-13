@@ -107,7 +107,7 @@
 			<div class="pull-left image">
 			  <img src="<?php echo base_url('assets/') ?>dist/img/user2-160x160.jpg" class="img-circle" style="width: 40px;" alt="User Image">
 			</div>
-			<b>Borey Hello</b>
+			<b><?php echo $_SESSION['comNm'];?></b>
 		  </span>
 
 			</a>
@@ -121,12 +121,12 @@
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
 
-						<!-- Notifications: style can be found in dropdown.less -->
+						<!-- 
 						<li class="dropdown notifications-menu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<i class="fa fa-home"></i> <span data-i18nCd="lb_com_pro">Company Profile</span>
 							</a>
-						</li>
+						</li> -->
 						<!-- Tasks: style can be found in dropdown.less -->
 						<li class="dropdown tasks-menu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="langDrop">
@@ -174,11 +174,11 @@
 									<!-- /.row -->
 								</li>
 								<!-- Menu Footer-->
-								<li class="user-footer">
-									<div class="pull-left">
+								<li class="user-footer" style="text-align: center;">
+									<!--<div class="pull-left">
 										<a href="#" id="btnProfile" class="btn btn-default btn-flat">ប្តូរលេខសំងាត់</a>
-									</div>
-									<div class="pull-right">
+									</div>-->
+									<div class="">
 										<a href="#" id="btnLogout" class="btn btn-warning btn-flat">ចាកចេញ</a>
 									</div>
 								</li>
