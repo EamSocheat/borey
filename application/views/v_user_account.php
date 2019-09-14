@@ -112,20 +112,12 @@
     					  <th>បុគ្គលិក</th>
     					  <th>ឈ្មោះ​គណនី</th>
     					  <th>ថ្ងៃខែ​ឆ្នាំ​បង្កើត</th>
-    					  <th>សកម្មភាព</th>
+    					  <th>ថ្ងៃខែ​ឆ្នាំ​កែប្រែ</th>
+    					  <th style="text-align: center;">សកម្មភាព</th>
     					</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td><input type="checkbox"></td>
-							<td><div>User Account 000001</div></td>
-							<td><div>000001</div></td>
-							<td><div>000001</div></td>
-							<td><div>2018-10-01</div></td>
-							<td class="text-center">
-								<button onclick="" type="button" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-							</td>
-						</tr>
+						
    					</tbody>
 				  </table>
 				</div>

@@ -123,16 +123,47 @@ class House extends CI_Controller{
 		$delObj = $this->input->post('delObj');
 		$cntDel = 0;
 		for($i=0; $i<sizeof($delObj); $i++){
+		    $cntActive=0;
+		    
+		    $dataVal = array(
+		        'id_val' 		=> $delObj[$i]['proId'],
+		        'com_val' 		=> $_SESSION['comId']
+		    );
+		 
+		    //check use table using staff or not
+		    $dataCol = array(
+		        'tbl_nm' 		=> "tbl_contract_detail",
+		        'id_nm' 		=> "pro_id",
+		        'com_id' 		=> "com_id"
+		    );
+		    
+		    $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
+		    $cntActive += intval($chkData[0]->active_rec);
+		    
+		    //check use table using staff or not
+		    $dataCol = array(
+		        'tbl_nm' 		=> "tbl_sell_detail",
+		        'id_nm' 		=> "pro_id",
+		        'com_id' 		=> "com_id"
+		    );
+		    
+		    $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
+		    $cntActive += intval($chkData[0]->active_rec);
+		    
+		    if($cntActive >0){
+		        continue;
+		    }else{
+		        $data = array(
+		            'pro_id'	=> $delObj[$i]['proId'],
+		            'useYn'		=> "N",
+		            'com_id'	=> $_SESSION['comId'],
+		            'upDt'		=> date('Y-m-d H:i:s'),
+		            'upUsr'		=> $_SESSION['usrId']
+		        );
+		        $this->M_house->update($data);
+		        $cntDel+=1;
+		    }
 			
-			$data = array(
-				'pro_id'	=> $delObj[$i]['proId'],
-				'useYn'		=> "N",
-				'com_id'	=> $_SESSION['comId'],
-				'upDt'		=> date('Y-m-d H:i:s'),
-				'upUsr'		=> $_SESSION['usrId']
-			);
-			$this->M_house->update($data);
-			$cntDel+=1;
 		}
 		echo $cntDel;
 	}

@@ -503,6 +503,7 @@ function getUserMenu(){
 			htmlMenu_2 +='  <ul class="treeview-menu" style="">';
 
 			var checkColorMenu =0;
+			var checkMenu1="";
 			for(var i=0; i<res["menu_user"].length; i++){
 				
 				var datarow = res["menu_user"][i];
@@ -549,6 +550,7 @@ function getUserMenu(){
 					htmlMenu_0 += '</li>';
 				}else if(datarow["menu_group"] == "1"){
 					htmlMenu_1 +='   <li  class="'+activeClass+'"><a  href="'+datarow["menu_nm"].replace(/ /g,"")+'"><i class="'+datarow["menu_icon_nm"]+'"></i> '+datarow["menu_nm_kh"]+'</a></li>';
+					checkMenu1 = "YES";
 				}else if(datarow["menu_group"] == "2"){
 					//htmlMenu_2 +='   <li class="'+activeClass+'"><a href="'+datarow["menu_nm"].replace(/ /g,"")+'"><i class="'+datarow["menu_icon_nm"]+'"></i> '+datarow["menu_nm_kh"]+'</a></li>';
 					htmlMenu += '<li class="'+activeClass+'">';
@@ -603,7 +605,9 @@ function getUserMenu(){
 			htmlMenu_2 +='</li>';
 			
 			$("#divMenu").append(htmlMenu_0);
-			$("#divMenu").append(htmlMenu_1);
+			if(checkMenu1 =="YES"){
+				$("#divMenu").append(htmlMenu_1);
+			}
 			//$("#divMenu").append(htmlMenu_2);
 			$("#divMenu").append(htmlMenu);
 			$("#menu_"+menu_tree).addClass("menu-open");

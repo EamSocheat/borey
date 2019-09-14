@@ -394,23 +394,45 @@ class Sell extends CI_Controller{
         $delObj = $this->input->post('delObj');
         $cntDel = 0;
         for($i = 0; $i<sizeof($delObj); $i++){
-            $data = array(
+            
+            $cntActive = 0;
+            //check staff table using position or not
+            $dataCol = array(
+                'tbl_nm' 		=> "tbl_installment",
+                'id_nm' 		=> "sell_id",
+                'com_id' 		=> "com_id"
+            );
+            
+            $dataVal = array(
+                'id_val' 		=> $delObj[$i]['sellId'],
+                'com_val' 		=> $_SESSION['comId']
+            );
+            
+            $chkData    = $this->M_common->checkActiveRecordSell($dataCol,$dataVal);
+            $cntActive  += intval($chkData[0]->active_rec) ;
+            
+            if($cntActive > 0){
+                continue;
+            }else{ 
+                $data = array(
                     'sell_id'    => $delObj[$i]['sellId'],
                     'useYn'     => "N",
                     'com_id'    => $_SESSION['comId'],
                     'upDt'      => date('Y-m-d H:i:s'),
                     'upUsr'     => $_SESSION['usrId']
-            );
-            $this->M_sell->update($data);
-            $cntDel += 1;
-            $dataBook = array(
+                );
+                $this->M_sell->update($data);
+                $cntDel += 1;
+                $dataBook = array(
                     'con_id'    =>  $delObj[$i]['conId'],
                     'con_sta'   => "B",
                     'com_id'    => $_SESSION['comId'],
                     'upDt'      => date('Y-m-d H:i:s'),
                     'upUsr'     => $_SESSION['usrId']
-            );
-            $this->M_contract->update($dataBook);
+                );
+                $this->M_contract->update($dataBook);
+            }
+            
         }
         echo $cntDel;
     }

@@ -98,7 +98,7 @@ class Branch extends CI_Controller {
 	        $cntActive=0;
 	        //check staff table using branch or not 
 	        $dataCol = array(
-            'tbl_nm' 		=> "tbl_staff",
+            'tbl_nm' 		=> "tbl_product",
             'id_nm' 		=> "bra_id",
             'com_id' 		=> "com_id"
             );
@@ -108,11 +108,11 @@ class Branch extends CI_Controller {
             'com_val' 		=> $_SESSION['comId']
             );
 	        $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
-	        $cntActive +=$chkData->active_rec;
+	        $cntActive += intval($chkData[0]->active_rec);
 	        
 	        //check stock table using branch or not 
 	        $dataCol = array(
-            'tbl_nm' 		=> "tbl_stock",
+            'tbl_nm' 		=> "tbl_expend",
             'id_nm' 		=> "bra_id",
             'com_id' 		=> "com_id"
             );
@@ -122,7 +122,7 @@ class Branch extends CI_Controller {
             'com_val' 		=> $_SESSION['comId']
             );
 	        $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
-	        $cntActive += $chkData->active_rec;
+	        $cntActive += intval($chkData[0]->active_rec);
 	        
 	        if($cntActive >0){
 	            continue;

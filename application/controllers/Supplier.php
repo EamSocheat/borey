@@ -84,16 +84,34 @@ class Supplier extends CI_Controller{
         $delObj = $this->input->post('delObj');
         $cntDel = 0;
         for($i=0; $i<sizeof($delObj); $i++){
-            $data = array(
-                'sup_id'    => $delObj[$i]['supId'],
-                'useYn'		=> "N",
-                'com_id'	=> $_SESSION['comId'],
-                'upDt'		=> date('Y-m-d H:i:s'),
-                //'upUsr'		=> $_SESSION['usrId']
+            
+            $dataCol = array(
+                'tbl_nm' 		=> "tbl_expend",
+                'id_nm' 		=> "sup_id",
+                'com_id' 		=> "com_id"
             );
             
-            $this->M_supplier->updateSupplierDB($data);
-            $cntDel += 1;
+            $dataVal = array(
+                'id_val' 		=> $delObj[$i]['supId'],
+                'com_val' 		=> $_SESSION['comId']
+            );
+            $chkData		= $this->M_common->checkActiveRecord($dataCol,$dataVal);
+            $cntActiveSell += $chkData[0]->active_rec;
+            
+            if($cntActiveSell > 0){
+                continue;
+            }else{
+                $data = array(
+                    'sup_id'    => $delObj[$i]['supId'],
+                    'useYn'		=> "N",
+                    'com_id'	=> $_SESSION['comId'],
+                    'upDt'		=> date('Y-m-d H:i:s'),
+                    //'upUsr'		=> $_SESSION['usrId']
+                );
+                
+                $this->M_supplier->updateSupplierDB($data);
+                $cntDel += 1;
+            }
         }
         
         echo $cntDel;

@@ -208,15 +208,37 @@ class Contract extends CI_Controller{
         $delObj = $this->input->post('delObj');
         $cntDel = 0;
         for($i = 0; $i<sizeof($delObj); $i++){
-            $data = array(
+            
+            $cntActive = 0;
+            //check staff table using position or not
+            $dataCol = array(
+                'tbl_nm' 		=> "tbl_sell",
+                'id_nm' 		=> "con_id",
+                'com_id' 		=> "com_id"
+            );
+            
+            $dataVal = array(
+                'id_val' 		=> $delObj[$i]['contId'],
+                'com_val' 		=> $_SESSION['comId']
+            );
+            
+            $chkData    = $this->M_common->checkActiveRecord($dataCol,$dataVal);
+            $cntActive  += intval($chkData[0]->active_rec) ;
+            
+            if($cntActive > 0){
+                continue;
+            }else{ 
+                $data = array(
                     'con_id'    => $delObj[$i]['contId'],
                     'useYn'     => "N",
                     'com_id'    => $_SESSION['comId'],
                     'upDt'      => date('Y-m-d H:i:s'),
                     'upUsr'     => $_SESSION['usrId']
-            );
-            $this->M_contract->update($data);
-            $cntDel += 1;
+                );
+                $this->M_contract->update($data);
+                $cntDel += 1;
+            }
+            
         }
         echo $cntDel;
     }

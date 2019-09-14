@@ -80,7 +80,7 @@ var _thisPage = {
 		}, editData : function(sup_id){
 			$("#loading").show();
 			var option = {};
-			var data = "id="+sup_id;
+			var data = "id="+sup_id+"&action=U";
 			var controllerNm = "PopupFormSupplier";
 			option["height"] = "470px";
 
@@ -106,7 +106,7 @@ var _thisPage = {
 				        }
 				        _thisPage.loadData(_pageNo);
 				    }else{
-				    	stock.comm.alertMsg($.i18n.prop("msg_err_del"));
+				    	stock.comm.alertMsg($.i18n.prop("msg_err_del")+" នៅមីនុយការចំណាយ");
 				        return;
 				    }
 				}, error : function(data) {

@@ -95,7 +95,7 @@ class Position extends CI_Controller{
             );
 
             $chkData    = $this->M_common->checkActiveRecord($dataCol,$dataVal);
-            $cntActive  += $chkData->active_rec;
+            $cntActive  += intval($chkData[0]->active_rec) ;
             
             if($cntActive > 0){
                 continue;

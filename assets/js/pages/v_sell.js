@@ -295,7 +295,7 @@ function deleteDataArr(dataArr){
 		        stock.comm.alertMsg(res+$.i18n.prop("msg_del_com"));
 		        _thisPage.loadData(_pageNo);
 		    }else{
-		        stock.comm.alertMsg($.i18n.prop("msg_err_del"));
+		        stock.comm.alertMsg($.i18n.prop("msg_err_del") + "នៅមីនុយ ទិន្នន័យបង់ប្រាក់");
 		        return;
 		    }
 		    $("#loading").hide();

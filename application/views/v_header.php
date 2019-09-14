@@ -97,19 +97,13 @@
 			<!-- Logo -->
 			<a href="" class="logo">
 				<!-- mini logo for sidebar mini 50x50 pixels -->
-				<span class="logo-mini">
-			<div class="pull-left image">
-			  <img src="<?php echo base_url('assets/') ?>dist/img/user2-160x160.jpg" class="img-circle" style="width: 40px;" alt="User Image">
-			</div>
-		  </span>
+				
 				<!-- logo for regular state and mobile devices -->
 				<span class="logo-lg">
-			<div class="pull-left image">
-			  <img src="<?php echo base_url('assets/') ?>dist/img/user2-160x160.jpg" class="img-circle" style="width: 40px;" alt="User Image">
-			</div>
-			<b><?php echo $_SESSION['comNm'];?></b>
-		  </span>
-
+        			<div class="pull-left image">
+        			  <img style="width: 100px;" src="<?php echo base_url('/upload/fix/galaxy11-logo.png')."";?>" />
+        			</div>
+    		  	</span>
 			</a>
 			<!-- Header Navbar: style can be found in header.less -->
 			<nav class="navbar navbar-static-top">

@@ -173,7 +173,7 @@ function getDataEdit(sta_id){
     $("#loading").show();
     $.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"Staff/getStaff",
+		url: $("#base_url").val() +"Staff/getStaffData",
 		data: {"staId":sta_id},
 		dataType: "json",
 		async: false,

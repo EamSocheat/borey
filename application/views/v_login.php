@@ -10,8 +10,9 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/') ?>bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('assets/') ?>bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
+  <!-- Ionicons 
   <link rel="stylesheet" href="<?php echo base_url('assets/') ?>bower_components/Ionicons/css/ionicons.min.css">
+  -->
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('assets/') ?>dist/css/AdminLTE.min.css">
   <!-- iCheck -->
@@ -65,39 +66,41 @@
   
   
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="font-family: 'Khmer Os Battambang';">
 <div class="col-lg-12 col-sm-12 col-md-12" id="loading" style="display:none ; text-align:center ; position: absolute;top: 0px;padding-left: 8%; padding-top: 23%;background-color: #ffffff; width: 100%;  height: 100%;    z-index: 9999;    opacity: 0.7;">
   <p style=""><img style="width: 20px" src="<?php echo base_url('assets/image/loading.gif') ?>"/></p>
 </div>
-<div class="login-box">
+<div class="login-box" style="background: #ffffff">
 
-  <div class="login-logo">
-    <a href="javascript:void(0)"><b>Norkor<span style="color: #555299">APP</span></b></a>
+  <div class="login-logo" style="padding-top: 20px;">
+    <img style="width: 200px;" src="<?php echo base_url('/upload/fix/galaxy11-logo.png')."";?>" />
   </div>
   <!-- /.login-logo -->
-  <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+  <div class="login-box-body " style="padding-top: 0px;">
+    <p class="login-box-msg">ចូលប្រើប្រព័ន្ធគ្រប់គ្រង</p>
 
     <form action="" method="post" id="frmLogin">
       <div class="form-group has-feedback"> 
-        <input type="text" class="form-control" placeholder="Login name" id="usrNm" name="usrNm" required="required">
+      	<label for ="usrPwd">ឈ្មោះគណនី</label>
+        <input type="text" class="form-control" placeholder="សូមបញ្ចូល ឈ្មោះគណនី" id="usrNm" name="usrNm" required="required" autocomplete="off" oninvalid="this.setCustomValidity('​ ​សូមបញ្ចូល ឈ្មោះគណនី')" oninput="setCustomValidity('')">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" id="usrPwd" name="usrPwd" required="required">
+      	<label for ="usrPwd">ពាក្យសំងាត់</label>
+        <input type="password" class="form-control" placeholder="សូមបញ្ចូល ពាក្យសំងាត់" id="usrPwd" name="usrPwd" required="required" autocomplete="off" oninvalid="this.setCustomValidity('​ ​សូមបញ្ចូល ពាក្យសំងាត់ ')" oninput="setCustomValidity('')">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> Remember Login name
+              <!-- <input type="checkbox"> Remember Login name -->
             </label>
           </div>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">ចូលប្រើ</button>
         </div>
         <!-- /.col -->
       </div>
@@ -112,10 +115,10 @@
     </div>
      -->
     <!-- /.social-auth-links -->
-
+	 <!--
     <a href="#">I forgot my password</a><br>
     <a href="Register" class="text-center">Register a new membership</a>
-
+    -->
   </div>
   <!-- /.login-box-body -->
 </div>
@@ -130,7 +133,7 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" style="background-color: #007bff;color: white;">
-          <h4 class="modal-title" id=""><i class="fa fa-info-circle"></i> Information</h4>
+          <h4 class="modal-title" id=""><i class="fa fa-info-circle"></i> សារដំណឹង</h4>
           <button type="button" class="close" data-dismiss="modal" id="btnExitland.comm.alertMsg">&times;</button>
         </div>
         <div class="modal-body">
@@ -139,7 +142,7 @@
 			<!--  -->
         </div>
         <div class="modal-footer">
-        	<button type="button" class="btn btn-primary btn-sm" id="alertMsgOk" data-dismiss="modal"><i class="fa fa-check"></i> OK</button>
+        	<button type="button" class="btn btn-primary btn-sm" id="alertMsgOk" data-dismiss="modal"><i class="fa fa-check"></i>យល់ព្រម</button>
         </div>
       </div>
       

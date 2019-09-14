@@ -134,51 +134,51 @@ class Staff extends CI_Controller {
 	        $cntActive=0;
 	        //check staff table using branch or not 
 	        $dataCol = array(
-            'tbl_nm' 		=> "tbl_staff",
-            'id_nm' 		=> "bra_id",
-            'com_id' 		=> "com_id"
-            );
-            
-            $dataVal = array(
-            'id_val' 		=> $delObj[$i]['staId'],
-            'com_val' 		=> $_SESSION['comId']
-            );
-	        $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
-	        $cntActive +=$chkData->active_rec;
-	        
-	        //check stock table using import or not 
-	        $dataCol = array(
-            'tbl_nm' 		=> "tbl_import",
-            'id_nm' 		=> "regUsr",
-            'com_id' 		=> "com_id"
-            );
-            
-            $dataVal = array(
-            'id_val' 		=> $delObj[$i]['staId'],
-            'com_val' 		=> $_SESSION['comId']
-            );
-	        $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
-	        $cntActive += $chkData->active_rec;
-	        
-	        //check use table using staff or not 
-	        $dataCol = array(
-            'tbl_nm' 		=> "tbl_use",
-            'id_nm' 		=> "regUsr",
-            'com_id' 		=> "com_id"
-            );
-            
-	        $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
-	        $cntActive += $chkData->active_rec;
-	        
-	        //check use table using staff or not
-	        $dataCol = array(
-            'tbl_nm' 		=> "tbl_use",
+            'tbl_nm' 		=> "tbl_salary",
             'id_nm' 		=> "sta_id",
             'com_id' 		=> "com_id"
             );
             
+            $dataVal = array(
+            'id_val' 		=> $delObj[$i]['staId'],
+            'com_val' 		=> $_SESSION['comId']
+            );
 	        $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
-	        $cntActive += $chkData->active_rec;
+	        $cntActive += intval($chkData[0]->active_rec);
+	        
+	        //check stock table using import or not 
+	        $dataCol = array(
+            'tbl_nm' 		=> "tbl_expend",
+            'id_nm' 		=> "sta_id",
+            'com_id' 		=> "com_id"
+            );
+            
+            $dataVal = array(
+            'id_val' 		=> $delObj[$i]['staId'],
+            'com_val' 		=> $_SESSION['comId']
+            );
+	        $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
+	        $cntActive += intval($chkData[0]->active_rec);
+	        
+	        //check use table using staff or not 
+	        $dataCol = array(
+            'tbl_nm' 		=> "tbl_contract",
+            'id_nm' 		=> "seller_id",
+            'com_id' 		=> "com_id"
+            );
+            
+	        $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
+	        $cntActive += intval($chkData[0]->active_rec);
+	        
+	        //check use table using staff or not
+	        $dataCol = array(
+            'tbl_nm' 		=> "tbl_sell",
+            'id_nm' 		=> "seller_id",
+            'com_id' 		=> "com_id"
+            );
+            
+	        $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
+	        $cntActive += intval($chkData[0]->active_rec);
 	        
 	        if($cntActive >0){
 	            continue;

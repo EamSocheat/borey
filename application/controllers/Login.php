@@ -41,7 +41,7 @@ class Login extends CI_Controller {
 		            $staffPos= $r->pos_nm_kh;
 		            $staffPhone= $r->sta_phone1;
 		            $staffPhoto= $r->sta_photo;
-		            $staffNm=$r->sta_nm;
+		            $staffNm=$r->sta_nm_kh;
 		            $addYn=$r->usr_wri_yn;
 		            $editYn=$r->usr_edit_yn;
 		            

@@ -96,7 +96,7 @@ class Category extends CI_Controller{
             //check stock table using import or not
             $dataCol = array(
                 'tbl_nm' 		=> "tbl_product",
-                'id_nm' 		=> "regUsr",
+                'id_nm' 		=> "cat_id",
                 'com_id' 		=> "com_id"
             );
             
@@ -105,7 +105,7 @@ class Category extends CI_Controller{
                 'com_val' 		=> $_SESSION['comId']
             );
             $chkData = $this->M_common->checkActiveRecord($dataCol,$dataVal);
-            $cntActive += $chkData->active_rec;
+            $cntActive +=  intval($chkData[0]->active_rec);
             
             
             if($cntActive > 0){

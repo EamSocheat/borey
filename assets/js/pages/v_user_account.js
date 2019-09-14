@@ -149,6 +149,7 @@ function getData(page_no){
 			        html += "<td class='sta_nm_kh'>"+res.OUT_REC[i]["sta_nm_kh"]+"</td>";
 			        html += "<td class='usr_nm'>"+res.OUT_REC[i]["usr_nm"]+"</td>";
 			        html += "<td class='regUsrDt'>"+moment(res.OUT_REC[i]["regUsrDt"], "YYYY-MM-DD").format("DD-MM-YYYY")+"</td>";
+			        html += "<td class='regUsrDt'>"+(res.OUT_REC[i]["regUsrDt"] == null ? "": (moment(res.OUT_REC[i]["regUsrDt"], "YYYY-MM-DD").format("DD-MM-YYYY")))+"</td>";
 			        html += "<td class='act_btn text-center'><button onclick='editData("+res.OUT_REC[i]["usr_id"]+")' type='button' class='btn btn-primary btn-xs'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></td>";
 			
 			        html += "</tr>";
