@@ -281,7 +281,7 @@
 		            					<tr>
 		            					  <th>ល.រ</th>
 		            					  <th class="text-center">ថ្ងៃត្រូវបង់</th>
-		            					  <th class="text-right">ភាគរយ%</th>
+		            					  <th class="text-center">ភាគរយ%</th>
 		            					  <th class="text-right">បញ្ចុះ $</th>
 		            					  <th class="text-right">ប្រាក់ដើម $</th>
 			        					  <th class="text-right">ប្រាក់ការ $</th>

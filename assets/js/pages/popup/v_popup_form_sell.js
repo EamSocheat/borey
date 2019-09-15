@@ -68,9 +68,9 @@ var _thisPage = {
 			}else{
 			    $("#btnSaveNew").show();			    
 			    $("#popupTitle").html("<i class='fa fa-shopping-cart'></i> "+$.i18n.prop("btn_add_new")+" ការល​ក់" );
-			    
+			    /*
 			    $( "#cboInstYn" ).trigger( "click" );
-			    $(".div_installment").show();
+			    $(".div_installment").show();*/
 			}
 			
 			//stock.comm.todayDate("#txtStartInstDate","-");
@@ -326,6 +326,20 @@ var _thisPage = {
 			$("#txtPayTime").change(function(e){
 				parent.$("#msgErr").hide();
 			});
+			
+			//
+			$("#cboConType").change(function(e){
+				if($("#cboConType option:selected").attr("data-inst-com") =="Y"){
+					$( "#cboInstYn" ).prop("checked",true);
+					$("#txt_com_inst_yn").val("Y");
+				    $(".div_installment").show();
+				}else{
+					$( "#cboInstYn" ).prop("checked",false);
+				    $(".div_installment").hide();
+				    $("#txt_com_inst_yn").val("N");
+				}
+			});
+			
 		}
 };
 
@@ -392,8 +406,18 @@ function getContractInfo(cont_code){
 				$("#txtTotalLeft").val(stock.comm.formatCurrency(amtLeft));
 				
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
-			    $("#txtDisCash,#txtDisPer,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#txtContID,#cboPaymentMet,#txtTran,#txtPayTime,#cboInstYn,#txtInterstRate,#txtPeriod,#txtStartInstDate").prop("disabled",false);
+			    $("#cboConType,#txtDesc,#txtDisCash,#txtDisPer,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#txtContID,#cboPaymentMet,#txtTran,#txtPayTime,#cboInstYn,#txtInterstRate,#txtPeriod,#txtStartInstDate").prop("disabled",false);
 			    
+			    
+			    if(res.OUT_REC[0]["con_type_inst_com_yn"] =="Y"){
+					$( "#cboInstYn" ).prop("checked",true);
+					$("#txt_com_inst_yn").val("Y");
+				    $(".div_installment").show();
+				}else{
+					$( "#cboInstYn" ).prop("checked",false);
+				    $(".div_installment").hide();
+				    $("#txt_com_inst_yn").val("N");
+				}
 			    
 			    //calDiscount("P");
 			    calPay("P");
@@ -798,7 +822,7 @@ function getContractType(){
 				
 				for(var i=0; i<res.OUT_REC.length; i++){
 					var braNm = res.OUT_REC[i]["con_type_nm_kh"];
-					$("#cboConType").append("<option value='"+res.OUT_REC[i]["con_type_id"]+"'>"+braNm+"</option>");
+					$("#cboConType").append("<option data-inst-com='"+res.OUT_REC[i]["con_type_inst_com_yn"]+"' value='"+res.OUT_REC[i]["con_type_id"]+"'>"+braNm+"</option>");
 				}
 				
 			}else{
@@ -879,6 +903,8 @@ function getInstallmentData(){
 					}else if(res.OUT_REC[i]["inst_type"] =="ADV"){
 						percentPay=checkBooked+res.OUT_REC[i]["inst_pay_per"]+"%";
 						checkBooked="";
+					}else if(res.OUT_REC[i]["inst_type"] =="LEFT"){
+						percentPay ="រំលស់ជាមួយធនាគារ"+res.OUT_REC[i]["inst_pay_per"]+"%";
 					}
 					var html = "<tr>";
 					html += "<td class='inst_num cur-pointer '>"+res.OUT_REC[i]["inst_num"]+"</td>";
@@ -1260,7 +1286,7 @@ function calculatePaySchedule(){
 		    		var htmlLeft = "<tr data-inst-type='LEFT' data-inst-dis-per='0' data-inst-dis-pay='0' data-inst-per-pay='"+(100-parseInt($("#txtPayPer").val()))+"' data-loan-amount='"+leftAmountToPay2.toFixed(2)+"' data-interest-rate='0' data-peroid='1' data-first-inst-date='"+$("#txtStartInstDate").val()+"'>";
 		    		htmlLeft += "<td class='inst_num cur-pointer '>"+noTbl+"</td>";
 		    		htmlLeft += "<td class='inst_date cur-pointer text-center'>"+newDate+"</td>";
-		    		htmlLeft += "<td class='inst_pay_per cur-pointer text-center'>"+(100-parseInt($("#txtPayPer").val()))+"%</td>";
+		    		htmlLeft += "<td class='inst_pay_per cur-pointer text-center'>"+$("#cboConType option:selected").text()+(100-parseInt($("#txtPayPer").val()))+"%</td>";
 		    		htmlLeft += "<td class='inst_dis_amt cur-pointer text-right'>0$</td>";
 		    		htmlLeft += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(leftAmountToPay2.toFixed(2))+"$</td>";
 		    		htmlLeft += "<td class='inst_amt_interest cur-pointer text-right'>0$</td>";
