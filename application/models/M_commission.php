@@ -78,6 +78,11 @@
 				$this->db->or_like('tbl_category.cat_nm', $dataSrch['srch_all']);
 				$this->db->group_end();
 			}*/
+			
+			
+			if($dataSrch['commi_type'] != null && $dataSrch['commi_type'] != ""){
+			    $this->db->where('tbl_commission.commi_type', $dataSrch['commi_type']);
+			}
 
 			$this->db->order_by("commi_id", "desc");
 			$this->db->order_by("tbl_sell.sell_id", "desc");
@@ -155,6 +160,10 @@
 				$this->db->or_like('tbl_category.cat_nm', $dataSrch['srch_all']);
 				$this->db->group_end();
 			}*/
+			
+			if($dataSrch['commi_type'] != null && $dataSrch['commi_type'] != ""){
+			    $this->db->where('tbl_commission.commi_type', $dataSrch['commi_type']);
+			}
 			return $this->db->get()->result();
 		}
     	

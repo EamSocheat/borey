@@ -77,7 +77,7 @@
             $this->db->where('tbl_sell.useYn', 'Y');
 
             if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
-                $this->db->like('tbl_product.pro_code', $dataSrch['pro_code']);
+                $this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
             }
             
             if($dataSrch['sell_code'] != null && $dataSrch['sell_code'] != ""){
@@ -104,7 +104,7 @@
             }
             
             if($dataSrch['srch_customer'] != null && $dataSrch['srch_customer'] != ""){
-                $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
+                //$this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
                 $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_customer']);
                 $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_customer']);
                 $this->db->or_like('tbl_customer.cus_phone2', $dataSrch['srch_customer']);
@@ -137,7 +137,7 @@
 		    $this->db->where('tbl_sell.useYn', 'Y');
 		    
 		    if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
-		        $this->db->like('tbl_product.pro_code', $dataSrch['pro_code']);
+		        $this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
 		    }
 		    
 		    if($dataSrch['sell_code'] != null && $dataSrch['sell_code'] != ""){

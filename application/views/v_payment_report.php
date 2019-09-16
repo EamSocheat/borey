@@ -75,18 +75,24 @@
 											
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
 												<div class="form-group form-inline">
-                                                    <label for="txtSrchProCode" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">	លេខកូដផ្ទះ </label>
+                                                    <label for="txtSrchProCode" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">លេខកូដផ្ទះ </label>
                                                     <input type="text" style="width: 100%" class="form-control input-sm" id="txtSrchProCode" placeholder="អតិថិជន">
                                                 </div>
 											</div>
 											
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
 												<div class="form-group form-inline">
-                                                    <label for="txtSrchInstPaidCode" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">លេខបង្កាន់ដៃ  </label>
+                                                    <label for="txtSrchInstPaidCode" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">លេខបង្កាន់ដៃបង់ប្រាក់  </label>
                                                     <input type="text" style="width: 100%" class="form-control input-sm" id="txtSrchInstPaidCode" placeholder="អតិថិជន">
                                                 </div>
 											</div>
 											
+											<div class="col-sm-2 col-md-2 col-lg-2" style="">
+												<div class="form-group form-inline">
+                                                    <label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_customer" style="margin-bottom: 7px;display: -webkit-box;">អតិថិជន </label>
+                                                    <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="អតិថិជន">
+                                                </div>
+											</div>
 										</div>
 										<!-- 
 										<div class="col-sm-12 col-md-12 col-lg-12 row">
@@ -160,7 +166,7 @@
 										<th class="text-center">លេខការលក់</th>
 										<th class="text-center">អតិថិជន</th>
 										<th class="text-center">ល.រ</th>
-										<th class="text-center">ថ្ងៃបង់ប្រាក់</th>
+										<th class="text-center">ថ្ងៃត្រូវបង់</th>
 										<th class="text-center">ភាគរយ%</th>
 										<th class="text-right">បញ្ចុះ$</th>
 										<th class="text-right">ប្រាក់ដើម$</th>

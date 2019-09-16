@@ -50,7 +50,9 @@
             $this->db->join('tbl_staff seller','seller.sta_id = tbl_contract.seller_id');
             //$this->db->join('tbl_staff reciev','reciev.sta_id = tbl_contract.seller_id');
             $this->db->join('tbl_payment_method','tbl_payment_method.met_id = tbl_contract.con_pay_met');
-            //$this->db->join('tbl_contract_detail','tbl_contract_detail.con_id = tbl_contract.con_id');
+            $this->db->join('tbl_contract_detail','tbl_contract_detail.con_id = tbl_contract.con_id');
+            $this->db->join('tbl_product','tbl_product.pro_id = tbl_contract_detail.pro_id');
+            $this->db->join('tbl_branch','tbl_branch.bra_id = tbl_product.bra_id');
             $this->db->where('tbl_contract.com_id', $_SESSION['comId']);
             $this->db->where('tbl_contract.useYn', 'Y');
 
@@ -114,7 +116,9 @@
                 
             }
             
-    	
+            if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
+                $this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
+            }
             
     		if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
                 $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_all']);
@@ -130,10 +134,13 @@
 
     	public function countContractData($dataSrch){
     		
-		    $this->db->select('count(con_id) as total_rec');
+		    $this->db->select('count(tbl_contract.con_id) as total_rec');
             $this->db->from('tbl_contract');
             $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
             $this->db->join('tbl_payment_method','tbl_payment_method.met_id = tbl_contract.con_pay_met');
+            $this->db->join('tbl_contract_detail','tbl_contract_detail.con_id = tbl_contract.con_id');
+            $this->db->join('tbl_product','tbl_product.pro_id = tbl_contract_detail.pro_id');
+            $this->db->join('tbl_branch','tbl_branch.bra_id = tbl_product.bra_id');
             $this->db->where('tbl_contract.com_id', $_SESSION['comId']);
             $this->db->where('tbl_contract.useYn', 'Y');
 
@@ -201,7 +208,9 @@
                 
             }
             
-            
+            if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
+                $this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
+            }
             
             if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
                 $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_all']);

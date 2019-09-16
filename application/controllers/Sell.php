@@ -209,7 +209,8 @@ class Sell extends CI_Controller{
 	    
 	    $dataSrchCommSet = array(
             'pos_id' 		=> $dataPosition[0]->pos_id,
-	    	'cat_id' 		=> $dataCategory[0]->cat_id
+	    	'cat_id' 		=> $dataCategory[0]->cat_id,
+	        'bra_id' 		=>$dataCategory[0]->bra_id
         );
 	    $dataCommSet = $this->M_commission_setting->selectCommissionSettingFormular($dataSrchCommSet);
 	    if( floatval($dataCommSet[0]->comset_amt) > 0){
@@ -431,6 +432,16 @@ class Sell extends CI_Controller{
                     'upUsr'     => $_SESSION['usrId']
                 );
                 $this->M_contract->update($dataBook);
+                
+                $dataHouse = array();
+                if($delObj[$i]['conId'] =="0"){
+                    $dataHouse['pro_status'] = 'F';
+                }else{
+                    $dataHouse['pro_status'] = 'B';
+                }
+                
+                $dataHouse['pro_id'] = $delObj[$i]['proId'];
+                $this->M_house->update($dataHouse);
             }
             
         }

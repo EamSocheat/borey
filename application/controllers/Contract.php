@@ -94,7 +94,8 @@ class Contract extends CI_Controller{
             'srch_customer' => $this->input->post('txtSrchCusNm'),
         	'filter_status' 	=> $conStatus,
             'srch_seller' 	=> $this->input->post('cboSeller'),
-        	'srch_all'		=> $this->input->post('srchAll')
+        	'srch_all'		=> $this->input->post('srchAll'),
+            'pro_code'		=> $this->input->post('txtSrchProCode'),
         );
 
         $data["OUT_REC"] = $this->M_contract->selectContractData($dataSrch);
@@ -236,6 +237,11 @@ class Contract extends CI_Controller{
                     'upUsr'     => $_SESSION['usrId']
                 );
                 $this->M_contract->update($data);
+                $dataHouse = array();
+                $dataHouse['pro_status'] = 'F';
+                $dataHouse['pro_id'] = $delObj[$i]['proId'];
+                $this->M_house->update($dataHouse);
+                
                 $cntDel += 1;
             }
             

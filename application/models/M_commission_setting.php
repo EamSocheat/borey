@@ -25,7 +25,10 @@ class M_commission_setting extends CI_Model{
     	    if($dataSrch['pos_id'] != null && $dataSrch['pos_id'] != ""){
     	        $this->db->where('tbl_commission_setting.pos_id', $dataSrch['pos_id']);
     	    }
-    	    
+    	    //
+    	    if($dataSrch['bra_id'] != null && $dataSrch['bra_id'] != ""){
+    	        $this->db->where('tbl_commission_setting.bra_id', $dataSrch['bra_id']);
+    	    }
     	   
     	    return $this->db->get()->result();
     	}

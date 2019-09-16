@@ -19,6 +19,7 @@ var _thisPage = {
 			if($("#frmAct").val() == "U"){
 			    getDataEdit($("#expId").val());
 			    $("#popupTitle").html("<i class='fa fa-bar-chart'></i> "+$.i18n.prop("btn_edit")+" "+ $.i18n.prop("lb_expend"));
+			    $("#btnSave").remove();
 			}else{
 			    $("#btnSaveNew").show();
 			    $("#popupTitle").html("<i class='fa fa-bar-chart'></i> "+$.i18n.prop("btn_add_new")+" "+ $.i18n.prop("lb_expend"));

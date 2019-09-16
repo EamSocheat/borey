@@ -144,7 +144,8 @@ class InstallmentPayment extends CI_Controller{
             'inst_start_dt'  => $startDate,
             'inst_end_dt'    => $endDate,
         	'srch_all'		=> $this->input->post('srchAll'),
-            'pro_code'		=> $this->input->post('txtSrchProCode')
+            'pro_code'		=> $this->input->post('txtSrchProCode'),
+            'srch_customer'		=> $this->input->post('txtSrchCusNm')
         );
 
         $data["OUT_REC"] = $this->M_installment->selectInstallmentData($dataSrch);
@@ -177,7 +178,8 @@ class InstallmentPayment extends CI_Controller{
             'inst_end_dt'    => $endDate,
             'srch_all'		=> $this->input->post('srchAll'),
             'pro_code'		=> $this->input->post('txtSrchProCode'),
-			'inst_paid_code'		=> $this->input->post('txtSrchInstPaidCode')
+			'inst_paid_code'		=> $this->input->post('txtSrchInstPaidCode'),
+            'srch_customer'		=> $this->input->post('txtSrchCusNm')
         );
         
         $data["OUT_REC"] = $this->M_installment->selectPaymentData($dataSrch);

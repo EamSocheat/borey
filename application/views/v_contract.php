@@ -120,9 +120,9 @@
 														margin-bottom: 7px;
 														display: -webkit-box;
 													">ការប្រើប្រាស់ </label>
-													<select class="form-control  input-sm" id="cboStatus" name="cboStatus" style="font-size: 14px;min-width: 150px;">
+													<select class="form-control  input-sm" id="cboStatus" name="cboStatus" style="font-size: 14px;min-width: 150px;" onchange="_thisPage.loadData(1)">
 														<option value="">សូមជ្រើសរើស</option>
-														<option value="B">បើក​</option>
+														<option value="B">កក់ប្រាក់​​​​</option>
 														<option value="S">លក់​</option>
 														<option value="E">ផុតកំណត់ </option>
 														<option value="C">ត្រលប់ប្រាក់ </option>
@@ -134,12 +134,18 @@
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
                                                 <div class="form-group form-inline">
                                                     <label for="txtSrchSeller" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">អ្នកលក់(បុគ្គលិក) </label>
-                                                    <select class="form-control input-sm" id="cboSeller" name="cboSeller" >
+                                                    <select class="form-control input-sm" id="cboSeller" name="cboSeller" onchange="_thisPage.loadData(1)">
                     	                    			
                         			                </select>
                                                 </div>
                                             </div>
-										
+											
+											<div class="col-sm-2 col-md-2 col-lg-2" style="">
+												<div class="form-group form-inline">
+                                                    <label for="txtSrchProCode" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">លេខកូដអចនលទ្រព្យ </label>
+                                                    <input type="text" class="form-control input-sm" id="txtSrchProCode" placeholder="អតិថិជន">
+                                                </div>
+											</div>
 											
 										</div>
 										<div class="col-sm-12 col-md-12 col-lg-12">
@@ -201,6 +207,8 @@
 										<th class="txt_c">លេខសម្គាល់ </th>
 										<th class="txt_c">ថ្ងៃកក់ប្រាក់</  </th>
 										<th class="txt_r">ថ្ងៃផុតកំណត់</<< </th>
+										<th class="txt_c">គំរោង</<< </th>
+										<th class="txt_c">អចនលទ្រព្យ</    </th>
 										<th class="text-right">ចំនូនលុយកក់</    </th>
 										<th class="text-right">វីធីបង់ប្រាក់</   </th>
 										<th class="text-right">អតិថិជន</  </th>

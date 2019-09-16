@@ -42,7 +42,7 @@
 													<label for="txtSrchContSD" class="control-label" style="
 														margin-bottom: 7px;
 														display: table-caption;
-													">ថ្ងៃបង់ប្រាក់រំលស់</label>
+													">ថ្ងៃត្រូវបង់</label>
 													<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;padding: 5px 11px;">
 														<i class="fa fa-calendar"></i>
 													</div>
@@ -54,7 +54,7 @@
 												<div class="input-group date">
 													<label for="txtSrchContED" class="control-label"  style="
 														display: table-caption;
-														margin-bottom: 7px;">ថ្ងៃបង់ប្រាក់រំលស់</label>
+														margin-bottom: 7px;">ថ្ងៃត្រូវបង់</label>
 													<div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
 														<i class="fa fa-calendar"></i>
 													</div>
@@ -77,6 +77,13 @@
 												<div class="form-group form-inline">
                                                     <label for="txtSrchProCode" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">	លេខកូដផ្ទះ </label>
                                                     <input type="text" style="width: 100%" class="form-control input-sm" id="txtSrchProCode" placeholder="អតិថិជន">
+                                                </div>
+											</div>
+											
+											<div class="col-sm-2 col-md-2 col-lg-2" style="">
+												<div class="form-group form-inline">
+                                                    <label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_customer" style="margin-bottom: 7px;display: -webkit-box;">អតិថិជន </label>
+                                                    <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="អតិថិជន">
                                                 </div>
 											</div>
 											
@@ -139,7 +146,7 @@
 										<th class="text-center">លេខការលក់</th>
 										<th class="text-center">អតិថិជន</th>
 										<th class="text-center">ល.រ</th>
-										<th class="text-center">ថ្ងៃបង់ប្រាក់រំលស់</th>
+										<th class="text-center">ថ្ងៃត្រូវបង់</th>
 										<th class="text-center">ភាគរយ%</th>
 										<th class="text-right">បញ្ចុះ$</th>
 										<th class="text-right">ប្រាក់ដើម$</th>

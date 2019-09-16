@@ -122,7 +122,7 @@ function getData(){
     parent.$("#loading").show();
     $.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"House/getHouse",
+		url: $("#base_url").val() +"House/getHousePopup",
 		data: dat,
 		dataType: "json",
 		success: function(res) {

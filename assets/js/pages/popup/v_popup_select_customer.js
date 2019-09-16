@@ -19,7 +19,7 @@ var _thisPage = {
 		//
 		parent.$("#loading").show();
 	    setTimeout(getData(),20000);
-	    parent.$("#loading").hide();
+	    //parent.$("#loading").hide();
 	},event : function(){
 		$("#btnClose,#btnExit").click(function(e){
 			parent.parent.stock.comm.closePopUpForm("PopupSelectCustomer");
@@ -150,14 +150,14 @@ function getData(){
     //searching
     dat["srchAll"] = $("#txtSearch").val().trim();	
     
-    // parent.$("#loading").show();
+    parent.$("#loading").show();
     $.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Customer/getCustomer",
 		data: dat,
 		dataType: "json",
 		success: function(res) {
-			// parent.$("#loading").hide();
+			parent.$("#loading").hide();
 			if(dat["offset"] == 0){
 				$("#tblCustomer tbody").html("");
 			}

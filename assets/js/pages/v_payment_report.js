@@ -89,6 +89,7 @@ var _thisPage = {
 		    dat["txtSrchContED"]	= $("#txtSrchContED").val();
 		    dat["txtSrchProCode"]	= $("#txtSrchProCode").val();
 		    dat["txtSrchInstPaidCode"]	= $("#txtSrchInstPaidCode").val();
+		    dat["txtSrchCusNm"]		= $("#txtSrchCusNm").val();
 		    $("#loading").show();
 		    $.ajax({
 				type: "POST",
@@ -139,8 +140,8 @@ var _thisPage = {
 							html += "<td class='met_nm_kh cur-pointer text-center'>"+res.OUT_REC[i]["met_nm_kh"]+"</td>";
 							html += "<td class='inst_paid_tran_id cur-pointer text-center'>"+(res.OUT_REC[i]["inst_paid_tran_id"] == null ? "" : res.OUT_REC[i]["inst_paid_tran_id"])+"</td>";
 							html += "<td class='inst_paid_des cur-pointer text-center'>"+(res.OUT_REC[i]["inst_paid_des"] == null ? "" : res.OUT_REC[i]["inst_paid_des"])  +"</td>";
-							html += "<td class='total_amount cur-pointer text-right'>"+stock.comm.formatCurrency(totalAmount)+"$</td>";
-							html += "<td class='inst_paid_penalty cur-pointer text-right'>"+(res.OUT_REC[i]["inst_paid_penalty"] == null ? 0 : stock.comm.formatCurrency(res.OUT_REC[i]["inst_paid_penalty"]))+"$</td>";
+							html += "<td class='total_amount cur-pointer text-right'>"+stock.comm.formatCurrency(totalAmount.toFixed(2))+"$</td>";
+							html += "<td class='inst_paid_penalty cur-pointer text-right'>"+(res.OUT_REC[i]["inst_paid_penalty"] == null ? 0 : stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["inst_paid_penalty"]).toFixed(2)))+"$</td>";
 							
 							html += "<td class='inst_num cur-pointer text-center'>"+res.OUT_REC[i]["pro_code"]+"</td>";
 							html += "<td class='inst_num cur-pointer text-center'>"+res.OUT_REC[i]["sell_code"]+"</td>";
@@ -148,11 +149,11 @@ var _thisPage = {
 							html += "<td class='inst_num cur-pointer text-center'>"+res.OUT_REC[i]["inst_num"]+"</td>";
 							html += "<td class='inst_date cur-pointer text-center'>"+moment(res.OUT_REC[i]["inst_date"], "YYYY-MM-DD").format("DD-MM-YYYY");+"</td>";
 							html += "<td class='inst_pay_per cur-pointer text-center'>"+percentPay+"</td>";
-							html += "<td class='inst_dis_amt cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_dis_amt"])+"$</td>";
-							html += "<td class='inst_amt_principle cur-pointer text-right' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_principle"])+"$</td>";
-					        html += "<td class='inst_amt_interest cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_interest"])+"$</td>";
-					        html += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_pay"])+"$</td>";
-					        html += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 20px;' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_balance"])+"$</td>";
+							html += "<td class='inst_dis_amt cur-pointer text-right'>"+stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["inst_dis_amt"]).toFixed(2))+"$</td>";
+							html += "<td class='inst_amt_principle cur-pointer text-right' >"+stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["inst_amt_principle"]).toFixed(2))+"$</td>";
+					        html += "<td class='inst_amt_interest cur-pointer text-right'>"+stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["inst_amt_interest"]).toFixed(2))+"$</td>";
+					        html += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["inst_amt_pay"]).toFixed(2))+"$</td>";
+					        html += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 20px;' >"+stock.comm.formatCurrency(parseFloat(res.OUT_REC[i]["inst_amt_balance"]).toFixed(2))+"$</td>";
 					       /* html += '<td class="text-center">';
 							html +=		'<button onclick="editData('+res.OUT_REC[i]["inst_id"]+')" type="button" class="btn btn-primary btn-xs">';
 							html += 	'<i class="fa fa-plus" aria-hidden="true"></i> បង់ប្រាក់</button>';
@@ -168,14 +169,14 @@ var _thisPage = {
 
 					    var strTotal = '<tr class="total" >';
 					    strTotal += '	<td colspan="8" class="text-right"><b>សរុប​</b></td>';
-					    strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_total_pay ==0 ? "0" : stock.comm.formatCurrency(total_total_pay))+'$ </b></td>';
-					    strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_penalty ==0 ? "0" : stock.comm.formatCurrency(total_penalty))+'$ </b></td>';
+					    strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_total_pay ==0 ? "0" : stock.comm.formatCurrency(total_total_pay.toFixed(2)))+'$ </b></td>';
+					    strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_penalty ==0 ? "0" : stock.comm.formatCurrency(total_penalty.toFixed(2)))+'$ </b></td>';
 						
 						strTotal += '	<td colspan="6" class="text-right"></td>';
-						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_inst_dis_amt ==0 ? "0" : stock.comm.formatCurrency(total_inst_dis_amt))+'$ </b></td>';
-						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(total_inst_amt_principle)+'$ </b></td>';
-						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_inst_amt_interest ==0 ? "0" : stock.comm.formatCurrency(total_inst_amt_interest))+'$ </b></td>';
-						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(total_inst_amt_pay)+'$ </b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_inst_dis_amt ==0 ? "0" : stock.comm.formatCurrency(total_inst_dis_amt.toFixed(2)))+'$ </b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(total_inst_amt_principle.toFixed(2))+'$ </b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_inst_amt_interest ==0 ? "0" : stock.comm.formatCurrency(total_inst_amt_interest.toFixed(2)))+'$ </b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(total_inst_amt_pay.toFixed(2))+'$ </b></td>';
 						
 						strTotal += '	<td colspan="2" ></td>';
 						strTotal += '</tr>';

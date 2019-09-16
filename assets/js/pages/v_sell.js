@@ -94,13 +94,13 @@ var _thisPage = {
 						
 					    for(var i=0; i<res.OUT_REC.length;i++){
 					    	
-					    	html += '<tr data-con-id='+res.OUT_REC[i]["con_id"]+' data-id='+res.OUT_REC[i]["sell_id"]+'>';
+					    	html += '<tr data-pro-id='+res.OUT_REC[i]["pro_id"]+' data-con-id='+res.OUT_REC[i]["con_id"]+' data-id='+res.OUT_REC[i]["sell_id"]+'>';
 					        html += 	'<td class="chk_box"><input type="checkbox"></td>';
 							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["sell_code"])+'</div></td>';
 							html += 	'<td><div class="txt_c">'+stringDate(res.OUT_REC[i]["sell_date"].substr(0,10))+'</div></td>';
 							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["bra_nm_kh"]+'</div></td>';
 							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["pro_code"]+'</div></td>';
-							html += 	'<td><div class="text-right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sell_total_price"])+' $</div></td>';
+							html += 	'<td><div class="text-right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sell_total_price"])+'$</div></td>';
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["cus_nm_kh"]+'</div></td>';
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["sta_nm_kh"] +'</div></td>';
 							html += 	'<td class="text-center">';
@@ -114,7 +114,7 @@ var _thisPage = {
 
 					    strTotal += '<tr class="total" >';
 						strTotal += '	<td colspan="5" ><b>សរុប​</b></td>';
-						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(totalDollar)+' $ </b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(totalDollar)+'$ </b></td>';
 						strTotal += '<td colspan="6"></td>';
 						strTotal += '</tr>';
 						
@@ -218,8 +218,10 @@ var _thisPage = {
 						var tblTr   = $(this).parent().parent();
 						var contId  = tblTr.attr("data-con-id");
 						var sellId  = tblTr.attr("data-id");
+						var proId  = tblTr.attr("data-pro-id");
 						delData["sellId"] = sellId;
 						delData["conId"] = contId;
+						delData["proId"] = proId;
 						delArr.push(delData);
 					});
 					
@@ -285,7 +287,7 @@ function stringDate(str){
 }
 
 function deleteDataArr(dataArr){
-	console.log(dataArr)
+	console.log(dataArr);
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Sell/delete",

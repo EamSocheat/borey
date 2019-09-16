@@ -23,6 +23,7 @@
 		    $this->db->where($col_obj["id_nm"], $data_obj["id_val"]);
 		    $this->db->where($col_obj["com_id"],$data_obj["com_val"]);
 		    $this->db->where("inst_paid_yn","Y");
+		    $this->db->where("inst_type !=","BOOK");
 		    return $this->db->get()->result();
 		}
 	    

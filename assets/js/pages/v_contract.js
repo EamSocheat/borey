@@ -80,7 +80,7 @@ var _thisPage = {
 		    dat["txtSrchContSDExp"]	= $("#txtSrchContSDExp").val();
 		    dat["txtSrchContEDExp"]	= $("#txtSrchContEDExp").val();
 		    dat["cboSeller"]		= $("#cboSeller").val();
-		    
+		    dat["txtSrchProCode"]		= $("#txtSrchProCode").val();
 		    $("#loading").show();
 		    $.ajax({
 				type: "POST",
@@ -96,11 +96,13 @@ var _thisPage = {
 						
 					    for(var i=0; i<res.OUT_REC.length;i++){
 					    	
-					    	html += '<tr data-id='+res.OUT_REC[i]["con_id"]+'>';
+					    	html += '<tr data-pro-id='+res.OUT_REC[i]["pro_id"]+' data-id='+res.OUT_REC[i]["con_id"]+'>';
 					        html += 	'<td class="chk_box"><input type="checkbox"></td>';
 							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["con_code"])+'</div></td>';
 							html += 	'<td><div class="txt_c">'+stringDate(res.OUT_REC[i]["con_date"].substr(0,10))+'</div></td>';
-							html += 	'<td><div class="txt_r">'+stringDate(res.OUT_REC[i]["con_date_exp"].substr(0,10))+'</div></td>';
+							html += 	'<td><div class="txt_c">'+stringDate(res.OUT_REC[i]["con_date_exp"].substr(0,10))+'</div></td>';
+							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["bra_nm_kh"])+'</div></td>';
+							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["pro_code"])+'</div></td>';
 							html += 	'<td><div class="text-right">'+stock.comm.formatCurrency(res.OUT_REC[i]["con_total_price"])+' $</div></td>';
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["met_nm_kh"]+'</div></td>';
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["cus_nm_kh"]+'</div></td>';
@@ -116,54 +118,17 @@ var _thisPage = {
 					    }
 
 					    strTotal += '<tr class="total" >';
-						strTotal += '	<td colspan="4" ><b>សរុប​</b></td>';
+						strTotal += '	<td colspan="6" ><b>សរុប​</b></td>';
 						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(totalDollar)+' $ </b></td>';
 						strTotal += '<td colspan="6"></td>';
 						strTotal += '</tr>';
-						/*
-						strTotalPaidInt += '<tr class="total total_hide" >';
-						strTotalPaidInt += '	<td colspan="2"><b>'+$.i18n.prop("lb_int_income_total")+'</b></td>';
-						strTotalPaidInt += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b></td>';
-						strTotalPaidInt += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(calRielsCurrency(totalPaidIntRiels)))+addCurrency("1", totalPaidIntRiels)+'</b></td>';
-						strTotalPaidInt += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b></td>';
-						strTotalPaidInt += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalPaidIntDollar))+addCurrency("2", totalPaidIntDollar)+'</b></td>';
-						strTotalPaidInt += '<td colspan="4"></td>';
-						strTotalPaidInt += '</tr>';
-						
-						strTotalPaidPrin += '<tr class="total total_hide" >';
-						strTotalPaidPrin += '	<td colspan="2"><b>'+$.i18n.prop("lb_prin_income_total")+'</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(calRielsCurrency(totalPaidPrinRiels)))+addCurrency("1", totalPaidPrinRiels)+'</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(totalPaidPrinDollar))+addCurrency("2", totalPaidPrinDollar)+'</b></td>';
-						strTotalPaidPrin += '<td colspan="4"></td>';
-						strTotalPaidPrin += '</tr>';
-						
-						var incomeAmtRiels = (totalPaidIntRiels +totalPaidPrinRiels) - totalRiels;
-						var incomeAmtDollar = (totalPaidIntDollar+totalPaidPrinDollar)-totalDollar;
-						if(incomeAmtDollar  < 0){
-							incomeAmtDollar = 0;
-						}
-						strTotalPaidPrin += '<tr class="total total_hide" >';
-						strTotalPaidPrin += '	<td colspan="2"><b>'+$.i18n.prop("lb_income_total")+'</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_khmer")+':</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(calRielsCurrency(incomeAmtRiels)))+addCurrency("1", incomeAmtRiels)+'</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="opacity: 0.7;">'+$.i18n.prop("lb_money_dollar")+':</b></td>';
-						strTotalPaidPrin += '	<td style="text-align:right"><b style="margin-left: 10px;">'+null2Zero(stock.comm.formatCurrency(incomeAmtDollar))+addCurrency("2", incomeAmtDollar)+'</b></td>';
-						strTotalPaidPrin += '<td colspan="4"></td>';
-						strTotalPaidPrin += '</tr>';
-					    
-					    $("#chkAllBox").show();
-					    $("#tblContract tbody").html(html);
-					    $("#tblContract tbody").append(strTotal);
-					    $("#tblContract tbody").append(strTotalPaidInt);
-					    $("#tblContract tbody").append(strTotalPaidPrin);*/
+					
 					    $("#tblContract tbody").html(html);
 					    $("#tblContract tbody").append(strTotal);
 					    stock.comm.renderPaging("paging",$("#perPage").val(),res.OUT_REC_CNT[0]["total_rec"],pageNo);
 					}else{
 						$("#chkAllBox").hide();
-					    $("#tblContract tbody").append("<tr><td colspan='10' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+					    $("#tblContract tbody").append("<tr><td colspan='12' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 					    stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 					}
 				},
@@ -252,7 +217,9 @@ var _thisPage = {
 						var delData = {};
 						var tblTr   = $(this).parent().parent();
 						var contId  = tblTr.attr("data-id");
+						var proId  = tblTr.attr("data-pro-id");
 						delData["contId"] = contId;
+						delData["proId"] = proId;
 						delArr.push(delData);
 					});
 					

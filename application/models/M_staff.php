@@ -13,6 +13,7 @@
         	$this->db->select('tbl_product.cat_id');
         	$this->db->from('tbl_product');
         	$this->db->join('tbl_category','tbl_category.cat_id = tbl_product.cat_id');
+        	$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_product.bra_id');
         	$this->db->where('tbl_product.com_id', $_SESSION['comId']);
         	$this->db->where('tbl_product.useYn', 'Y');
         	//---

@@ -222,7 +222,7 @@ function getData(page_no){
 
 				strTotal +='<tr class="total">';
 				strTotal +='	<td class="" colspan="2" style="text-align: right;">ថ្លៃចំណាយសរុប: </td>';
-				strTotal +='	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalAmt)+'</b></td>';
+				strTotal +='	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalAmt.toFixed(2))+'</b></td>';
 				strTotal +='</tr>';
 
 				$("#tblExpend tbody").append(strHmtl);

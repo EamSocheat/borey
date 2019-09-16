@@ -83,14 +83,14 @@
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
 												 <div class="form-group form-inline">
                                                     <label for="txtSrchSeller" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">អ្នកលក់(បុគ្គលិក) </label>
-                                                    <select class="form-control input-sm" id="cboSeller" name="cboSeller" >
+                                                    <select class="form-control input-sm" id="cboSeller" name="cboSeller" onchange="_thisPage.loadData(1)">
                     	                    			
                         			                </select>
                                                 </div>
 											</div>
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
 												<div class="form-group form-inline">
-                                                    <label for="txtSrchProCode" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">	លេខកូដអចនលទ្រព្យ </label>
+                                                    <label for="txtSrchProCode" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">លេខកូដអចនលទ្រព្យ </label>
                                                     <input type="text" class="form-control input-sm" id="txtSrchProCode" placeholder="អតិថិជន">
                                                 </div>
 											</div>
@@ -162,7 +162,7 @@
 										<th class="txt_c">លេខសម្គាល់ </th>
 										<th class="txt_c">ថ្ងៃលក់</th>
 										<th class="txt_c">គំរោង</<< </th>
-										<th class="txt_c">លេខកូដអចនលទ្រព្យ</    </th>
+										<th class="txt_c">អចនលទ្រព្យ</    </th>
 										<th class="text-right">តំលៃលក់</   </th>
 										<th class="text-right">អតិថិជន</  </th>
 										<th class="text-right">អ្នកលក់(បុគ្គលិក)</th>

@@ -88,6 +88,7 @@ var _thisPage = {
 		    dat["txtSrchContSD"]	= $("#txtSrchContSD").val();
 		    dat["txtSrchContED"]	= $("#txtSrchContED").val();
 		    dat["txtSrchProCode"]	= $("#txtSrchProCode").val();
+		    dat["txtSrchCusNm"]		= $("#txtSrchCusNm").val();
 		    
 		    $("#loading").show();
 		    $.ajax({
@@ -148,11 +149,11 @@ var _thisPage = {
 					    }
 
 					    var strTotal = '<tr class="total" >';
-						strTotal += '	<td colspan="6" class="text-right"><b>សរុប​</b></td>';
-						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_inst_dis_amt ==0 ? "0" : stock.comm.formatCurrency(total_inst_dis_amt))+'$ </b></td>';
-						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(total_inst_amt_principle)+'$ </b></td>';
-						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_inst_amt_interest ==0 ? "0" : stock.comm.formatCurrency(total_inst_amt_interest))+'$ </b></td>';
-						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(total_inst_amt_pay)+'$ </b></td>';
+						strTotal += '	<td colspan="6" class="text-right"><b>សរុប</b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_inst_dis_amt ==0 ? "0" : stock.comm.formatCurrency(total_inst_dis_amt.toFixed(2)))+'$ </b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(total_inst_amt_principle.toFixed(2))+'$ </b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+(total_inst_amt_interest ==0 ? "0" : stock.comm.formatCurrency(total_inst_amt_interest.toFixed(2)))+'$ </b></td>';
+						strTotal += '	<td style="text-align:right"><b style="margin-left: 10px;">'+stock.comm.formatCurrency(total_inst_amt_pay.toFixed(2))+'$ </b></td>';
 						
 						strTotal += '	<td colspan="2" ></td>';
 						strTotal += '</tr>';

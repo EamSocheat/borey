@@ -199,7 +199,7 @@ function getData(page_no){
 
 				strTotal += '<tr class="total">';
 				strTotal += '	<td class="" colspan="6" style="text-align: right;font-weight: 600;">សរុបប្រាក់ខែបុគ្គលិក: </td>';
-				strTotal += '	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalSalaryAmt)+'$</b></td>';
+				strTotal += '	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalSalaryAmt.toFixed(2))+'$</b></td>';
 				strTotal += '	<td class="" style="text-align: right;"></td>';
 				strTotal += '	<td class="" style="text-align: right;"></td>';
 				strTotal += '</tr>';

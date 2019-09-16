@@ -47,6 +47,29 @@ class House extends CI_Controller{
 		$data["OUT_REC_CNT"] = $this->M_house->countHouse($dataSrch);
 		echo json_encode($data);
 	}
+	
+	
+	public function getHousePopup(){
+	    if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	    
+	    $dataSrch = array(
+	        'limit' 		=> $this->input->post('perPage'),
+	        'offset' 		=> $this->input->post('offset'),
+	        'pro_id' 		=> $this->input->post('houseId'),
+	        'bra_id'		=> $this->input->post('braNm'),
+	        'cat_id' 		=> $this->input->post('catNm'),
+	        'pro_code' 		=> $this->input->post('codePay'),
+	        'pro_status' 		=> $this->input->post('proStat'),
+	        'pro_start_price' 	=> $this->input->post('txtMinPrice'),
+	        'pro_end_price' 	=> $this->input->post('txtMaxPrice'),
+	        'srch_all'        => $this->input->post('srchAll'),
+	    );
+	    $data["OUT_REC"] = $this->M_house->selectHousePopup($dataSrch);
+	    $data["OUT_REC_CNT"] = $this->M_house->countHousePopup($dataSrch);
+	    echo json_encode($data);
+	}
     
 	public function save(){
 		if(!$this->M_check_user->check()){

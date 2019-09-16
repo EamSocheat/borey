@@ -46,6 +46,7 @@ class CommissionReport extends CI_Controller{
 			'txtApprEDate' 	=> $this->reOrderDate($this->input->post('apprEDate')),
 			'commi_is_approve'	=> $this->input->post('cboStatus'),
 		    'pro_code'		=> $this->input->post('proCode'),
+		    'commi_type'		=> $this->input->post('commiType')
 		);
 		$data["OUT_REC"] 	 = $this->M_commission->selectCommissionData($dataSrch);
 		$data["OUT_REC_CNT"] = $this->M_commission->countCommissionData($dataSrch);

@@ -186,6 +186,7 @@ function getData(page_no){
 	dat["apprEDate"]	= $("#txtSrchApproveED").val();
 	dat["cboStatus"]	= $("#cboStatus option:selected").val();
 	dat["proCode"]		= $("#txtProCode").val();
+	dat["commiType"]	= $("#cboCommiType option:selected").val();
 	
 	$("#loading").show();
 	$.ajax({
@@ -207,14 +208,17 @@ function getData(page_no){
 					if(res.OUT_REC[i]["commi_amt_approve"] != null && res.OUT_REC[i]["commi_amt_approve"] != ""){
 						approveAmt =stock.comm.formatCurrency(res.OUT_REC[i]["commi_amt_approve"]);
 						approveAmt+="$";
-						totalCommissionAmtAppr+=parseFloat(res.OUT_REC[i]["commi_amt_approve"]);
+						if(res.OUT_REC[i]["commi_is_approve"] == "Y"){
+							totalCommissionAmtAppr+=parseFloat(res.OUT_REC[i]["commi_amt_approve"]);
+						}
+						
 					}
 					strHtml += '<tr class="cur-pointer" data-id="'+res.OUT_REC[i]["commi_id"]+'">';
 					strHtml += '	<td class="chk_box"><div class="" style="width: 10px;"><input type="checkbox"></div></td>';
 					strHtml += '	<td><div class="">'+(res.OUT_REC[i]["commi_type"] == "A" ? "បុគ្គលិក" : "បុគ្គល")+'</div></td>';
 					
 					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["commi_amt"])+'$</div></td>';
-					strHtml += '	<td><div class="" style="text-align: right">'+approveAmt+'</div></td>';
+					strHtml += '	<td><div class="" style="text-align: right">'+(res.OUT_REC[i]["commi_is_approve"] == "Y" ? approveAmt : "")+'</div></td>';
 					strHtml += '	<td><div class="" style="text-align: center">'+(renderStatus(res.OUT_REC[i]["commi_is_approve"]))+'</div></td>';
 					strHtml += '	<td><div class="" style="">'+(stock.comm.isEmpty(res.OUT_REC[i]["commi_approve_date"]) ? "" : stock.comm.formatDateWithoutTime(res.OUT_REC[i]["commi_approve_date"]))+'</div></td>';
 					strHtml += '	<td><div class="" style="">'+res.OUT_REC[i]["sta_nm_kh"]+'</div></td>';
@@ -234,7 +238,7 @@ function getData(page_no){
 				strTotal += '<tr class="total">';
 				strTotal += '	<td class="" colspan="2" style="text-align: right;font-weight: 600;">សរុបប្រាក់: </td>';
 				strTotal += '	<td class="" colspan="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalCommissionAmt)+'$</b></td>';
-				strTotal += '	<td class="" colspan="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalCommissionAmtAppr)+'$</b></td>';
+				strTotal += '	<td class="" colspan="" style="text-align: right;"><b>'+(totalCommissionAmtAppr == 0? "0": stock.comm.formatCurrency(totalCommissionAmtAppr))+'$</b></td>';
 				strTotal += '	<td colspan="9"></td>';
 				strTotal += '</tr>';
 
