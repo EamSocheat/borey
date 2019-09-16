@@ -153,7 +153,7 @@
 		                	<div class="col-xs-3 padding-forms-right">
 		                		<div class="form-group">
 		        		      		<label  for="txtPayPer" > ប្រាក់ទូទាត់​ជាមុន  % </label><span> </span>
-		        		        	<input type="text" maxlength="2" class="form-control text-right" id="txtPayPer" required="required"  placeholder="Enter loan amount" name="txtPayPer" autocomplete="off" />
+		        		        	<input type="text" maxlength="5" class="form-control text-right" id="txtPayPer" required="required"  placeholder="Enter loan amount" name="txtPayPer" autocomplete="off" />
 		        		    	</div>
 		                    </div>
 		                    <div class="col-xs-3 padding-forms-right">

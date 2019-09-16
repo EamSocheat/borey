@@ -1132,7 +1132,7 @@ function stringDate(str){
 }
 
 function calculatePaySchedule(){	
-	if($("#txtPayPer").val()==""){
+	if($("#txtPayPer").val()=="" || $("#txtPayPer").val().replace(/,/g,'') > 100){
 		parent.$("#msgErr").html("សូមបញ្ចូល  ប្រាក់ទូទាត់​ជាមុន %!!!");
 		parent.$("#msgErr").show();
 		$("#txtPayPer").focus();
