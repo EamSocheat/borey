@@ -1,0 +1,1 @@
+INSERT INTO `tbl_payment_method`( `met_nm`, `met_nm_kh`) VALUES ("សែក","សែក");

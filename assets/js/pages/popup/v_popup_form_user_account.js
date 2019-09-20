@@ -445,7 +445,7 @@ function listMenu(){
 function getStaff(){
 	$.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"Staff/getStaff",
+		url: $("#base_url").val() +"Staff/getStaffData",
 		dataType: 'json',
 		async: false,
 		success: function(res) {

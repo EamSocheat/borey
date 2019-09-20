@@ -227,6 +227,7 @@ class Sell extends CI_Controller{
 	    	}else{
 	    		$commi_amt_ex = $commi_amt * floatval($dataCommSet[0]->comset_amt_ex)/100;
 	    	}
+	    	$commi_amt = $commi_amt - $commi_amt_ex;
 	    	$datacommi=array(
 	            'sell_id'        	=> $old_sell_id,
 	    		'commi_amt'        	=> $commi_amt,
