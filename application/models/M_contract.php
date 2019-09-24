@@ -40,6 +40,10 @@
     	        $this->db->where('tbl_contract.con_code', $dataSrch['con_code']);
     	    }
     	    
+    		if($dataSrch['pro_code'] != null && $dataSrch['pro_code'] != ""){
+    	        $this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
+    	    }
+    	    
     	    return $this->db->get()->result();
     	}
         

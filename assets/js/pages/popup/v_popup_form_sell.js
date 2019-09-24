@@ -353,7 +353,7 @@ function getContractInfo(cont_code){
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Contract/getContractDetail",
-		data: {"conCode":cont_code,"conSta":"B"},
+		data: {"proCode":cont_code,"conSta":"B"},
 		dataType: "json",
 		async: false,
 		success: function(res) {
@@ -611,7 +611,7 @@ function getDataEdit(cont_id){
 			    //$("#cboReceiver").val(res.OUT_REC[0]["rec_id"]);
 			    $("#txtDesc").val(res.OUT_REC[0]["sell_des"]);
 			    $("#txtBookingAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
-			    $("#txtContract").val(res.OUT_REC[0]["con_code"]);
+			    $("#txtContract").val(res.OUT_REC[0]["pro_code"]);
 		    	$("#cboConType").val(res.OUT_REC[0]["sell_con_type_id"]);
 		    	
 		    	$("#txtContSD").val(res.OUT_REC[0]["sell_date"] == null ? "" : moment(res.OUT_REC[0]["sell_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));

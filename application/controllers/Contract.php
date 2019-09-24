@@ -39,7 +39,8 @@ class Contract extends CI_Controller{
 	    $dataSrch = array(
 	        'con_id'        => $this->input->post('conId'),
 	        'con_sta'       => $this->input->post('conSta'),
-	        'con_code'       => $this->input->post('conCode')
+	        'con_code'       => $this->input->post('conCode'),
+	    	'pro_code'       => $this->input->post('proCode')
 	    );
 	    
 	    $data["OUT_REC"] = $this->M_contract->selectContractDataDetail($dataSrch);

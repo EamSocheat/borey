@@ -125,7 +125,7 @@
 								</tr>
 								<tr>
 								</tr>
-									<td class="with-200">ប្រាក់ត្រូវបង់</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->inst_total_paid_amount);?></td>
+									<td class="with-200">ប្រាក់ត្រូវបង់</td><td class="with-10">:</td><td>$<?php echo number_format((floatval($OUT_REC[0]->inst_dis_amt)+ floatval($OUT_REC[0]->inst_amt_pay)));?></td>
 								<tr>
 									<td class="with-200">បញ្ចុះតំលៃ </td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->inst_dis_amt);?></td>
 								</tr>
@@ -133,7 +133,7 @@
 									<td class="with-200">ប្រាក់ពិន័យ</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->inst_paid_penalty);?></td>
 								</tr>
 								<tr>
-									<td class="with-200">ប្រាក់ត្រូវបង់សរុប</td><td class="with-10">:</td><td>$<?php echo number_format(floatval($OUT_REC[0]->inst_total_paid_amount)) ;?></td>
+									<td class="with-200">ប្រាក់ត្រូវបង់សរុប</td><td class="with-10">:</td><td>$<?php echo number_format( floatval($OUT_REC[0]->inst_paid_penalty) + floatval($OUT_REC[0]->inst_total_paid_amount)) ;?></td>
 								</tr>
 							</table>
 						</td>
@@ -170,11 +170,12 @@
 					<td colspan="3" style="text-align: right;border: none;">ចំនួនសរុបបានបង់</td>
 					<td colspan="3">$<?php echo number_format( floatval($OUT_REC[0]->inst_paid_penalty) + floatval($OUT_REC[0]->inst_total_paid_amount));?></td>
 				</tr>
+				<!-- 
 				<tr>
 					<td colspan="3" style="text-align: right;border: none;">នៅខ្វះ</td>
 					<td colspan="3">$0.00</td>
 				</tr>
-				
+				 -->
 			</table>
 		</div>
 		

@@ -28,7 +28,7 @@
 						<div class="col-xs-12 row" style="padding:0px">
 		            		<div class="col-xs-4 padding-forms-left">
 		            			<div class="form-group">
-		                			<label for="txtContract">លេខកក់ប្រាក់</label>
+		                			<label for="txtContract">លេខកូដអចលនទ្រព្យកក់</label>
 		    						<div class="input-group">
 		    							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" id="txtContract" name="txtContract" autocomplete="off" />
 		    							<span id="btnContractSrch" class="input-group-addon label-info" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;cursor: pointer;border-color: #46b8da !important;"><i class="fa fa-search-plus"> ​</i></span>
