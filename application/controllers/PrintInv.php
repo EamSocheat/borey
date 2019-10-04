@@ -92,4 +92,20 @@ class PrintInv extends CI_Controller {
 	    $dataPrint["OUT_REC"] = $this->M_installment->selectPaymentDataPrint($dataSrch);
 	    return $this->load->view('popup/v_print_inv_payment',$dataPrint);
 	}
+	
+	
+	public function printContractBuy(){
+	    
+	    if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	    $dataPrint["printData"] = $this->input->post('printData');
+	    $data = $this->input->post('printData');
+	    $dataSrch = array(
+	        'sell_id'        => $data[0]["sell_id"]
+	    );
+	    
+	    //$dataPrint["OUT_REC"] = $this->M_installment->selectInstallmentDataPrint($dataSrch);
+	    return $this->load->view('popup/v_print_contract_buy',$dataPrint);
+	}
 }   
