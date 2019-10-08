@@ -83,7 +83,7 @@
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 				                    	<i class="fa fa-calendar"></i>
 				                  	</div>
-				                  	<input type="text" class="form-control pull-right date-pick" id="txtDob" name="txtDob" required="required" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+				                  	<input type="text" class="form-control pull-right date-pick" id="txtDob" name="txtDob" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="">
 				                </div>
                             </div>
                 		</div>
@@ -135,7 +135,7 @@
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 				                    	<i class="fa fa-calendar"></i>
 				                  	</div>
-				                  	<input type="text" class="form-control pull-right date-pick" id="txtStartDate" name="txtStartDate" required="required" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+				                  	<input type="text" class="form-control pull-right date-pick" id="txtStartDate" name="txtStartDate" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="">
 				                </div>
                 			</div>
                 		</div>
@@ -146,7 +146,7 @@
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 				                    	<i class="fa fa-calendar"></i>
 				                  	</div>
-				                  	<input type="text" class="form-control pull-right date-pick" id="txtStopDate" name="txtStopDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+				                  	<input type="text" class="form-control pull-right date-pick" id="txtStopDate" name="txtStopDate" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="">
 				                </div>
                 			</div>
                 		</div>

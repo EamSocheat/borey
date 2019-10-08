@@ -27,7 +27,7 @@ var _thisPage = {
 			//
 			$('#txtDob').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
-				format: "dd/mm/yyyy",
+				format: "dd-mm-yyyy",
 			    startView: 'decade',
 			    viewSelect: 'decade',
 			    minView: 2,
@@ -45,7 +45,7 @@ var _thisPage = {
 				todayHighlight: 1,
 				forceParse: 0,
 				sideBySide: true,
-				format: "dd/mm/yyyy",
+				format: "dd-mm-yyyy",
 			});
 			$("#txtStartDate").inputmask();
 			//
@@ -60,7 +60,7 @@ var _thisPage = {
 				todayHighlight: true,
 				forceParse: 0,
 				sideBySide: true,
-				format: "dd/mm/yyyy",
+				format: "dd-mm-yyyy",
 			});
 			$("#txtStopDate").inputmask();
 			//

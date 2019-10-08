@@ -27,7 +27,7 @@ var _thisPage = {
 			
 			$('#txtDob').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
-				format: "dd/mm/yyyy",
+				format: "dd-mm-yyyy",
 			    startView: 'decade',
 			    viewSelect: 'decade',
 			    minView: 2,
@@ -35,7 +35,7 @@ var _thisPage = {
 		    });
 			$("#txtDob").inputmask();
 			
-			$("#txtStartDate").datepicker({
+			$("#txtIndtDate").datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
 				weekStart: true,
 		        todayBtn:  true,
@@ -43,9 +43,9 @@ var _thisPage = {
 				todayHighlight: 1,
 				forceParse: 0,
 				sideBySide: true,
-				format: "dd/mm/yyyy",
+				format: "dd-mm-yyyy",
 			});
-			$("#txtStartDate").inputmask();
+			$("#txtIndtDate").inputmask();
 			
 			$("#txtStopDate").datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
@@ -55,7 +55,7 @@ var _thisPage = {
 				todayHighlight: true,
 				forceParse: 0,
 				sideBySide: true,
-				format: "dd/mm/yyyy",
+				format: "dd-mm-yyyy",
 			});
 			$("#txtStopDate").inputmask();
 			
@@ -176,6 +176,8 @@ function getDataEdit(cus_id){
 			    $("#txtIdentityNmKh").val(res.OUT_REC[0]["cus_idnt_num"]);
 			    $("#cboGender option[value='"+res.OUT_REC[0]["cus_gender"]+"']").attr("selected",true);
 			    $("#txtDob").val(moment(res.OUT_REC[0]["cus_dob"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+			    $("#txtIndtDate").val(moment(res.OUT_REC[0]["cus_indt_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
+			    
 			    $("#txtAddr").val(res.OUT_REC[0]["cus_addr"]);
 			    $("#txtPhone1").val(res.OUT_REC[0]["cus_phone1"]);
 			    $("#txtPhone2").val(res.OUT_REC[0]["cus_phone2"]);

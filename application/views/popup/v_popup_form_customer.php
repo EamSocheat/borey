@@ -42,10 +42,21 @@
                             </div>
                 		</div>
                 		
-                		<div class="col-xs-8 padding-forms-right">
+                		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
                                	<label for="txtIdentityNmKh" data-i18ncd="lb_identity">Identity</label>
                             	<input type="text" class="form-control" id="txtIdentityNmKh" name="txtIdentityNmKh" required="required" maxlength="9" autocomplete="off" />
+                            </div>
+                		</div>
+                		<div class="col-xs-4 padding-forms-right">
+                			<div class="form-group">
+                               	<label for="txtIndtDate">ចុះថ្ងៃទី</label>
+			                	<div class="input-group date">
+				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="txtIndtDateIcon">
+				                    	<i class="fa fa-calendar"></i>
+				                  	</div>
+				                  	<input type="text" class="form-control pull-right date-pick" id="txtIndtDate" name="txtIndtDate" required="required" data-inputmask="'alias': ''" data-mask="" autocomplete="off" />
+				                </div>
                             </div>
                 		</div>
 
@@ -75,7 +86,7 @@
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;" id="dobIcon">
 				                    	<i class="fa fa-calendar"></i>
 				                  	</div>
-				                  	<input type="text" class="form-control pull-right date-pick" id="txtDob" name="txtDob" required="required" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" autocomplete="off" />
+				                  	<input type="text" class="form-control pull-right date-pick" id="txtDob" name="txtDob" required="required" data-inputmask="'alias': ''" data-mask="" autocomplete="off" />
 				                </div>
                             </div>
                 		</div>
@@ -127,7 +138,7 @@
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 				                    	<i class="fa fa-calendar"></i>
 				                  	</div>
-				                  	<input type="text" class="form-control pull-right date-pick" id="txtStartDate" name="txtStartDate" required="required" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+				                  	<input type="text" class="form-control pull-right date-pick" id="txtStartDate" name="txtStartDate" required="required" data-inputmask="'alias': ''" data-mask="">
 				                </div>
                 			</div>
                 		</div>
@@ -138,7 +149,7 @@
 				                  	<div class="input-group-addon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
 				                    	<i class="fa fa-calendar"></i>
 				                  	</div>
-				                  	<input type="text" class="form-control pull-right date-pick" id="txtStopDate" name="txtStopDate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+				                  	<input type="text" class="form-control pull-right date-pick" id="txtStopDate" name="txtStopDate" data-inputmask="'alias': ''" data-mask="">
 				                </div>
                 			</div>
                 		</div>

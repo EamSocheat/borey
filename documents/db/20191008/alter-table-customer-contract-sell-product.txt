@@ -1,0 +1,18 @@
+alter TABLE tbl_customer
+add COLUMN cus_indt_date date;
+
+alter table tbl_product
+add column pro_land_width double;
+
+alter table tbl_product
+add column pro_land_height double;
+
+alter TABLE tbl_contract_detail
+add column pro_book_price_desc text;
+
+
+alter TABLE tbl_contract_detail
+add column pro_book_price_desc text;
+
+alter TABLE tbl_sell_detail
+add column pro_sell_price_desc text;

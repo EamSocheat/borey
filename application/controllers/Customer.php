@@ -75,8 +75,8 @@ class Customer extends CI_Controller {
 			'cus_phone2'	=> $this->input->post('txtPhone2'),
 			'cus_email'		=> $this->input->post('txtEmail'),
 			'cus_fb_name'	=> $this->input->post('txtFacebook'),
-			/* 'cus_start_dt'	=> date('Y-m-d',strtotime($this->input->post('txtStartDate'))),
-             'cus_end_dt'	=> date('Y-m-d',strtotime($this->input->post('txtStopDate'))), */
+			'cus_indt_date'	=> date('Y-m-d',strtotime($this->input->post('txtIndtDate'))),
+			 /*'cus_end_dt'	=> date('Y-m-d',strtotime($this->input->post('txtStopDate'))), */
 			'cus_des'		=> $this->input->post('txtDes'),
 			'useYn'			=> "Y",
 			'com_id'		=> $_SESSION['comId']
