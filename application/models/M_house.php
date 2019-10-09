@@ -7,9 +7,9 @@
 		}
 		
 		public function selectInsertHouse($data){
-		    $sql = 'INSERT tbl_product (pro_code,pro_price,pro_street,pro_length,pro_width,pro_area,pro_photo,cat_id,bra_id,
+		    $sql = 'INSERT tbl_product (pro_code,pro_price,pro_street,pro_length,pro_width,pro_area,pro_photo,cat_id,bra_id,pro_land_height,pro_land_width,
     		 				pro_room,pro_toilet,pro_floor,pro_des,pro_status, regDt,regUsr, useYn,com_id)
-                           	SELECT "'.$data["pro_code"].'" as pro_code, pro_price,pro_street, pro_length,pro_width,pro_area,pro_photo,cat_id,bra_id,
+                           	SELECT "'.$data["pro_code"].'" as pro_code, pro_price,pro_street, pro_length,pro_width,pro_area,pro_photo,cat_id,bra_id,pro_land_height,pro_land_width,
                            	pro_room,pro_toilet,pro_floor,pro_des,"F", now() as regDt,'.$_SESSION['usrId'].', "Y" as useYn, '.$_SESSION['comId'].'
                            	FROM tbl_product where pro_id ='.$data['pro_id'];
 		    

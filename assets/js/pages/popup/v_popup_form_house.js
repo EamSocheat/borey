@@ -27,6 +27,10 @@ var _thisPage = {
 			stock.comm.inputNumber("txtRoomQty");
 			stock.comm.inputNumber("txtToiletQty");
 			stock.comm.inputCurrency("txtHousePrice");
+			
+			stock.comm.inputCurrency("txtLandHeight");
+			stock.comm.inputCurrency("txtLandWidth");
+			
 		}, fillData : function(pro_id){
 			$.ajax({
 				type: "POST",
@@ -67,11 +71,16 @@ var _thisPage = {
 						$("#txtStreetNo").val(res.OUT_REC[0]["pro_street"]);
 						$("#txtRoomQty").val(res.OUT_REC[0]["pro_room"]);
 						$("#txtToiletQty").val(res.OUT_REC[0]["pro_toilet"]);
-
+						$("#txtLandHeight").val(res.OUT_REC[0]["pro_land_height"]);
+						$("#txtLandWidth").val(res.OUT_REC[0]["pro_land_width"])
+						
 						$("#txtDesc").val(res.OUT_REC[0]["pro_des"]);
 						if(res.OUT_REC[0]["pro_photo"] != null && res.OUT_REC[0]["pro_photo"] != ""){
 							$("#expendImgView").attr("src", $("#base_url").val()+"upload"+res.OUT_REC[0]["pro_photo"]);
 							$("#expImgPath").val(res.OUT_REC[0]["pro_photo"]);
+						}
+						if(res.OUT_REC[0]["pro_status"] == "B" || res.OUT_REC[0]["pro_status"] == "S"){
+							$("#btnSave").remove();
 						}
 					}else{
 						stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -181,14 +190,14 @@ var _thisPage = {
 				var lenVal = $(this).val();
 				var widVal = $("#txtHouseWidth").val();
 
-				$("#txtHouseArea").val(Number(lenVal) * Number(widVal));
+				$("#txtHouseArea").val((Number(lenVal) * Number(widVal)).toFixed(2));
 			});
 			//
 			$("#txtHouseWidth").on("keyup", function(e){
 				var lenVal = $("#txtHouseLength").val();
 				var widVal = $(this).val();
 
-				$("#txtHouseArea").val(Number(lenVal) * Number(widVal));
+				$("#txtHouseArea").val((Number(lenVal) * Number(widVal)).toFixed(2));
 			});
 		}
 }

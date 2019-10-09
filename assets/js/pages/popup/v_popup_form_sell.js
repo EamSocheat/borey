@@ -391,6 +391,7 @@ function getContractInfo(cont_code){
 			        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 			        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
 			        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
+			        html += "<td class='pro_price_desc cur-pointer'>"+rec["pro_book_price_desc"]+"</td>";
 			        html += "<td class='pro_price cur-pointer text-right'> <input class='text-right' id='pro_price' style='border: none;background-color: #ffffff;' value='"+stock.comm.formatCurrency(rec["pro_book_price"])+"'></td>";
 			        html += "</tr>";
 			        
@@ -632,6 +633,7 @@ function getDataEdit(cont_id){
 		        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 		        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm_kh"]+"</td>";
 		        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm_kh"]+"</td>";
+		        html += "<td class='pro_price_desc cur-pointer'>"+rec["pro_sell_price_desc"]+"</td>";
 		        html += "<td class='pro_price cur-pointer text-right' style='    padding-right: 25px;'><input class='text-right' id='pro_price' style='border: none;background-color: #ffffff;' value='"+stock.comm.formatCurrency(rec["sell_total_price"])+"'/></td>";
 		        html += "</tr>";
 		        $("#tblProduct tbody").append(html);
@@ -727,12 +729,14 @@ function selectProductCallback(data){
 	        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
 	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
+	        html += "<td class='pro_price_desc cur-pointer'><input id='pro_price_desc' class='form-control input-sm text-right' type='text'></td>";
 	        html += "<td class=' cur-pointer'><input id='pro_price' class='form-control text-right pro_price input-sm' type='text' value ='"+rec["pro_price"]+"'></td>";
 	        html += "</tr>";
 	        
 	        $("#tblProduct tbody").append(html);
 		}
 		stock.comm.inputCurrency("pro_price");
+		$("#pro_price_desc").focus();
 	}
 	
 	$("#btnSelectPro").css("border-color","#ced4da");

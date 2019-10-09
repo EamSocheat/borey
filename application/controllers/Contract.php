@@ -156,12 +156,14 @@ class Contract extends CI_Controller{
             
             $productArr = explode(",",$this->input->post('productArr'));
             $proPriceArr = explode(",",$this->input->post('proPriceArr'));
+            $proPriceArrDesc = explode(",",$this->input->post('productPriceDescArr'));
             for($j=0; $j<sizeof($productArr);$j++){
             	$dataDetial = array();
             	
             	$dataDetial['con_id']  = $old_con_id;
             	$dataDetial['pro_id']  = $productArr[$j];
             	$dataDetial['pro_book_price'] = floatval($proPriceArr[$j]);
+            	$dataDetial['pro_book_price_desc'] = $proPriceArrDesc[$j];
             	$dataDetial['useYn']  = 'Y';
 	            $dataDetial['com_id'] = $_SESSION['comId'];
 	            $dataDetial['regUsr'] = $_SESSION['usrId'];

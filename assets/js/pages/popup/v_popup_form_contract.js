@@ -200,10 +200,11 @@ function saveData(str){
     }
    	var productArr=[];
    	var productPriceArr=[];
+   	var productPriceDescArr=[];
    	productChk.each(function(i){
    		productArr.push(parseInt($(this).attr("data-id")));
    		productPriceArr.push($(this).find("td.pro_price input").val().replace(/,/g,''));
-   		
+   		productPriceDescArr.push($(this).find("td.pro_price_desc input").val());
    	});
    	
 	//
@@ -216,7 +217,7 @@ function saveData(str){
 	$.ajax({
 		type : "POST",
 		url  : $("#base_url").val() +"Contract/saveContract",
-		data: $("#frmContract").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr ,
+		data: $("#frmContract").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr+"&productPriceDescArr="+productPriceDescArr ,
 		success: function(res) {
 		    parent.$("#loading").hide();
 
@@ -331,6 +332,7 @@ function getDataEdit(cont_id){
 			        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 			        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm_kh"]+"</td>";
 			        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm_kh"]+"</td>";
+			        html += "<td class='pro_price_desc cur-pointer'>"+rec["pro_book_price_desc"]+"</td>";
 			        html += "<td class='pro_price cur-pointer'>"+stock.comm.formatCurrency(rec["pro_book_price"])+"</td>";
 			        html += "</tr>";
 			        
@@ -388,12 +390,14 @@ function selectProductCallback(data){
 	        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
 	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
+	        html += "<td class='pro_price_desc cur-pointer'><input id='pro_price_desc' class='form-control input-sm text-right' type='text'></td>";
 	        html += "<td class='pro_price cur-pointer'><input id='pro_price' class='form-control input-sm text-right' type='text' value ='"+rec["pro_price"]+"'></td>";
 	        html += "</tr>";
 	        
 	        $("#tblProduct tbody").append(html);
 		}
 		stock.comm.inputCurrency("pro_price");
+		$("#pro_price_desc").focus();
 	}
 	
 	$("#btnSelectPro").css("border-color","#ced4da");

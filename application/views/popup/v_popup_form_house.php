@@ -5,7 +5,7 @@
 <input type="hidden" id="parentId" name="parentId" value="<?php if(isset($_GET["parentId"])){ echo $_GET["parentId"]; }?>"/>
 <!-- form start -->
 
-<form role="form" class="form-horizontal" id="frmHouse" action="" style="display: none">
+<form role="form" class="form-horizontal" id="frmHouse" action="" style="display: none" autocomplete="off">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnExit">
 	  	<span aria-hidden="true">&times;</span></button>
@@ -76,19 +76,19 @@
 			  <div class="col-xs-3 padding-forms-right">
 				  <div class="form-group">
 					  <label for="txtHouseLength" data-i18ncd="lb_house_length">ប្រវែងបណ្ដោយ</label>
-					  <input type="text" class="form-control input-right" id="txtHouseLength" name="txtHouseLength" autocomplete="off" style="font-size: 14px;">
+					  <input type="text" class="form-control input-right" id="txtHouseLength" name="txtHouseLength" autocomplete="off" style="font-size: 14px;" required="required">
 				  </div>
 			  </div>
 			  <div class="col-xs-3 padding-forms-right">
 				  <div class="form-group">
 					  <label for="txtHouseWidth" data-i18ncd="lb_house_width">ប្រវែងទទឹង</label>
-					  <input type="text" class="form-control input-right" id="txtHouseWidth" name="txtHouseWidth" autocomplete="off" style="font-size: 14px;">
+					  <input type="text" class="form-control input-right" id="txtHouseWidth" name="txtHouseWidth" autocomplete="off" style="font-size: 14px;" required="required">
 				  </div>
 			  </div>
 			  <div class="col-xs-3 padding-forms-right">
 				  <div class="form-group">
 					  <label for="txtHouseArea" data-i18ncd="lb_house_area">ផ្ទៃផ្ទះ</label>
-					  <input type="text" class="form-control input-right" id="txtHouseArea" name="txtHouseArea" autocomplete="off" style="font-size: 14px;">
+					  <input type="text" class="form-control input-right" id="txtHouseArea" name="txtHouseArea" autocomplete="off" style="font-size: 14px;" required="required">
 				  </div>
 			  </div>
 		  </div>
@@ -103,25 +103,37 @@
 			  <div class="col-xs-3 padding-forms-right">
 				  <div class="form-group">
 					  <label for="txtFloorQty" data-i18ncd="lb_house_floor">ចំនួនជាន់</label>
-					  <input type="text" class="form-control input-right" id="txtFloorQty" name="txtFloorQty" autocomplete="off" />
+					  <input type="text" class="form-control input-right" id="txtFloorQty" name="txtFloorQty" autocomplete="off" required="required"/>
 				  </div>
 			  </div>
 			  <div class="col-xs-3 padding-forms-right">
 				  <div class="form-group">
 					  <label for="txtRoomQty" data-i18ncd="lb_house_room">ចំនួនបន្ទប់</label>
-					  <input type="text" class="form-control input-right" id="txtRoomQty" name="txtRoomQty" autocomplete="off" />
+					  <input type="text" class="form-control input-right" id="txtRoomQty" name="txtRoomQty" autocomplete="off" required="required"/>
 				  </div>
 			  </div>
 			  <div class="col-xs-3 padding-forms-right">
 				  <div class="form-group">
 					  <label for="txtToiletQty" data-i18ncd="lb_house_toilet">ចំនួនបន្ទប់ទឹក</label>
-					  <input type="text" class="form-control input-right" id="txtToiletQty" name="txtToiletQty" autocomplete="off" />
+					  <input type="text" class="form-control input-right" id="txtToiletQty" name="txtToiletQty" autocomplete="off" required="required"/>
 				  </div>
 			  </div>
 		  </div>
 
 		  <div class="col-xs-12 row" style="padding:0px">
-			  <div class="col-xs-12 padding-forms-left padding-forms-right">
+		  	  <div class="col-xs-3 padding-forms-left padding-forms-right">
+				  <div class="form-group">
+					  <label for="txtLandHeight">បណ្ដោយដី</label>
+					  <input type="text" class="form-control input-right" id="txtLandHeight" name="txtLandHeight" autocomplete="off" style="font-size: 14px;" required="required">
+				  </div>
+			  </div>
+			  <div class="col-xs-3 padding-forms-right">
+				  <div class="form-group">
+					  <label for="txtLandWidth" >ទទឹងដី</label>
+					  <input type="text" class="form-control input-right" id="txtLandWidth" name="txtLandWidth" autocomplete="off" style="font-size: 14px;" required="required"> 
+				  </div>
+			  </div>
+			  <div class="col-xs-6  padding-forms-right">
 				  <div class="form-group">
 					  <label for="txtDesc" data-i18ncd="lb_des">ការពិព័ណ៏នា</label>
 					  <input type="text" class="form-control" id="txtDesc" name="txtDesc" autocomplete="off" />

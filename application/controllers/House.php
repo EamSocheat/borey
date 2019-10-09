@@ -100,7 +100,9 @@ class House extends CI_Controller{
 			'pro_toilet'	=> $this->input->post('txtToiletQty'),
 			'pro_des'		=> $this->input->post('txtDesc'),
 			'useYn'			=> "Y",
-			'com_id'		=> $_SESSION['comId']
+			'com_id'		=> $_SESSION['comId'],
+			'pro_land_height'	=> $this->input->post('txtLandHeight'),
+			'pro_land_width'		=> $this->input->post('txtLandWidth'),
 		);
 		
 		$dupCnt=0;
