@@ -25,7 +25,7 @@
 			<div class="tab-content">
 				<div id="divSellView" class="tab-pane fade in active">
 			    	<div class="row">
-						<div class="col-xs-12 row" style="padding:0px">
+						<div class="col-xs-12 row" style="padding:0px" id="conDivInfo">
 		            		<div class="col-xs-4 padding-forms-left">
 		            			<div class="form-group">
 		                			<label for="txtContract">លេខកូដអចលនទ្រព្យកក់</label>
@@ -52,7 +52,7 @@
 		            		</div>
 		            	</div>
 						
-						<div class="col-xs-12 row" style="padding:0px;margin-top: -10px;">
+						<div class="col-xs-12 row" style="padding:0px;margin-top: -10px;" id="conDivInfo2">
 		            		<div class="col-xs-4 padding-forms-left">
 		            			<div class="form-group">
 									<label for="cusNm2" data-i18ncd="lb_customer_name">Customer Name</label>

@@ -104,7 +104,7 @@ class Sell extends CI_Controller{
         
         $productArr = explode(",",$this->input->post('productArr'));
         $proPriceArr = explode(",",$this->input->post('proPriceArr'));
-        
+        $proPriceArrDesc = explode(",",$this->input->post('productPriceDescArr'));
         
         $dataSell = array(
             'cus_id'        	=> $this->input->post('txtCusId'),
@@ -145,13 +145,13 @@ class Sell extends CI_Controller{
         );
         $this->M_sell->update($dataUpdate);
         
-       
         for($j=0; $j<sizeof($productArr);$j++){
         	$dataDetial = array();
         	
         	$dataDetial['sell_id']  = $old_sell_id;
         	$dataDetial['pro_id']  = $productArr[$j];
         	$dataDetial['pro_sell_price'] = floatval($proPriceArr[$j]);
+        	$dataDetial['pro_sell_price_desc'] = $proPriceArrDesc[$j];
         	$dataDetial['useYn']  = 'Y';
             $dataDetial['com_id'] = $_SESSION['comId'];
             $dataDetial['regUsr'] = $_SESSION['usrId'];

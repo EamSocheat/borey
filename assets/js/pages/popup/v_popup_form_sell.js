@@ -450,11 +450,12 @@ function saveData(str){
     }
    	var productArr=[];
    	var productPriceArr=[];
+	var productPriceDescArr=[];
    	productChk.each(function(i){
    		productArr.push(parseInt($(this).attr("data-id")));
    		productPriceArr.push($("#pro_price").val().replace(/,/g,''));
+   		productPriceDescArr.push($(this).find("td.pro_price_desc input").val());
    	});
-   	
    	var instRecord = $('#tblInstallment tbody tr');
 	if(instRecord == null || instRecord == undefined || instRecord.length <=0 ){
 		parent.stock.comm.alertMsg("សូមគណនាជាមុនសិន រួចព្យាយាមម្តងទៀត");
@@ -479,7 +480,7 @@ function saveData(str){
 	$.ajax({
 		type : "POST",
 		url  : $("#base_url").val() +"Sell/saveSell",
-		data: $("#frmSell").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr,
+		data: $("#frmSell").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr+"&productPriceDescArr="+productPriceDescArr,
 		success: function(res) {
 		    parent.$("#loading").hide();
 			if(res !=""){
@@ -612,7 +613,13 @@ function getDataEdit(cont_id){
 			    //$("#cboReceiver").val(res.OUT_REC[0]["rec_id"]);
 			    $("#txtDesc").val(res.OUT_REC[0]["sell_des"]);
 			    $("#txtBookingAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
-			    $("#txtContract").val(res.OUT_REC[0]["pro_code"]);
+			    if($("#txtBookingAmt").val() != ""){
+			    	$("#txtContract").val(res.OUT_REC[0]["pro_code"]);
+			    }else{
+			    	$("#conDivInfo").hide();
+			    	$("#conDivInfo2").css("margin-top","0px");
+			    }
+			    
 		    	$("#cboConType").val(res.OUT_REC[0]["sell_con_type_id"]);
 		    	
 		    	$("#txtContSD").val(res.OUT_REC[0]["sell_date"] == null ? "" : moment(res.OUT_REC[0]["sell_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
@@ -642,42 +649,6 @@ function getDataEdit(cont_id){
 		        	$(".div_installment").show();
 		        	$("#cboInstYn").prop("checked",true);
 		        }
-					
-			    //
-		        /*
-		        $("#tblPayment tbody").html("");
-		        var salePay=0;
-		        var saleRealAmt=0;
-		    	for(var i=0;i<res.OUT_REC.length; i++){
-					var rec = res.OUT_REC[i];
-					var htmlPayment = "<tr data-id='"+rec["sale_pay_id"]+"'>";
-					htmlPayment += "<td class='sale_pay_date cur-pointer'><button type='button' class='btn btn-info btn-xs' onclick='printInv("+res.OUT_REC[0]["sell_id"]+","+rec["sale_pay_id"]+")'><i class='fa fa-print' aria-hidden='true'></i> </button></td>";
-			        htmlPayment += "<td class='sale_pay_date cur-pointer'>"+stringDate(rec["sale_pay_date"].substr(0,10))+"</td>";
-			        htmlPayment += "<td class='reciver cur-pointer'>"+rec["reciver"]+"</td>";
-			        htmlPayment += "<td class='met_nm_kh cur-pointer'>"+rec["met_nm_kh"]+"</td>";
-			        htmlPayment += "<td class='sale_pay_penalty cur-pointer text-right'>"+(rec["sale_pay_penalty"] == null ? 0: stock.comm.formatCurrency(rec["sale_pay_penalty"]))+"$</td>";
-			        htmlPayment += "<td class='sale_pay_amt_per cur-pointer text-right'>"+(rec["sale_pay_dis_per"] == null ? 0: rec["sale_pay_dis_per"]) +"%</td>";
-			        htmlPayment += "<td class='sale_pay_amt_per cur-pointer text-right'>"+rec["sale_pay_amt_per"]+"%</td>";
-			        htmlPayment += "<td class='sale_pay_amt_cash cur-pointer text-right'>"+stock.comm.formatCurrency(rec["sale_pay_amt_cash"])+"$</td>";
-			        //htmlPayment += "<td class='sale_pay_amt_cash cur-pointer text-right'>"+(rec["sale_pay_dis_cash"] == null ? 0 : stock.comm.formatCurrency(rec["sale_pay_dis_cash"]))+"$</td>";
-			        htmlPayment += "<td class='sale_pay_amt_cash cur-pointer text-right'  style='padding-right: 25px;'>"+stock.comm.formatCurrency(rec["sale_pay_real_amount"])+"$</td>";
-			        htmlPayment += "</tr>";
-			        
-			        $("#tblPayment tbody").append(htmlPayment);
-			        salePay += parseFloat(rec["sale_pay_real_amount"]);
-			        saleRealAmt += parseFloat(rec["sale_pay_amt_cash"]);
-			    }
-		    	if($("#txtBookingAmt").val() != "" && $("#txtBookingAmt").val() != null && $("#txtBookingAmt").val() != undefined){
-		    		salePay += parseFloat($("#txtBookingAmt").val().replace(/,/g,''));
-				}
-		    	$("#txtTotalPaid").val(stock.comm.formatCurrency(salePay));
-		    	$(".totalPaidDiv").show();
-		    	var contractPay = res.OUT_REC[0]["con_total_price"] == null ? 0 : parseFloat(res.OUT_REC[0]["con_total_price"]);
-			    var amountLeft =0;
-			    amountLeft = parseFloat(res.OUT_REC[0]["sell_total_price"]) - saleRealAmt;
-			    $("#txtTotalLeft").val(stock.comm.formatCurrency(amountLeft));
-			    //$("#txtTotalLeftInst").val(stock.comm.formatCurrency(amountLeft));
-			    _amountLeft = amountLeft;*/
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
 			    $("#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#cboPaymentMet,#txtTran,#txtDisPer,#txtDisCash,#txtPayPenalty,#txtInterstRate,#txtPeriod,#txtStartInstDate,#txtPayTime").prop("disabled",false);
 			}else{
