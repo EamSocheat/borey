@@ -45,7 +45,7 @@
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
                                	<label for="txtIdentityNmKh" data-i18ncd="lb_identity">Identity</label>
-                            	<input type="text" class="form-control" id="txtIdentityNmKh" name="txtIdentityNmKh" required="required" maxlength="9" autocomplete="off" />
+                            	<input type="text" class="form-control" id="txtIdentityNmKh" name="txtIdentityNmKh" required="required" maxlength="15" autocomplete="off" />
                             </div>
                 		</div>
                 		<div class="col-xs-4 padding-forms-right">

@@ -6,6 +6,7 @@ var _loanAmount;
 var _firstInstDate;
 var _instPeriod;
 var _interestRate;
+var _winPrintPaySch;
 $(document).ready(function() {
 	_thisPage.init();
 });
@@ -218,6 +219,7 @@ var _thisPage = {
 			//
 			$("#btnPrint").click(function(e){
 				printPaymentShedule($("#sellId").val());
+				printContractBuy($("#sellId").val());
 			});
 			
 			//
@@ -942,13 +944,51 @@ function printPaymentShedule(sell_id){
 		success: function(res) {
 			if(res != "" && res != null){
 				var newWin=parent.window.open('','Print-Window');
+				_winPrintPaySch = newWin;
 				newWin.document.open();
 				newWin.document.write(res);
 				newWin.document.close();
 				newWin.focus();
 				//newWin.print();
-				setTimeout(function(){ newWin.print();newWin.close();}, 200);
+				setTimeout(function(){ newWin.print();newWin.close();}, 50);
+				//printContractBuy(sell_id);
 				//parent.stock.comm.closePopUpForm("PopupFormSell",parent.popupContractCallback);
+			}
+			
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
+        }
+	});
+	
+	
+}
+
+
+function printContractBuy(sell_id){
+	var data = {};
+	var dataArr = [];
+	data["base_url"] = $("#base_url").val();
+	data["sell_id"] = sell_id ;
+	dataArr.push(data);
+	var datObj={};
+	datObj["printData"] = dataArr;
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"PrintInv/printContractBuy",
+		data: datObj,
+		async: false,
+		success: function(res) {
+			if(res != "" && res != null){
+				var newWin=parent.window.open('','Print-Window2');
+				newWin.document.open();
+				newWin.document.write(res);
+				newWin.document.close();
+				newWin.focus();
+				 newWin.print();newWin.close();
+				//setTimeout(function(){ newWin.print();newWin.close();}, 200);
+				_winPrintPaySch.focus();
 			}
 			
 		},
@@ -1450,7 +1490,7 @@ function saveInstallment(sell_id,str){
 				parent.$("#btnConfirmOk").unbind().click(function(e){
 					parent.$("#mdlConfirm").modal('hide');
 					printPaymentShedule(sell_id);
-					
+					printContractBuy(sell_id);
 				});
 				
 				if(str == "new"){
