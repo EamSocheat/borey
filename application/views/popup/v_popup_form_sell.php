@@ -25,8 +25,8 @@
 			<div class="tab-content">
 				<div id="divSellView" class="tab-pane fade in active">
 			    	<div class="row">
-						<div class="col-xs-12 row" style="padding:0px" id="conDivInfo">
-		            		<div class="col-xs-4 padding-forms-left">
+						<div class="col-xs-12 row" style="padding:0px" >
+		            		<div class="col-xs-3 padding-forms-left">
 		            			<div class="form-group">
 		                			<label for="txtContract">លេខកូដអចលនទ្រព្យកក់</label>
 		    						<div class="input-group">
@@ -37,23 +37,31 @@
 		    					</div>
 		            		</div>
 		
-		            		<div class="col-xs-4 padding-forms-right">
+		            		<div class="col-xs-3 padding-forms-right">
 		            			<div class="form-group">
 						      		<label  for="txtBookingAmt" >ចំនូនលុយកក់</label>
 						        	<input type="text" disabled="disabled" class="form-control" id="txtBookingAmt" placeholder="Enter loan amount" name="txtBookingAmt" autocomplete="off" />
 						    	</div>
 		            		</div>
 		
-		            		<div class="col-xs-4 padding-forms-right">
+		            		<div class="col-xs-3 padding-forms-right">
 		                        <div class="form-group">
 						      		<label  for="txtBookDate" > ថ្ងៃកក់ប្រាក់</label>
 						        	<input type="text" disabled="disabled" class="form-control" id="txtBookDate" placeholder="Enter loan amount" name="txtBookDate" autocomplete="off" />
 						    	</div>
 		            		</div>
+		            		<div class="col-xs-3 padding-forms-right">
+		                        <div class="form-group">
+		            				<label  for="cboSeller" >អ្នកលក់(បុគ្គលិក)</label>
+		                			<select class="form-control" id="cboSeller" name="cboSeller" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
+			                    		
+					                </select>
+					        	</div>
+		            		</div>
 		            	</div>
 						
 						<div class="col-xs-12 row" style="padding:0px;margin-top: -10px;" id="conDivInfo2">
-		            		<div class="col-xs-4 padding-forms-left">
+		            		<div class="col-xs-3 padding-forms-left">
 		            			<div class="form-group">
 									<label for="cusNm2" data-i18ncd="lb_customer_name">Customer Name</label>
 									<div class="input-group">
@@ -64,7 +72,7 @@
 								</div>
 		            		</div>
 		
-		            		<div class="col-xs-4 padding-forms-right">
+		            		<div class="col-xs-3 padding-forms-right">
 		            			<div class="form-group">
 									<label for="txtCusPhone" data-i18ncd="lb_customer_phone">Customer Phone</label>
 									<div class="input-group" style="width:100%;">
@@ -72,19 +80,7 @@
 									</div>
 								</div>
 		            		</div>
-		
-		            		<div class="col-xs-4 padding-forms-right">
-		                        <div class="form-group">
-		            				<label  for="cboSeller" >អ្នកលក់(បុគ្គលិក)</label>
-		                			<select class="form-control" id="cboSeller" name="cboSeller" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
-			                    		
-					                </select>
-					        	</div>
-		            		</div>
-		            	</div>
-		            	<!-- 3 row -->
-		                <div class="col-xs-12 row" style="padding:0px;margin-top: -10px;">
-		                    <div class="col-xs-4 padding-forms-left">
+							<div class="col-xs-3 padding-forms-right">
 		                    	<div class="form-group">
 			                        <label  for="cboConType" >ប្រភេទកិច្ចសន្យា</label>
 			                		<select class="form-control" id="cboConType" name="cboConType" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសប្រភេទកិច្ចសន្យា ')" oninput="setCustomValidity('')">
@@ -92,7 +88,8 @@
 				                	</select>
 			                	</div>
 		                    </div>
-		                    <div class="col-xs-8 padding-forms-right">
+		                    
+		                    <div class="col-xs-3 padding-forms-right">
 		            			
 				                <div class="form-group">
 		                            <label  for="txtDesc" data-i18nCd="lb_des">Description</label>
@@ -100,16 +97,9 @@
 		                        </div>
 					    	
 		            		</div>
-		            		<!--
-		            		<div class="col-xs-3 padding-forms-right text-right">
-		            			<div class="form-group">
-		            				<label  for="btnSelectPro" ></label>
-				                	<button  type="button" style="margin-top: 26px;" class="btn btn-info btn-sm" id="btnSelectPro"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
-					    		</div>
-		            		</div>
-		                    -->
-		                </div>
-		                
+		            		
+		            	</div>
+		            	
 		                <div class="col-xs-12 row" style="padding:0px;">
 		                	<div style="text-align: right;    margin-right: 5px;">
 		                		<button  type="button" class="btn btn-info btn-sm" id="btnSelectPro"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
@@ -165,15 +155,23 @@
 		                    </div>
 		                    <div class="col-xs-3 padding-forms-right">
 		                        <div class="form-group">
-		        		      		<label  for="txtPayTime" > ចំនួនលើកទូទាត់​ជាមុន</label><span> </span>
-		        		        	<input type="text" class="form-control text-right" id="txtPayTime" required="required"  placeholder="Enter loan amount" name="txtPayTime" autocomplete="off" />
+		        		      		<label  for="txtPayCashDesc" > ប្រាក់ទូទាត់​ជាមុនជាអក្សរ</label><span> </span>
+		        		        	<input type="text" class="form-control text-right" id="txtPayCashDesc" required="required"  placeholder="Enter loan amount" name="txtPayCashDesc" autocomplete="on" />
 		        		    	</div>
 		                    </div>
+		                    
 		                </div>
 		                
 		                <div class="col-xs-12 row" style="padding:0px;margin-top: -10px;" >
 		                	<div class="col-xs-3 padding-forms-left">
 		                		<div class="form-group">
+		        		      		<label  for="txtPayTime" > ចំនួនលើកទូទាត់​ជាមុន</label><span> </span>
+		        		        	<input type="text" class="form-control text-right" id="txtPayTime" required="required"  placeholder="Enter loan amount" name="txtPayTime" autocomplete="off" />
+		        		    	</div>
+		                		
+		                	</div>
+		                	<div class="col-xs-3 padding-forms-right">
+		                        <div class="form-group">
 			                    	<label for="txtStartInstDate" >ថ្ងៃបង់បន្ទាប់</label>
 									<div class="input-group date">
 										<div class="input-group-addon" id="txtStartInstDateIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
@@ -182,21 +180,21 @@
 										<input type="text" class="form-control pull-right date-pick" id="txtStartInstDate" name="txtStartInstDate" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
 									</div>
 								</div>
-		                	</div>
-		                	<div class="col-xs-3 padding-forms-right">
+		                    </div>
+		                	<div class="col-xs-2 padding-forms-right">
 		                		<div class="form-group">
 		        		      		<label  for="txtDisPer" > បញ្ចុះតំលៃ % </label><span> </span>
 		        		        	<input type="text" maxlength="2" class="form-control text-right" id="txtDisPer" placeholder="Enter loan amount" name="txtDisPer" autocomplete="off" />
 		        		    	</div>
 		                	</div>
-		                	<div class="col-xs-3 padding-forms-right">
+		                	<div class="col-xs-2 padding-forms-right">
 		                		<div class="form-group">
 		        		      		<label  for="txtDisCash">បញ្ចុះតំលៃ $ </label><span> </span>
 		        		        	<input type="text" class="form-control text-right" id="txtDisCash" placeholder="Enter loan amount" name="txtDisCash" autocomplete="off" />
 		        		    	</div>
 		                    </div>
 		                	
-		                	<div class="col-xs-3 padding-forms-right text-right" style="padding-right: 5px;">
+		                	<div class="col-xs-2 padding-forms-right text-right" style="    padding-left: 0px;padding-top: 3px;">
     	                        <button style="margin-top: 25px;" type="button" class="btn btn-warning btn-sm" id="btnCalInst"><i class="fa fa-plus"></i> គណនាតារាងបង់ប្រាក់</button>
     	                    	
 		                	</div>
@@ -433,7 +431,7 @@
 		        	</div>
 		        	<div class="modal-footer" >
 			            <input type="hidden" value="" id="statusID" name="statusID" />
-			            <button type="button" class="btn btn-info btn-sm" id="btnPrint" style="display: none;"><i class="fa fa-print" aria-hidden="true"></i> បោះពុម្ពតារាងបង់ប្រាក់​</button> 
+			            <button type="button" class="btn btn-info btn-sm" id="btnPrint" style="display: none;"><i class="fa fa-print" aria-hidden="true"></i> បោះពុម្ពតារាងបង់ប្រាក់​ + កិច្ចសន្យា</button> 
 			            <!--<button type="submit" class="btn btn-primary btn-sm" id="btnAddPayment" style="display: none;"><i class="fa fa-plus"></i> បង់ប្រាក់បន្ថែម</button>-->
 			            <button data-i18ncd="btn_save_new" type="submit" class="btn btn-success btn-sm" id="btnSaveNew" style="display:none">Save + New</button>
 			            <button data-i18ncd="btn_save" type="submit" class="btn btn-primary btn-sm" id="btnSave">Save</button>

@@ -109,7 +109,7 @@
 		<div style="text-align: center;margin-top: -10px"><h4>និង</h4></div>
 		<div style="margin-top: -10px">
 			<p style="font-size: 15px;">
-				ឈ្មោះ  <?php echo $OUT_REC[0]->cus_nm_kh;?> ភេទ  <?php echo $OUT_REC[0]->cus_gender;?> កាន់អត្តសញ្ញាណប័ណ្ណលេខ <?php echo $OUT_REC[0]->cus_idnt_num;?>  ចុះថ្ងៃទី…… ខែ….. ឆ្នាំ …………  អាស័យដ្ឋាន ………. សង្កាត់….. ………………………….  ជាអ្នកទិញ ហៅកាត់ថា ភាគី “ខ” លេខទូរស័ព្ទទំនាក់ទំនង 0………………………………….។
+				ឈ្មោះ  <?php echo $OUT_REC[0]->cus_nm_kh;?> ភេទ  <?php echo $OUT_REC[0]->cus_gender;?> កាន់អត្តសញ្ញាណប័ណ្ណលេខ <?php echo $OUT_REC[0]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[0]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[0]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[0]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[0]->cus_addr;?> ជាអ្នកទិញ ហៅកាត់ថា <b>ភាគី “ខ”</b> លេខទូរស័ព្ទទំនាក់ទំនង <?php echo $OUT_REC[0]->cus_phone1;?>។
 			</p>
 		</div>
 		<div style="text-align: center;margin-top: -10px"><h4>បុព្វកថា</h4></div>
@@ -124,7 +124,7 @@
 		
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
-				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះប្រភេទ វីឡាកូនទោល ដែលមានដីទំហំ ..m និងផ្ទះទំហំសរុប ..m2 ដែលមានទទឹង..m បណ្ដោយ...m ផ្ទះលេខ…………ប្លុកV-…… ប្រភេទផ្ទះ... ស្ថិតនៅក្នុងទីតាំងរបស់<b>ភាគី”ក”</b> នៅជិតផ្លូវ ២១៧ ភូមិដូង សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនខាងលើ (ភាគី “ក” រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមករណីជាក់ស្ដែង)
+				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះប្រភេទ <?php echo $OUT_REC[0]->cat_nm_kh;?>  ដែលមានដីទំហំ <?php echo $OUT_REC[0]->pro_land_width;?>m x <?php echo $OUT_REC[0]->pro_land_height;?>m និងផ្ទះទំហំសរុប <?php echo number_format(floatval($OUT_REC[0]->pro_length)*floatval($OUT_REC[0]->pro_width),2,'.','');?>m<sup>2</sup> ដែលមានទទឹង <?php echo floatval($OUT_REC[0]->pro_length);?>m បណ្ដោយ <?php echo floatval($OUT_REC[0]->pro_width);?>m ផ្ទះលេខ………… ប្លុក <?php echo $OUT_REC[0]->pro_code;?> ស្ថិតនៅក្នុងទីតាំងរបស់<b>ភាគី”ក”</b> នៅជិតផ្លូវ ២១៧ ភូមិដូង សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនខាងលើ (ភាគី “ក” រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមករណីជាក់ស្ដែង)
 			</p>
 		</div>
 		
@@ -132,7 +132,7 @@
 		
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
-				<b>ភាគី”ក”</b> យល់ព្រមលក់ដី និងផ្ទះប្រភេទវីឡាទោល ខាងលើជូន <b>ភាគី”ខ”</b> ក្នុងតំលៃព្រមព្រៀងចំនួន USD ……………. (......................................................................)។
+				<b>ភាគី”ក”</b> យល់ព្រមលក់ដី និងផ្ទះប្រភេទ<?php echo $OUT_REC[0]->cat_nm_kh;?> ខាងលើជូន <b>ភាគី”ខ”</b> ក្នុងតំលៃព្រមព្រៀងចំនួន USD <?php echo number_format( floatval($OUT_REC[0]->pro_sell_price) );?> <br>(<?php echo $OUT_REC[0]->pro_sell_price_desc;?>)។
 			</p>
 		</div>
 		

@@ -600,7 +600,7 @@ function getDataEdit(cont_id){
 		success: function(res) {
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				$("#btnContractSrch").remove();
-				$("#txtContract").css("width","260px");
+				//$("#txtContract").css("width","260px");
 				$("#txtContract").css("border-radius","5px");
 				$("#btnPrint").show();
 				$("#btnCalInst").remove();
@@ -618,8 +618,8 @@ function getDataEdit(cont_id){
 			    if($("#txtBookingAmt").val() != ""){
 			    	$("#txtContract").val(res.OUT_REC[0]["pro_code"]);
 			    }else{
-			    	$("#conDivInfo").hide();
-			    	$("#conDivInfo2").css("margin-top","0px");
+			    	$("#txtContract").val(" ");
+			    	//$("#conDivInfo2").css("margin-top","0px");
 			    }
 			    
 		    	$("#cboConType").val(res.OUT_REC[0]["sell_con_type_id"]);
@@ -734,13 +734,11 @@ function getStaff(){
 			if(res.OUT_REC.length > 0){
 				$("#cboSeller option").remove();
 				$("#cboSeller").append("<option value=''>សូមជ្រើសរើសបុគ្គលិក</option>");
-				$("#cboReceiver option").remove();
-				$("#cboReceiver").append("<option value=''>សូមជ្រើសរើសបុគ្គលិក</option>");
 				
 				for(var i=0; i<res.OUT_REC.length; i++){
 					var braNm = res.OUT_REC[i]["sta_nm_kh"];
 					$("#cboSeller").append("<option value='"+res.OUT_REC[i]["sta_id"]+"'>"+braNm+"</option>");
-					$("#cboReceiver").append("<option value='"+res.OUT_REC[i]["sta_id"]+"'>"+braNm+"</option>");
+					
 				}
 				
 			}else{
