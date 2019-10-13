@@ -93,7 +93,15 @@
             	</div>
             	<!-- 3 row -->
                 <div class="col-xs-12 row" style="padding:0px">
-                    <div class="col-xs-4 padding-forms-left">
+                	<div class="col-xs-4 padding-forms-left">
+                        <div class="form-group">
+	                        <label  for="cboConType" >ប្រភេទកិច្ចសន្យា</label>
+	                		<select class="form-control" id="cboConType" name="cboConType" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសប្រភេទកិច្ចសន្យា ')" oninput="setCustomValidity('')">
+	                    		
+		                	</select>
+	                	</div>
+                    </div>
+                    <div class="col-xs-4 padding-forms-right">
                     	<div class="form-group">
 	                        <label  for="cboPaymentMet" >វីធីបង់ប្រាក់</label>
 	                		<select class="form-control" id="cboPaymentMet" name="cboPaymentMet" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសវីធីបង់ប្រាក់ ')" oninput="setCustomValidity('')">
@@ -109,7 +117,11 @@
 				    	</div>
 			    	
             		</div>
-                    <div class="col-xs-4 padding-forms-right">
+                    
+            		
+                </div>
+                <div class="col-xs-12 row" style="padding:0px">
+                	<div class="col-xs-4 padding-forms-left">
             			
 		                <div class="form-group">
 				      		<label  for="txtAmtBooking" >ចំនូនលុយកក់</label>
@@ -117,23 +129,19 @@
 				    	</div>
 			    	
             		</div>
-            		
-                </div>
-                <div class="col-xs-12 row" style="padding:0px">
-                	<div class="col-xs-8 padding-forms-left">
+            		<div class="col-xs-4 padding-forms-right">
+                         <div class="form-group">
+				      		<label  for="txtAmtBookingDesc" >ចំនូនលុយកក់ជាអក្សរ​</label>
+				        	<input type="text" class="form-control" id="txtAmtBookingDesc" placeholder="Enter loan amount" name="txtAmtBookingDesc" required="required" />
+				    	</div>
+                    </div>
+                	<div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
                             <label  for="txtDesc" data-i18nCd="lb_des">Description</label>
                             <input type="text" class="form-control" id="txtDesc" placeholder="Enter Description" name="txtDesc" autocomplete="off" />
                         </div>
                     </div>
-                    <div class="col-xs-4 padding-forms-right">
-                        <div class="form-group">
-	                        <label  for="cboConType" >ប្រភេទកិច្ចសន្យា</label>
-	                		<select class="form-control" id="cboConType" name="cboConType" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសប្រភេទកិច្ចសន្យា ')" oninput="setCustomValidity('')">
-	                    		
-		                	</select>
-	                	</div>
-                    </div>
+                   
                 </div>
                 <div class="col-xs-12 row" style="padding:0px">
                 	<div style="text-align: right;    margin-right: 5px;">

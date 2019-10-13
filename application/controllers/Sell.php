@@ -152,6 +152,8 @@ class Sell extends CI_Controller{
         	$dataDetial['pro_id']  = $productArr[$j];
         	$dataDetial['pro_sell_price'] = floatval($proPriceArr[$j]);
         	$dataDetial['pro_sell_price_desc'] = $proPriceArrDesc[$j];
+        	$dataDetial['pro_sell_balance_price_desc'] = $this->input->post('txtTotalLeftInstDesc');
+        	$dataDetial['pro_sell_adv_price_desc'] = $this->input->post('txtPayCashDesc');
         	$dataDetial['useYn']  = 'Y';
             $dataDetial['com_id'] = $_SESSION['comId'];
             $dataDetial['regUsr'] = $_SESSION['usrId'];

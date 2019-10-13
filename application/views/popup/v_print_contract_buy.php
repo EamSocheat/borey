@@ -14,6 +14,87 @@
     				    $bookTrue = "បង្រ្គប់";
     				}
     					
+    				function returnAdvPerDesc($dataAdvPer) {
+    				    $dataAdvPer = floatval($dataAdvPer);
+    				    if($dataAdvPer == 100){
+    				        return 'មួយរយ';
+    				    }else{
+    				        $desc="";
+    				        if($dataAdvPer >= 10){
+    				            $dataAdvPerStr = $dataAdvPer."";
+    				            switch (intval(substr($dataAdvPerStr, 0,1))) {
+    				                case 9:
+    				                    $desc="កៅសិប";
+    				                    break;
+    				                case 8:
+    				                    $desc="ប៉ែតសិប";
+    				                    break;
+    				                case 7:
+    				                    $desc="ចិតសិប";
+    				                    break;
+    				                case 6:
+    				                    $desc="ហុកសិប";
+    				                    break;
+    				                case 5:
+    				                    $desc="ហាសិប";
+    				                    break;
+    				                case 4:
+    				                    $desc="សែសិប";
+    				                    break;
+    				                case 3:
+    				                    $desc="សាមសិប";
+    				                    break;
+    				                case 2:
+    				                    $desc="ម្ភៃ";
+    				                    break;
+    				                case 1:
+    				                    $desc="ដប់";
+    				                    break;
+    				            }
+    				            if(substr($dataAdvPerStr, 1,1) =="9"){
+    				                $desc.="ប្រាំបូន";
+    				            }else if(substr($dataAdvPerStr, 1,1) =="8"){
+    				                $desc.="ប្រាំបី";
+    				            }else if(substr($dataAdvPerStr, 1,1) =="7"){
+    				                $desc.="ប្រាំពីរ";
+    				            }else if(substr($dataAdvPerStr, 1,1) =="6"){
+    				                $desc.="ប្រាំមួយ";
+    				            }else if(substr($dataAdvPerStr, 1,1) =="5"){
+    				                $desc.="ប្រាំ";
+    				            }else if(substr($dataAdvPerStr, 1,1) =="4"){
+    				                $desc.="បួន";
+    				            }else if(substr($dataAdvPerStr, 1,1) =="3"){
+    				                $desc.="បី";
+    				            }else if(substr($dataAdvPerStr, 1,1) =="2"){
+    				                $desc.="ពីរ";
+    				            }else if(substr($dataAdvPerStr, 1,1) =="1"){
+    				                $desc.="មួយ";
+    				            }
+    				            return $desc;
+    				        }else{
+    				            if(substr($dataAdvPerStr, 0,1) =="9"){
+    				                $desc.="ប្រាំបូន";
+    				            }else if(substr($dataAdvPerStr, 0,1) =="8"){
+    				                $desc.="ប្រាំបី";
+    				            }else if(substr($dataAdvPerStr, 0,1) =="7"){
+    				                $desc.="ប្រាំពីរ";
+    				            }else if(substr($dataAdvPerStr, 0,1) =="6"){
+    				                $desc.="ប្រាំមួយ";
+    				            }else if(substr($dataAdvPerStr, 0,1) =="5"){
+    				                $desc.="ប្រាំ";
+    				            }else if(substr($dataAdvPerStr, 0,1) =="4"){
+    				                $desc.="បួន";
+    				            }else if(substr($dataAdvPerStr, 0,1) =="3"){
+    				                $desc.="បី";
+    				            }else if(substr($dataAdvPerStr, 0,1) =="2"){
+    				                $desc.="ពីរ";
+    				            }else if(substr($dataAdvPerStr, 0,1) =="1"){
+    				                $desc.="មួយ";
+    				            }
+    				            return $desc;
+    				        }
+    				    }
+    				}
 				}?>
 <html>
 	<head>
@@ -22,8 +103,9 @@
            body {
               -webkit-print-color-adjust: exact;
            }
+           #Header{ display: none !important; }
         }
-        		
+      	
 		body{font-family: Khmer OS Siemreap;
 			padding-top: 10px;
 		}
@@ -109,7 +191,7 @@
 		<div style="text-align: center;margin-top: -10px"><h4>និង</h4></div>
 		<div style="margin-top: -10px">
 			<p style="font-size: 15px;">
-				ឈ្មោះ  <?php echo $OUT_REC[0]->cus_nm_kh;?> ភេទ  <?php echo $OUT_REC[0]->cus_gender;?> កាន់អត្តសញ្ញាណប័ណ្ណលេខ <?php echo $OUT_REC[0]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[0]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[0]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[0]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[0]->cus_addr;?> ជាអ្នកទិញ ហៅកាត់ថា <b>ភាគី “ខ”</b> លេខទូរស័ព្ទទំនាក់ទំនង <?php echo $OUT_REC[0]->cus_phone1;?>។
+				ឈ្មោះ  <?php echo $OUT_REC[0]->cus_nm_kh;?> ភេទ  <?php 	if($OUT_REC[0]->cus_gender=="Male"){echo "ប្រុស";}else if($OUT_REC[0]->cus_gender=="Female"){echo "ស្រី";}?> កាន់អត្តសញ្ញាណប័ណ្ណលេខ <?php echo $OUT_REC[0]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[0]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[0]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[0]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[0]->cus_addr;?> ជាអ្នកទិញ ហៅកាត់ថា <b>ភាគី “ខ”</b> លេខទូរស័ព្ទទំនាក់ទំនង <?php echo $OUT_REC[0]->cus_phone1;?>។
 			</p>
 		</div>
 		<div style="text-align: center;margin-top: -10px"><h4>បុព្វកថា</h4></div>
@@ -124,7 +206,7 @@
 		
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
-				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះប្រភេទ <?php echo $OUT_REC[0]->cat_nm_kh;?>  ដែលមានដីទំហំ <?php echo $OUT_REC[0]->pro_land_width;?>m x <?php echo $OUT_REC[0]->pro_land_height;?>m និងផ្ទះទំហំសរុប <?php echo number_format(floatval($OUT_REC[0]->pro_length)*floatval($OUT_REC[0]->pro_width),2,'.','');?>m<sup>2</sup> ដែលមានទទឹង <?php echo floatval($OUT_REC[0]->pro_length);?>m បណ្ដោយ <?php echo floatval($OUT_REC[0]->pro_width);?>m ផ្ទះលេខ………… ប្លុក <?php echo $OUT_REC[0]->pro_code;?> ស្ថិតនៅក្នុងទីតាំងរបស់<b>ភាគី”ក”</b> នៅជិតផ្លូវ ២១៧ ភូមិដូង សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនខាងលើ (ភាគី “ក” រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមករណីជាក់ស្ដែង)
+				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះប្រភេទ <?php echo $OUT_REC[0]->cat_nm_kh;?>  ដែលមានដីទំហំ <?php echo $OUT_REC[0]->pro_land_width;?>m x <?php echo $OUT_REC[0]->pro_land_height;?>m និងផ្ទះទំហំសរុប <?php echo number_format(floatval($OUT_REC[0]->pro_length)*floatval($OUT_REC[0]->pro_width),2,'.','');?>m<sup>2</sup> ដែលមានទទឹង <?php echo floatval($OUT_REC[0]->pro_length);?>m បណ្ដោយ <?php echo floatval($OUT_REC[0]->pro_width);?>m ផ្ទះលេខ <?php echo $OUT_REC[0]->pro_code;?> ប្រភេទ <?php echo $OUT_REC[0]->cat_nm_kh;?>  ស្ថិតនៅក្នុងទីតាំងរបស់<b>ភាគី”ក”</b> នៅជិតផ្លូវ ២១៧ ភូមិដូង សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនខាងលើ<br> (ភាគី “ក” រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមករណីជាក់ស្ដែង)
 			</p>
 		</div>
 		
@@ -132,7 +214,7 @@
 		
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
-				<b>ភាគី”ក”</b> យល់ព្រមលក់ដី និងផ្ទះប្រភេទ<?php echo $OUT_REC[0]->cat_nm_kh;?> ខាងលើជូន <b>ភាគី”ខ”</b> ក្នុងតំលៃព្រមព្រៀងចំនួន USD <?php echo number_format( floatval($OUT_REC[0]->pro_sell_price) );?> <br>(<?php echo $OUT_REC[0]->pro_sell_price_desc;?>)។
+				<b>ភាគី”ក”</b> យល់ព្រមលក់ដី និងផ្ទះប្រភេទ<?php echo $OUT_REC[0]->cat_nm_kh;?> ខាងលើជូន <b>ភាគី”ខ”</b> ក្នុងតំលៃព្រមព្រៀងចំនួន <b style="font-weight: bold;">USD<?php echo number_format( floatval($OUT_REC[0]->pro_sell_price) );?></b> <br>(<?php echo $OUT_REC[0]->pro_sell_price_desc;?>ដុល្លារអាមេរិកគត់)។
 			</p>
 		</div>
 		
@@ -142,15 +224,32 @@
 			<p style="font-size: 15px;">
 				<b>ភាគី”ខ”</b> ត្រូវទូទាត់ប្រាក់ថ្លៃទិញ-លក់ជូន<b>ភាគី”ក”</b> តាមចំនួន និងកាលបរិច្ឆេទនៃកិច្ចសន្យា។ ភាគីទាំងពីរបានឯកភាពគ្នាតាមលក្ខខណ្ខដូចខាងក្រោម និង ឧបសម្ព័ន្ធ នៃកិច្ចសន្យា៖
 			</p>
+			<?php if($OUT_REC[0]->con_total_price != "" || $OUT_REC[0]->con_total_price != null){?>
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;text-decoration: underline;">ដំណាក់កាលទី ១៖</span>	<b>ភាគី”ខ”</b> យល់ព្រមប្រគល់ប្រាក់ចំនួន USD2,000 (ពីរពាន់ដុល្លារអាមេរិកគត់) ឲ្យ	ទៅ 	<b>ភាគី”ក”</b> នៅថ្ងៃចុះកិច្ចសន្យានេះ សំរាប់ជាការកក់ប្រាក់ទ្រនាប់ដៃ។
+				<span style="margin-right: 10px;font-weight: bold;text-decoration: underline;">ដំណាក់កាលទី ១៖</span>	<b>ភាគី”ខ”</b> យល់ព្រមប្រគល់ប្រាក់ចំនួន <b style="font-weight: bold;"> USD<?php echo number_format( floatval($OUT_REC[0]->con_total_price));?></b> (<?php echo $OUT_REC[0]->con_total_price_desc;?>ដុល្លារអាមេរិកគត់) ឲ្យ	ទៅ 	<b>ភាគី”ក”</b> នៅថ្ងៃចុះកិច្ចសន្យានេះ សំរាប់ជាការកក់ប្រាក់ទ្រនាប់ដៃ។
+			</p>
+			<br><br>
+			<span style="position: relative;top: 0px;left: 660px;font-size: 12px;">1/4</span>
+			<br>
+			
+			<p style="font-size: 15px;">
+				<span style="margin-right: 10px;font-weight: bold;text-decoration: underline;">ដំណាក់កាលទី២៖</span> 	<b>ភាគី”ខ”</b> យល់ព្រមបង់ប្រាក់កក់បន្ថែម បង្ត្រប់ <?php echo $ADV_TOTAL[0]->total_adv?>% (<?php echo returnAdvPerDesc($ADV_TOTAL[0]->total_adv);?>ភាគរយ) ស្មើនឹងចំនួន <b style="font-weight: bold;">USD<?php echo number_format( floatval($ADV_TOTAL[0]->total_adv_amt)+floatval($OUT_REC[0]->con_total_price));?></b>(<?php echo $OUT_REC[0]->pro_sell_adv_price_desc;?>ដុល្លារអាមេរិកគត់) (អាចបង់ម្តង១០% (ដប់ភាគរយ) នៅរៀងរាល់ដើមខែ)។ 
 			</p>
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;text-decoration: underline;">ដំណាក់កាលទី២៖</span> 	<b>ភាគី”ខ”</b> យល់ព្រមបង់ប្រាក់កក់បន្ថែម បង្ត្រប់៣០% (សាមសិបភាគរយ) ស្មើនឹងចំនួន USD …………………….. (...........................................) (អាចបង់ម្តង១០% (ដប់ភាគរយ) នៅរៀងរាល់ដើមខែ)។ 
+				<span style="margin-right: 10px;font-weight: bold;text-decoration: underline;">ដំណាក់កាលទី៣៖</span> 	ទឹកប្រាក់នៅសល់ចំនួន <?php echo 100 - floatval($ADV_TOTAL[0]->total_adv);?>% (<?php echo returnAdvPerDesc((100 - floatval($ADV_TOTAL[0]->total_adv)));?>ភាគរយ) ស្មើនឹងចំនួនចំនួន <b style="font-weight: bold;">USD<?php echo number_format( floatval($OUT_REC[0]->pro_sell_price) - (floatval($ADV_TOTAL[0]->total_adv_amt)+floatval($OUT_REC[0]->con_total_price)));?></b> (<?php echo $OUT_REC[0]->pro_sell_balance_price_desc;?>ដុល្លារអាមេរិកគត់) <b>ភាគី”ខ”</b>យល់ព្រមបង់រំលោះតាមរយៈការយល់ព្រមតាមវិធីបង់ប្រាក់របស់<b>ភាគី”ក”</b> (យោងតាមឧបសម្ព័ន្ធ នៃកិច្ចសន្យា)ឬ បង់ជាមួយធានាគារខាងក្រៅ។ 
 			</p>
+			
+			<?php }else{?>
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;text-decoration: underline;">ដំណាក់កាលទី៣៖</span> 	ទឹកប្រាក់នៅសល់ចំនួន ៧០% (ចិតសិបភាគរយ) ស្មើនឹងចំនួនចំនួន USD ………….. (..................................................) <b>ភាគី”ខ”</b>យល់ព្រមបង់រំលោះតាមរយៈការយល់ព្រមតាមវិធីបង់ប្រាក់របស់<b>ភាគី”ក”</b> (យោងតាមឧបសម្ព័ន្ធ នៃកិច្ចសន្យា)ឬ បង់ជាមួយធានាគារខាងក្រៅ។ 
+				<span style="margin-right: 10px;font-weight: bold;text-decoration: underline;">ដំណាក់កាលទី១៖</span> 	<b>ភាគី”ខ”</b> យល់ព្រមបង់ប្រាក់ <?php echo $ADV_TOTAL[0]->total_adv?>% (<?php echo returnAdvPerDesc($ADV_TOTAL[0]->total_adv);?>ភាគរយ) ស្មើនឹងចំនួន <b style="font-weight: bold;">USD<?php echo number_format( floatval($ADV_TOTAL[0]->total_adv_amt));?></b>(<?php echo $OUT_REC[0]->pro_sell_adv_price_desc;?>ដុល្លារអាមេរិកគត់) (អាចបង់ម្តង១០% (ដប់ភាគរយ) នៅរៀងរាល់ដើមខែ)។ 
 			</p>
+			<br>
+			<span style="position: relative;top: 0px;left: 660px;font-size: 12px;">1/4</span>
+			<br>
+			<p style="font-size: 15px;">
+				<span style="margin-right: 10px;font-weight: bold;text-decoration: underline;">ដំណាក់កាលទី២៖</span> 	ទឹកប្រាក់នៅសល់ចំនួន <?php echo 100 - floatval($ADV_TOTAL[0]->total_adv);?>% (<?php echo returnAdvPerDesc((100 - floatval($ADV_TOTAL[0]->total_adv)));?>ភាគរយ) ស្មើនឹងចំនួនចំនួន <b style="font-weight: bold;">USD<?php echo number_format( floatval($OUT_REC[0]->pro_sell_price) - (floatval($ADV_TOTAL[0]->total_adv_amt)));?></b> (<?php echo $OUT_REC[0]->pro_sell_balance_price_desc;?>ដុល្លារអាមេរិកគត់) <b>ភាគី”ខ”</b>យល់ព្រមបង់រំលោះតាមរយៈការយល់ព្រមតាមវិធីបង់ប្រាក់របស់<b>ភាគី”ក”</b> (យោងតាមឧបសម្ព័ន្ធ នៃកិច្ចសន្យា)ឬ បង់ជាមួយធានាគារខាងក្រៅ។ 
+			</p>
+			<?php }?>
 		</div>
 		
 		<div style="text-align: left;margin-top: -10px"><h4><u>ប្រការ ៤៖</u>	<span style="margin-left: 30px"> សិទ្ធិ និង កាតព្វកិច្ចរបស់<b>ភាគី”ក”</b></span></h4></div>
@@ -163,7 +262,7 @@
 				<span style="margin-right: 10px;font-weight: bold;">៤.២</span>	<b>ភាគី”ក”</b> ត្រូវធានារយៈពេល ១ឆ្នាំ ចំពោះករណីជញ្ជាំង ប្រេះស្រាំ ប្រព័ន្ធលូ និង ប្រព័ន្ធទឹកស្ទះ ។
 			</p>
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;">៤.៣</span>	ករណី <b>ភាគី”ក”</b> មិនបានសាងសង់ផ្ទះវីឡាទោលជូន<b>ភាគី”ខ”</b> តាមកាលកំណត់ខាងលើទេនោះ <b>ភាគី”ក”</b> 	យល់ព្រមបង់ប្រាក់ពិន័យចំនួន USD300(បីរយដុល្លារ) ក្នុងមួយខែរហូតដល់ផ្ទះសាងសង់រួចរាល់។
+				<span style="margin-right: 10px;font-weight: bold;">៤.៣</span>	ករណី <b>ភាគី”ក”</b> មិនបានសាងសង់ផ្ទះវីឡាទោលជូន<b>ភាគី”ខ”</b> តាមកាលកំណត់ខាងលើទេនោះ <b>ភាគី”ក”</b> 	យល់ព្រមបង់ប្រាក់ពិន័យចំនួន<b style="font-weight: bold;"> USD300</b>(បីរយដុល្លារ) ក្នុងមួយខែរហូតដល់ផ្ទះសាងសង់រួចរាល់។
 			</p>
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៤.៤</span>	<b>ភាគី”ក”</b> អះអាងថា ផ្ទះវីឡាទោលដែលបានលក់ខាងលើ ជាកម្មសិទ្ធិស្របច្បាប់របស់ខ្លួនយ៉ាងពិតប្រាកដ 	ដោយពុំមានពាក់ព័ន្ធ និង ផលប្រយោជន៍រូបវន្ត ឬ នីតិបុគ្គលណាមួយឡើយ ។
@@ -179,14 +278,15 @@
 				<span style="margin-right: 10px;font-weight: bold;">៥.១</span>	<b>ភាគី”ខ”</b> ពុំមានសិទ្ធិកែប្រែប្លង់សាងសង់ ឬ សាងសង់បន្ថែមខុសពី ផ្ទះគំរូឡើយទោះបីជាក្រោយពេល	<b>ភាគី”ក”</b> ប្រគល់ផ្ទះវីឡាទោលជូន<b>ភាគី”ខ”</b> រួចហើយក៏ដោយ ។
 			</p>
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;">៥.២</span>	ក្នុងកំឡុងពេលអនុវត្តន៍កិច្ចសន្យានេះ <b>ភាគី”ខ”</b> អាចលក់ រឺផ្ទេរកិច្ចសន្យានេះអោយអតិថិជនណាមួយ 	“លុះត្រាតែផ្ទះបានសាងសង់រួចរាល់ជាស្ថាពរ” ដោយ<b>ភាគី”ខ”</b> ត្រូវបំពេញបែបបទលក់រឺ ផ្ទេរសិទ្ធិចំពោះមុខ  	<b>ភាគី”ក”</b> ជាមុខសិន។
+				<span style="margin-right: 10px;font-weight: bold;">៥.២</span>	ក្នុងកំឡុងពេលអនុវត្តន៍កិច្ចសន្យានេះ <b>ភាគី”ខ”</b> អាចលក់ រឺផ្ទេរកិច្ចសន្យានេះអោយអតិថិជនណាមួយ  ដោយ<b>ភាគី”ខ”</b> ត្រូវបំពេញបែបបទលក់រឺ ផ្ទេរសិទ្ធិចំពោះមុខ  	<b>ភាគី”ក”</b> ជាមុខសិន។
 			</p>
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;">៥.៣</span>	<b>ភាគី”ខ”</b> ត្រូវទទួលខុសត្រូវបន្ទុកបង់សោហ៊ុយក្នុងការលក់ ឬផ្ទេរកិច្ចសន្យាចំនួនUSD500(ប្រាំរយ	ដុល្លារ) ជូន <b>ភាគី”ក”</b> អតិថិជនដែលទទួលបានសិទ្ធិបន្តត្រូវអនុវត្តន៍តាមកិច្ចសន្យានេះទាំងស្រុង។
+				<span style="margin-right: 10px;font-weight: bold;">៥.៣</span>	<b>ភាគី”ខ”</b> ត្រូវទទួលខុសត្រូវបន្ទុកបង់សោហ៊ុយក្នុងការលក់ ឬផ្ទេរកិច្ចសន្យាចំនួន<b style="font-weight: bold;">USD500</b>(ប្រាំរយ	ដុល្លារ) ជូន <b>ភាគី”ក”</b> អតិថិជនដែលទទួលបានសិទ្ធិបន្តត្រូវអនុវត្តន៍តាមកិច្ចសន្យានេះទាំងស្រុង។
 			</p>
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៥.៤</span>	<b>ភាគី”ក”</b> អះអាងថា ផ្ទះវីឡាទោលដែលបានលក់ខាងលើ ជាកម្មសិទ្ធិស្របច្បាប់របស់ខ្លួនយ៉ាងពិតប្រាកដ 	ដោយពុំមានពាក់ព័ន្ធ និង ផលប្រយោជន៍រូបវន្ត ឬ នីតិបុគ្គលណាមួយឡើយ ។
 			</p>
+			
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៥.៥</span>	<b>ភាគី”ខ”</b> តូ្រវធ្វើការទូទាត់ប្រាក់តាមប្រព័ន្ធធនាគារ ឬ ឯកជន តាមមធ្យោបាយសមស្រប	ណាមួយ	ប្រសិនបើមានការស្នើសុំពី <b>ភាគី”ក”</b> អ្នកតំណាងរបស់<b>ភាគី”ខ”</b> ឬ អតិថិជនណាមួយដែលយក	ប្រាក់ទូទាត់	នៃកិច្ចសន្យានេះត្រូវសន្មត់ថាធ្វើការទូទាត់ដើម្បីប្រយោជន៍ទាំងស្រុងរបស់<b>ភាគី”ខ”</b> ។
 			</p>
@@ -194,7 +294,9 @@
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៥.៦</span>	<b>ភាគី”ខ”</b> ត្រូវទូទាត់ប្រាក់បង់រំលោះអោយទាន់ពេលវេលា និងកាលកំណត់។
 			</p>
-			
+			<br>
+			<span style="position: relative;top: 0px;left: 660px;font-size: 12px;">2/4</span>
+			<br>
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៥.៧</span>	ក្នុងករណីដែល <b>ភាគី”ខ”</b> ខកខាន ឫ យឺតយ៉ាវក្នុងការទូទាត់ជូន <b>ភាគី”ក”</b> នោះ<b>ភាគី”ខ”</b> ត្រូវបង់ប្រាក់ពិន័យដូចខាងក្រោម៖
 				<ul>
@@ -241,6 +343,11 @@
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៦.៦</span>	កិច្ចសន្យាលក់ទិញ ផ្ទះ នេះមានប្រសិទ្ធិភាពចាប់ពីថ្ងៃផ្ដិតមេដៃនេះតទៅ។
 			</p>
+			<br>
+			<br>
+			<br>
+			<span style="position: relative;top: 0px;left: 660px;font-size: 12px;">3/4</span>
+			<br>
 		</div>
 		<div style="margin-top: 100px;">
 			<table class="tbl-head">
@@ -291,12 +398,11 @@
 		<div style="margin-top: 30px;text-align: center;">
 			<h4>បានឃើញ</h4>
 			<p style="font-size: 15px;">
-				គូភាគីព្រមព្រៀងផ្តិតស្នាមមេដៃ
-			</p>
-			<p style="font-size: 15px;">
 				រាជធានីភ្នំពេញថ្ងៃទី…………ខែ…………ឆ្នាំ………… 
 			</p>
 			<h4>ហត្ថលេខា និង ត្រា</h4>
+			
 		</div>
+		<span style="position: relative;top: 550px;left: 700px;font-size: 12px;">4/4</span>
 	</body>
 </html>

@@ -120,7 +120,8 @@ class Contract extends CI_Controller{
           	'con_pay_met'        => $this->input->post('cboPaymentMet'),
         	'con_tran_id'        => $this->input->post('txtTran'),
             'con_sta'        => 'B',
-        	'con_type_id'        => $this->input->post('cboConType')
+        	'con_type_id'        => $this->input->post('cboConType'),
+            'con_total_price_desc'        => $this->input->post('txtAmtBookingDesc')
         );
         
         $con_id_save=0;

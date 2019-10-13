@@ -29,6 +29,8 @@ var _thisPage = {
 			stock.comm.inputCurrency("txtPayPenalty");
 			stock.comm.inputCurrency("txtInterstRate");
 			stock.comm.inputNumber("txtPeriod");
+			stock.comm.inputNumber("txtPayTime");
+			
 			getContractType();
 			//stock.comm.inputCurrency("lAmt");
 			
@@ -305,7 +307,7 @@ var _thisPage = {
 			});
 			
 			//
-			$("#cboInstYn").change(function(e){
+			/*$("#cboInstYn").change(function(e){
 				
 				//calculatePaySchedule();
 				if ($(this).prop("checked")) {
@@ -315,7 +317,7 @@ var _thisPage = {
 			    	parent.$("#msgErr").hide();
 			    }
 			});
-			
+			*/
 			//
 			$("#txtPayPer").keyup(function(e){
 				parent.$("#msgErr").hide();
@@ -393,7 +395,7 @@ function getContractInfo(cont_code){
 			        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 			        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
 			        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
-			        html += "<td class='pro_price_desc cur-pointer'>"+rec["pro_book_price_desc"]+"</td>";
+			        html += "<td class='pro_price_desc cur-pointer'><input class='text-right'style='border: none;background-color: #ffffff;' value='"+rec["pro_book_price_desc"]+"'></td>";
 			        html += "<td class='pro_price cur-pointer text-right'> <input class='text-right' id='pro_price' style='border: none;background-color: #ffffff;' value='"+stock.comm.formatCurrency(rec["pro_book_price"])+"'></td>";
 			        html += "</tr>";
 			        
@@ -409,7 +411,7 @@ function getContractInfo(cont_code){
 				$("#txtTotalLeft").val(stock.comm.formatCurrency(amtLeft));
 				
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
-			    $("#cboConType,#txtDesc,#txtDisCash,#txtDisPer,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#txtContID,#cboPaymentMet,#txtTran,#txtPayTime,#cboInstYn,#txtInterstRate,#txtPeriod,#txtStartInstDate").prop("disabled",false);
+			    $("#txtPayCashDesc,#txtTotalLeftInstDesc,#cboConType,#txtDesc,#txtDisCash,#txtDisPer,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#txtContID,#cboPaymentMet,#txtTran,#txtPayTime,#cboInstYn,#txtInterstRate,#txtPeriod,#txtStartInstDate").prop("disabled",false);
 			    
 			    
 			    if(res.OUT_REC[0]["con_type_inst_com_yn"] =="Y"){
@@ -424,6 +426,7 @@ function getContractInfo(cont_code){
 			    
 			    //calDiscount("P");
 			    calPay("P");
+			    $("#txtPayPer").focus();
 			}else{
 			   parent.stock.comm.alertMsg("មិនមានការកក់ប្រាក់នេះ  ឫបានលក់ហើយ!!!");
 			}
@@ -626,6 +629,9 @@ function getDataEdit(cont_id){
 		    	
 		    	$("#txtContSD").val(res.OUT_REC[0]["sell_date"] == null ? "" : moment(res.OUT_REC[0]["sell_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
 			    $("#btnSelectPro").hide();
+			    $("#txtPayCashDesc").val(res.OUT_REC[0]["pro_sell_adv_price_desc"]);
+			    $("#txtTotalLeftInstDesc").val(res.OUT_REC[0]["pro_sell_balance_price_desc"]);
+			    
 			    /*
 			    $("#txtRealPayAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["sell_total_price"]));
 			    $("#txtDisPer").val(res.OUT_REC[0]["sell_dis_per"]);
@@ -652,7 +658,7 @@ function getDataEdit(cont_id){
 		        	$("#cboInstYn").prop("checked",true);
 		        }
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
-			    $("#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#cboPaymentMet,#txtTran,#txtDisPer,#txtDisCash,#txtPayPenalty,#txtInterstRate,#txtPeriod,#txtStartInstDate,#txtPayTime").prop("disabled",false);
+			    $("#txtPayCashDesc,#txtTotalLeftInstDesc,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#cboPaymentMet,#txtTran,#txtDisPer,#txtDisCash,#txtPayPenalty,#txtInterstRate,#txtPeriod,#txtStartInstDate,#txtPayTime").prop("disabled",false);
 			}else{
 			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -1333,6 +1339,13 @@ function calculateInstallment(newDate,noTbl){
 		parent.$("#msgErr").html("សូមបញ្ចូល រយៈពេលរំលស់!!!");
 		parent.$("#msgErr").show();
 		$("#txtPeriod").focus();
+		return;
+	}
+	
+	if($("#txtTotalLeftInstDesc").val()==""){
+		parent.$("#msgErr").html("សូមបញ្ចូល ប្រាក់ដើមនៅសល់ជាអក្សរ!!!");
+		parent.$("#msgErr").show();
+		$("#txtTotalLeftInstDesc").focus();
 		return;
 	}
 	

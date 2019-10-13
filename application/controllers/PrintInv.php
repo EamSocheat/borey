@@ -106,6 +106,7 @@ class PrintInv extends CI_Controller {
 	    );
 	    
 	    $dataPrint["OUT_REC"] = $this->M_sell->selectSellDataDetail($dataSrch);
+	    $dataPrint["ADV_TOTAL"] = $this->M_sell->selectSumAdvPayPer($dataSrch);
 	    return $this->load->view('popup/v_print_contract_buy',$dataPrint);
 	}
 }   

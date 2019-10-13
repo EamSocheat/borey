@@ -130,18 +130,7 @@
 		                
 		                 <div class="col-xs-12 row" style="padding:0px;">
 		                	
-				    		<div class="col-xs-3 padding-forms-left">
-		                		<div class="form-group">
-		            				<label for="txtContSD" >ថ្ងៃលក់</label>
-									<div class="input-group date">
-										<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
-											<i class="fa fa-calendar"></i>
-										</div>
-										<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
-									</div>
-		            			</div>
-		                	</div>
-		                	<div class="col-xs-3 padding-forms-right">
+		                	<div class="col-xs-3 padding-forms-left">
 		                		<div class="form-group">
 		        		      		<label  for="txtPayPer" > ប្រាក់ទូទាត់​ជាមុន  % </label><span> </span>
 		        		        	<input type="text" maxlength="5" class="form-control text-right" id="txtPayPer" required="required"  placeholder="Enter loan amount" name="txtPayPer" autocomplete="off" />
@@ -159,16 +148,27 @@
 		        		        	<input type="text" class="form-control text-right" id="txtPayCashDesc" required="required"  placeholder="Enter loan amount" name="txtPayCashDesc" autocomplete="on" />
 		        		    	</div>
 		                    </div>
-		                    
-		                </div>
-		                
-		                <div class="col-xs-12 row" style="padding:0px;margin-top: -10px;" >
-		                	<div class="col-xs-3 padding-forms-left">
-		                		<div class="form-group">
+		                     <div class="col-xs-3 padding-forms-right">
+		                        <div class="form-group">
 		        		      		<label  for="txtPayTime" > ចំនួនលើកទូទាត់​ជាមុន</label><span> </span>
 		        		        	<input type="text" class="form-control text-right" id="txtPayTime" required="required"  placeholder="Enter loan amount" name="txtPayTime" autocomplete="off" />
 		        		    	</div>
+		                    </div>
+		                    
+		                </div>
+		                
+		                <div class="col-xs-12 row" style="padding:0px;" >
+		                	<div class="col-xs-3 padding-forms-left">
 		                		
+		                		<div class="form-group">
+		            				<label for="txtContSD" >ថ្ងៃលក់</label>
+									<div class="input-group date">
+										<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+											<i class="fa fa-calendar"></i>
+										</div>
+										<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
+									</div>
+		            			</div>
 		                	</div>
 		                	<div class="col-xs-3 padding-forms-right">
 		                        <div class="form-group">
@@ -181,58 +181,64 @@
 									</div>
 								</div>
 		                    </div>
-		                	<div class="col-xs-2 padding-forms-right">
+		                	<div class="col-xs-3 padding-forms-right">
 		                		<div class="form-group">
 		        		      		<label  for="txtDisPer" > បញ្ចុះតំលៃ % </label><span> </span>
 		        		        	<input type="text" maxlength="2" class="form-control text-right" id="txtDisPer" placeholder="Enter loan amount" name="txtDisPer" autocomplete="off" />
 		        		    	</div>
 		                	</div>
-		                	<div class="col-xs-2 padding-forms-right">
+		                	<div class="col-xs-3 padding-forms-right">
 		                		<div class="form-group">
 		        		      		<label  for="txtDisCash">បញ្ចុះតំលៃ $ </label><span> </span>
 		        		        	<input type="text" class="form-control text-right" id="txtDisCash" placeholder="Enter loan amount" name="txtDisCash" autocomplete="off" />
 		        		    	</div>
 		                    </div>
 		                	
-		                	<div class="col-xs-2 padding-forms-right text-right" style="    padding-left: 0px;padding-top: 3px;">
-    	                        <button style="margin-top: 25px;" type="button" class="btn btn-warning btn-sm" id="btnCalInst"><i class="fa fa-plus"></i> គណនាតារាងបង់ប្រាក់</button>
-    	                    	
-		                	</div>
+		                	
 		                	
 		                </div>
-		                
-		                <div class="col-xs-12 row" style="padding:0px;margin-top: -10px;">
+		                <div class="col-xs-12 row " style="padding:0px;">
+		                	<!--  -->
+				    		<div class="col-xs-3 padding-forms-left">
+		                        <div class="form-group" >
+		        		      		<label  for="txtTotalLeftInst" > ប្រាក់ដើមនៅសល់</label><span> </span>
+		        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtTotalLeftInst" placeholder="Enter loan amount" name="txtTotalLeftInst" autocomplete="off" />
+		        		    	</div>
+		                	</div>
+		                	<div class="col-xs-3 padding-forms-right">
+		                		<div class="form-group">
+		        		      		<label  for="txtTotalLeftInstDesc" > ប្រាក់ដើមនៅសល់ជាអក្សរ</label><span> </span>
+		        		        	<input type="text" class="form-control text-right" id="txtTotalLeftInstDesc"  placeholder="Enter loan amount" name="txtTotalLeftInstDesc" required="required" />
+		        		    	</div>
+		                    </div>
+		                	<div class="col-xs-3 padding-forms-right div_installment" style="display: none;" >
+		                		<div class="form-group">
+		        		      		<label  for="txtInterstRate" > អត្រាការប្រាក់ %(ក្នុងមួយឆ្នាំ) </label><span> </span>
+		        		        	<input type="text"  maxlength="5" class=" form-control text-right" id="txtInterstRate"  placeholder="Enter loan amount" name="txtInterstRate" autocomplete="off" />
+		        		    	</div>
+		                    </div>
+		                    <div class="col-xs-3 padding-forms-right div_installment" style="display: none;">
+		                        <div class="form-group">
+		        		      		<label  for="txtPeriod" > រយៈពេលរំលស់(ខែ)</label><span> </span>
+		        		        	<input type="text"   maxlength="3" class=" form-control text-right" id="txtPeriod" placeholder="Enter loan amount" name="txtPeriod" autocomplete="off" />
+		        		    	</div>
+		                    </div>
+		                   <!--  -->
+		                </div>
+		                <div class="col-xs-12 row" style="padding:0px;">
 		                	<div class="col-xs-4 padding-forms-left">
 		                		<div class="form-group">
 		                			<input type="checkbox" id="cboInstYn" name="cboInstYn"> <label  for="cboInstYn" > ធ្វើការរំលស់ជាមួយក្រុមហ៊ុន</label><span> </span>
 		                			<input type="hidden" name="txt_com_inst_yn" id="txt_com_inst_yn" value="Y"/>
 		                		</div>
 		                	</div>
-		                	
+		                	<div class="col-xs-8 padding-forms-right text-right" style="    padding-left: 0px;padding-right: 0px;">
+    	                        <button  type="button" class="btn btn-warning btn-sm" id="btnCalInst"><i class="fa fa-plus"></i> គណនាតារាងបង់ប្រាក់</button>
+    	                    	
+		                	</div>
 		                </div>
 		                
-		                <div class="col-xs-12 row div_installment" style="padding:0px;display: none;margin-top: -10px;">
-		                	<!--  -->
-				    		<div class="col-xs-4 padding-forms-left">
-		                        <div class="form-group" >
-		        		      		<label  for="txtTotalLeftInst" > ប្រាក់ដើមនៅសល់</label><span> </span>
-		        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtTotalLeftInst" placeholder="Enter loan amount" name="txtTotalLeftInst" autocomplete="off" />
-		        		    	</div>
-		                	</div>
-		                	<div class="col-xs-4 padding-forms-right">
-		                		<div class="form-group">
-		        		      		<label  for="txtInterstRate" > អត្រាការប្រាក់ %(ក្នុងមួយឆ្នាំ) </label><span> </span>
-		        		        	<input type="text"  maxlength="5" class="form-control text-right" id="txtInterstRate"  placeholder="Enter loan amount" name="txtInterstRate" autocomplete="off" />
-		        		    	</div>
-		                    </div>
-		                    <div class="col-xs-4 padding-forms-right">
-		                        <div class="form-group">
-		        		      		<label  for="txtPeriod" > រយៈពេលរំលស់(ខែ)</label><span> </span>
-		        		        	<input type="text" maxlength="3" class="form-control text-right" id="txtPeriod" placeholder="Enter loan amount" name="txtPeriod" autocomplete="off" />
-		        		    	</div>
-		                    </div>
-		                   <!--  -->
-		                </div>
+		                
 		                
 		                <div class="col-xs-12 row div_installment" style="padding:0px;display: none;margin-top: -10px;">
 		                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
@@ -271,7 +277,7 @@
 		                	
 		    				<!--  --> 
 		                </div>
-		                <div class="col-xs-12 row" style="padding:0px;margin-top: -10px;">
+		                <div class="col-xs-12 row" style="padding:0px;">
 		                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
 		                		<!-- <span><b>ប្រវត្តិនៃការបង់ប្រាក់</b></span>--> 
 		                    	<div class="box-body table-responsive fix-header-tbl" style="height: 185px;padding: 0px;">

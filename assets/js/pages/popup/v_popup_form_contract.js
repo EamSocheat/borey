@@ -180,6 +180,10 @@ var _thisPage = {
 			$("#btnPrint").click(function(e){
 				printInv($("#contId").val());
 			});
+			
+			$("#pro_price_desc,#pro_price").change(function(e){
+				parent.$("#msgErr").hide();
+			});
 		}
 };
 
@@ -198,6 +202,12 @@ function saveData(str){
     	showProductErr();
     	return;
     }
+    
+    if($("#pro_price_desc").val() == "" || $("#pro_price").val() == ""){
+    	showPriceErr();
+    	return;
+    }
+    
    	var productArr=[];
    	var productPriceArr=[];
    	var productPriceDescArr=[];
@@ -316,6 +326,7 @@ function getDataEdit(cont_id){
 			    $("#cboPaymentMet").val(res.OUT_REC[0]["con_pay_met"]);
 			    $("#txtContED").val(moment(res.OUT_REC[0]["con_date_exp"], "YYYY-MM-DD").format("DD-MM-YYYY"));
 		    	$("#txtAmtBooking").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
+		    	$("#txtAmtBookingDesc").val(res.OUT_REC[0]["con_total_price_desc"]);
 		    	$("#cboConType").val(res.OUT_REC[0]["con_type_id"]);
 		    	
 			    $("#btnSelectPro").hide();
@@ -545,6 +556,13 @@ function showCustomerErr(){
 function showProductErr(){
 	$("#btnSelectPro").css("border-color","red");
 	parent.$("#msgShw").html(" សូមជ្រើសរើស អចលនទ្រព្យ!!!");
+	parent.$("#msgErr").show();
+	
+}
+
+function showPriceErr(){
+	$("#pro_price_desc").focus();
+	parent.$("#msgShw").html(" សូម បញ្ជូលតំលៃ!!!");
 	parent.$("#msgErr").show();
 	
 }

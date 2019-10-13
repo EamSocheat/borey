@@ -30,6 +30,16 @@
     	    return $this->db->get()->result();
     	}
     	
+    	function selectSumAdvPayPer($dataSrch){
+    	    $this->db->select('sum(tbl_installment.inst_pay_per) as total_adv,sum(tbl_installment.inst_amt_pay) as total_adv_amt');
+    	    $this->db->from('tbl_installment');
+    	    $this->db->where('tbl_installment.sell_id', $dataSrch['sell_id']);
+    	    $this->db->where('tbl_installment.inst_type', "ADV");
+    	    
+    	    $this->db->where('tbl_installment.com_id', $_SESSION['comId']);
+    	    return $this->db->get()->result();
+    	}
+    	
     	function selectSellDataDetail($dataSrch){
     	    //$this->db->select('*,conType.con_type_nm_kh as con_type_nm_kh,tbl_sell.con_type_id as sell_con_type_id,seller.sta_id as sell_seller_id,seller.sta_nm_kh as seller_nm,reciev.sta_nm_kh as reciver');
     	    $this->db->select('*,conType.con_type_nm_kh as con_type_nm_kh,tbl_sell.con_type_id as sell_con_type_id');
