@@ -114,6 +114,7 @@
 		            					  <th>លេខកូដ</th>
 			        					  <th>ប្រភេទ</th>
 			        					  <th>គំរោង</th>
+			        					  <th>រយៈពេលសាងសង់ (ខែ)</th>
 			        					  <th>តំលៃជាអក្សរ</th>
 			        					  <th class="text-right" style="padding-right: 25px;">តំលៃ $</th>
 		            					</tr>

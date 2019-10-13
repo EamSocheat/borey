@@ -30,6 +30,7 @@ var _thisPage = {
 			stock.comm.inputCurrency("txtInterstRate");
 			stock.comm.inputNumber("txtPeriod");
 			stock.comm.inputNumber("txtPayTime");
+			stock.comm.inputNumber("pro_time_build");
 			
 			getContractType();
 			//stock.comm.inputCurrency("lAmt");
@@ -395,8 +396,9 @@ function getContractInfo(cont_code){
 			        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 			        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
 			        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
-			        html += "<td class='pro_price_desc cur-pointer'><input class='text-right'style='border: none;background-color: #ffffff;' value='"+rec["pro_book_price_desc"]+"'></td>";
-			        html += "<td class='pro_price cur-pointer text-right'> <input class='text-right' id='pro_price' style='border: none;background-color: #ffffff;' value='"+stock.comm.formatCurrency(rec["pro_book_price"])+"'></td>";
+			        html += "<td class='pro_time_build cur-pointer'><input id='pro_time_build' class='form-control input-sm' style='height: 25px;' value='' required='required'></td>";
+			        html += "<td class='pro_price_desc cur-pointer'><input class='text-right'style='border: none;background-color: #ffffff;' value='"+rec["pro_book_price_desc"]+"' required='required'></td>";
+			        html += "<td class='pro_price cur-pointer text-right'> <input class='text-right' id='pro_price' style='border: none;background-color: #ffffff;' value='"+stock.comm.formatCurrency(rec["pro_book_price"])+"' required='required'></td>";
 			        html += "</tr>";
 			        
 			        $("#tblProduct tbody").append(html);
@@ -411,7 +413,7 @@ function getContractInfo(cont_code){
 				$("#txtTotalLeft").val(stock.comm.formatCurrency(amtLeft));
 				
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
-			    $("#txtPayCashDesc,#txtTotalLeftInstDesc,#cboConType,#txtDesc,#txtDisCash,#txtDisPer,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#txtContID,#cboPaymentMet,#txtTran,#txtPayTime,#cboInstYn,#txtInterstRate,#txtPeriod,#txtStartInstDate").prop("disabled",false);
+			    $("#pro_time_build,#txtPayCashDesc,#txtTotalLeftInstDesc,#cboConType,#txtDesc,#txtDisCash,#txtDisPer,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#txtContID,#cboPaymentMet,#txtTran,#txtPayTime,#cboInstYn,#txtInterstRate,#txtPeriod,#txtStartInstDate").prop("disabled",false);
 			    
 			    
 			    if(res.OUT_REC[0]["con_type_inst_com_yn"] =="Y"){
@@ -426,7 +428,8 @@ function getContractInfo(cont_code){
 			    
 			    //calDiscount("P");
 			    calPay("P");
-			    $("#txtPayPer").focus();
+			    stock.comm.inputNumber("pro_time_build");
+			    $("#pro_time_build").focus();
 			}else{
 			   parent.stock.comm.alertMsg("មិនមានការកក់ប្រាក់នេះ  ឫបានលក់ហើយ!!!");
 			}
@@ -456,10 +459,12 @@ function saveData(str){
    	var productArr=[];
    	var productPriceArr=[];
 	var productPriceDescArr=[];
+	var productTimeBuildArr=[];
    	productChk.each(function(i){
    		productArr.push(parseInt($(this).attr("data-id")));
    		productPriceArr.push($("#pro_price").val().replace(/,/g,''));
    		productPriceDescArr.push($(this).find("td.pro_price_desc input").val());
+   		productTimeBuildArr.push($(this).find("td.pro_time_build input").val());
    	});
    	var instRecord = $('#tblInstallment tbody tr');
 	if(instRecord == null || instRecord == undefined || instRecord.length <=0 ){
@@ -485,7 +490,7 @@ function saveData(str){
 	$.ajax({
 		type : "POST",
 		url  : $("#base_url").val() +"Sell/saveSell",
-		data: $("#frmSell").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr+"&productPriceDescArr="+productPriceDescArr,
+		data: $("#frmSell").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr+"&productPriceDescArr="+productPriceDescArr+"&productTimeBuildArr="+productTimeBuildArr,
 		success: function(res) {
 		    parent.$("#loading").hide();
 			if(res !=""){
@@ -614,7 +619,7 @@ function getDataEdit(cont_id){
 			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
 			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
 			    $("#txtBookDate").val(res.OUT_REC[0]["con_date"] == null ? "" : moment(res.OUT_REC[0]["con_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#cboSeller").val(res.OUT_REC[0]["sell_seller_id"]);
+			    $("#cboSeller").val(res.OUT_REC[0]["seller_id"]);
 			    //$("#cboReceiver").val(res.OUT_REC[0]["rec_id"]);
 			    $("#txtDesc").val(res.OUT_REC[0]["sell_des"]);
 			    $("#txtBookingAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
@@ -648,6 +653,7 @@ function getDataEdit(cont_id){
 		        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 		        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm_kh"]+"</td>";
 		        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm_kh"]+"</td>";
+		        html += "<td class='pro_time_build cur-pointer'><input id='pro_time_build' style='border: none;background-color: #ffffff;' value='"+rec["pro_sell_time_build"]+"'></td>";
 		        html += "<td class='pro_price_desc cur-pointer'>"+rec["pro_sell_price_desc"]+"</td>";
 		        html += "<td class='pro_price cur-pointer text-right' style='    padding-right: 25px;'><input class='text-right' id='pro_price' style='border: none;background-color: #ffffff;' value='"+stock.comm.formatCurrency(rec["sell_total_price"])+"'/></td>";
 		        html += "</tr>";
@@ -708,14 +714,16 @@ function selectProductCallback(data){
 	        html += "<td class='pro_code cur-pointer'>"+rec["pro_code"]+"</td>";
 	        html += "<td class='cat_nm cur-pointer'>"+rec["cat_nm"]+"</td>";
 	        html += "<td class='bra_nm cur-pointer'>"+rec["bra_nm"]+"</td>";
-	        html += "<td class='pro_price_desc cur-pointer'><input id='pro_price_desc' class='form-control input-sm text-right' type='text'></td>";
-	        html += "<td class=' cur-pointer'><input id='pro_price' class='form-control text-right pro_price input-sm' type='text' value ='"+rec["pro_price"]+"'></td>";
+	        html += "<td class='pro_time_build cur-pointer'><input id='pro_time_build' class='form-control input-sm' value='' required='required'></td>";
+	        html += "<td class='pro_price_desc cur-pointer'><input id='pro_price_desc' class='form-control input-sm text-right' type='text' required='required'></td>";
+	        html += "<td class=' cur-pointer'><input id='pro_price' class='form-control text-right pro_price input-sm' type='text' value ='"+rec["pro_price"]+"' required='required'></td>";
 	        html += "</tr>";
 	        
 	        $("#tblProduct tbody").append(html);
 		}
 		stock.comm.inputCurrency("pro_price");
-		$("#pro_price_desc").focus();
+		stock.comm.inputNumber("pro_time_build");
+		$("#pro_time_build").focus();
 	}
 	
 	$("#btnSelectPro").css("border-color","#ced4da");
@@ -866,7 +874,10 @@ function getInstallmentData(){
 				        totalPayInstallment += parseFloat(res.OUT_REC[i]["inst_amt_interest"]);
 				        instLoanAmount = parseFloat(res.OUT_REC[i]["inst_loan_amount"]);
 					}
-					
+					if(res.OUT_REC[i]["inst_type"] =="LEFT"){
+						$("#txtTotalLeftInst").val(stock.comm.formatCurrency(res.OUT_REC[i]["inst_loan_amount"]));
+						
+					}
 					var statusPay="";
 					if(res.OUT_REC[i]["inst_paid_yn"] == "Y"){
 						statusPay='<span class="label label-primary">រួចរាល់</span>';

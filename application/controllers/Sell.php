@@ -105,6 +105,7 @@ class Sell extends CI_Controller{
         $productArr = explode(",",$this->input->post('productArr'));
         $proPriceArr = explode(",",$this->input->post('proPriceArr'));
         $proPriceArrDesc = explode(",",$this->input->post('productPriceDescArr'));
+        $productTimeBuildArr = explode(",",$this->input->post('productTimeBuildArr'));
         
         $dataSell = array(
             'cus_id'        	=> $this->input->post('txtCusId'),
@@ -154,6 +155,7 @@ class Sell extends CI_Controller{
         	$dataDetial['pro_sell_price_desc'] = $proPriceArrDesc[$j];
         	$dataDetial['pro_sell_balance_price_desc'] = $this->input->post('txtTotalLeftInstDesc');
         	$dataDetial['pro_sell_adv_price_desc'] = $this->input->post('txtPayCashDesc');
+        	$dataDetial['pro_sell_time_build'] = $productTimeBuildArr[$j];
         	$dataDetial['useYn']  = 'Y';
             $dataDetial['com_id'] = $_SESSION['comId'];
             $dataDetial['regUsr'] = $_SESSION['usrId'];

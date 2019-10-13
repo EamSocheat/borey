@@ -18,3 +18,6 @@ add column pro_sell_balance_price_desc text;
 alter TABLE tbl_sell_detail
 add column pro_sell_adv_price_desc text;
 ALTER TABLE tbl_contract add COLUMN con_total_price_desc text;
+
+alter table tbl_sell_detail
+add column pro_sell_time_build int;
