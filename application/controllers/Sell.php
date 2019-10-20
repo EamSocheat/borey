@@ -117,6 +117,7 @@ class Sell extends CI_Controller{
             'con_id'        => $this->input->post('txtContID'),
         	'con_type_id'        => $this->input->post('cboConType'),
             'sell_inst_yn'        => $this->input->post('txt_com_inst_yn'),
+            'sell_tran_price'        => str_replace(",","",$this->input->post('txtTranPrice')),
             //'sell_price_before_dis'        => $proPriceArr[0],
             //'sell_dis_amt'        => $this->input->post('txtDisCash'),
             //'sell_dis_per'        => $this->input->post('txtDisPer'),
@@ -172,6 +173,22 @@ class Sell extends CI_Controller{
         	$this->M_house->update($dataHouse);
         	
         }
+        
+        $cusArr = explode(",",$this->input->post('cusArr'));
+        for($k=0; $k<sizeof($cusArr);$k++){
+            $dataConCus = array();
+            
+            $dataConCus['sell_id']  = $old_sell_id;
+            $dataConCus['cus_id']  = $cusArr[$k];
+            $dataConCus['sell_cus_order']  = ($k+1);
+            $dataConCus['useYn']  = 'Y';
+            $dataConCus['com_id'] = $_SESSION['comId'];
+            $dataConCus['regUsr'] = $_SESSION['usrId'];
+            $dataConCus['regDt']  = date('Y-m-d H:i:s');
+            $this->M_sell->insertConCust($dataConCus);
+            
+        }
+        
         /* 
         $sale_pay_code="";
         if($this->input->post('txtContID') != null && $this->input->post('txtContID') != ""){

@@ -31,6 +31,7 @@ var _thisPage = {
 			stock.comm.inputNumber("txtPeriod");
 			stock.comm.inputNumber("txtPayTime");
 			stock.comm.inputNumber("pro_time_build");
+			stock.comm.inputCurrency("txtTranPrice");
 			
 			getContractType();
 			//stock.comm.inputCurrency("lAmt");
@@ -84,7 +85,6 @@ var _thisPage = {
 			stock.comm.inputPhoneKhmer("txtPhone2");
 			
 			
-			
 		},
 		event : function(){
 			//
@@ -133,7 +133,7 @@ var _thisPage = {
 			//
 			$("#btnPopupCusch").click(function(e){
 				var data="parentId=ifameStockForm";
-				data+="&dataSrch="+$("#txtCusNm").val();
+				//data+="&dataSrch="+$("#txtCusNm").val();
 				var controllerNm = "PopupSelectCustomer";
 				var option={};
 				option["height"] = "445px";
@@ -381,7 +381,8 @@ function getContractInfo(cont_code){
 			   $("#txtAmtBooking").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
 		    	$("#cboConType").val(res.OUT_REC[0]["con_type_id"]);
 		    	
-			    $("#btnSelectPro").hide();
+			    $("#btnSelectPro").prop("disabled",true);
+			    $("#btnPopupCusch").prop("disabled",true);
 		    	
 			    $("#divEnd1").show();
 		    	$("#divEnd2").show();
@@ -389,7 +390,7 @@ function getContractInfo(cont_code){
 			 
 			    $("#tblProduct tbody").html("");
 			    var totalAmount = 0;
-			    for(var i=0;i<res.OUT_REC.length; i++){
+			    for(var i=0;i<1; i++){
 			    	
 					var rec = res.OUT_REC[i];
 					var html = "<tr data-id='"+rec["pro_id"]+"'>";
@@ -412,8 +413,22 @@ function getContractInfo(cont_code){
 			    //$("#txtRealPayAmt").val(stock.comm.formatCurrency(totalAmount));
 				$("#txtTotalLeft").val(stock.comm.formatCurrency(amtLeft));
 				
+				
+				$("#tblCustomer tbody").html("");
+				for(var j=0; j<res.OUT_REC.length;j++){
+					var rec = res.OUT_REC[j];
+					var html = "<tr data-id='"+rec["cus_id"]+"'>";
+					html += "<td class='cus_idnt cur-pointer'>"+rec["cus_idnt_num"]+"</td>";
+			        html += "<td class='cus_nm cur-pointer'>"+rec["cus_nm_kh"]+"</td>";
+			        html += "<td class='cus_phone1 cur-pointer'>"+rec["cus_phone1"]+"</td>";
+			        html += "<td class='cus_gender cur-pointer'>"+$.i18n.prop("lb_"+rec["cus_gender"])+"</td>";
+			        html += "</tr>";
+			        $("#tblCustomer tbody").append(html);
+				}
+				
+				
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
-			    $("#pro_time_build,#txtPayCashDesc,#txtTotalLeftInstDesc,#cboConType,#txtDesc,#txtDisCash,#txtDisPer,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#txtContID,#cboPaymentMet,#txtTran,#txtPayTime,#cboInstYn,#txtInterstRate,#txtPeriod,#txtStartInstDate").prop("disabled",false);
+			    $("#txtTranPrice,#pro_time_build,#txtPayCashDesc,#txtTotalLeftInstDesc,#cboConType,#txtDesc,#txtDisCash,#txtDisPer,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#txtContID,#cboPaymentMet,#txtTran,#txtPayTime,#cboInstYn,#txtInterstRate,#txtPeriod,#txtStartInstDate").prop("disabled",false);
 			    
 			    
 			    if(res.OUT_REC[0]["con_type_inst_com_yn"] =="Y"){
@@ -443,10 +458,9 @@ function getContractInfo(cont_code){
 }
 
 function saveData(str){
-	$("#sellId").appendTo("#frmSell");    
-    
-    var isCusomterEmpty = $("#txtCusNm").val().trim();
-   if(stock.comm.isNull(isCusomterEmpty) || stock.comm.isEmpty(isCusomterEmpty)){
+	$("#sellId").appendTo("#frmSell"); 
+	
+	if($("#tblCustomer tbody tr").length < 1){
 	   showCustomerErr();
 	   return;
     }
@@ -472,6 +486,11 @@ function saveData(str){
 		return;
 	}
 	
+	var cusArr=[];
+	$("#tblCustomer tbody tr").each(function(i){
+		cusArr.push(parseInt($(this).attr("data-id")));
+   	});
+	
 	//
 	$("#txtPayCash").val($("#txtPayCash").val().replace(/,/g,''));
 	//$("#txtRealPayAmt").val($("#txtRealPayAmt").val().replace(/,/g,''));
@@ -481,7 +500,7 @@ function saveData(str){
 	//$("#txtDisCash").val($("#txtDisCash").val().replace(/,/g,''));
 	$("#txtTotalLeftInst").val($("#txtTotalLeftInst").val().replace(/,/g,''));
 	
-	$("#txtCusNm").css("border-color","#ced4da");
+	$("#btnPopupCusch").css("border-color","#ced4da");
 	$("#btnSelectPro").css("border-color","#ced4da");
 	$("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",false);
 	
@@ -490,7 +509,7 @@ function saveData(str){
 	$.ajax({
 		type : "POST",
 		url  : $("#base_url").val() +"Sell/saveSell",
-		data: $("#frmSell").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr+"&productPriceDescArr="+productPriceDescArr+"&productTimeBuildArr="+productTimeBuildArr,
+		data: $("#frmSell").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr+"&productPriceDescArr="+productPriceDescArr+"&productTimeBuildArr="+productTimeBuildArr+"&cusArr="+cusArr,
 		success: function(res) {
 		    parent.$("#loading").hide();
 			if(res !=""){
@@ -535,7 +554,7 @@ function savePaymentData(str){
 	$("#txtDisPer").val($("#txtDisPer").val().replace(/,/g,''));
 	$("#txtDisCash").val($("#txtDisCash").val().replace(/,/g,''));
 	
-	$("#txtCusNm").css("border-color","#ced4da");
+	$("#btnPopupCusch").css("border-color","#ced4da");
 	$("#btnSelectPro").css("border-color","#ced4da");
 	$("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",false);
 	
@@ -619,7 +638,7 @@ function getDataEdit(cont_id){
 			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
 			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
 			    $("#txtBookDate").val(res.OUT_REC[0]["con_date"] == null ? "" : moment(res.OUT_REC[0]["con_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#cboSeller").val(res.OUT_REC[0]["seller_id"]);
+			    $("#cboSeller").val(res.OUT_REC[0]["sell_seller_id"]);
 			    //$("#cboReceiver").val(res.OUT_REC[0]["rec_id"]);
 			    $("#txtDesc").val(res.OUT_REC[0]["sell_des"]);
 			    $("#txtBookingAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["con_total_price"]));
@@ -633,15 +652,18 @@ function getDataEdit(cont_id){
 		    	$("#cboConType").val(res.OUT_REC[0]["sell_con_type_id"]);
 		    	
 		    	$("#txtContSD").val(res.OUT_REC[0]["sell_date"] == null ? "" : moment(res.OUT_REC[0]["sell_date"], "YYYY-MM-DD").format("DD-MM-YYYY"));
-			    $("#btnSelectPro").hide();
+			   
 			    $("#txtPayCashDesc").val(res.OUT_REC[0]["pro_sell_adv_price_desc"]);
 			    $("#txtTotalLeftInstDesc").val(res.OUT_REC[0]["pro_sell_balance_price_desc"]);
+			    $("#txtTranPrice").val(stock.comm.formatCurrency(res.OUT_REC[0]["sell_tran_price"]));
 			    
 			    /*
 			    $("#txtRealPayAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["sell_total_price"]));
 			    $("#txtDisPer").val(res.OUT_REC[0]["sell_dis_per"]);
 			    $("#txtDisCash").val(stock.comm.formatCurrency(res.OUT_REC[0]["sell_dis_amt"]))
 		    	*/
+			    $("#btnSelectPro").prop("disabled",true);
+			    $("#btnPopupCusch").prop("disabled",true);
 			    
 			    $("#divEnd1").show();
 		    	$("#divEnd2").show();
@@ -659,12 +681,24 @@ function getDataEdit(cont_id){
 		        html += "</tr>";
 		        $("#tblProduct tbody").append(html);
 		        
+		        $("#tblCustomer tbody").html("");
+				for(var j=0; j<res.OUT_REC.length;j++){
+					var rec = res.OUT_REC[j];
+					var html = "<tr data-id='"+rec["cus_id"]+"'>";
+					html += "<td class='cus_idnt cur-pointer'>"+rec["cus_idnt_num"]+"</td>";
+			        html += "<td class='cus_nm cur-pointer'>"+rec["cus_nm_kh"]+"</td>";
+			        html += "<td class='cus_phone1 cur-pointer'>"+rec["cus_phone1"]+"</td>";
+			        html += "<td class='cus_gender cur-pointer'>"+$.i18n.prop("lb_"+rec["cus_gender"])+"</td>";
+			        html += "</tr>";
+			        $("#tblCustomer tbody").append(html);
+				}
+		        
 		        if(res.OUT_REC[0]["sell_inst_yn"] =="Y"){
 		        	$(".div_installment").show();
 		        	$("#cboInstYn").prop("checked",true);
 		        }
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
-			    $("#txtPayCashDesc,#txtTotalLeftInstDesc,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#cboPaymentMet,#txtTran,#txtDisPer,#txtDisCash,#txtPayPenalty,#txtInterstRate,#txtPeriod,#txtStartInstDate,#txtPayTime").prop("disabled",false);
+			    $("#txtTranPrice,#txtPayCashDesc,#txtTotalLeftInstDesc,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#cboPaymentMet,#txtTran,#txtDisPer,#txtDisCash,#txtPayPenalty,#txtInterstRate,#txtPeriod,#txtStartInstDate,#txtPayTime").prop("disabled",false);
 			}else{
 			    console.log(res);
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -688,13 +722,31 @@ function clearForm(){
 }
 
 function selectCustomerCallback(data){
-	
+	/*
 	$("#txtCusNm").val(data["cus_nm"].replace(/amp;/g,''));		
 	
 	$("#txtCusId").val(data["cus_id"]);
 	$("#txtCusPhone").val(data["cus_phone1"]);
 	
-	$("#txtCusNm").css("border-color","#ced4da");
+	$("#btnPopupCusch").css("border-color","#ced4da");
+	parent.$("#msgErr").hide();*/
+	
+
+	$("#tblCustomer tbody").html("");
+	if(data["data"] != null && data["data"] != undefined  && data["data"].length >0){
+		for(var i=0; i<data["data"].length;i++){
+			var rec = data["data"][i];
+			var html = "<tr data-id='"+rec["cus_id"]+"'>";
+			html += "<td class='cus_idnt cur-pointer'>"+rec["cus_idnt"]+"</td>";
+	        html += "<td class='cus_nm cur-pointer'>"+rec["cus_nm"]+"</td>";
+	        html += "<td class='cus_phone1 cur-pointer'>"+rec["cus_phone1"]+"</td>";
+	        html += "<td class='cus_gender cur-pointer'>"+rec["cus_gender"]+"</td>";
+	        html += "</tr>";
+	        
+	        $("#tblCustomer tbody").append(html);
+		}
+	}
+	
 	parent.$("#msgErr").hide();
 	
 }
@@ -982,6 +1034,12 @@ function printPaymentShedule(sell_id){
 
 
 function printContractBuy(sell_id){
+	var url = $("#base_url").val() +"PrintInv/printContractBuyTwo";
+	if($("#tblCustomer tbody tr").length == 2){
+		url = $("#base_url").val() +"PrintInv/printContractBuyTwo";
+	}else if($("#tblCustomer tbody tr").length == 3){
+		url = $("#base_url").val() +"PrintInv/printContractBuyThree";
+	}
 	var data = {};
 	var dataArr = [];
 	data["base_url"] = $("#base_url").val();
@@ -991,7 +1049,7 @@ function printContractBuy(sell_id){
 	datObj["printData"] = dataArr;
 	$.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"PrintInv/printContractBuy",
+		url: url,
 		data: datObj,
 		async: false,
 		success: function(res) {
@@ -1017,7 +1075,7 @@ function printContractBuy(sell_id){
 }
 
 function showCustomerErr(){
-	$("#txtCusNm").css("border-color","red");
+	$("#btnPopupCusch").css("border-color","red");
 	parent.$("#msgShw").html("សូមជ្រើសរើស អតិថិជន!!!");
 	parent.$("#msgErr").show();
 	
@@ -1352,14 +1410,14 @@ function calculateInstallment(newDate,noTbl){
 		$("#txtPeriod").focus();
 		return;
 	}
-	
+	/*
 	if($("#txtTotalLeftInstDesc").val()==""){
 		parent.$("#msgErr").html("សូមបញ្ចូល ប្រាក់ដើមនៅសល់ជាអក្សរ!!!");
 		parent.$("#msgErr").show();
 		$("#txtTotalLeftInstDesc").focus();
 		return;
 	}
-	
+	*/
 	
 	
 	var loanAmount = parseFloat($("#txtTotalLeftInst").val().replace(/,/g,""));

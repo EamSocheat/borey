@@ -109,4 +109,35 @@ class PrintInv extends CI_Controller {
 	    $dataPrint["ADV_TOTAL"] = $this->M_sell->selectSumAdvPayPer($dataSrch);
 	    return $this->load->view('popup/v_print_contract_buy',$dataPrint);
 	}
+	public function printContractBuyTwo(){
+	    
+	    if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	    $dataPrint["printData"] = $this->input->post('printData');
+	    $data = $this->input->post('printData');
+	    $dataSrch = array(
+	        'sell_id'        => $data[0]["sell_id"]
+	    );
+	    
+	    $dataPrint["OUT_REC"] = $this->M_sell->selectSellDataDetail($dataSrch);
+	    $dataPrint["ADV_TOTAL"] = $this->M_sell->selectSumAdvPayPer($dataSrch);
+	    return $this->load->view('popup/v_print_contract_buy_two',$dataPrint);
+	}
+	
+	public function printContractBuyThree(){
+	    
+	    if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	    $dataPrint["printData"] = $this->input->post('printData');
+	    $data = $this->input->post('printData');
+	    $dataSrch = array(
+	        'sell_id'        => $data[0]["sell_id"]
+	    );
+	    
+	    $dataPrint["OUT_REC"] = $this->M_sell->selectSellDataDetail($dataSrch);
+	    $dataPrint["ADV_TOTAL"] = $this->M_sell->selectSumAdvPayPer($dataSrch);
+	    return $this->load->view('popup/v_print_contract_buy_three',$dataPrint);
+	}
 }   

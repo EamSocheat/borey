@@ -95,6 +95,13 @@ var _thisPage = {
 					if(res.OUT_REC != null && res.OUT_REC.length >0){
 						
 					    for(var i=0; i<res.OUT_REC.length;i++){
+					    	var cusNm =res.OUT_REC[i]["cus_nm_kh"];
+					    	if(res.OUT_REC[i]["cus_nm_kh2"] != "" && res.OUT_REC[i]["cus_nm_kh2"] != null){
+					    		cusNm += " & "+res.OUT_REC[i]["cus_nm_kh2"];
+					    	}
+					    	if(res.OUT_REC[i]["cus_nm_kh3"] != "" && res.OUT_REC[i]["cus_nm_kh3"] != null){
+					    		cusNm += " & "+res.OUT_REC[i]["cus_nm_kh3"];
+					    	}
 					    	
 					    	html += '<tr data-pro-id='+res.OUT_REC[i]["pro_id"]+' data-id='+res.OUT_REC[i]["con_id"]+'>';
 					        html += 	'<td class="chk_box"><input type="checkbox"></td>';
@@ -105,7 +112,7 @@ var _thisPage = {
 							html += 	'<td><div>'+stock.comm.nullToEmpty(res.OUT_REC[i]["pro_code"])+'</div></td>';
 							html += 	'<td><div class="text-right">'+stock.comm.formatCurrency(res.OUT_REC[i]["con_total_price"])+' $</div></td>';
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["met_nm_kh"]+'</div></td>';
-							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["cus_nm_kh"]+'</div></td>';
+							html += 	'<td><div class="text-center">'+cusNm+'</div></td>';
 							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["sta_nm_kh"] +'</div></td>';
 							html += 	'<td class="con-status" data-val="'+res.OUT_REC[i]["con_sta"]+'"><div class="text-center">'+chkContStatus(res.OUT_REC[i]["con_sta"])+'</div></td>';
 							html += 	'<td class="text-center">';
@@ -170,7 +177,7 @@ var _thisPage = {
 				$("#loading").show();
 				var controllerNm = "PopupFormContract";
 				var option = {};
-				option["height"] = "650px";
+				option["height"] = "720px";
 				
 				stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
 			});			
@@ -310,7 +317,7 @@ function editData(cont_id){
 	var controllerNm = "PopupFormContract";
 	var option = {};
 	var data   = "id="+cont_id+"&action=U";
-	option["height"] = "650px";
+	option["height"] = "720px";
 	
 	stock.comm.openPopUpForm(controllerNm, option, data, "modal-lg");
 }

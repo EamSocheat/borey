@@ -15,7 +15,8 @@
     	function selectContractDataDetail($dataSrch){
     	    $this->db->select('*,seller.sta_nm_kh as seller_nm');
     	    $this->db->from('tbl_contract');
-    	    $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
+    	    $this->db->join('tbl_contract_customer','tbl_contract_customer.con_id = tbl_contract.con_id');
+    	    $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract_customer.cus_id');
     	    $this->db->join('tbl_staff seller','seller.sta_id = tbl_contract.seller_id');
     	    //$this->db->join('tbl_staff reciev','reciev.sta_id = tbl_contract.seller_id');
     	    $this->db->join('tbl_payment_method','tbl_payment_method.met_id = tbl_contract.con_pay_met');
@@ -48,9 +49,13 @@
     	}
         
     	function selectContractData($dataSrch){
-    	    $this->db->select('*');
+    	    $this->db->select('*,(select tbl_customer.cus_nm_kh from tbl_contract_customer inner join tbl_customer on tbl_customer.cus_id = tbl_contract_customer.cus_id  where con_cus_order=1 and tbl_contract_customer.con_id=tbl_contract.con_id ) as cus_nm_kh,
+                                    (select tbl_customer.cus_nm_kh from tbl_contract_customer inner join tbl_customer on tbl_customer.cus_id = tbl_contract_customer.cus_id  where con_cus_order=2 and tbl_contract_customer.con_id=tbl_contract.con_id ) as cus_nm_kh2,
+                                    (select tbl_customer.cus_nm_kh from tbl_contract_customer inner join tbl_customer on tbl_customer.cus_id = tbl_contract_customer.cus_id  where con_cus_order=3 and tbl_contract_customer.con_id=tbl_contract.con_id ) as cus_nm_kh3');
             //$this->db->from('tbl_contract');
-            $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
+            //$this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
+    	    //$this->db->join('tbl_contract_customer','tbl_contract_customer.con_id = tbl_contract.con_id');
+    	    //$this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract_customer.cus_id');
             $this->db->join('tbl_staff seller','seller.sta_id = tbl_contract.seller_id');
             //$this->db->join('tbl_staff reciev','reciev.sta_id = tbl_contract.seller_id');
             $this->db->join('tbl_payment_method','tbl_payment_method.met_id = tbl_contract.con_pay_met');
@@ -109,10 +114,16 @@
             }
             
             if($dataSrch['srch_customer'] != null && $dataSrch['srch_customer'] != ""){
-                $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_phone2', $dataSrch['srch_customer']);
+                //$this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
+                $this->db->join('tbl_sell_customer','tbl_sell_customer.sell_id = tbl_sell.sell_id');
+                $this->db->join('tbl_customer cust','cust.cus_id = tbl_sell_customer.cus_id');
+                
+                $this->db->like('cust.cus_nm_kh', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.cus_phone1', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.cus_phone2', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.con_no', $dataSrch['srch_all']);
+                
+                $this->db->group_by('tbl_sell.sell_id');
             }
             
     	  	if($dataSrch['filter_status'] != null && $dataSrch['filter_status'] != ""){
@@ -124,13 +135,13 @@
                 $this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
             }
             
-    		if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+    		/* if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
                 $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_all']);
                 $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_all']);
                 $this->db->or_like('tbl_contract.con_no', $dataSrch['srch_all']);
                 $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_all']);
-            }
-            
+            } */
+            //$this->db->group_by('tbl_contract.con_id'); 
             //$this->db->group_by('tbl_contract.con_id');
             $this->db->order_by("tbl_contract.con_id", "desc");
             return $this->db->get('tbl_contract',$dataSrch['limit'],$dataSrch['offset'])->result();
@@ -140,7 +151,9 @@
     		
 		    $this->db->select('count(tbl_contract.con_id) as total_rec');
             $this->db->from('tbl_contract');
-            $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
+            //$this->db->join('tbl_contract_customer','tbl_contract_customer.con_id = tbl_contract.con_id');
+            //$this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract_customer.cus_id');
+            //$this->db->join('tbl_customer','tbl_customer.cus_id = tbl_contract.cus_id');
             $this->db->join('tbl_payment_method','tbl_payment_method.met_id = tbl_contract.con_pay_met');
             $this->db->join('tbl_contract_detail','tbl_contract_detail.con_id = tbl_contract.con_id');
             $this->db->join('tbl_product','tbl_product.pro_id = tbl_contract_detail.pro_id');
@@ -198,10 +211,16 @@
             }
             
             if($dataSrch['srch_customer'] != null && $dataSrch['srch_customer'] != ""){
-                $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_phone2', $dataSrch['srch_customer']);
+                //$this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
+                $this->db->join('tbl_sell_customer','tbl_sell_customer.sell_id = tbl_sell.sell_id');
+                $this->db->join('tbl_customer cust','cust.cus_id = tbl_sell_customer.cus_id');
+                
+                $this->db->like('cust.cus_nm_kh', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.cus_phone1', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.cus_phone2', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.con_no', $dataSrch['srch_all']);
+                
+                $this->db->group_by('tbl_sell.sell_id');
             }
             
             if($dataSrch['filter_status'] != null && $dataSrch['filter_status'] != ""){
@@ -216,13 +235,13 @@
                 $this->db->where('tbl_product.pro_code', $dataSrch['pro_code']);
             }
             
-            if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
+           /*  if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){
                 $this->db->like('tbl_customer.cus_nm', $dataSrch['srch_all']);
                 $this->db->or_like('tbl_customer.cus_nm_kh', $dataSrch['srch_all']);
                 $this->db->or_like('tbl_contract.con_no', $dataSrch['srch_all']);
                 $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_all']);
-            }
-            
+            } */
+            // $this->db->group_by('tbl_contract.con_id'); 
             return $this->db->get()->result();
 		}
 
@@ -246,6 +265,11 @@
         
 		public function insertDetial($data){
             $this->db->insert('tbl_contract_detail',$data);
+            return $this->db->insert_id();
+        }
+        
+        public function insertConCust($data){
+            $this->db->insert('tbl_contract_customer',$data);
             return $this->db->insert_id();
         }
     }

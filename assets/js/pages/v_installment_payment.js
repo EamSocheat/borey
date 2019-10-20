@@ -122,11 +122,19 @@ var _thisPage = {
 								}
 							}
 							
+							var cusNm =res.OUT_REC[i]["cus_nm_kh"];
+					    	if(res.OUT_REC[i]["cus_nm_kh2"] != "" && res.OUT_REC[i]["cus_nm_kh2"] != null){
+					    		cusNm += " & "+res.OUT_REC[i]["cus_nm_kh2"];
+					    	}
+					    	if(res.OUT_REC[i]["cus_nm_kh3"] != "" && res.OUT_REC[i]["cus_nm_kh3"] != null){
+					    		cusNm += " & "+res.OUT_REC[i]["cus_nm_kh3"];
+					    	}
+					    	
 							html += "<tr data-id="+res.OUT_REC[i]["inst_id"]+">";
 					    	//html += 	'<td class="chk_box"><input type="checkbox"></td>';
 							html += "<td class='inst_num cur-pointer text-center'>"+res.OUT_REC[i]["pro_code"]+"</td>";
 							html += "<td class='inst_num cur-pointer text-center'>"+res.OUT_REC[i]["sell_code"]+"</td>";
-							html += "<td class='inst_num cur-pointer text-center'>"+res.OUT_REC[i]["cus_nm_kh"]+"</td>";
+							html += "<td class='inst_num cur-pointer text-center'>"+cusNm+"</td>";
 							html += "<td class='inst_num cur-pointer text-center'>"+res.OUT_REC[i]["inst_num"]+"</td>";
 							html += "<td class='inst_date cur-pointer text-center'>"+moment(res.OUT_REC[i]["inst_date"], "YYYY-MM-DD").format("DD-MM-YYYY");+"</td>";
 							html += "<td class='inst_pay_per cur-pointer text-center'>"+percentPay+"</td>";

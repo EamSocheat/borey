@@ -104,7 +104,7 @@
 									<td class="with-200" style="font-size: 14px;">ពត៍មានអតិថិជន</td><td class="with-10"></td><td></td>
 								</tr>
 								<tr>
-									<td class="with-200">ឈ្មោះ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_nm_kh;?></td>
+									<td class="with-200">ឈ្មោះ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_nm_kh;if($OUT_REC[0]->cus_nm_kh2 != null){ echo ' & '.$OUT_REC[0]->cus_nm_kh2; } if($OUT_REC[0]->cus_nm_kh3 != null){ echo ' & '.$OUT_REC[0]->cus_nm_kh3; }?></td>
 								</tr>
 								<tr>
 									<td class="with-200">ភេទ</td><td class="with-10">:</td>
@@ -113,8 +113,18 @@
 													echo "ប្រុស";
 												}else if($OUT_REC[0]->cus_gender=="Female"){
 													echo "ស្រី";
-												}else{
-													echo "ប្រុស&ស្រី";
+												}
+												
+												if($OUT_REC[0]->cus_gender2=="Male"){
+												    echo " & ប្រុស";
+												}else if($OUT_REC[0]->cus_gender2=="Female"){
+												    echo " & ស្រី";
+												}
+												
+												if($OUT_REC[0]->cus_gender3=="Male"){
+												    echo " & ប្រុស";
+												}else if($OUT_REC[0]->cus_gender3=="Female"){
+												    echo " & ស្រី";
 												}
 										?>
 									</td>
@@ -129,7 +139,7 @@
 									<td class="with-200">ប្រភេទកិច្ចសន្យា</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->con_type_nm_kh;?></td>
 								</tr>
 								<tr>
-									<td class="with-200">ទូរសព្ទ័លេខ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_phone1;?></td>
+									<td class="with-200">ទូរសព្ទ័លេខ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_phone1; if($OUT_REC[0]->cus_phone2 != null){ echo ' & '.$OUT_REC[0]->cus_phone2; } if($OUT_REC[0]->cus_phone3 != null){ echo ' & '.$OUT_REC[0]->cus_phone3; }?></td>
 								</tr>
 							</table>
 						</td>

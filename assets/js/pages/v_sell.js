@@ -93,6 +93,13 @@ var _thisPage = {
 					if(res.OUT_REC != null && res.OUT_REC.length >0){
 						
 					    for(var i=0; i<res.OUT_REC.length;i++){
+					    	var cusNm =res.OUT_REC[i]["cus_nm_kh"];
+					    	if(res.OUT_REC[i]["cus_nm_kh2"] != "" && res.OUT_REC[i]["cus_nm_kh2"] != null){
+					    		cusNm += " & "+res.OUT_REC[i]["cus_nm_kh2"];
+					    	}
+					    	if(res.OUT_REC[i]["cus_nm_kh3"] != "" && res.OUT_REC[i]["cus_nm_kh3"] != null){
+					    		cusNm += " & "+res.OUT_REC[i]["cus_nm_kh3"];
+					    	}
 					    	
 					    	html += '<tr data-pro-id='+res.OUT_REC[i]["pro_id"]+' data-con-id='+res.OUT_REC[i]["con_id"]+' data-id='+res.OUT_REC[i]["sell_id"]+'>';
 					        html += 	'<td class="chk_box"><input type="checkbox"></td>';
@@ -101,8 +108,8 @@ var _thisPage = {
 							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["bra_nm_kh"]+'</div></td>';
 							html += 	'<td><div class="txt_c">'+res.OUT_REC[i]["pro_code"]+'</div></td>';
 							html += 	'<td><div class="text-right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sell_total_price"])+'$</div></td>';
-							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["cus_nm_kh"]+'</div></td>';
-							html += 	'<td><div class="text-right">'+res.OUT_REC[i]["sta_nm_kh"] +'</div></td>';
+							html += 	'<td><div class="text-center">'+cusNm+'</div></td>';
+							html += 	'<td><div class="text-center">'+res.OUT_REC[i]["sta_nm_kh"] +'</div></td>';
 							html += 	'<td class="text-center">';
 							html +=			'<button onclick="editData('+res.OUT_REC[i]["sell_id"]+')" type="button" class="btn btn-primary btn-xs">';
 							html += 		'<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
@@ -165,7 +172,7 @@ var _thisPage = {
 				$("#loading").show();
 				var controllerNm = "PopupFormSell";
 				var option = {};
-				option["height"] = "910px";
+				option["height"] = "930px";
 				
 				stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
 			});			

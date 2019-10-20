@@ -1,18 +1,6 @@
 <?php setlocale(LC_MONETARY, 'en_US');?>
 				<?php
-					$advPeriod=0; 
-					$loanPeriod=0; 
-					$bookTrue="";
-					for($j=0;$j<count($OUT_REC);$j++){
-    				if($OUT_REC[$j]->inst_type =="ADV"){
-    					$advPeriod+=1;
-    				}
-    				if($OUT_REC[$j]->inst_type =="LOAN"){
-    					$loanPeriod+=1;
-    				}
-    				if($OUT_REC[$j]->inst_type =="BOOK"){
-    				    $bookTrue = "បង្រ្គប់";
-    				}
+					
     					
     				function returnAdvPerDesc($dataAdvPer) {
     				    $dataAdvPer = floatval($dataAdvPer);
@@ -251,7 +239,7 @@
     				        }
     				    }
     				}
-				}?>
+				?>
 <html>
 	<head>
 		<style>
@@ -347,8 +335,14 @@
 		<div style="text-align: center;margin-top: -10px"><h4>និង</h4></div>
 		<div style="margin-top: -10px">
 			<p style="font-size: 15px;">
-				ឈ្មោះ  <?php echo $OUT_REC[0]->cus_nm_kh;?> ភេទ  <?php 	if($OUT_REC[0]->cus_gender=="Male"){echo "ប្រុស";}else if($OUT_REC[0]->cus_gender=="Female"){echo "ស្រី";}?> កាន់អត្តសញ្ញាណប័ណ្ណលេខ <?php echo $OUT_REC[0]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[0]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[0]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[0]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[0]->cus_addr;?> ជាអ្នកទិញ ហៅកាត់ថា <b>ភាគី “ខ”</b> លេខទូរស័ព្ទទំនាក់ទំនង <?php echo $OUT_REC[0]->cus_phone1;?>។
-			</p>
+				ឈ្មោះ  <?php echo $OUT_REC[0]->cus_nm_kh;?> ភេទ  <?php 	if($OUT_REC[0]->cus_gender=="Male"){echo "ប្រុស";}else if($OUT_REC[0]->cus_gender=="Female"){echo "ស្រី";}?> កាន់អត្តសញ្ញាណប័ណ្ណលេខ <?php echo $OUT_REC[0]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[0]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[0]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[0]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[0]->cus_addr;?> 
+			
+			<?php if($OUT_REC[1]->cus_nm_kh != "" && $OUT_REC[1]->cus_nm_kh != null){ ?>
+			    
+    			   និង  ឈ្មោះ  <?php echo $OUT_REC[1]->cus_nm_kh;?> ភេទ  <?php 	if($OUT_REC[1]->cus_gender=="Male"){echo "ប្រុស";}else if($OUT_REC[1]->cus_gender=="Female"){echo "ស្រី";}?> កាន់អត្តសញ្ញាណប័ណ្ណលេខ <?php echo $OUT_REC[1]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[1]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[1]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[1]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[1]->cus_addr;?> ជាអ្នកទិញ ហៅកាត់ថា <b>ភាគី “ខ”</b> លេខទូរស័ព្ទទំនាក់ទំនង <?php echo $OUT_REC[0]->cus_phone1;?>      /  <?php echo $OUT_REC[1]->cus_phone1;?>     ។
+			<?php }	else{?> ។ </p> <?php }?>
+		
+			
 		</div>
 		<div style="text-align: center;margin-top: -10px"><h4>បុព្វកថា</h4></div>
 		<div style="margin-top: -10px">
@@ -380,8 +374,8 @@
 			<p style="font-size: 15px;">
 				<b>ភាគី”ខ”</b> ត្រូវទូទាត់ប្រាក់ថ្លៃទិញ-លក់<b>ភាគី”ក”</b> តាមចំនួន និងកាលបរិច្ឆេទនៃកិច្ចសន្យា។ ភាគីទាំងពីរបានឯកភាពគ្នាតាមលក្ខខណ្ខដូចមានចែងក្នុងឧបសម្ព័ន្ធនៃតារាងកាលវិភាគបង់ប្រាក់នៃកិច្ចសន្យានេះ។
 			</p>
-			<br><br><br><br>
-			<span style="position: relative;top: 10px;left: 660px;font-size: 12px;">1/4</span>
+			<br><br><br>
+			<span style="position: relative;top: 0px;left: 660px;font-size: 12px;">1/4</span>
 			<br>
 			
 		</div>
@@ -520,7 +514,7 @@
 					<td style="width: 50%;padding-left: 100px;">………………………</td>
 				</tr>
 				<tr>
-					<td style="width: 50%;padding-left: 125px;"><h4><?php echo $OUT_REC[0]->cus_nm_kh;?></h4></td>
+					<td style="width: 50%;padding-left: 90px;"><h4><?php echo $OUT_REC[0]->cus_nm_kh;?> & <?php echo $OUT_REC[1]->cus_nm_kh;?></h4></td>
 					<td style="width: 50%;padding-left: 125px;"><h4>ហេង ពិសិដ្ឋ</h4></td>
 				</tr>
 				<tr>

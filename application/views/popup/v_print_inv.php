@@ -69,11 +69,13 @@
 					<tr>
 						<td><div class="div-box">
 							<table class="tbl-head">
+								<col width="20%">
+								<col width="2%">
+								<col width="80%">
 								<tr>
 									<td class="with-100">គម្រោង</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->bra_nm_kh;?></td>
 								</tr>
 								<tr>
-								</tr>
 									<td class="with-100">កូដផ្ទះ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->pro_code;?></td>
 								<tr>
 									<td class="with-100">តំលៃផ្ទះ</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->pro_book_price);?></td>
@@ -85,19 +87,22 @@
 						<div></td>
 						<td><div class="div-box">
 							<table class="tbl-head">
+								<col width="33%">
+								<col width="2%">
+								<col width="65%">
 								<tr>
-									<td class="with-150">ឈ្មោះអតិថិជន</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_nm_kh;?></td>
+									<td class="with-150">ឈ្មោះអតិថិជន</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_nm_kh; if($OUT_REC[1]->cus_nm_kh != null){ echo ' & '.$OUT_REC[1]->cus_nm_kh; } if($OUT_REC[2]->cus_nm_kh != null){ echo ' & '.$OUT_REC[2]->cus_nm_kh; }?></td>
 								</tr>
 								<tr>
-								</tr>
-									<td class="with-150">លេខទូរស័ព្ទ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_phone1;?></td>
+									<td class="with-150">លេខទូរស័ព្ទ </td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_phone1; if($OUT_REC[1]->cus_phone1 != null){ echo ' / '.$OUT_REC[1]->cus_phone1; }?></td>
 								<tr>
-									<td class="with-150">អាស័យដ្ឋាន</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_addr;?></td>
+									<td class="with-150">អាស័យដ្ឋាន &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td><td class="with-10">:&nbsp;&nbsp; &nbsp;&nbsp;</td><td <?php if(strlen($OUT_REC[0]->cus_addr) > 200){echo 'style="font-size: 11px; padding-top: -5px;"'; } ?>> <?php echo $OUT_REC[0]->cus_addr; if(strlen($OUT_REC[0]->cus_addr) < 110 ){echo '&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;' ;}?></td>
 								</tr>
 								
 							</table>
 						<div></td>
 					</tr>
+					<tr style="height: 10px;"></tr>
 					<tr>
 						<td>
 							<table class="tbl-head ">
@@ -141,7 +146,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div style="">
+		<div style="margin-top: 10px">
 			<table class="show-amount">
 				<tr>
 					<th style="text-align: center">ល.រ</th>
@@ -159,15 +164,12 @@
 					<td colspan="3" style="text-align: right;border: none;">ចំនួនសរុបបានបង់</td>
 					<td colspan="3">$<?php echo number_format($OUT_REC[0]->con_total_price);?></td>
 				</tr>
-				<tr>
-					<td colspan="3" style="text-align: right;border: none;">នៅខ្វះ</td>
-					<td colspan="3">$0.00</td>
-				</tr>
+				
 				
 			</table>
 		</div>
 		
-		<div style="">
+		<div style="margin-top: 10px;">
 			<table class="tbl-head">
 				<tr>
 					<td style="width: 5%">កំណត់សំគាល់:</td>
@@ -189,7 +191,7 @@
 				
 			</table>
 		</div>
-		<div style="margin-top: 5px;">
+		<div style="margin-top: 40px;">
 			<table class="tbl-head">
 				<tr>
 					<td style="width: 25%">ស្នាមមេដៃម្ចាស់ផ្ទះ</td>
@@ -207,6 +209,9 @@
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
 					<td>ឈ្មោះ........................</td>
 					<td>ឈ្មោះ........................</td>
 					<td>ឈ្មោះ........................</td>
@@ -215,15 +220,8 @@
 				<tr>
 					<td>&nbsp;</td>
 				</tr>
-				<tr>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-				</tr>
+				
+				
 				<tr>
 					<td style="font-weight: bold;color: #D4AF37;font-size: 11px;">BOREY GALAXY11</td>
 				</tr>

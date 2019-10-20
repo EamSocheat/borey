@@ -1,0 +1,61 @@
+alter table tbl_sell add COLUMN sell_tran_price double;
+
+ALTER TABLE tbl_contract DROP COLUMN cus_id;
+ALTER TABLE tbl_sell DROP COLUMN cus_id;
+
+CREATE TABLE tbl_contract_customer (
+		con_id	int not null, 
+		cus_id	int not null, 
+		regDt	datetime,
+		upDt	datetime,
+		useYn	varchar(1) not null,
+		regUsr	int not null, 
+		upUsr	int not null,
+		com_id	int not null, 
+		PRIMARY KEY(con_id,cus_id)
+);
+alter table tbl_contract_customer add COLUMN con_cus_order int;
+
+CREATE TABLE tbl_sell_customer (
+		sell_id	int not null, 
+		cus_id	int not null, 
+		regDt	datetime,
+		upDt	datetime,
+		useYn	varchar(1) not null,
+		regUsr	int not null, 
+		upUsr	int not null,
+		com_id	int not null, 
+		PRIMARY KEY(sell_id,cus_id)
+);
+alter table tbl_sell_customer add COLUMN sell_cus_order int;
+
+
+<p style="font-size: 15px;">
+				<b>ភាគី”ខ”</b> ត្រូវទូទាត់ប្រាក់ថ្លៃទិញ-លក់ជូន<b>ភាគី”ក”</b> តាមចំនួន និងកាលបរិច្ឆេទនៃកិច្ចសន្យា។ ភាគីទាំងពីរបានឯកភាពគ្នាតាមលក្ខខណ្ខដូចខាងក្រោម និង ឧបសម្ព័ន្ធ នៃកិច្ចសន្យា៖
+			</p>
+			<?php if($OUT_REC[0]->con_total_price != "" || $OUT_REC[0]->con_total_price != null){?>
+			<p style="font-size: 15px;">
+				<span style="margin-right: 10px;font-weight: bold;text-decoration: underline;">ដំណាក់កាលទី ១៖</span>	<b>ភាគី”ខ”</b> យល់ព្រមប្រគល់ប្រាក់ចំនួន <b style="font-weight: bold;"> USD<?php echo number_format( floatval($OUT_REC[0]->con_total_price));?></b> (<?php echo $OUT_REC[0]->con_total_price_desc;?>ដុល្លារអាមេរិកគត់) ឲ្យ	ទៅ 	<b>ភាគី”ក”</b> នៅថ្ងៃចុះកិច្ចសន្យានេះ សំរាប់ជាការកក់ប្រាក់ទ្រនាប់ដៃ។
+			</p>
+			<br><br>
+			<span style="position: relative;top: 0px;left: 660px;font-size: 12px;">1/4</span>
+			<br>
+			
+			<p style="font-size: 15px;">
+				<span style="margin-right: 10px;font-weight: bold;text-decoration: underline;">ដំណាក់កាលទី២៖</span> 	<b>ភាគី”ខ”</b> យល់ព្រមបង់ប្រាក់កក់បន្ថែម បង្ត្រប់ <?php echo $ADV_TOTAL[0]->total_adv?>% (<?php echo returnAdvPerDesc($ADV_TOTAL[0]->total_adv);?>ភាគរយ) ស្មើនឹងចំនួន <b style="font-weight: bold;">USD<?php echo number_format( floatval($ADV_TOTAL[0]->total_adv_amt)+floatval($OUT_REC[0]->con_total_price));?></b>(<?php echo $OUT_REC[0]->pro_sell_adv_price_desc;?>ដុល្លារអាមេរិកគត់) (អាចបង់ម្តង១០% (ដប់ភាគរយ) នៅរៀងរាល់ដើមខែ)។ 
+			</p>
+			<p style="font-size: 15px;">
+				<span style="margin-right: 10px;font-weight: bold;text-decoration: underline;">ដំណាក់កាលទី៣៖</span> 	ទឹកប្រាក់នៅសល់ចំនួន <?php echo 100 - floatval($ADV_TOTAL[0]->total_adv);?>% (<?php echo returnAdvPerDesc((100 - floatval($ADV_TOTAL[0]->total_adv)));?>ភាគរយ) ស្មើនឹងចំនួនចំនួន <b style="font-weight: bold;">USD<?php echo number_format( floatval($OUT_REC[0]->pro_sell_price) - (floatval($ADV_TOTAL[0]->total_adv_amt)+floatval($OUT_REC[0]->con_total_price)));?></b> (<?php echo $OUT_REC[0]->pro_sell_balance_price_desc;?>ដុល្លារអាមេរិកគត់) <b>ភាគី”ខ”</b>យល់ព្រមបង់រំលោះតាមរយៈការយល់ព្រមតាមវិធីបង់ប្រាក់របស់<b>ភាគី”ក”</b> (យោងតាមឧបសម្ព័ន្ធ នៃកិច្ចសន្យា)ឬ បង់ជាមួយធានាគារខាងក្រៅ។ 
+			</p>
+			
+			<?php }else{?>
+			<p style="font-size: 15px;">
+				<span style="margin-right: 10px;font-weight: bold;text-decoration: underline;">ដំណាក់កាលទី១៖</span> 	<b>ភាគី”ខ”</b> យល់ព្រមបង់ប្រាក់ <?php echo $ADV_TOTAL[0]->total_adv?>% (<?php echo returnAdvPerDesc($ADV_TOTAL[0]->total_adv);?>ភាគរយ) ស្មើនឹងចំនួន <b style="font-weight: bold;">USD<?php echo number_format( floatval($ADV_TOTAL[0]->total_adv_amt));?></b>(<?php echo $OUT_REC[0]->pro_sell_adv_price_desc;?>ដុល្លារអាមេរិកគត់) (អាចបង់ម្តង១០% (ដប់ភាគរយ) នៅរៀងរាល់ដើមខែ)។ 
+			</p>
+			<br>
+			<span style="position: relative;top: 0px;left: 660px;font-size: 12px;">1/4</span>
+			<br>
+			<p style="font-size: 15px;">
+				<span style="margin-right: 10px;font-weight: bold;text-decoration: underline;">ដំណាក់កាលទី២៖</span> 	ទឹកប្រាក់នៅសល់ចំនួន <?php echo 100 - floatval($ADV_TOTAL[0]->total_adv);?>% (<?php echo returnAdvPerDesc((100 - floatval($ADV_TOTAL[0]->total_adv)));?>ភាគរយ) ស្មើនឹងចំនួនចំនួន <b style="font-weight: bold;">USD<?php echo number_format( floatval($OUT_REC[0]->pro_sell_price) - (floatval($ADV_TOTAL[0]->total_adv_amt)));?></b> (<?php echo $OUT_REC[0]->pro_sell_balance_price_desc;?>ដុល្លារអាមេរិកគត់) <b>ភាគី”ខ”</b>យល់ព្រមបង់រំលោះតាមរយៈការយល់ព្រមតាមវិធីបង់ប្រាក់របស់<b>ភាគី”ក”</b> (យោងតាមឧបសម្ព័ន្ធ នៃកិច្ចសន្យា)ឬ បង់ជាមួយធានាគារខាងក្រៅ។ 
+			</p>
+			<?php }?>

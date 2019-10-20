@@ -147,8 +147,16 @@ function getDataEdit(cont_id){
 			
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				//$("#balanceLeft").text( $.i18n.prop("lb_pay_balance") +" : "+ stock.comm.formatCurrency(res.OUT_REC[0]["loan_amount_left"])+res.OUT_REC[0]["cur_syn"]);	
-				
-			    $("#txtCusNm").val(res.OUT_REC[0]["cus_nm_kh"]);
+				var i=0;
+				var cusNm =res.OUT_REC[i]["cus_nm_kh"];
+		    	if(res.OUT_REC[i]["cus_nm_kh2"] != "" && res.OUT_REC[i]["cus_nm_kh2"] != null){
+		    		cusNm += " & "+res.OUT_REC[i]["cus_nm_kh2"];
+		    	}
+		    	if(res.OUT_REC[i]["cus_nm_kh3"] != "" && res.OUT_REC[i]["cus_nm_kh3"] != null){
+		    		cusNm += " & "+res.OUT_REC[i]["cus_nm_kh3"];
+		    	}
+		    	
+			    $("#txtCusNm").val(cusNm);
 			    $("#txtCusId").val(res.OUT_REC[0]["cus_id"]);
 			    $("#txtCusPhone").val(res.OUT_REC[0]["cus_phone1"]);
 			    $("#txtProCode").val(res.OUT_REC[0]["pro_code"]);

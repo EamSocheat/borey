@@ -46,12 +46,20 @@
         
         //
 		public function selectInstallmentDataPrint($dataSrch){
-            $this->db->select('*');
+            $this->db->select('*,(select tbl_customer.cus_nm_kh from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=1 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_nm_kh,
+                                    (select tbl_customer.cus_nm_kh from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=2 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_nm_kh2,
+                                    (select tbl_customer.cus_nm_kh from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=3 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_nm_kh3,
+                                    (select tbl_customer.cus_gender from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=1 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_gender,
+                                    (select tbl_customer.cus_gender from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=2 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_gender2,
+                                    (select tbl_customer.cus_gender from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=3 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_gender3,
+                                    (select tbl_customer.cus_phone1 from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=1 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_phone1,
+                                    (select tbl_customer.cus_phone1 from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=2 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_phone2,
+                                    (select tbl_customer.cus_phone1 from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=3 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_phone3');
             $this->db->from('tbl_installment');
             $this->db->join('tbl_sell','tbl_sell.sell_id = tbl_installment.sell_id ');
             $this->db->join('tbl_sell_detail','tbl_sell_detail.sell_id = tbl_sell.sell_id ');
             //$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_sell.seller_id ');
-            $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
+            //$this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
             $this->db->join('tbl_contract_type','tbl_contract_type.con_type_id = tbl_sell.con_type_id');
             $this->db->join('tbl_product','tbl_product.pro_id = tbl_sell_detail.pro_id');
             $this->db->join('tbl_category','tbl_category.cat_id = tbl_product.cat_id');
@@ -75,7 +83,9 @@
             $this->db->join('tbl_sell','tbl_sell.sell_id = tbl_installment.sell_id ');
             $this->db->join('tbl_sell_detail','tbl_sell_detail.sell_id = tbl_sell.sell_id ');
             $this->db->join('tbl_staff','tbl_staff.sta_id = tbl_sell.seller_id ');
-            $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
+            //$this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
+            $this->db->join('tbl_sell_customer','tbl_sell_customer.sell_id = tbl_sell.sell_id');
+            $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell_customer.cus_id');
             $this->db->join('tbl_contract_type','tbl_contract_type.con_type_id = tbl_sell.con_type_id');
             $this->db->join('tbl_product','tbl_product.pro_id = tbl_sell_detail.pro_id');
             $this->db->join('tbl_category','tbl_category.cat_id = tbl_product.cat_id');
@@ -93,11 +103,14 @@
         }
     	
         public function selectInstallmentData($dataSrch){
-            $this->db->select('tbl_installment.*,tbl_sell.*,tbl_sell_detail.*,tbl_customer.*,tbl_contract_type.*,tbl_product.*,inst1.inst_type as booked_yn');
+            $this->db->select('tbl_installment.*,tbl_sell.*,tbl_sell_detail.*,tbl_contract_type.*,tbl_product.*,inst1.inst_type as booked_yn,
+                                (select tbl_customer.cus_nm_kh from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=1 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_nm_kh,
+                                    (select tbl_customer.cus_nm_kh from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=2 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_nm_kh2,
+                                    (select tbl_customer.cus_nm_kh from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=3 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_nm_kh3');
             //$this->db->from('tbl_installment');
             $this->db->join('tbl_sell','tbl_sell.sell_id = tbl_installment.sell_id ');
             $this->db->join('tbl_sell_detail','tbl_sell_detail.sell_id = tbl_sell.sell_id ');
-            $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
+            //$this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
             $this->db->join('tbl_contract_type','tbl_contract_type.con_type_id = tbl_sell.con_type_id');
             $this->db->join('tbl_product','tbl_product.pro_id = tbl_sell_detail.pro_id');
             $this->db->join('tbl_category','tbl_category.cat_id = tbl_product.cat_id');
@@ -138,12 +151,17 @@
             
             if($dataSrch['srch_customer'] != null && $dataSrch['srch_customer'] != ""){
                 //$this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
-                $this->db->like('tbl_customer.cus_nm_kh', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_phone2', $dataSrch['srch_customer']);
+                $this->db->join('tbl_sell_customer','tbl_sell_customer.sell_id = tbl_sell.sell_id');
+                $this->db->join('tbl_customer cust','cust.cus_id = tbl_sell_customer.cus_id');
+                
+                $this->db->like('cust.cus_nm_kh', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.cus_phone1', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.cus_phone2', $dataSrch['srch_customer']);
+                
+                $this->db->group_by('tbl_sell.sell_id');
             }
             
-            $this->db->order_by("tbl_installment.inst_num", "asc");
+            $this->db->order_by("tbl_installment.inst_num,tbl_sell.sell_id", "asc");
             $this->db->order_by("tbl_installment.inst_date", "desc");
            
             return $this->db->get('tbl_installment',$dataSrch['limit'],$dataSrch['offset'])->result();
@@ -195,9 +213,14 @@
             
             if($dataSrch['srch_customer'] != null && $dataSrch['srch_customer'] != ""){
                 //$this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
-                $this->db->like('tbl_customer.cus_nm_kh', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_phone2', $dataSrch['srch_customer']);
+                $this->db->join('tbl_sell_customer','tbl_sell_customer.sell_id = tbl_sell.sell_id');
+                $this->db->join('tbl_customer cust','cust.cus_id = tbl_sell_customer.cus_id');
+                
+                $this->db->like('cust.cus_nm_kh', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.cus_phone1', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.cus_phone2', $dataSrch['srch_customer']);
+                
+                $this->db->group_by('tbl_sell.sell_id');
             }
             
             return $this->db->get()->result();
@@ -206,12 +229,15 @@
         
         
         public function selectPaymentData($dataSrch){
-            $this->db->select('tbl_payment_method.*,tbl_staff.*,tbl_installment_payment.*,tbl_installment.*,tbl_sell.*,tbl_sell_detail.*,tbl_customer.*,tbl_contract_type.*,tbl_product.*,inst1.inst_type as booked_yn');
+            $this->db->select('tbl_payment_method.*,tbl_staff.*,tbl_installment_payment.*,tbl_installment.*,tbl_sell.*,tbl_sell_detail.*,tbl_contract_type.*,tbl_product.*,inst1.inst_type as booked_yn,
+                                (select tbl_customer.cus_nm_kh from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=1 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_nm_kh,
+                                    (select tbl_customer.cus_nm_kh from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=2 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_nm_kh2,
+                                    (select tbl_customer.cus_nm_kh from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=3 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_nm_kh3');
             //$this->db->from('tbl_installment');
             $this->db->join('tbl_installment','tbl_installment.inst_id = tbl_installment_payment.inst_id ');
             $this->db->join('tbl_sell','tbl_sell.sell_id = tbl_installment.sell_id ');
             $this->db->join('tbl_sell_detail','tbl_sell_detail.sell_id = tbl_sell.sell_id ');
-            $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
+            //$this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
             $this->db->join('tbl_contract_type','tbl_contract_type.con_type_id = tbl_sell.con_type_id');
             $this->db->join('tbl_product','tbl_product.pro_id = tbl_sell_detail.pro_id');
             $this->db->join('tbl_category','tbl_category.cat_id = tbl_product.cat_id');
@@ -258,13 +284,19 @@
             
             if($dataSrch['srch_customer'] != null && $dataSrch['srch_customer'] != ""){
                 //$this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
-                $this->db->like('tbl_customer.cus_nm_kh', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_phone2', $dataSrch['srch_customer']);
+                $this->db->join('tbl_sell_customer','tbl_sell_customer.sell_id = tbl_sell.sell_id');
+                $this->db->join('tbl_customer cust','cust.cus_id = tbl_sell_customer.cus_id');
+                
+                $this->db->like('cust.cus_nm_kh', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.cus_phone1', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.cus_phone2', $dataSrch['srch_customer']);
+                
+                $this->db->group_by('tbl_sell.sell_id');
             }
+            $this->db->order_by("tbl_installment.sell_id", "desc");
             $this->db->order_by("tbl_installment.inst_num", "asc");
             $this->db->order_by("tbl_installment_payment.inst_paid_date", "desc");
-            $this->db->order_by("tbl_installment.sell_id", "desc");
+            
             
             return $this->db->get('tbl_installment_payment',$dataSrch['limit'],$dataSrch['offset'])->result();
         }
@@ -276,7 +308,7 @@
             $this->db->join('tbl_installment','tbl_installment.inst_id = tbl_installment_payment.inst_id ');
             $this->db->join('tbl_sell','tbl_sell.sell_id = tbl_installment.sell_id ');
             $this->db->join('tbl_sell_detail','tbl_sell_detail.sell_id = tbl_sell.sell_id ');
-            $this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
+            //$this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
             $this->db->join('tbl_contract_type','tbl_contract_type.con_type_id = tbl_sell.con_type_id');
             $this->db->join('tbl_product','tbl_product.pro_id = tbl_sell_detail.pro_id');
             $this->db->join('tbl_category','tbl_category.cat_id = tbl_product.cat_id');
@@ -320,9 +352,14 @@
 			
             if($dataSrch['srch_customer'] != null && $dataSrch['srch_customer'] != ""){
                 //$this->db->like('tbl_customer.cus_nm', $dataSrch['srch_customer']);
-                $this->db->like('tbl_customer.cus_nm_kh', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_phone1', $dataSrch['srch_customer']);
-                $this->db->or_like('tbl_customer.cus_phone2', $dataSrch['srch_customer']);
+                $this->db->join('tbl_sell_customer','tbl_sell_customer.sell_id = tbl_sell.sell_id');
+                $this->db->join('tbl_customer cust','cust.cus_id = tbl_sell_customer.cus_id');
+                
+                $this->db->like('cust.cus_nm_kh', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.cus_phone1', $dataSrch['srch_customer']);
+                $this->db->or_like('cust.cus_phone2', $dataSrch['srch_customer']);
+                
+                $this->db->group_by('tbl_sell.sell_id');
             }
             
             return $this->db->get()->result();

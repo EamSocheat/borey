@@ -54,7 +54,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; 2019-2020 Nokor App.</strong> All rights
+    <strong>Copyright &copy; 2019-2020 Borey Galaxy11.</strong> All rights
     reserved.
   </footer>
 

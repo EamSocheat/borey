@@ -21,14 +21,14 @@
 			<div class="row">
 				
 				<div class="col-xs-12 row" style="padding:0px">
-            		<div class="col-xs-4 padding-forms-left">
+            		<div class="col-xs-8 padding-forms-left">
             			<div class="form-group">
 							<label for="cusNm2" data-i18ncd="lb_customer_name">Customer Name</label>
 							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtCusNm" name="txtCusNm" autocomplete="off" />
 							<input type="hidden" id="txtCusId" name="txtCusId">
 						</div>
             		</div>
-
+					<!--  
             		<div class="col-xs-4 padding-forms-right">
             			<div class="form-group">
 							<label for="txtCusPhone" data-i18ncd="lb_customer_phone">Customer Phone</label>
@@ -36,7 +36,7 @@
 							
 						</div>
             		</div>
-
+                    -->
             		<div class="col-xs-4 padding-forms-right">
                         <div class="form-group">
 							<label for="txtProCode">លេខកូដផ្ទះ</label>

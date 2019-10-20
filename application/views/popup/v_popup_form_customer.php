@@ -75,7 +75,7 @@
                               <select class="form-control" id="cboGender" name="cboGender">
 	                    			<option value="Male" data-i18ncd="lb_Male" selected>Male</option>
 			                    	<option value="Female" data-i18ncd="lb_Female" >Female</option>
-			                    	<option value="MaleFemale" data-i18ncd="lb_MaleFemale">Male&Female</option>
+			                    	<!-- <option value="MaleFemale" data-i18ncd="lb_MaleFemale">Male&Female</option> -->
 			                  </select>
                             </div>
                 		</div>

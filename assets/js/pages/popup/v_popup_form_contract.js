@@ -91,7 +91,7 @@ var _thisPage = {
 			//
 			$("#btnPopupCusch").click(function(e){
 				var data="parentId=ifameStockForm";
-				data+="&dataSrch="+$("#txtCusNm").val();
+				//data+="&dataSrch="+$("#txtCusNm").val();
 				var controllerNm = "PopupSelectCustomer";
 				var option={};
 				option["height"] = "445px";
@@ -189,10 +189,9 @@ var _thisPage = {
 
 
 function saveData(str){
-	$("#contId").appendTo("#frmContract");    
-    
-    var isCusomterEmpty = $("#txtCusNm").val().trim();
-   if(stock.comm.isNull(isCusomterEmpty) || stock.comm.isEmpty(isCusomterEmpty)){
+	$("#contId").appendTo("#frmContract");  
+	
+    if($("#tblCustomer tbody tr").length < 1){
 	   showCustomerErr();
 	   return;
     }
@@ -217,9 +216,15 @@ function saveData(str){
    		productPriceDescArr.push($(this).find("td.pro_price_desc input").val());
    	});
    	
+   	
+	var cusArr=[];
+	$("#tblCustomer tbody tr").each(function(i){
+		cusArr.push(parseInt($(this).attr("data-id")));
+   	});
+   	
 	//
 	$("#txtAmtBooking").val($("#txtAmtBooking").val().replace(/,/g,''));
-	$("#txtCusNm").css("border-color","#ced4da");
+	$("#btnPopupCusch").css("border-color","#ced4da");
 	$("#btnSelectPro").css("border-color","#ced4da");
 	parent.$("#msgErr").hide();
 	//
@@ -227,7 +232,7 @@ function saveData(str){
 	$.ajax({
 		type : "POST",
 		url  : $("#base_url").val() +"Contract/saveContract",
-		data: $("#frmContract").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr+"&productPriceDescArr="+productPriceDescArr ,
+		data: $("#frmContract").serialize()+"&productArr="+productArr+"&proPriceArr="+productPriceArr+"&productPriceDescArr="+productPriceDescArr+"&cusArr="+cusArr ,
 		success: function(res) {
 		    parent.$("#loading").hide();
 
@@ -330,13 +335,14 @@ function getDataEdit(cont_id){
 		    	$("#cboConType").val(res.OUT_REC[0]["con_type_id"]);
 		    	
 			    $("#btnSelectPro").hide();
-		    	
+			    $("#btnPopupCusch").prop("disabled",true);
+			    
 			    $("#divEnd1").show();
 		    	$("#divEnd2").show();
 			    $("#divEnd3").show();
 			 
 			    $("#tblProduct tbody").html("");
-			    for(var i=0;i<res.OUT_REC.length; i++){
+			    for(var i=0;i<1; i++){
 			    	
 					var rec = res.OUT_REC[i];
 					var html = "<tr data-id='"+rec["pro_id"]+"'>";
@@ -350,7 +356,19 @@ function getDataEdit(cont_id){
 			        $("#tblProduct tbody").append(html);
 					
 			    }
-
+			    
+			    $("#tblCustomer tbody").html("");
+				for(var j=0; j<res.OUT_REC.length;j++){
+					var rec = res.OUT_REC[j];
+					var html = "<tr data-id='"+rec["cus_id"]+"'>";
+					html += "<td class='cus_idnt cur-pointer'>"+rec["cus_idnt_num"]+"</td>";
+			        html += "<td class='cus_nm cur-pointer'>"+rec["cus_nm_kh"]+"</td>";
+			        html += "<td class='cus_phone1 cur-pointer'>"+rec["cus_phone1"]+"</td>";
+			        html += "<td class='cus_gender cur-pointer'>"+$.i18n.prop("lb_"+rec["cus_gender"])+"</td>";
+			        html += "</tr>";
+			        $("#tblCustomer tbody").append(html);
+				}
+			    			
 			    $("#frmContract input,#frmContract textarea,#frmContract select").prop("disabled",true);
 			}else{
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
@@ -374,14 +392,28 @@ function clearForm(){
 }
 
 function selectCustomerCallback(data){
-	
+	/*
 	$("#txtCusNm").val(data["cus_nm"].replace(/amp;/g,''));		
-	
-	
 	$("#txtCusId").val(data["cus_id"]);
 	$("#txtCusPhone").val(data["cus_phone1"]);
+	$("#btnPopupCusch").css("border-color","#ced4da");
+	*/
 	
-	$("#txtCusNm").css("border-color","#ced4da");
+	$("#tblCustomer tbody").html("");
+	if(data["data"] != null && data["data"] != undefined  && data["data"].length >0){
+		for(var i=0; i<data["data"].length;i++){
+			var rec = data["data"][i];
+			var html = "<tr data-id='"+rec["cus_id"]+"'>";
+			html += "<td class='cus_idnt cur-pointer'>"+rec["cus_idnt"]+"</td>";
+	        html += "<td class='cus_nm cur-pointer'>"+rec["cus_nm"]+"</td>";
+	        html += "<td class='cus_phone1 cur-pointer'>"+rec["cus_phone1"]+"</td>";
+	        html += "<td class='cus_gender cur-pointer'>"+rec["cus_gender"]+"</td>";
+	        html += "</tr>";
+	        
+	        $("#tblCustomer tbody").append(html);
+		}
+	}
+	
 	parent.$("#msgErr").hide();
 	
 }
@@ -547,7 +579,7 @@ function printInv(con_id){
 }
 
 function showCustomerErr(){
-	$("#txtCusNm").css("border-color","red");
+	$("#btnPopupCusch").css("border-color","red");
 	parent.$("#msgShw").html("សូមជ្រើសរើស អតិថិជន!!!");
 	parent.$("#msgErr").show();
 	

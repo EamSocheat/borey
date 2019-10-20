@@ -211,7 +211,7 @@
 										<th class="txt_c">អចនលទ្រព្យ</    </th>
 										<th class="text-right">ចំនូនលុយកក់</    </th>
 										<th class="text-right">វីធីបង់ប្រាក់</   </th>
-										<th class="text-right">អតិថិជន</  </th>
+										<th class="text-center">អតិថិជន</  </th>
 										<th class="text-right">អ្នកលក់(បុគ្គលិក)</th>
 										<th class="text-center">ការប្រើប្រាស់</  </th>
 										<th data-i18ncd="lb_action"​ class="txt_c">Action</th>

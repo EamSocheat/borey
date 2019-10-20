@@ -27,6 +27,65 @@
 					
 				</div>
 				<div class="col-xs-12 row" style="padding:0px">
+                	<div class="col-xs-3 padding-forms-left">
+            			<div class="form-group">
+            				<label for="txtContSD" >ថ្ងៃកក់ប្រាក់</label>
+							<div class="input-group date">
+								<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+									<i class="fa fa-calendar"></i>
+								</div>
+								<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
+							</div>
+            			</div>
+            		</div>
+            		<div class="col-xs-3 padding-forms-right">
+            			<div class="form-group">
+            				<label for="txtContED" >ថ្ងៃផុតកំណត់</label>
+							<div class="input-group date">
+								<div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
+									<i class="fa fa-calendar"></i>
+								</div>
+								<input type="text" class="form-control pull-right date-pick" id="txtContED" name="txtContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
+							</div>
+            			</div>
+            		</div>
+            		<div class="col-xs-3 padding-forms-right">
+            			<div class="form-group">
+            				<label  for="cboSeller" >អ្នកលក់(បុគ្គលិក)</label>
+                			<select class="form-control" id="cboSeller" name="cboSeller" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
+	                    		
+			                </select>
+			        	</div>
+            		</div>
+            		
+            		<div class="col-xs-3 padding-forms-right text-right" style="padding: 0px">
+            			<button  type="button" class="btn btn-info btn-sm" id="btnPopupCusch" style="margin-top: 26px;height:34px; width: 100%"><i class="fa fa-address-card" aria-hidden="true"></i> ជ្រើសរើសអតិថិជន </button>
+            		</div>
+            		
+                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
+                		<span><b>ពត៍មានអតិថិជន </b></span>
+                    	<div class="box-body table-responsive fix-header-tbl" style="height: 150px;padding: 0px;">
+        				  <table class="table table-hover" id="tblCustomer" >
+        				    <thead>  
+            					<tr>
+            					  <th>	លេខអត្តសញ្ញាណ </th>
+            					  <th>ឈ្មោះអតិថិជន </th>
+	        					  <th>លេខទូរស័ព្ទអតិថិជន </th>
+	        					  <th>ភេទ </th>
+	        					  
+            					</tr>
+        					</thead>
+        					<tbody>
+        					   
+        					</tbody>
+        					
+        				  </table>
+        				</div> 	
+                	</div>
+    				<!--  --> 
+                </div>
+                <!-- 
+				<div class="col-xs-12 row" style="padding:0px">
             		<div class="col-xs-4 padding-forms-left">
             			<div class="form-group">
 							<label for="cusNm2" data-i18ncd="lb_customer_name">Customer Name</label>
@@ -59,41 +118,11 @@
             			</div>
             		</div>
             	</div>
-
+                -->
+                
             	<!-- second row -->
             	<div class="col-xs-12 row" style="padding:0px">
-            		<div class="col-xs-4 padding-forms-left">
-            			<div class="form-group">
-            				<label  for="cboSeller" >អ្នកលក់(បុគ្គលិក)</label>
-                			<select class="form-control" id="cboSeller" name="cboSeller" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
-	                    		
-			                </select>
-			        	</div>
-            		</div>
-            		<div class="col-xs-4 padding-forms-right">
-            			<div class="form-group">
-				      		<label  for="cboReceiver" >អ្នកទទួលប្រាក់(បុគ្គលិក)</label>
-                			 <select class="form-control" id="cboReceiver" name="cboReceiver" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
-	                    		
-			                </select>
-				    	</div>
-            		</div>
-            		
-            		<div class="col-xs-4 padding-forms-right">
-            			<div class="form-group">
-            				<label for="txtContED" >ថ្ងៃផុតកំណត់</label>
-							<div class="input-group date">
-								<div class="input-group-addon" id="txtContEDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
-									<i class="fa fa-calendar"></i>
-								</div>
-								<input type="text" class="form-control pull-right date-pick" id="txtContED" name="txtContED" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
-							</div>
-            			</div>
-            		</div>
-            	</div>
-            	<!-- 3 row -->
-                <div class="col-xs-12 row" style="padding:0px">
-                	<div class="col-xs-4 padding-forms-left">
+            		<div class="col-xs-3 padding-forms-left">
                         <div class="form-group">
 	                        <label  for="cboConType" >ប្រភេទកិច្ចសន្យា</label>
 	                		<select class="form-control" id="cboConType" name="cboConType" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសប្រភេទកិច្ចសន្យា ')" oninput="setCustomValidity('')">
@@ -101,7 +130,16 @@
 		                	</select>
 	                	</div>
                     </div>
-                    <div class="col-xs-4 padding-forms-right">
+                    
+            		<div class="col-xs-3 padding-forms-right">
+            			<div class="form-group">
+				      		<label  for="cboReceiver" >អ្នកទទួលប្រាក់(បុគ្គលិក)</label>
+                			 <select class="form-control" id="cboReceiver" name="cboReceiver" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
+	                    		
+			                </select>
+				    	</div>
+            		</div>
+            		<div class="col-xs-3 padding-forms-right">
                     	<div class="form-group">
 	                        <label  for="cboPaymentMet" >វីធីបង់ប្រាក់</label>
 	                		<select class="form-control" id="cboPaymentMet" name="cboPaymentMet" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសវីធីបង់ប្រាក់ ')" oninput="setCustomValidity('')">
@@ -109,7 +147,8 @@
 		                	</select>
 	                	</div>
                     </div>
-                    <div class="col-xs-4 padding-forms-right">
+                    
+                    <div class="col-xs-3 padding-forms-right">
             			
 		                <div class="form-group">
 				      		<label  for="txtTran" >លេខប្រតិបត្តិការណ៍</label>
@@ -117,11 +156,11 @@
 				    	</div>
 			    	
             		</div>
-                    
             		
-                </div>
+            	</div>
+            	
                 <div class="col-xs-12 row" style="padding:0px">
-                	<div class="col-xs-4 padding-forms-left">
+                	<div class="col-xs-3 padding-forms-left">
             			
 		                <div class="form-group">
 				      		<label  for="txtAmtBooking" >ចំនូនលុយកក់</label>
@@ -129,13 +168,13 @@
 				    	</div>
 			    	
             		</div>
-            		<div class="col-xs-4 padding-forms-right">
+            		<div class="col-xs-3 padding-forms-right">
                          <div class="form-group">
 				      		<label  for="txtAmtBookingDesc" >ចំនូនលុយកក់ជាអក្សរ​</label>
 				        	<input type="text" class="form-control" id="txtAmtBookingDesc" placeholder="Enter loan amount" name="txtAmtBookingDesc" required="required" />
 				    	</div>
                     </div>
-                	<div class="col-xs-4 padding-forms-right">
+                	<div class="col-xs-6 padding-forms-right">
                         <div class="form-group">
                             <label  for="txtDesc" data-i18nCd="lb_des">Description</label>
                             <input type="text" class="form-control" id="txtDesc" placeholder="Enter Description" name="txtDesc" autocomplete="off" />
@@ -150,7 +189,8 @@
                 	<!--  -->
                 	<br>
                 	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
-                    	<div class="box-body table-responsive fix-header-tbl" style="height: 150px;padding: 0px;">
+                		<span><b>ពត៍មានអចលនទ្រព្យ</b></span>
+                    	<div class="box-body table-responsive fix-header-tbl" style="height: 100px;padding: 0px;">
         				  <table class="table table-hover" id="tblProduct" >
         				    <thead>  
             					<tr>

@@ -102,18 +102,30 @@ var _thisPage = {
 		});
 		//
 		$("#btnChoose").click(function(e) {
-			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="radio"]:checked');
-			if(chkVal.length != 1){
-			    parent.stock.comm.alertMsg($.i18n.prop("msg_con_choose1"));
+			var chkVal = $('#tblCustomer tbody tr td.chk_box input[type="checkbox"]:checked');
+			if(chkVal.length < 1){
+			    parent.stock.comm.alertMsg($.i18n.prop("msg_con_choose"));
 				return;
 			}
-			
-			var tblTr = chkVal.parent().parent();
-			var data={};
-			data["cus_nm"] = tblTr.find("td.cus_nm_kh").html();
-			data["cus_nm_kh"] = tblTr.find("td.cus_nm_kh").html();
-			data["cus_id"] = tblTr.attr("data-id");
-			data["cus_phone1"] = tblTr.find("td.cus_phone1").html();
+			var dataArr = [];
+			var dataObj = {};
+			chkVal.each(function(i){
+				var tblTr = $(this).parent().parent();
+				var data={};
+				data["cus_idnt"] = tblTr.find("td.cus_idnt").html();
+				data["cus_nm"] = tblTr.find("td.cus_nm_kh").html();
+				data["cus_nm_kh"] = tblTr.find("td.cus_nm_kh").html();
+				data["cus_id"] = tblTr.attr("data-id");
+				data["cus_phone1"] = tblTr.find("td.cus_phone1").html();
+				data["cus_gender"] = tblTr.find("td.cus_gender").html();
+				dataArr.push(data);
+			});
+			dataArr.sort(function(a, b){
+						var aName = a.cus_gender.toLowerCase();
+						var bName = b.cus_gender.toLowerCase(); 
+						return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+				  });
+			dataObj["data"]= dataArr;
 			
 			var parentFrame="";
 			var callbackFunction=null;
@@ -121,11 +133,11 @@ var _thisPage = {
 				parentFrame= $("#parentId").val();
 				callbackFunction=parent.$("#"+parentFrame)[0].contentWindow.selectCustomerCallback
 			}
-			parent.stock.comm.closePopUpForm("PopupSelectCustomer",callbackFunction,data);
+			parent.stock.comm.closePopUpForm("PopupSelectCustomer",callbackFunction,dataObj);
 		});
 		
 		//
-		$("#tblCustomer tbody").on("dblclick", "tr td:not(.chk_box,.act_btn)", function() {
+		/*$("#tblCustomer tbody").on("dblclick", "tr td:not(.chk_box,.act_btn)", function() {
 			var tblTr = $(this).parent();
 			var data={};
 			data["bra_nm"] = tblTr.find("td.bra_nm").html();
@@ -138,7 +150,7 @@ var _thisPage = {
 				callbackFunction=parent.$("#"+parentFrame)[0].contentWindow.selectBranchCallback
 			}
 			parent.stock.comm.closePopUpForm("PopupSelectBranch",callbackFunction,data);
-		});
+		});*/
 	}
 };
 
@@ -171,12 +183,12 @@ function getData(){
 			        }else{
 			        	urlPhoto = $("#base_url").val()+"/assets/image/default-staff-photo.png";
 			        }
-			        // html += "<td class='chk_box'><input type='checkbox'></td>";
-			        html += "<td class='chk_box' style='text-align:center;'><input type='radio' name='customer' style='margin-top: 10px;'></td>";
+			        html += "<td class='chk_box'><input type='checkbox'></td>";
+			        //html += "<td class='chk_box' style='text-align:center;'><input type='radio' name='customer' style='margin-top: 10px;'></td>";
 			        html += "<td class='cus_image'><img style='width: 35px;height: 35px;' src='"+ urlPhoto +"' class='img-circle' /></td>";
-			        html += "<td class='cus_iden'>"+stock.comm.nullToEmpty(res.OUT_REC[i]["cus_idnt_num"])+"</td>";
+			        html += "<td class='cus_idnt'>"+stock.comm.nullToEmpty(res.OUT_REC[i]["cus_idnt_num"])+"</td>";
 			        html += "<td class='cus_nm_kh'>"+res.OUT_REC[i]["cus_nm_kh"]+"</td>";
-			        html += "<td class='cus_nm'>"+$.i18n.prop("lb_"+res.OUT_REC[i]["cus_gender"])+"</td>";
+			        html += "<td class='cus_gender'>"+$.i18n.prop("lb_"+res.OUT_REC[i]["cus_gender"])+"</td>";
 			        html += "<td class='cus_phone1'>"+res.OUT_REC[i]["cus_phone1"]+"</td>";			       
 			        html += "</tr>";
 			        

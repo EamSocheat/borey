@@ -110,7 +110,7 @@ class Contract extends CI_Controller{
         }
 
         $data = array(
-            'cus_id'        	=> $this->input->post('txtCusId'),
+            //'cus_id'        	=> $this->input->post('txtCusId'),
         	'con_total_price' => $this->input->post('txtAmtBooking'),
             'con_date'  	=> date('Y-m-d H:i:s',strtotime($this->input->post('txtContSD'))),
         	'con_date_exp'    => date('Y-m-d H:i:s',strtotime($this->input->post('txtContED'))),
@@ -179,6 +179,21 @@ class Contract extends CI_Controller{
            		
             	$this->M_house->update($dataHouse);
             	
+            }
+            
+            $cusArr = explode(",",$this->input->post('cusArr'));
+            for($k=0; $k<sizeof($cusArr);$k++){
+                $dataConCus = array();
+                
+                $dataConCus['con_id']  = $old_con_id;
+                $dataConCus['cus_id']  = $cusArr[$k];
+                $dataConCus['con_cus_order']  = ($k+1);
+                $dataConCus['useYn']  = 'Y';
+                $dataConCus['com_id'] = $_SESSION['comId'];
+                $dataConCus['regUsr'] = $_SESSION['usrId'];
+                $dataConCus['regDt']  = date('Y-m-d H:i:s');
+                $this->M_contract->insertConCust($dataConCus);
+                
             }
         }
 

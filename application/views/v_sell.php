@@ -164,8 +164,8 @@
 										<th class="txt_c">គំរោង</<< </th>
 										<th class="txt_c">អចនលទ្រព្យ</    </th>
 										<th class="text-right">តំលៃលក់</   </th>
-										<th class="text-right">អតិថិជន</  </th>
-										<th class="text-right">អ្នកលក់(បុគ្គលិក)</th>
+										<th class="text-center">អតិថិជន</  </th>
+										<th class="text-center">អ្នកលក់(បុគ្គលិក)</th>
 										<th data-i18ncd="lb_action"​ class="txt_c">Action</th>
 									</tr>
 								</thead>
