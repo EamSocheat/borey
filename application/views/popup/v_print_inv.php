@@ -59,6 +59,7 @@
 			<p>លេខបង្កាន់ដៃកក់ប្រាក់ : <span><?php echo $OUT_REC[0]->con_code;?></span></p>
 			<p>កាលបរិច្ឆេទ : <span><?php echo date('d-m-Y',strtotime($OUT_REC[0]->con_date));?></span></p>  
 		</div>
+	
 		<div>
 			<table class="tbl-head" >
 				<colgroup>
@@ -92,7 +93,7 @@
 								</tr>
 									<td class="with-150">លេខទូរស័ព្ទ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_phone1;?></td>
 								<tr>
-									<td class="with-150">អាស័យដ្ឋាន</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_addr;?></td>
+									<td class="with-150">អាស័យដ្ឋាន &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td class="with-10">A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><?php echo $OUT_REC[0]->cus_addr;?>Phnom Penh Phnom Penh Phnom Penh Phnom Penh2 Phnom Penh3Phnom Penh4Phnom Penh Phnom Penh Phnom Penh Phnom Penh2 Phnom Penh3Phnom Penh4</td>
 								</tr>
 								
 							</table>
