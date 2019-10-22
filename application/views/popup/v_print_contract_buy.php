@@ -380,8 +380,8 @@
 			<p style="font-size: 15px;">
 				<b>ភាគី”ខ”</b> ត្រូវទូទាត់ប្រាក់ថ្លៃទិញ-លក់<b>ភាគី”ក”</b> តាមចំនួន និងកាលបរិច្ឆេទនៃកិច្ចសន្យា។ ភាគីទាំងពីរបានឯកភាពគ្នាតាមលក្ខខណ្ខដូចមានចែងក្នុងឧបសម្ព័ន្ធនៃតារាងកាលវិភាគបង់ប្រាក់នៃកិច្ចសន្យានេះ។
 			</p>
-			<br><br><br><br>
-			<span style="position: relative;top: 10px;left: 660px;font-size: 12px;">1/4</span>
+			<br><br><br>
+			<span style="position: relative;top: 0px;left: 660px;font-size: 12px;">1/4</span>
 			<br>
 			
 		</div>
@@ -546,6 +546,6 @@
 			<h4>ហត្ថលេខា និង ត្រា</h4>
 			
 		</div>
-		<span style="position: relative;top: 520px;left: 700px;font-size: 12px;">4/4</span>
+		<span style="position: relative;top: 510px;left: 700px;font-size: 12px;">4/4</span>
 	</body>
 </html>

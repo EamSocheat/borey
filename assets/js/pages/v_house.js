@@ -255,8 +255,8 @@ function getData(page_no){
 					strHmtl += '	<td><div >'+res.OUT_REC[i]["cat_nm_kh"]+'</div></td>';
 					strHmtl += '	<td><div style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["pro_price"])+'</div></td>';
 					
-					strHmtl += '	<td><div class="text-center">'+stock.comm.null2Void(res.OUT_REC[i]["pro_length"])+' ម៉ែត្រ</div></td>';
 					strHmtl += '	<td><div class="text-center">'+stock.comm.null2Void(res.OUT_REC[i]["pro_width"])+' ម៉ែត្រ</div></td>';
+					strHmtl += '	<td><div class="text-center">'+stock.comm.null2Void(res.OUT_REC[i]["pro_length"])+' ម៉ែត្រ</div></td>';
 					strHmtl += '	<td><div class="text-center">'+stock.comm.null2Void(res.OUT_REC[i]["pro_area"])+' ម៉ែត្រការ៉េ</div></td>';
 					strHmtl += '	<td><div class="text-center">'+renderHouseStatus(res.OUT_REC[i]["pro_status"])+'</div></td>';
 					strHmtl += '	<td class="text-center">';

@@ -1034,7 +1034,7 @@ function printPaymentShedule(sell_id){
 
 
 function printContractBuy(sell_id){
-	var url = $("#base_url").val() +"PrintInv/printContractBuyTwo";
+	var url = $("#base_url").val() +"PrintInv/printContractBuy";
 	if($("#tblCustomer tbody tr").length == 2){
 		url = $("#base_url").val() +"PrintInv/printContractBuyTwo";
 	}else if($("#tblCustomer tbody tr").length == 3){
