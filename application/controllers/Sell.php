@@ -108,7 +108,7 @@ class Sell extends CI_Controller{
         $productTimeBuildArr = explode(",",$this->input->post('productTimeBuildArr'));
         
         $dataSell = array(
-            'cus_id'        	=> $this->input->post('txtCusId'),
+            //'cus_id'        	=> $this->input->post('txtCusId'),
             'sell_total_price' => $proPriceArr[0],
             'sell_date'  	=> date('Y-m-d H:i:s',strtotime($this->input->post('txtContSD'))),
             'sell_des' 		=> $this->input->post('txtDesc'),      
