@@ -340,19 +340,19 @@
 		<div style="text-align: left;"><h4>កិច្ចសន្យានេះធ្វើឡើងរវាង</h4></div>
 		
 		<div>
-			<p style="font-size: 15px;">
+			<p style="font-size: 15px;margin-left: 40px">
 				ក្រុមហ៊ុន <b>ហ្គាឡាក់ស៊ី១១</b> មានទីតាំងស្ថិតនៅជិតផ្លូវលេខ២១៧   ភូមិដូង  សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ   ដែលតំណាងដោយលោក <b>ហេង ពិសិដ្ឋ</b> សញ្ជាតិ ខ្មែរ កាន់អត្តសញ្ញាណប័ណ្ណលេខ ០១០៥៥២៧៧៧ ចុះថ្ងៃទី១៧ ខែ០៧ ឆ្នាំ ២០១៨    មានទីលំនៅផ្ទះលេខ២១៦ ផ្លូវម៉ៅសេទុង   សង្កាត់ទំនប់ទឹក ខណ្ឌចំការមន រាជធានីភ្នំពេញ ជាអ្នកលក់ ហៅកាត់ថា <b>ភាគី “ក”</b> លេខទូរស័ព្ទទំនាក់ទំនង 017 678 889 ។
 			</p>
 		</div>
 		<div style="text-align: center;margin-top: -10px"><h4>និង</h4></div>
 		<div style="margin-top: -10px">
-			<p style="font-size: 15px;">
+			<p style="font-size: 15px;margin-left: 40px">
 				ឈ្មោះ  <?php echo $OUT_REC[0]->cus_nm_kh;?> ភេទ  <?php 	if($OUT_REC[0]->cus_gender=="Male"){echo "ប្រុស";}else if($OUT_REC[0]->cus_gender=="Female"){echo "ស្រី";}?> កាន់អត្តសញ្ញាណប័ណ្ណលេខ <?php echo $OUT_REC[0]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[0]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[0]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[0]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[0]->cus_addr;?> ជាអ្នកទិញ ហៅកាត់ថា <b>ភាគី “ខ”</b> លេខទូរស័ព្ទទំនាក់ទំនង <?php echo $OUT_REC[0]->cus_phone1;?>។
 			</p>
 		</div>
 		<div style="text-align: center;margin-top: -10px"><h4>បុព្វកថា</h4></div>
 		<div style="margin-top: -10px">
-			<p style="font-size: 15px;">
+			<p style="font-size: 15px;margin-left: 40px">
 				ដោយ <b><b>ភាគី”ក”</b></b>  ជាម្ចាស់សំណង់ ក្រុមហ៊ុន <b>ហ្គាឡាក់ស៊ី១១</b> សម្រាប់ លក់ជូនអតិថិជនជា <b>ភាគី”ខ”</b> មានបំណងចង់ទិញផ្ទះ <b>ភាគី”ក”</b>។
 			</p>
 		</div>
@@ -380,13 +380,15 @@
 			<p style="font-size: 15px;">
 				<b>ភាគី”ខ”</b> ត្រូវទូទាត់ប្រាក់ថ្លៃទិញ-លក់<b>ភាគី”ក”</b> តាមចំនួន និងកាលបរិច្ឆេទនៃកិច្ចសន្យា។ ភាគីទាំងពីរបានឯកភាពគ្នាតាមលក្ខខណ្ខដូចមានចែងក្នុងឧបសម្ព័ន្ធនៃតារាងកាលវិភាគបង់ប្រាក់នៃកិច្ចសន្យានេះ។
 			</p>
-			<br><br><br>
-			<span style="position: relative;top: 0px;left: 660px;font-size: 12px;">1/4</span>
-			<br>
-			
 		</div>
 		
-		<div style="text-align: left;margin-top: -10px"><h4><u>ប្រការ ៤៖</u>	<span style="margin-left: 30px"> សិទ្ធិ និង កាតព្វកិច្ចរបស់<b>ភាគី”ក”</b></span></h4></div>
+		<!--  -->
+		<span style="position: relative;top: 120px;left: 700px;font-size: 10px;">1/4</span>
+		<!--  -->
+		<br><br><br><br>
+		<div style="height: 20px;">
+		</div>
+		<div style="text-align: left;margin-top: 0px"><h4><u>ប្រការ ៤៖</u>	<span style="margin-left: 30px"> សិទ្ធិ និង កាតព្វកិច្ចរបស់<b>ភាគី”ក”</b></span></h4></div>
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៤.១</span>	<b>ភាគី”ក”</b> ធានាសាងសង់ផ្ទះវីឡាទោលជូន<b>ភាគី”ខ”</b> តាមគំនូសផ្ទះគំរូ និង សាងសង់ផ្ទះឲ្យរួចរាល់ក្នុង
