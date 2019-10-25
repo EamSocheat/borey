@@ -50,6 +50,14 @@
 		  p{
 			font-size: 13px;
 		  }
+		   .block-dis{
+		  	display: inline-block;
+		  	font-size: 13px;
+		  }
+		  .with-15{
+			width: 15px;
+			font-weight: bold;
+		  }
 		</style>
 	</head>
 	<body style="">
@@ -103,49 +111,56 @@
 						<div></td>
 					</tr>
 					<tr style="height: 10px;"></tr>
-					<tr>
-						<td>
-							<table class="tbl-head ">
-								<tr>
-									<td class="with-200">លេខវិក័យបត្រ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->inst_paid_inv_code;?></td>
-								</tr>
-								<tr>
-								</tr>
-									<td class="with-200">ប្រភេទកិច្ចសន្យា</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->con_type_nm_kh;?></td>
-								<tr>
-									<td class="with-200">ប្រាក់ដើមបានបង់សរុប</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->paid_principle);?></td>
-								</tr>
-								<tr>
-									<td class="with-200">ប្រាក់ដើមនៅសល់</td><td class="with-10">:</td><td>$<?php echo number_format(floatval($OUT_REC[0]->inst_amt_balance)) ?></td>
-								</tr>
-								<tr>
-									<td class="with-200">បរិយាយ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->sell_des;?></td>
-								</tr>
-							</table>
-						</td>
-						<td>
-							<table class="tbl-head ">
-								<tr>
-									<td class="with-200">ថ្ងៃត្រូវបង់</td><td class="with-10">:</td><td><?php echo date('d-m-Y',strtotime($OUT_REC[0]->inst_date));?></td>
-								</tr>
-								<tr>
-								</tr>
-									<td class="with-200">ប្រាក់ត្រូវបង់</td><td class="with-10">:</td><td>$<?php echo number_format((floatval($OUT_REC[0]->inst_dis_amt)+ floatval($OUT_REC[0]->inst_amt_pay)));?></td>
-								<tr>
-									<td class="with-200">បញ្ចុះតំលៃ </td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->inst_dis_amt);?></td>
-								</tr>
-								<tr>
-									<td class="with-200">ប្រាក់ពិន័យ</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->inst_paid_penalty);?></td>
-								</tr>
-								<tr>
-									<td class="with-200">ប្រាក់ត្រូវបង់សរុប</td><td class="with-10">:</td><td>$<?php echo number_format( floatval($OUT_REC[0]->inst_paid_penalty) + floatval($OUT_REC[0]->inst_total_paid_amount)) ;?></td>
-								</tr>
-							</table>
-						</td>
-					</tr>
+					
 				</tbody>
 			</table>
 		</div>
+		<div style="display: flex;">
+			<div style="width: 50%;margin-left: 5px;">
+				<div>
+					<span class="with-200 block-dis ">លេខវិក័យបត្រ</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo $OUT_REC[0]->inst_paid_inv_code;?></span>
+				</div>
+				<div>
+					<span class="with-200 block-dis ">ប្រភេទកិច្ចសន្យា</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo $OUT_REC[0]->con_type_nm_kh;?></span>
+				</div>
+				<div>
+					<span class="with-200 block-dis ">ប្រាក់ដើមបានបង់សរុប</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->paid_principle);?></span>
+				</div>
+				<div>	
+					<span class="with-200 block-dis ">ប្រាក់ដើមនៅសល់</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format(floatval($OUT_REC[0]->inst_amt_balance)) ?></span>
+				</div>
+				<div style="display: flex;">
+					<div style="width: 120px;display: inline-block;">
+						<span class="with-200 block-dis ">បរិយាយ</span>
+					</div>
+					<div style="display: inline-block;">
+						<span class="with-15 block-dis">:</span>
+					</div>
+					<div style="display: inline-block;">
+						<span class="block-dis"><?php echo $OUT_REC[0]->sell_des;?></span>
+					</div>
+					
+				</div>
+			</div>
+			<div style="width: 50%">
+				<div>
+					<span class="with-200 block-dis ">ថ្ងៃត្រូវបង់</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo date('d-m-Y',strtotime($OUT_REC[0]->inst_date));?></span>
+				</div>
+				<div>
+					<span class="with-200 block-dis ">ប្រាក់ត្រូវបង់</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format((floatval($OUT_REC[0]->inst_dis_amt)+ floatval($OUT_REC[0]->inst_amt_pay)));?></span>
+				</div>
+				<div>
+					<span class="with-200 block-dis ">បន្ថែមដើម</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->inst_dis_amt);?></span>
+				</div>
+				<div>	
+					<span class="with-200 block-dis ">ប្រាក់ពិន័យ</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->inst_paid_penalty);?></span>
+				</div>
+				<div>	
+					<span class="with-200 block-dis ">ប្រាក់ត្រូវបង់សរុប</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format( floatval($OUT_REC[0]->inst_paid_penalty) + floatval($OUT_REC[0]->inst_total_paid_amount)) ;?></span>
+				</div>
+			</div>
+		</div>
+		
 		<div style="margin-top: 10px">
 			<table class="show-amount">
 				<tr>
