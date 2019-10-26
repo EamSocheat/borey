@@ -1,20 +1,6 @@
 <?php setlocale(LC_MONETARY, 'en_US');?>
 				<?php
-					$advPeriod=0; 
-					$loanPeriod=0; 
-					$bookTrue="";
-					for($j=0;$j<count($OUT_REC);$j++){
-    				if($OUT_REC[$j]->inst_type =="ADV"){
-    					$advPeriod+=1;
-    				}
-    				if($OUT_REC[$j]->inst_type =="LOAN"){
-    					$loanPeriod+=1;
-    				}
-    				if($OUT_REC[$j]->inst_type =="BOOK"){
-    				    $bookTrue = "បង្រ្គប់";
-    				}
-    					
-    				function returnAdvPerDesc($dataAdvPer) {
+					function returnAdvPerDesc($dataAdvPer) {
     				    $dataAdvPer = floatval($dataAdvPer);
     				    if($dataAdvPer == 100){
     				        return 'មួយរយ';
@@ -250,7 +236,7 @@
     				            return $desc;
     				        }
     				    }
-    				}
+    				
 				}?>
 <html>
 	<head>
@@ -260,7 +246,11 @@
               -webkit-print-color-adjust: exact;
            }
            #Header{ display: none !important; }
+           
+           @page{margin:30px auto auto auto;}
+           
         }
+      	
       	
 		body{font-family: Khmer OS Siemreap;
 			padding-top: 10px;
@@ -333,6 +323,7 @@
 		</style>
 	</head>
 	<body style="">
+		
 		<div style="text-align: center;"><h4>ព្រះរាជាណាចក្រកម្ពុជា</h4></div>
 		<div style="text-align: center;margin-top: -20px"><h4>ជាតិ សាសនា ព្រះមហាក្សត្រ</h4></div>
 		<div style="text-align: center;margin-top: -30px"><span style='font-size:15px;'>&#10037;</span></div>
@@ -340,20 +331,20 @@
 		<div style="text-align: left;"><h4>កិច្ចសន្យានេះធ្វើឡើងរវាង</h4></div>
 		
 		<div>
-			<p style="font-size: 15px;margin-left: 40px">
+			<p style="font-size: 15px">
 				ក្រុមហ៊ុន <b>ហ្គាឡាក់ស៊ី១១</b> មានទីតាំងស្ថិតនៅជិតផ្លូវលេខ២១៧   ភូមិដូង  សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ   ដែលតំណាងដោយលោក <b>ហេង ពិសិដ្ឋ</b> សញ្ជាតិ ខ្មែរ កាន់អត្តសញ្ញាណប័ណ្ណលេខ ០១០៥៥២៧៧៧ ចុះថ្ងៃទី១៧ ខែ០៧ ឆ្នាំ ២០១៨    មានទីលំនៅផ្ទះលេខ២១៦ ផ្លូវម៉ៅសេទុង   សង្កាត់ទំនប់ទឹក ខណ្ឌចំការមន រាជធានីភ្នំពេញ ជាអ្នកលក់ ហៅកាត់ថា <b>ភាគី “ក”</b> លេខទូរស័ព្ទទំនាក់ទំនង 017 678 889 ។
 			</p>
 		</div>
 		<div style="text-align: center;margin-top: -10px"><h4>និង</h4></div>
 		<div style="margin-top: -10px">
-			<p style="font-size: 15px;margin-left: 40px">
-				ឈ្មោះ  <?php echo $OUT_REC[0]->cus_nm_kh;?> ភេទ  <?php 	if($OUT_REC[0]->cus_gender=="Male"){echo "ប្រុស";}else if($OUT_REC[0]->cus_gender=="Female"){echo "ស្រី";}?> កាន់អត្តសញ្ញាណប័ណ្ណលេខ <?php echo $OUT_REC[0]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[0]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[0]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[0]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[0]->cus_addr;?> ជាអ្នកទិញ ហៅកាត់ថា <b>ភាគី “ខ”</b> លេខទូរស័ព្ទទំនាក់ទំនង <?php echo $OUT_REC[0]->cus_phone1;?>។
+			<p style="font-size: 15px;">
+				ឈ្មោះ <b> <?php echo $OUT_REC[0]->cus_nm_kh;?></b> ភេទ  <?php 	if($OUT_REC[0]->cus_gender=="Male"){echo "ប្រុស";}else if($OUT_REC[0]->cus_gender=="Female"){echo "ស្រី";}?> ជនជាតិខ្មែរ កាន់អត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរលេខ <?php echo $OUT_REC[0]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[0]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[0]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[0]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[0]->cus_addr;?> ជាអ្នកទិញ ហៅកាត់ថា <b>ភាគី “ខ”</b> លេខទូរស័ព្ទទំនាក់ទំនង <?php echo $OUT_REC[0]->cus_phone1;?>។
 			</p>
 		</div>
 		<div style="text-align: center;margin-top: -10px"><h4>បុព្វកថា</h4></div>
 		<div style="margin-top: -10px">
-			<p style="font-size: 15px;margin-left: 40px">
-				ដោយ <b><b>ភាគី”ក”</b></b>  ជាម្ចាស់សំណង់ ក្រុមហ៊ុន <b>ហ្គាឡាក់ស៊ី១១</b> សម្រាប់ លក់ជូនអតិថិជនជា <b>ភាគី”ខ”</b> មានបំណងចង់ទិញផ្ទះ <b>ភាគី”ក”</b>។
+			<p style="font-size: 15px;">
+				ដោយហេតុថា  <b><b>ភាគី”ក”</b></b>  ជាម្ចាស់សំណង់ នៃក្រុមហ៊ុន <b>ហ្គាឡាក់ស៊ី១១</b> សម្រាប់ លក់ជូនអតិថិជនជា <b>ភាគី”ខ”</b> ហើយ <b>ភាគី”ខ”</b>  មានបំណងចង់ទិញផ្ទះរបស់ <b>ភាគី”ក”</b>។
 			</p>
 		</div>
 		<div style="text-align: center;margin-top: -10px"><h4>ភាគីទាំងពីរឯកភាពតាមប្រការដូចខាងក្រោមៈ</h4></div>
@@ -362,7 +353,7 @@
 		
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
-				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះប្រភេទ <?php echo $OUT_REC[0]->cat_nm_kh;?>  ដែលមានដីទំហំ <?php echo $OUT_REC[0]->pro_land_width;?>m x <?php echo $OUT_REC[0]->pro_land_height;?>m និងផ្ទះទំហំសរុប <?php echo number_format(floatval($OUT_REC[0]->pro_length)*floatval($OUT_REC[0]->pro_width),2,'.','');?>m<sup>2</sup> ដែលមានទទឹង <?php echo floatval($OUT_REC[0]->pro_length);?>m បណ្ដោយ <?php echo floatval($OUT_REC[0]->pro_width);?>m ផ្ទះលេខ <?php echo $OUT_REC[0]->pro_code;?> ប្រភេទ <?php echo $OUT_REC[0]->cat_nm_kh;?>  ស្ថិតនៅក្នុងទីតាំងរបស់<b>ភាគី”ក”</b> នៅជិតផ្លូវ ២១៧ ភូមិដូង សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនខាងលើ<br> (ភាគី “ក” រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមករណីជាក់ស្ដែង)
+				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះប្រភេទ <?php echo $OUT_REC[0]->cat_nm_kh;?>  ដែលមានដីទំហំ <?php echo $OUT_REC[0]->pro_land_width;?>m x <?php echo $OUT_REC[0]->pro_land_height;?>m និងផ្ទះទំហំសរុប <?php echo number_format(floatval($OUT_REC[0]->pro_length)*floatval($OUT_REC[0]->pro_width),2,'.','');?>m<sup>2</sup> ដែលមានទទឹង <?php echo floatval($OUT_REC[0]->pro_length);?>m បណ្ដោយ <?php echo floatval($OUT_REC[0]->pro_width);?>m ផ្ទះលេខ <?php echo $OUT_REC[0]->pro_code;?> ប្រភេទ <?php echo $OUT_REC[0]->cat_nm_kh;?>  ស្ថិតនៅក្នុងទីតាំងរបស់<b>ភាគី”ក”</b> នៅជិតផ្លូវ ២១៧ ភូមិដូង សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនខាងលើ (ភាគី “ក” រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមករណីជាក់ស្ដែង)
 			</p>
 		</div>
 		
@@ -382,9 +373,9 @@
 			</p>
 		</div>
 		
-		<!--  -->
+		<!--  
 		<span style="position: relative;top: 120px;left: 700px;font-size: 10px;">1/4</span>
-		<!--  -->
+		 -->
 		<br><br><br><br>
 		<div style="height: 20px;">
 		</div>
@@ -439,9 +430,7 @@
 					<li>បើលើស ៣០ថ្ងៃ រហូតដល់ ៩០ថ្ងៃ ពិន័យ៥%នៃប្រាក់ដែលមិនទាន់បានបង់ (ប្រចាំខែ)។ ការយឺតយ៉ាវ ឫការខកខាន នេះមិនត្រូវលើសពី៩០ ថ្ងៃឡើយ។</li>
 				</ul>
 			</p>
-			<br>
-			<span style="position: relative;top: 0px;left: 660px;font-size: 12px;">2/4</span>
-			<br>
+			
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៥.៨</span>	ក្នុងករណីដែល <b>ភាគី”ខ”</b> មិនបានបង់ប្រាក់ លើសពី ៩០ថ្ងៃ ជូន <b>ភាគី”ក”</b> នោះ <b>ភាគី”ខ”</b> យល់ព្រមប្រគាល់ផ្ទះ និងដី ដែលបានទិញស្របតាមកិច្ចសន្យាលក់ទិញផ្ទះ ជូនក្រុមហ៊ុន ហ្គាឡាក់ស៊ី១១ វិញ។ ហើយក្រុមហ៊ុន ហ្គាឡាក់ស៊ី១១ មានសិទ្ធចាត់ចែងអចលនទ្រព្យដោយស្របច្បាប់។ <b>ភាគី”ខ”</b> សុខចិត្តយល់ព្រមមិនប្ដឹងទាមទារ ឫតវ៉ាជាដាច់ខាត។
 			</p>
@@ -481,14 +470,7 @@
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៦.៦</span>	កិច្ចសន្យាលក់ទិញ ផ្ទះ នេះមានប្រសិទ្ធិភាពចាប់ពីថ្ងៃផ្ដិតមេដៃនេះតទៅ។
 			</p>
-			<br>
-			<br>
-			<br><br>
-			<br><br><br><br>
 			
-			<br>
-			<span style="position: relative;top: 0px;left: 660px;font-size: 12px;">3/4</span>
-			<br>
 		</div>
 		<div style="margin-top: 100px;">
 			<table class="tbl-head">
@@ -548,6 +530,6 @@
 			<h4>ហត្ថលេខា និង ត្រា</h4>
 			
 		</div>
-		<span style="position: relative;top: 510px;left: 700px;font-size: 12px;">4/4</span>
+		
 	</body>
 </html>

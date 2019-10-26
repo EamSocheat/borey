@@ -26,13 +26,13 @@
 		  table.tbl-head tr td{
 		  	border: none;
 		  }
-		  .div-box{
-				border: 2px solid #D4AF37;border-radius: 15px;padding:10px;
+		   .div-box{
+				border: 2px solid #D4AF37;border-radius: 15px;padding:18px;
 			    min-height: 100px;
 				max-height: 100px;
 		  }
 		  .with-100{
-			width: 50px;
+			width: 60px;
 			font-weight: bold;
 		  }
 		  .with-150{
@@ -63,59 +63,71 @@
 	<body style="">
 		<div style="text-align: left;"><img style="width: 200px;" src="<?php echo $printData[0]["base_url"]."/upload/fix/";?>galaxy11-logo.png" /></div>
 		<div style="text-align: center;margin-top: -20px"><h3>បង្កាន់ដៃបង់ប្រាក់</h3></div>
-		<div style="text-align: right; margin-top: -30px">		
-			<p>លេខបង្កាន់ដៃ :  <span><?php echo $OUT_REC[0]->inst_paid_code;?></span></p>
-			<p>កាលបរិច្ឆេទ: </ : <span><?php echo date('d-m-Y',strtotime($OUT_REC[0]->inst_paid_date));?></span></p>  
+		<div style="margin-top: -30px;display: flex;margin-bottom: 15px;">
+			<div style="width: 75%"></div>		
+			<div style="width: 25%">
+				<div>
+					<span class="with-150 block-dis ">លេខបង្កាន់ដៃ</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo $OUT_REC[0]->inst_paid_code;?></span>
+				</div>
+				<div>
+					<span class="with-150 block-dis ">កាលបរិច្ឆេទ</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo date('d-m-Y',strtotime($OUT_REC[0]->inst_paid_date));?></span>
+				</div>
+			</div>	
+			  
 		</div>
-		<div>
-			<table class="tbl-head" >
-				<colgroup>
-					<col width="50%">
-					<col width="50%">
-				</colgroup>
-				<tbody>
-					<tr>
-						<td><div class="div-box">
-							<table class="tbl-head">
-								<col width="20%">
-								<col width="2%">
-								<col width="80%">
-								<tr>
-									<td class="with-100">គម្រោង</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->bra_nm_kh;?></td>
-								</tr>
-								<tr>
-									<td class="with-100">កូដផ្ទះ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->pro_code;?></td>
-								<tr>
-									<td class="with-100">តំលៃផ្ទះ</td><td class="with-10">:</td><td>$<?php echo number_format($OUT_REC[0]->sell_total_price);?></td>
-								</tr>
-								<tr>
-									<td class="with-100">ភ្នាក់ងារ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->sta_nm_kh;?></td>
-								</tr>
-							</table>
-						<div></td>
-						<td><div class="div-box">
-							<table class="tbl-head">
-								<col width="33%">
-								<col width="2%">
-								<col width="65%">
-								<tr>
-									<td class="with-150">ឈ្មោះអតិថិជន</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_nm_kh;if($OUT_REC[1]->cus_nm_kh != null){ echo ' & '.$OUT_REC[1]->cus_nm_kh; } if($OUT_REC[2]->cus_nm_kh != null){ echo ' & '.$OUT_REC[2]->cus_nm_kh; }?></td>
-								</tr>
-								<tr>
-									<td class="with-150">លេខទូរស័ព្ទ </td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_phone1;if($OUT_REC[1]->cus_phone1 != null){ echo ' / '.$OUT_REC[1]->cus_phone1; }?></td>
-								<tr>
-									<td class="with-150">អាស័យដ្ឋាន &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td><td class="with-10">:&nbsp;&nbsp; &nbsp;&nbsp;</td><td <?php if(strlen($OUT_REC[0]->cus_addr) > 200){echo 'style="font-size: 11px; padding-top: -5px;"'; } ?>> <?php echo $OUT_REC[0]->cus_addr; if(strlen($OUT_REC[0]->cus_addr) < 110 ){echo '&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;' ;}?></td>
-								</tr>
-								
-							</table>
-						<div></td>
-					</tr>
-					<tr style="height: 10px;"></tr>
-					
-				</tbody>
-			</table>
-		</div>
+		
 		<div style="display: flex;">
+			<div style="width: 50%;margin-right: 10px">
+    			<div class="div-box">
+    				<div>
+    					<span class="with-100 block-dis ">គម្រោង</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo $OUT_REC[0]->bra_nm_kh;?></span>
+    				</div>
+    				<div>
+    					<span class="with-100 block-dis ">កូដផ្ទះ</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo $OUT_REC[0]->pro_code;?></span>
+    				</div>
+    				<div>
+    					<span class="with-100 block-dis ">តំលៃផ្ទះ</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->sell_total_price);?></span>
+    				</div>
+    				<div>	
+    					<span class="with-100 block-dis ">ភ្នាក់ងារ</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo $OUT_REC[0]->sta_nm_kh;?></span>
+    				</div>			
+    			</div>
+			</div>
+			<div style="width: 50%;">
+				<div class="div-box">
+					
+    				<div style="display: flex;">
+    					<div style="width: 90px;display: inline-block;">
+    						<span class="with-150 block-dis ">ឈ្មោះអតិថិជន</</span>
+    					</div>
+    					<div style="display: inline-block;">
+    						<span class="with-15 block-dis">:</span>
+    					</div>
+    					<div style="display: inline-block;">
+    						<span class="block-dis"><?php echo $OUT_REC[0]->cus_nm_kh; if($OUT_REC[1]->cus_nm_kh != null){ echo ' & '.$OUT_REC[1]->cus_nm_kh; } if($OUT_REC[2]->cus_nm_kh != null){ echo ' & '.$OUT_REC[2]->cus_nm_kh; }?></span>
+    					</div>
+    					
+    				</div>
+    				<div>	
+    					<span class="with-150 block-dis ">លេខទូរស័ព្ទ</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo $OUT_REC[0]->cus_phone1; if($OUT_REC[1]->cus_phone1 != null && $OUT_REC[1]->cus_phone1 != $OUT_REC[0]->cus_phone1){ echo ' / '.$OUT_REC[1]->cus_phone1; }?></span>
+    				</div>
+    				<div style="display: flex;">
+    					<div style="width: 90px;display: inline-block;">
+    						<span class="with-150 block-dis ">អាស័យដ្ឋាន</span>
+    					</div>
+    					<div style="display: inline-block;">
+    						<span class="with-15 block-dis">:</span>
+    					</div>
+    					<div style="display: inline-block;">
+    						<span class="block-dis"><?php echo $OUT_REC[0]->cus_addr;?></span>
+    					</div>
+    					
+    				</div>
+				</div>
+			</div>
+		</div>
+		
+		<div style="display: flex;margin-top: 15px;">
 			<div style="width: 50%;margin-left: 5px;">
 				<div>
 					<span class="with-200 block-dis ">លេខវិក័យបត្រ</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo $OUT_REC[0]->inst_paid_inv_code;?></span>
@@ -124,7 +136,7 @@
 					<span class="with-200 block-dis ">ប្រភេទកិច្ចសន្យា</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo $OUT_REC[0]->con_type_nm_kh;?></span>
 				</div>
 				<div>
-					<span class="with-200 block-dis ">ប្រាក់ដើមបានបង់សរុប</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->paid_principle);?></span>
+					<span class="with-200 block-dis ">ប្រាក់ដើមបានបង់សរុប</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format( floatval($OUT_REC[0]->paid_principle)+floatval($OUT_REC[0]->inst_dis_amt)+ floatval($OUT_REC[0]->inst_amt_pay));?></span>
 				</div>
 				<div>	
 					<span class="with-200 block-dis ">ប្រាក់ដើមនៅសល់</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format(floatval($OUT_REC[0]->inst_amt_balance)) ?></span>
@@ -221,7 +233,7 @@
 				
 			</table>
 		</div>
-		<div style="margin-top: 40px;">
+		<div style="margin-top: 30px;">
 			<table class="tbl-head">
 				<tr>
 					<td style="width: 25%">ស្នាមមេដៃម្ចាស់ផ្ទះ</td>
@@ -251,14 +263,11 @@
 					<td>&nbsp;</td>
 				</tr>
 				
-				<tr>
-					<td style="font-weight: bold;color: #D4AF37;font-size: 11px;">BOREY GALAXY11</td>
-				</tr>
-				<tr>
-					<td colspan="4" style="font-size: 11px;">ការិយាល័យ: ផ្សារព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ (ជិតផ្លូវ៦០សម្តេចតេជោ)ទូរសព្ទ័០17 661 122/098 66 11 22</td>
-				</tr>
 			</table>
 		</div>
-		
+		<div style="position: absolute;bottom: 0px; width: 100%;font-size: 11px;margin-left: 7px;">
+			<p style="font-weight: bold;color: #D4AF37;font-size: 11px;">BOREY GALAXY11</p>
+			<p style="margin-top: -5px;font-size: 11px;">ការិយាល័យ: ផ្សារព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ (ជិតផ្លូវ៦០សម្តេចតេជោ)ទូរសព្ទ័០17 661 122 / 098 66 11 22</p>
+		</div>
 	</body>
 </html>

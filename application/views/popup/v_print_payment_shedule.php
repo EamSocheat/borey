@@ -139,7 +139,7 @@
 									<td class="with-200">ប្រភេទកិច្ចសន្យា</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->con_type_nm_kh;?></td>
 								</tr>
 								<tr>
-									<td class="with-200">ទូរសព្ទ័លេខ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_phone1; if($OUT_REC[0]->cus_phone2 != null){ echo ' & '.$OUT_REC[0]->cus_phone2; } if($OUT_REC[0]->cus_phone3 != null){ echo ' & '.$OUT_REC[0]->cus_phone3; }?></td>
+									<td class="with-200">ទូរសព្ទ័លេខ</td><td class="with-10">:</td><td><?php echo $OUT_REC[0]->cus_phone1; if($OUT_REC[0]->cus_phone2 != null && $OUT_REC[0]->cus_phone2 != $OUT_REC[0]->cus_phone1){ echo ' / '.$OUT_REC[0]->cus_phone2; } /* if($OUT_REC[0]->cus_phone3 != null  && $OUT_REC[0]->cus_phone3 != $OUT_REC[0]->cus_phone1){ echo ' / '.$OUT_REC[0]->cus_phone3; } */?></td>
 								</tr>
 							</table>
 						</td>
@@ -274,7 +274,10 @@
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td style="width: 50%;font-weight: bold;padding-left: 100px;"><?php echo $OUT_REC[0]->cus_nm_kh;?></td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width: 50%;font-weight: bold;padding-left: 100px;"><?php echo $OUT_REC[0]->cus_nm_kh;if($OUT_REC[0]->cus_nm_kh2 != null){ echo ' & '.$OUT_REC[0]->cus_nm_kh2; } if($OUT_REC[0]->cus_nm_kh3 != null){ echo ' & '.$OUT_REC[0]->cus_nm_kh3; }?></td>
 					<td style="width: 50%;font-weight: bold;padding-left: 150px;">ហេង ពិសិដ្ឋ</td>
 				</tr>
 				<!-- 
