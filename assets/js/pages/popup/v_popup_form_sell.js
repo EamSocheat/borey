@@ -697,6 +697,12 @@ function getDataEdit(cont_id){
 		        	$(".div_installment").show();
 		        	$("#cboInstYn").prop("checked",true);
 		        }
+		        
+		        $("#divDes").removeClass("col-xs-3");
+		        $("#divDes").addClass("col-xs-6");
+		        $("#divSelectPro").hide();
+		        $("#txtDesc").css("font-size","12px");
+		        
 			    $("#frmSell input,#frmSell textarea,#frmSell select").prop("disabled",true);
 			    $("#txtTranPrice,#txtPayCashDesc,#txtTotalLeftInstDesc,#txtContSD,#cboReceiver,#txtPayPer,#txtPayCash,#cboPaymentMet,#txtTran,#txtDisPer,#txtDisCash,#txtPayPenalty,#txtInterstRate,#txtPeriod,#txtStartInstDate,#txtPayTime").prop("disabled",false);
 			}else{

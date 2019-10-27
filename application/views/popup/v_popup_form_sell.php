@@ -95,7 +95,7 @@
 			                	</div>
 		                    </div>
 		                    
-		                    <div class="col-xs-3 padding-forms-right">
+		                    <div class="col-xs-3 padding-forms-right" id="divDes">
 		            			
 				                <div class="form-group">
 		                            <label  for="txtDesc" data-i18nCd="lb_des">Description</label>
@@ -103,7 +103,7 @@
 		                        </div>
 					    	
 		            		</div>
-		            		<div class="col-xs-3 padding-forms-right text-right" style="padding: 0px">
+		            		<div class="col-xs-3 padding-forms-right text-right" style="padding: 0px" id="divSelectPro">
 		                		<button  type="button" class="btn btn-info btn-sm" id="btnSelectPro" style="margin-top: 26px;height:34px; width: 100%"><i class="fa fa-home" aria-hidden="true"></i> ជ្រើសរើសអចលនទ្រព្យ</button>
 		                	</div>
 		            	</div>
@@ -239,14 +239,14 @@
 		                   <!--  -->
 		                </div>
 		                <div class="col-xs-12 row" style="padding:0px;">
-		                	<div class="col-xs-4 padding-forms-left">
+		                	<div class="col-xs-9 padding-forms-left">
 		                		<div class="form-group">
 		                			<input type="checkbox" id="cboInstYn" name="cboInstYn" disabled="disabled"> <label  for="cboInstYn" > ធ្វើការរំលស់ជាមួយក្រុមហ៊ុន</label><span> </span>
 		                			<input type="hidden" name="txt_com_inst_yn" id="txt_com_inst_yn" value="Y"/>
 		                		</div>
 		                	</div>
-		                	<div class="col-xs-8 padding-forms-right text-right" style="    padding-left: 0px;padding-right: 0px;">
-    	                        <button  type="button" class="btn btn-warning btn-sm" id="btnCalInst"><i class="fa fa-plus"></i> គណនាតារាងបង់ប្រាក់</button>
+		                	<div class="col-xs-3 padding-forms-right text-right" style="    padding-left: 0px;padding-right: 0px;">
+    	                        <button  type="button" class="btn btn-warning btn-sm" id="btnCalInst" style="width: 100%;height: 34px;"><i class="fa fa-plus"></i> គណនាតារាងបង់ប្រាក់</button>
     	                    	
 		                	</div>
 		                </div>

@@ -106,7 +106,7 @@
 													<label for="cboCommiType" class="control-label" data-i18ncd="lb_cat" style="margin-bottom: 7px;display: -webkit-box;">ប្រភេទកម្រៃជើងសារ </label>
 													<select class="form-control input-sm" id="cboCommiType" name="cboCommiType" style="font-size: 14px;" onchange="getData()">
 														<option value="" data-i18ncd="lb_status_choose">សូមជ្រើសរើស</option>
-														<option value="A" data-i18ncd="lb_wating">បុគ្គលិក </option>
+														<option value="A" data-i18ncd="lb_wating">រួម </option>
 														<option value="S" data-i18ncd="lb_finished">បុគ្គល </option>
 													</select>
 												</div>

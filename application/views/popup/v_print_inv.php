@@ -2,6 +2,14 @@
 <html>
 	<head>
 		<style>
+		@media print {
+           body {
+              -webkit-print-color-adjust: exact;
+           }
+           
+           @page{margin:0px auto;}
+        }
+        
 		body{font-family: Khmer OS Siemreap;
 			padding-top: 20px;
 		}
@@ -61,7 +69,7 @@
 		</style>
 	</head>
 	<body style="">
-		<div style="text-align: left;"><img style="width: 200px;" src="<?php echo $printData[0]["base_url"]."/upload/fix/";?>galaxy11-logo.png" /></div>
+		<div style="text-align: left;"><img style="width: 200px;margin-top: 50px;" src="<?php echo $printData[0]["base_url"]."/upload/fix/";?>galaxy11-logo.png" /></div>
 		<div style="text-align: center;margin-top: -20px"><h3>បង្កាន់ដៃបង់ប្រាក់</h3></div>
 		
 		<div style="margin-top: -30px;display: flex;margin-bottom: 15px;">
@@ -251,7 +259,7 @@
 				
 			</table>
 		</div>
-		<div style="position: absolute;bottom: 0px; width: 100%;font-size: 11px;margin-left: 7px;">
+		<div style="position: absolute;bottom: 70px; width: 100%;font-size: 11px;margin-left: 7px;">
 			<p style="font-weight: bold;color: #D4AF37;font-size: 11px;">BOREY GALAXY11</p>
 			<p style="margin-top: -5px;font-size: 11px;">ការិយាល័យ: ផ្សារព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ (ជិតផ្លូវ៦០សម្តេចតេជោ)ទូរសព្ទ័០17 661 122 / 098 66 11 22</p>
 		</div>

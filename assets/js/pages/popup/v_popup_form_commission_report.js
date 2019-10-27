@@ -129,7 +129,7 @@ function getDataEdit(cont_id){
 		success: function(res) {
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				
-			    $("#txtCommiType").val((res.OUT_REC[0]["commi_type"] == "A" ? "បុគ្គលិក" : "បុគ្គល"));
+			    $("#txtCommiType").val((res.OUT_REC[0]["commi_type"] == "A" ? "រួម" : "បុគ្គល"));
 			    $("#txtSeller").val(res.OUT_REC[0]["sta_nm_kh"]);
 			    $("#txtSellPrice").val(stock.comm.formatCurrency(res.OUT_REC[0]["sell_total_price"]));
 			    $("#txtCommiAmt").val(stock.comm.formatCurrency(res.OUT_REC[0]["commi_amt"]));

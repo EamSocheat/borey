@@ -215,7 +215,7 @@ function getData(page_no){
 					}
 					strHtml += '<tr class="cur-pointer" data-id="'+res.OUT_REC[i]["commi_id"]+'">';
 					strHtml += '	<td class="chk_box"><div class="" style="width: 10px;"><input type="checkbox"></div></td>';
-					strHtml += '	<td><div class="">'+(res.OUT_REC[i]["commi_type"] == "A" ? "បុគ្គលិក" : "បុគ្គល")+'</div></td>';
+					strHtml += '	<td><div class="">'+(res.OUT_REC[i]["commi_type"] == "A" ? "រួម" : "បុគ្គល")+'</div></td>';
 					
 					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["commi_amt"])+'$</div></td>';
 					strHtml += '	<td><div class="" style="text-align: right">'+(res.OUT_REC[i]["commi_is_approve"] == "Y" ? approveAmt : "")+'</div></td>';

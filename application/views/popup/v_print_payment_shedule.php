@@ -22,6 +22,8 @@
            body {
               -webkit-print-color-adjust: exact;
            }
+           
+           @page{margin:30px auto auto auto;}
         }
         		
 		body{font-family: Khmer OS Siemreap;
