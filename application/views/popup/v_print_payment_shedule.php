@@ -243,7 +243,14 @@
 				</tr>	
 			</table>
 		</div>
-		
+		<?php 
+			if(count($OUT_REC) > 22 && count($OUT_REC) < 30){
+				$cntData= count($OUT_REC);
+				for($j=0;$j<  (30 - $cntData);$j++){
+					echo '<br>';
+				}
+			}
+		?>
 		<div style="margin-top: 10px">
 			<table class="tbl-head">
 				<tr>

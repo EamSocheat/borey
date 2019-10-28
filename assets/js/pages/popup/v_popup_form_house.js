@@ -23,7 +23,7 @@ var _thisPage = {
 			stock.comm.inputCurrency("txtHouseLength");
 			stock.comm.inputCurrency("txtHouseWidth");
 			stock.comm.inputCurrency("txtHouseArea");
-			stock.comm.inputNumber("txtFloorQty");
+			stock.comm.inputCurrency("txtFloorQty");
 			stock.comm.inputNumber("txtRoomQty");
 			stock.comm.inputNumber("txtToiletQty");
 			stock.comm.inputCurrency("txtHousePrice");
@@ -72,7 +72,8 @@ var _thisPage = {
 						$("#txtRoomQty").val(res.OUT_REC[0]["pro_room"]);
 						$("#txtToiletQty").val(res.OUT_REC[0]["pro_toilet"]);
 						$("#txtLandHeight").val(res.OUT_REC[0]["pro_land_height"]);
-						$("#txtLandWidth").val(res.OUT_REC[0]["pro_land_width"])
+						$("#txtLandWidth").val(res.OUT_REC[0]["pro_land_width"]);
+						$("#txtFloorQty").val(res.OUT_REC[0]["pro_floor"]);
 						
 						$("#txtDesc").val(res.OUT_REC[0]["pro_des"]);
 						if(res.OUT_REC[0]["pro_photo"] != null && res.OUT_REC[0]["pro_photo"] != ""){
@@ -80,7 +81,7 @@ var _thisPage = {
 							$("#expImgPath").val(res.OUT_REC[0]["pro_photo"]);
 						}
 						if(res.OUT_REC[0]["pro_status"] == "B" || res.OUT_REC[0]["pro_status"] == "S"){
-							$("#btnSave").remove();
+							//$("#btnSave").remove();
 						}
 					}else{
 						stock.comm.alertMsg($.i18n.prop("msg_err"));
