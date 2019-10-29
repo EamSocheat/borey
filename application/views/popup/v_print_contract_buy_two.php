@@ -354,7 +354,7 @@
 		
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
-				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះ  ដែលមានដីទំហំ <?php echo $OUT_REC[0]->pro_land_width;?>m x <?php echo $OUT_REC[0]->pro_land_height;?>m និងផ្ទះទំហំសរុប <?php echo (floatval($OUT_REC[0]->pro_area) * floatval($OUT_REC[0]->pro_floor));?>m<sup>2</sup> ដែលមានទទឹង <?php echo floatval($OUT_REC[0]->pro_width);?>m បណ្ដោយ <?php echo floatval($OUT_REC[0]->pro_length);?>m ផ្ទះលេខ <?php echo $OUT_REC[0]->pro_code;?> ប្រភេទ<?php echo $OUT_REC[0]->cat_nm_kh;?>  ស្ថិតនៅក្នុងទីតាំងរបស់<b>ភាគី”ក”</b> ជិតផ្លូវ ២១៧ ភូមិព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនខាងលើ (ភាគី “ក” រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមករណីជាក់ស្ដែង)
+				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះ  ដែលមានដីទទឹង <?php echo $OUT_REC[0]->pro_land_width;?>m x បណ្តោយ<?php echo $OUT_REC[0]->pro_land_height;?>m និងផ្ទះទំហំសរុប <?php echo $OUT_REC[0]->pro_area ;?>m<sup>2</sup> ដែលមានទទឹង <?php echo floatval($OUT_REC[0]->pro_width);?>m បណ្ដោយ <?php echo floatval($OUT_REC[0]->pro_length);?>m ផ្ទះលេខ <?php echo $OUT_REC[0]->pro_code;?> ប្រភេទ<?php echo $OUT_REC[0]->cat_nm_kh;?>  ស្ថិតនៅក្នុងទីនៅក្នុងគម្រោងទីតាំងរបស់<b>ភាគី”ក”</b> ជិតផ្លូវ ២១៧ ភូមិព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនខាងលើ (ភាគី “ក” រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមករណីជាក់ស្ដែង)
 			</p>
 		</div>
 		
@@ -362,7 +362,7 @@
 		
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
-				<b>ភាគី”ក”</b> យល់ព្រមលក់ដី និងផ្ទះប្រភេទ<?php echo $OUT_REC[0]->cat_nm_kh;?> ខាងលើជូន <b>ភាគី”ខ”</b> ក្នុងតំលៃព្រមព្រៀងចំនួន <b style="font-weight: bold;">USD<?php echo number_format( floatval($OUT_REC[0]->pro_sell_price) );?></b> <br>(<?php echo $OUT_REC[0]->pro_sell_price_desc;?>ដុល្លារអាមេរិកគត់)។
+				<b>ភាគី”ក”</b> យល់ព្រមលក់ដី និងផ្ទះប្រភេទ<?php echo $OUT_REC[0]->cat_nm_kh;?> ខាងលើជូន <b>ភាគី”ខ”</b> ក្នុងតំលៃព្រមព្រៀងចំនួន <b style="font-weight: bold;">USD<?php echo number_format( floatval($OUT_REC[0]->pro_sell_price) );?></b> (<?php echo $OUT_REC[0]->pro_sell_price_desc;?>ដុល្លារអាមេរិកគត់)។
 			</p>
 		</div>
 		
@@ -378,19 +378,20 @@
 		<span style="position: relative;top: 120px;left: 700px;font-size: 10px;">1/4</span>
 		 -->
 		
+		<br>
 		<div style="height: 20px;"></div>
 		<div style="text-align: left;margin-top: 0px"><h4><u>ប្រការ ៤៖</u>	<span style="margin-left: 30px"> សិទ្ធិ និង កាតព្វកិច្ចរបស់<b>ភាគី”ក”</b></span></h4></div>
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;">៤.១</span>	<b>ភាគី”ក”</b> ធានាសាងសង់ផ្ទះវីឡាទោលជូន<b>ភាគី”ខ”</b> តាមគំនូសប្លង់ផ្ទះគំរូ និង សាងសង់ផ្ទះឲ្យរួចរាល់ក្នុង
+				<span style="margin-right: 10px;font-weight: bold;">៤.១</span>	<b>ភាគី”ក”</b> ធានាសាងសង់<?php echo $OUT_REC[0]->cat_nm_kh;?>ជូន<b>ភាគី”ខ”</b> តាមគំនូសប្លង់ផ្ទះគំរូ និង សាងសង់ផ្ទះឲ្យរួចរាល់ក្នុង
 រយៈពេល  <?php echo $OUT_REC[0]->pro_sell_time_build;?>ខែ គិតពីថ្ងៃចុះកិច្ចសន្យា លើកលែងក្នុងករណីប្រធានស័ក្កដូចជា៖ ទឹកជំនន់ រញ្ជួយដី វិបត្តិនយោបាយ អស្ថេរភាពសង្គមកើតឡើង ដែលហេតុការណ៍ទាំងនេះ បណ្ដាលឲ្យមានការរាំងស្ទះដល់ការសាងសង់ ។
 			</p>
 			
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;">៤.២</span>	<b>ភាគី”ក”</b> ត្រូវធានារយៈពេល ១ឆ្នាំ ចំពោះករណីជញ្ជាំង ប្រេះស្រាំ ប្រព័ន្ធលូ និង ប្រព័ន្ធទឹកស្ទះ ។
+				<span style="margin-right: 10px;font-weight: bold;">៤.២</span>	<b>ភាគី”ក”</b> ធានារយៈពេល ១ឆ្នាំ ចំពោះករណីជញ្ជាំង ប្រេះស្រាំ ប្រព័ន្ធលូ និង ប្រព័ន្ធទឹក។
 			</p>
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;">៤.៣</span>	ករណី <b>ភាគី”ក”</b> មិនបានសាងសង់ផ្ទះវីឡាទោលជូន<b>ភាគី”ខ”</b> តាមកាលកំណត់ខាងលើទេនោះ <b>ភាគី”ក”</b> 	យល់ព្រមបង់ប្រាក់ពិន័យចំនួន<b style="font-weight: bold;"> USD300</b>(បីរយដុល្លារ) ក្នុងមួយខែអោយ<b>ភាគី”ខ”</b> រហូតដល់ផ្ទះសាងសង់រួចរាល់។
+				<span style="margin-right: 10px;font-weight: bold;">៤.៣</span>	ករណី <b>ភាគី”ក”</b> មិនបានសាងសង់<?php echo $OUT_REC[0]->cat_nm_kh;?>ជូន<b>ភាគី”ខ”</b> តាមកាលកំណត់ខាងលើទេនោះ <b>ភាគី”ក”</b> 	យល់ព្រមបង់ប្រាក់ពិន័យចំនួន<b style="font-weight: bold;"> USD300</b>(បីរយដុល្លារ) ក្នុងមួយខែអោយ<b>ភាគី”ខ”</b> រហូតដល់ផ្ទះសាងសង់រួចរាល់។
 			</p>
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៤.៤</span>	<b>ភាគី”ក”</b> អះអាងថា ផ្ទះ<?php echo $OUT_REC[0]->cat_nm_kh;?>ដែលបានលក់ខាងលើ ជាកម្មសិទ្ធិស្របច្បាប់របស់ខ្លួនយ៉ាងពិតប្រាកដ 	ដោយពុំមានជាប់ពាក់ព័ន្ធ បណ្ដឹងវិវាទអ្វីឡើយ។
@@ -403,13 +404,13 @@
 		<div style="text-align: left;margin-top: -10px"><h4><u>ប្រការ ៥៖</u>	<span style="margin-left: 30px"> សិទ្ធិកាតព្វកិច្ចរបស់ភាគី ”ខ”</span></h4></div>
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;">៥.១</span>	<b>ភាគី”ខ”</b> ពុំមានសិទ្ធិកែប្រែប្លង់សាងសង់ ឬ សាងសង់បន្ថែមខុសពី ផ្ទះគំរូឡើយទោះបីជាក្រោយពេល	<b>ភាគី”ក”</b> ប្រគល់ផ្ទះវីឡាទោលជូន<b>ភាគី”ខ”</b> រួចហើយក៏ដោយ ។
+				<span style="margin-right: 10px;font-weight: bold;">៥.១</span>	<b>ភាគី”ខ”</b> ពុំមានសិទ្ធិកែប្រែប្លង់សាងសង់ ឬ សាងសង់បន្ថែមខុសពី ផ្ទះគំរូឡើយទោះបីជាក្រោយពេល	<b>ភាគី”ក”</b> ប្រគល់<?php echo $OUT_REC[0]->cat_nm_kh;?>ជូន<b>ភាគី”ខ”</b> រួចហើយក៏ដោយ ។
 			</p>
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៥.២</span>	ក្នុងកំឡុងពេលអនុវត្តន៍កិច្ចសន្យានេះ <b>ភាគី”ខ”</b> អាចលក់ រឺផ្ទេរកិច្ចសន្យានេះអោយអតិថិជនណាមួយ  ដោយ<b>ភាគី”ខ”</b> ត្រូវបំពេញបែបបទលក់រឺ ផ្ទេរសិទ្ធិចំពោះមុខ  	<b>ភាគី”ក”</b> ជាមុខសិន។
 			</p>
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;">៥.៣</span>	<b>ភាគី”ខ”</b> ត្រូវទទួលខុសត្រូវបន្ទុកបង់សោហ៊ុយក្នុងការលក់ ឬផ្ទេរកិច្ចសន្យាចំនួន<b style="font-weight: bold;">USD<?php echo number_format( floatval($OUT_REC[0]->sell_tran_price) );?></b>(<?php echo returnMoneyDesc($OUT_REC[0]->sell_tran_price);?>ដុល្លារ) ជូន <b>ភាគី”ក”</b> អតិថិជនដែលទទួលបានសិទ្ធិបន្តត្រូវអនុវត្តន៍តាមកិច្ចសន្យានេះទាំងស្រុង។
+				<span style="margin-right: 10px;font-weight: bold;">៥.៣</span>	<b>ភាគី”ខ”</b> ត្រូវទទួលខុសត្រូវបន្ទុកបង់សោហ៊ុយក្នុងការលក់ ឬផ្ទេរកិច្ចសន្យាចំនួន<b style="font-weight: bold;">USD<?php echo number_format( floatval($OUT_REC[0]->sell_tran_price) );?></b>(<?php echo returnMoneyDesc($OUT_REC[0]->sell_tran_price);?>ដុល្លារ) ជូន <b>ភាគី”ក”</b> ហើយអតិថិជនដែលទទួលបានសិទ្ធិបន្តត្រូវអនុវត្តន៍តាមលក្ខខណ្ឌ័នៃកិច្ចសន្យានេះទាំងស្រុង។
 			</p>
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៥.៤</span>	<b>ភាគី”ខ”</b> ត្រូវអនុវត្តន៍ការទូទាត់ប្រាក់នៅស្នាក់ការរបស់ <b>ភាគី”ក”</b> ដូចបានកំណត់ខាងលើ។
@@ -424,7 +425,7 @@
 			</p>
 			
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;">៥.៧</span>	ក្នុងករណីដែល <b>ភាគី”ខ”</b> ខកខាន ឫ យឺតយ៉ាវក្នុងការទូទាត់ជូន <b>ភាគី”ក”</b> នោះ<b>ភាគី”ខ”</b> ត្រូវបង់ប្រាក់ពិន័យដូចខាងក្រោម៖
+				<span style="margin-right: 10px;font-weight: bold;">៥.៧</span>	ក្នុងករណីដែល <b>ភាគី”ខ”</b> ខកខាន ឫ យឺតយ៉ាវក្នុងការទូទាត់ជូន <b>ភាគី”ក”</b> នោះ<b>ភាគី”ខ”</b> ឯកភាពយល់ព្រមបង់ប្រាក់ពិន័យដូចខាងក្រោម៖
 				<ul>
 					<li>បើលើសរយះពេលកំណត់ចាប់ពី ៥ថ្ងៃ រហូតដល់៣០ថ្ងៃត្រូវពិន័យចំនួន៣% (បីភាគរយ)</li>
 					<br>
@@ -434,14 +435,14 @@
 				</ul>
 			</p>
 		
-			
+			<div style="height: 20px;"></div>
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៥.៨</span>	ក្នុងករណីដែល <b>ភាគី”ខ”</b> មិនបានបង់ប្រាក់ លើសពីរយះពេល ៩០ថ្ងៃ ជូន  <b>ភាគី”ក”</b> នោះ <b>ភាគី”ខ”</b> យល់ព្រមបោះបង់សិទ្ធក្នុងការទិញផ្ទះ ហើយយល់ព្រមប្រគល់ផ្ទះ និងដី ដែលបានទិញស្របតាមកិច្ចសន្យាលក់ទិញផ្ទះនេះ ជូនក្រុមហ៊ុន <b>ហ្គាឡាក់ស៊ី១១ </b> ជាកម្មសិទ្ធវិញ។ ហើយក្រុមហ៊ុន <b>ហ្គាឡាក់ស៊ី១១ </b> មានសិទ្ធចាត់ចែងអចលនទ្រព្យដោយស្របច្បាប់។ <b>ភាគី”ខ”</b> យល់ព្រមដោយស្ម័គ្រចិត្តមិនប្ដឹងទាមទារ រឺតវ៉ាជាដាច់
 ខាត ដោយទទួលស្គាល់ថានេះជាការបំពានកិច្ចសន្យារបស់ខ្លួន។
 
 			</p>
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;">៥.៩</span>	<b>ភាគី”ខ”</b> ត្រូវបង់សេវាសន្តិសុខ អំពូលភ្លើងផ្លូវ ថែសួនអនាម័យសាធារណៈចំនួន 	USD‌‌	(   ) 	ក្នុងមួយខែជារៀងរាល់ខែ គិតចាប់ពីថ្ងៃប្រគល់ទទួលផ្ទះ ទោះជាបានស្នាក់នៅ ឬមិន	ស្នាក់នៅក៍ដោយ។
+				<span style="margin-right: 10px;font-weight: bold;">៥.៩</span>	<b>ភាគី”ខ”</b> ត្រូវបង់សេវាសន្តិសុខ អំពូលភ្លើងផ្លូវ ថែសួនអនាម័យសាធារណៈចំនួន 	USD‌‌	(   ) 	ក្នុងមួយខែជារៀងរាល់ខែ គិតចាប់ពីថ្ងៃប្រគល់ទទួលផ្ទះ ទោះជាបានស្នាក់នៅ ឬមិនស្នាក់នៅក៍ដោយ។
 			</p>
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៥.១០</span>	<b>ភាគី”ខ”</b> ត្រូវគោរពតាមបទបញ្ជាផ្ទៃក្នុង និង គោលការណ៍រួមរបស់គំរោង រួមទាំងការគ្រប់គ្រងរបស់ ក្រុមហ៊ុន <b>ហ្គាឡាក់ស៊ី១១ </b>។
@@ -471,7 +472,7 @@
 			</p>
 			
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;">៦.៥</span>	ភាគីទាំងពីរសុខចិត្តផ្ដិតមេដៃស្តាំទុកជាភស្តុតាងជូនចំពោះមុខមេធាវី<b>ភាគី”ក”</b>។
+				<span style="margin-right: 10px;font-weight: bold;">៦.៥</span>	ភាគីទាំងពីរសុខចិត្តផ្ដិតមេដៃស្តាំទុកជាភស្តុតាងនៅចំពោះមុខច្បាប់នៃព្រះរាជាណាចក្រកម្ពុជា។។
 			</p>
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៦.៦</span>	កិច្ចសន្យាលក់ទិញ ផ្ទះ នេះមានប្រសិទ្ធិភាពចាប់ពីថ្ងៃផ្ដិតមេដៃនេះតទៅ។
