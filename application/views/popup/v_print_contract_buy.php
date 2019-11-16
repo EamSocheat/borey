@@ -247,7 +247,7 @@
            }
            #Header{ display: none !important; }
            
-           @page{margin:30px auto auto auto;}
+            @page{margin:32.8px 33px 33px 33px;}
            
         }
       	
@@ -326,8 +326,8 @@
 		
 		<div style="text-align: center;"><h4>ព្រះរាជាណាចក្រកម្ពុជា</h4></div>
 		<div style="text-align: center;margin-top: -20px"><h4>ជាតិ សាសនា ព្រះមហាក្សត្រ</h4></div>
-		<div style="text-align: center;margin-top: -30px"><span style='font-size:15px;'>&#10037;</span></div>
-		<div style="text-align: center;margin-top: -30px"><h4>កិច្ចសន្យាទិញ-លក់ផ្ទះ</h4></div>
+		<div style="text-align: center;margin-top: -25px"><span style='font-size:15px;'>&#10037;</span></div>
+		<div style="text-align: center;margin-top: -25px"><h4>កិច្ចសន្យាទិញ-លក់ផ្ទះ</h4></div>
 		<div style="text-align: left;"><h4>កិច្ចសន្យានេះធ្វើឡើងរវាង</h4></div>
 		
 		<div>
@@ -338,7 +338,7 @@
 		<div style="text-align: center;margin-top: -10px"><h4>និង</h4></div>
 		<div style="margin-top: -10px">
 			<p style="font-size: 15px;">
-				ឈ្មោះ <b> <?php echo $OUT_REC[0]->cus_nm_kh;?></b> ភេទ  <?php 	if($OUT_REC[0]->cus_gender=="Male"){echo "ប្រុស";}else if($OUT_REC[0]->cus_gender=="Female"){echo "ស្រី";}?> ជនជាតិខ្មែរ កាន់អត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរលេខ <?php echo $OUT_REC[0]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[0]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[0]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[0]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[0]->cus_addr;?> ជាអ្នកទិញ ហៅកាត់ថា <b>ភាគី “ខ”</b> លេខទូរស័ព្ទទំនាក់ទំនង <?php echo $OUT_REC[0]->cus_phone1;?>។
+				ឈ្មោះ <b> <?php echo $OUT_REC[0]->cus_nm_kh;?></b> ភេទ  <?php 	if($OUT_REC[0]->cus_gender=="Male"){echo "ប្រុស";}else if($OUT_REC[0]->cus_gender=="Female"){echo "ស្រី";}?> ជនជាតិខ្មែរ កាន់អត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរលេខ <?php echo $OUT_REC[0]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[0]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[0]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[0]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[0]->cus_addr;?> ជាអ្នកទិញ ហៅកាត់ថា <b>ភាគី“ខ”</b> លេខទូរស័ព្ទទំនាក់ទំនង <?php echo $OUT_REC[0]->cus_phone1;?>។
 			</p>
 		</div>
 		<div style="text-align: center;margin-top: -10px"><h4>បុព្វកថា</h4></div>
@@ -353,7 +353,7 @@
 		
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
-				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះ  ដែលមានដីទទឹង <?php echo $OUT_REC[0]->pro_land_width;?>m x បណ្តោយ<?php echo $OUT_REC[0]->pro_land_height;?>m និងផ្ទះទំហំសរុប <?php echo $OUT_REC[0]->pro_area ;?>m<sup>2</sup> ដែលមានទទឹង <?php echo floatval($OUT_REC[0]->pro_width);?>m បណ្ដោយ <?php echo floatval($OUT_REC[0]->pro_length);?>m ផ្ទះលេខ <?php echo $OUT_REC[0]->pro_code;?> ប្រភេទ<?php echo $OUT_REC[0]->cat_nm_kh;?>  ស្ថិតនៅក្នុងទីនៅក្នុងគម្រោងទីតាំងរបស់<b>ភាគី”ក”</b> ជិតផ្លូវ ២១៧ ភូមិព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនខាងលើ (ភាគី “ក” រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមករណីជាក់ស្ដែង)
+				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះ  ដែលមានដីទទឹង<?php echo $OUT_REC[0]->pro_land_width;?>m x បណ្តោយ<?php echo $OUT_REC[0]->pro_land_height;?>m និងផ្ទះទំហំសរុប<?php echo $OUT_REC[0]->pro_area ;?>m<sup>2</sup> ដែលមានទទឹង<?php echo floatval($OUT_REC[0]->pro_width);?>m បណ្ដោយ<?php echo floatval($OUT_REC[0]->pro_length);?>m ផ្ទះលេខ<?php echo $OUT_REC[0]->pro_code;?> ប្រភេទ<?php echo $OUT_REC[0]->cat_nm_kh;?>  ស្ថិតនៅក្នុងទីនៅក្នុងគម្រោងទីតាំងរបស់<b>ភាគី”ក”</b> ជិតផ្លូវ ២១៧ ភូមិព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនខាងលើ (<b>ភាគី“ក”</b> រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមករណីជាក់ស្ដែង)
 			</p>
 		</div>
 		
@@ -369,16 +369,29 @@
 		
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
-				<b>ភាគី”ខ”</b> ត្រូវទូទាត់ប្រាក់ថ្លៃទិញ-លក់ជូន<b>ភាគី”ក”</b> តាមចំនួន និងកាលបរិច្ឆេទនៃកិច្ចសន្យាដែលមានភ្ជាប់ជា	ឧបសម្ព័ន្ធ នៃកិច្ចសន្យា។លក្ខខណ្ឌ័នៃការទូទាត់ប្រាក់ថ្លៃទិញ-លក់ផ្ទះនេះអាចមានការប្រែប្រួលអាស្រ័យតាម	ការពិភាក្សាព្រម	ព្រៀងរវាង	ភាគីលក់ និងភាគីទិញ ដោយផ្អែកតាមតារាងកាលវិភាគបង់ប្រាក់ រឹតាមការទូទាត់ជាក់ស្ដែង។
+				<b>ភាគី”ខ”</b> ត្រូវទូទាត់ប្រាក់ថ្លៃទិញ-លក់ជូន<b>ភាគី”ក”</b> តាមចំនួន និងកាលបរិច្ឆេទនៃកិច្ចសន្យាដែលមានភ្ជាប់ជាឧបសម្ព័ន្ធ នៃកិច្ចសន្យា។
+			</p>
+			<p style="font-size: 15px;">
+				លក្ខខណ្ឌ័នៃការទូទាត់ប្រាក់ថ្លៃទិញ-លក់ផ្ទះនេះអាចមានការប្រែប្រួលអាស្រ័យតាមការពិភាក្សាព្រមព្រៀងរវាងភាគីលក់ និងភាគីទិញ ដោយផ្អែកតាមតារាងកាលវិភាគបង់ប្រាក់ រឹតាមការទូទាត់ជាក់ស្ដែង។
+			</p>
+			<p style="font-size: 15px;">
+				ការទូទាត់អាចនៅការិយាល័យផ្ទាល់   រឺតាមធនាគារវធ្ឍនៈអាស៊ីចំកាត់ (ABA Bank) គណនីឈ្មោះ   <b>GALAXY 11 COLTD</b> គណនីលេខ<b>001223957</b> ដែលកំណត់ឡើងដោយក្រុមហ៊ុន <b>ហ្គាឡាក់ស៊ី១១</b>។
+			</p>
+			<p style="font-size: 15px;">
+				<b>បញ្ជាក់ :</b> 
+			</p>
+			<p style="font-size: 15px;">
+				<span style="margin-right: 10px;font-weight: bold;">១.</span>សំរាប់ <b>ភាគី”ខ”</b> ដែលជ្រើសយកកម្ចីជាមួយធនាគារ ត្រូវផ្ដល់ឯកសារដែលទាក់ទងទាំងអស់ទៅធនាគារ ហើយត្រូវធ្វើការទូទាត់ជាមួយធនាគារ  ដូចមានភ្ជាប់ក្នុងតារាងកាលវិភាគបង់ប្រាក់។
+			</p>
+			<p style="font-size: 15px;">
+				<span style="margin-right: 10px;font-weight: bold;">២.</span>ក្នុងករណី <b>ភាគី”ខ”</b> សិក្សាប្រាក់កម្ចីជាមួយធនាគាមិនជាប់ នោះ <b>ភាគី”ខ”</b> ត្រូវបង់ប្រាក់រំលស់ជាមួយ ក្រុមហ៊ុន <b>ហ្គាឡាក់ស៊ី១១</b> រយះពេល 60ខែ ជាមួយអត្រាការប្រាក់ 1.2% ក្នុងមួយខែ រឺអាចបង់ផ្ដាច់នៅខែទី១៩។
 			</p>
 		</div>
 		
 		<!--  
 		<span style="position: relative;top: 120px;left: 700px;font-size: 10px;">1/4</span>
 		 -->
-		
-		<br>
-		<div style="height: 20px;"></div>
+	
 		<div style="text-align: left;margin-top: 0px"><h4><u>ប្រការ ៤៖</u>	<span style="margin-left: 30px"> សិទ្ធិ និង កាតព្វកិច្ចរបស់<b>ភាគី”ក”</b></span></h4></div>
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
@@ -431,7 +444,6 @@
 				</ul>
 			</p>
 		
-			<div style="height: 20px;"></div>
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៥.៨</span>	ក្នុងករណីដែល <b>ភាគី”ខ”</b> មិនបានបង់ប្រាក់ លើសពីរយះពេល ៩០ថ្ងៃ ជូន  <b>ភាគី”ក”</b> នោះ <b>ភាគី”ខ”</b> យល់ព្រមបោះបង់សិទ្ធក្នុងការទិញផ្ទះ ហើយយល់ព្រមប្រគល់ផ្ទះ និងដី ដែលបានទិញស្របតាមកិច្ចសន្យាលក់ទិញផ្ទះនេះ ជូនក្រុមហ៊ុន <b>ហ្គាឡាក់ស៊ី១១ </b> ជាកម្មសិទ្ធវិញ។ ហើយក្រុមហ៊ុន <b>ហ្គាឡាក់ស៊ី១១ </b> មានសិទ្ធចាត់ចែងអចលនទ្រព្យដោយស្របច្បាប់។ <b>ភាគី”ខ”</b> យល់ព្រមដោយស្ម័គ្រចិត្តមិនប្ដឹងទាមទារ រឺតវ៉ាជាដាច់
 ខាត ដោយទទួលស្គាល់ថានេះជាការបំពានកិច្ចសន្យារបស់ខ្លួន។

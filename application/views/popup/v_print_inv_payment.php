@@ -70,7 +70,7 @@
 		</style>
 	</head>
 	<body style="">
-		<div style="text-align: left;"><img style="width: 200px;margin-top: 50px;" src="<?php echo $printData[0]["base_url"]."/upload/fix/";?>galaxy11-logo.png" /></div>
+		<div style="text-align: left;"><img style="width: 200px;margin-top: 40px;" src="<?php echo $printData[0]["base_url"]."/upload/fix/";?>galaxy11-logo.png" /></div>
 		<div style="text-align: center;margin-top: -20px"><h3>បង្កាន់ដៃបង់ប្រាក់</h3></div>
 		<div style="margin-top: -30px;display: flex;margin-bottom: 15px;">
 			<div style="width: 75%"></div>		
@@ -107,7 +107,7 @@
 					
     				<div style="display: flex;">
     					<div style="width: 90px;display: inline-block;">
-    						<span class="with-150 block-dis ">ឈ្មោះអតិថិជន</</span>
+    						<span class="with-150 block-dis ">ឈ្មោះអតិថិជន</span>
     					</div>
     					<div style="display: inline-block;">
     						<span class="with-15 block-dis">:</span>
@@ -182,7 +182,7 @@
 			</div>
 		</div>
 		
-		<div style="margin-top: 10px">
+		<div style="margin-top: 15px">
 			<table class="show-amount">
 				<tr>
 					<th style="text-align: center">ល.រ</th>
@@ -220,7 +220,7 @@
 			</table>
 		</div>
 		
-		<div style="margin-top: 10px;">
+		<div style="margin-top: 30px;">
 			<table class="tbl-head">
 				<tr>
 					<td style="width: 5%">កំណត់សំគាល់:</td>
