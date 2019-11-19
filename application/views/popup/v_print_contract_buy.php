@@ -247,7 +247,7 @@
            }
            #Header{ display: none !important; }
            
-            @page{margin:32.8px 33px 33px 33px;}
+           @page{margin:32.8px 33px 60px 33px;}
            
         }
       	
@@ -353,7 +353,7 @@
 		
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
-				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះ  ដែលមានដីទទឹង<?php echo $OUT_REC[0]->pro_land_width;?>m x បណ្តោយ<?php echo $OUT_REC[0]->pro_land_height;?>m និងផ្ទះទំហំសរុប<?php echo $OUT_REC[0]->pro_area ;?>m<sup>2</sup> ដែលមានទទឹង<?php echo floatval($OUT_REC[0]->pro_width);?>m បណ្ដោយ<?php echo floatval($OUT_REC[0]->pro_length);?>m ផ្ទះលេខ<?php echo $OUT_REC[0]->pro_code;?> ប្រភេទ<?php echo $OUT_REC[0]->cat_nm_kh;?>  ស្ថិតនៅក្នុងទីនៅក្នុងគម្រោងទីតាំងរបស់<b>ភាគី”ក”</b> ជិតផ្លូវ ២១៧ ភូមិព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនខាងលើ (<b>ភាគី“ក”</b> រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមករណីជាក់ស្ដែង)
+				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះ  ដែលមានដីទទឹង<?php echo $OUT_REC[0]->pro_land_width;?>m x បណ្តោយ<?php echo $OUT_REC[0]->pro_land_height;?>m និងផ្ទះទំហំសរុប<?php echo $OUT_REC[0]->pro_area ;?>m<sup>2</sup> ដែលមានទទឹង<?php echo floatval($OUT_REC[0]->pro_width);?>m បណ្ដោយ<?php echo floatval($OUT_REC[0]->pro_length);?>m ផ្ទះលេខ<?php echo $OUT_REC[0]->pro_code;?> ប្រភេទ<?php echo $OUT_REC[0]->cat_nm_kh;?> ស្ថិតនៅក្នុងគម្រោងទីតាំងរបស់<b>ភាគី”ក”</b> ជិតផ្លូវ ២១៧ ភូមិព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនជាមួយកិច្ចសន្យានេះ (<b>ភាគី“ក”</b> រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមភាពជាក់ស្ដែង)
 			</p>
 		</div>
 		
@@ -372,7 +372,7 @@
 				<b>ភាគី”ខ”</b> ត្រូវទូទាត់ប្រាក់ថ្លៃទិញ-លក់ជូន<b>ភាគី”ក”</b> តាមចំនួន និងកាលបរិច្ឆេទនៃកិច្ចសន្យាដែលមានភ្ជាប់ជាឧបសម្ព័ន្ធ នៃកិច្ចសន្យា។
 			</p>
 			<p style="font-size: 15px;">
-				លក្ខខណ្ឌ័នៃការទូទាត់ប្រាក់ថ្លៃទិញ-លក់ផ្ទះនេះអាចមានការប្រែប្រួលអាស្រ័យតាមការពិភាក្សាព្រមព្រៀងរវាងភាគីលក់ និងភាគីទិញ ដោយផ្អែកតាមតារាងកាលវិភាគបង់ប្រាក់ រឹតាមការទូទាត់ជាក់ស្ដែង។
+				លក្ខខណ្ឌ័នៃការទូទាត់ប្រាក់ថ្លៃទិញ-លក់ផ្ទះនេះអាចមានការប្រែប្រួលអាស្រ័យតាមការពិភាក្សាព្រមព្រៀងរវាងភាគីលក់ និងភាគីទិញ ដោយផ្អែកតាមតារាងកាលវិភាគបង់ប្រាក់ រឺតាមការទូទាត់ជាក់ស្ដែង។
 			</p>
 			<p style="font-size: 15px;">
 				ការទូទាត់អាចនៅការិយាល័យផ្ទាល់   រឺតាមធនាគារវធ្ឍនៈអាស៊ីចំកាត់ (ABA Bank) គណនីឈ្មោះ   <b>GALAXY 11 COLTD</b> គណនីលេខ<b>001223957</b> ដែលកំណត់ឡើងដោយក្រុមហ៊ុន <b>ហ្គាឡាក់ស៊ី១១</b>។
@@ -406,14 +406,14 @@
 				<span style="margin-right: 10px;font-weight: bold;">៤.៣</span>	ករណី <b>ភាគី”ក”</b> មិនបានសាងសង់<?php echo $OUT_REC[0]->cat_nm_kh;?>ជូន<b>ភាគី”ខ”</b> តាមកាលកំណត់ខាងលើទេនោះ <b>ភាគី”ក”</b> 	យល់ព្រមបង់ប្រាក់ពិន័យចំនួន<b style="font-weight: bold;"> USD300</b>(បីរយដុល្លារ) ក្នុងមួយខែអោយ<b>ភាគី”ខ”</b> រហូតដល់ផ្ទះសាងសង់រួចរាល់។
 			</p>
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;">៤.៤</span>	<b>ភាគី”ក”</b> អះអាងថា ផ្ទះ<?php echo $OUT_REC[0]->cat_nm_kh;?>ដែលបានលក់ខាងលើ ជាកម្មសិទ្ធិស្របច្បាប់របស់ខ្លួនយ៉ាងពិតប្រាកដ 	ដោយពុំមានជាប់ពាក់ព័ន្ធ បណ្ដឹងវិវាទអ្វីឡើយ។
+				<span style="margin-right: 10px;font-weight: bold;">៤.៤</span>	<b>ភាគី”ក”</b> អះអាងថា <?php echo $OUT_REC[0]->cat_nm_kh;?>ដែលបានលក់ខាងលើ ជាកម្មសិទ្ធិស្របច្បាប់របស់ខ្លួនយ៉ាងពិតប្រាកដ 	ដោយពុំមានជាប់ពាក់ព័ន្ធ បណ្ដឹងវិវាទអ្វីឡើយ។
 			</p>
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៤.៥</span>	<b>ភាគី”ក”</b> ទទួលខុសត្រូវក្នុងការកាត់ប្លង់បំបែកក្បាលដីជូន<b>ភាគី”ខ”</b> ដោយសោហ៊ុយចំណាយជាបន្ទុក	របស់<b>ភាគី”ក”</b> ។
 			</p>
 		</div>
 		
-		<div style="text-align: left;margin-top: -10px"><h4><u>ប្រការ ៥៖</u>	<span style="margin-left: 30px"> សិទ្ធិកាតព្វកិច្ចរបស់ភាគី ”ខ”</span></h4></div>
+		<div style="text-align: left;margin-top: -10px"><h4><u>ប្រការ ៥៖</u>	<span style="margin-left: 30px"> សិទ្ធិ និង កាតព្វកិច្ចរបស់ភាគី ”ខ”</span></h4></div>
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៥.១</span>	<b>ភាគី”ខ”</b> ពុំមានសិទ្ធិកែប្រែប្លង់សាងសង់ ឬ សាងសង់បន្ថែមខុសពី ផ្ទះគំរូឡើយទោះបីជាក្រោយពេល	<b>ភាគី”ក”</b> ប្រគល់<?php echo $OUT_REC[0]->cat_nm_kh;?>ជូន<b>ភាគី”ខ”</b> រួចហើយក៏ដោយ ។
@@ -480,14 +480,14 @@
 			</p>
 			
 			<p style="font-size: 15px;">
-				<span style="margin-right: 10px;font-weight: bold;">៦.៥</span>	ភាគីទាំងពីរសុខចិត្តផ្ដិតមេដៃស្តាំទុកជាភស្តុតាងនៅចំពោះមុខច្បាប់នៃព្រះរាជាណាចក្រកម្ពុជា។។
+				<span style="margin-right: 10px;font-weight: bold;">៦.៥</span>	ភាគីទាំងពីរសុខចិត្តផ្ដិតមេដៃស្តាំទុកជាភស្តុតាងនៅចំពោះមុខច្បាប់នៃព្រះរាជាណាចក្រកម្ពុជា។
 			</p>
 			<p style="font-size: 15px;">
 				<span style="margin-right: 10px;font-weight: bold;">៦.៦</span>	កិច្ចសន្យាលក់ទិញ ផ្ទះ នេះមានប្រសិទ្ធិភាពចាប់ពីថ្ងៃផ្ដិតមេដៃនេះតទៅ។
 			</p>
 			
 		</div>
-		<br><br><br><br>
+		
 		<div style="margin-top: 150px;">
 			<br>
 			<table class="tbl-head">
