@@ -345,6 +345,19 @@ var _thisPage = {
 				}
 			});
 			
+			//
+			$("#btnEditInst").click(function(e){
+				$("#divSellView").removeClass("in");
+				$("#divSellView").removeClass("active");
+				//
+				$("#divInstallmentView").addClass("in");
+				$("#divInstallmentView").addClass("active");
+				
+				
+				
+			});
+			
+			
 		}
 };
 
@@ -1395,7 +1408,7 @@ function calculatePaySchedule(){
 	}
 	
 	
-	
+	$("#btnEditInst").show();
 	
 }
 

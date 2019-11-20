@@ -243,11 +243,12 @@
 		                		<div class="form-group">
 		                			<input type="checkbox" id="cboInstYn" name="cboInstYn" disabled="disabled"> <label  for="cboInstYn" > ធ្វើការរំលស់ជាមួយក្រុមហ៊ុន</label><span> </span>
 		                			<input type="hidden" name="txt_com_inst_yn" id="txt_com_inst_yn" value="Y"/>
+		                			<button  type="button" class="btn btn-danger btn-xs" id="btnEditInst" style="margin-left: 15px;display: none"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> កំណត់តារាងបង់ប្រាក់</button>
 		                		</div>
+		                		
 		                	</div>
 		                	<div class="col-xs-3 padding-forms-right text-right" style="    padding-left: 0px;padding-right: 0px;">
     	                        <button  type="button" class="btn btn-warning btn-sm" id="btnCalInst" style="width: 100%;height: 34px;"><i class="fa fa-plus"></i> គណនាតារាងបង់ប្រាក់</button>
-    	                    	
 		                	</div>
 		                </div>
 		                
@@ -316,137 +317,7 @@
 		        				</div> 	
 		                	</div>
 		                </div>
-		                <!--
-		                <div class="col-xs-12 row" style="padding:0px;">
-		                	
-				    		<div class="col-xs-3 padding-forms-left">
-		                		<div class="form-group">
-		            				<label for="txtContSD" >ថ្ងៃបង់ប្រាក់</label>
-									<div class="input-group date">
-										<div class="input-group-addon" id="txtContSDIcon" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;">
-											<i class="fa fa-calendar"></i>
-										</div>
-										<input type="text" class="form-control pull-right date-pick" id="txtContSD" name="txtContSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" autocomplete="off" />
-									</div>
-		            			</div>
-		                	</div>
-		                	<div class="col-xs-3 padding-forms-right">
-		                		<div class="form-group">
-						      		<label  for="cboReceiver" >អ្នកទទួលប្រាក់(បុគ្គលិក)</label>
-		                			 <select class="form-control" id="cboReceiver" name="cboReceiver" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសបុគ្គលិក ')" oninput="setCustomValidity('')">
-			                    		
-					                </select>
-						    	</div>
-		                    </div>
-		                    <div class="col-xs-3 padding-forms-right">
-		                        <div class="form-group">
-		        		      		<label  for="txtPayPer" > ប្រាក់បង់  % </label><span> </span>
-		        		        	<input type="text" maxlength="2" class="form-control text-right" id="txtPayPer" required="required"  placeholder="Enter loan amount" name="txtPayPer" autocomplete="off" />
-		        		    	</div>
-		                    </div>
-		                    <div class="col-xs-3 padding-forms-right">
-		                        <div class="form-group">
-		        		      		<label  for="txtPayCash">ប្រាក់បង់ $ </label><span> </span>
-		        		        	<input type="text" class="form-control text-right" id="txtPayCash" required="required"  placeholder="Enter loan amount" name="txtPayCash" autocomplete="off" />
-		        		    	</div>
-		                    </div>
-					    	
-		                </div>
-		                
-		                <div class="col-xs-12 row" style="padding:0px;">
-		                    <div class="col-xs-3 padding-forms-left">
-		                    	<div class="form-group">
-			                        <label  for="cboPaymentMet" >វីធីបង់ប្រាក់</label>
-			                		<select class="form-control" id="cboPaymentMet" name="cboPaymentMet" style="font-size: 14px;" required="required" oninvalid="this.setCustomValidity('​ ​សូមជ្រើសរើសវីធីបង់ប្រាក់ ')" oninput="setCustomValidity('')">
-			                    		
-				                	</select>
-			                	</div>
-		                    </div>
-		                    <div class="col-xs-3 padding-forms-right">
-		            			
-				                <div class="form-group">
-						      		<label  for="txtTran" >លេខប្រតិបត្តិការណ៍</label>
-						        	<input type="text" class="form-control" id="txtTran" placeholder="Enter loan amount" name="txtTran" autocomplete="off" />
-						    	</div>
-					    	
-		            		</div>
-		                    
-				    		<div class="col-xs-3 padding-forms-right">
-		                		<div class="form-group">
-		        		      		<label  for="txtDisPer" > បញ្ចុះតំលៃ % </label><span> </span>
-		        		        	<input type="text" maxlength="2" class="form-control text-right" id="txtDisPer" placeholder="Enter loan amount" name="txtDisPer" autocomplete="off" />
-		        		    	</div>
-		                	</div>
-		                	<div class="col-xs-3 padding-forms-right">
-		                		<div class="form-group">
-		        		      		<label  for="txtDisCash">បញ្ចុះតំលៃ $ </label><span> </span>
-		        		        	<input type="text" class="form-control text-right" id="txtDisCash" placeholder="Enter loan amount" name="txtDisCash" autocomplete="off" />
-		        		    	</div>
-		                    </div>
-		            		
-		                </div>
-		                
-		                <div class="col-xs-12 row" style="padding:0px;">
-		                	
-		                	
-				    		<div class="col-xs-3 padding-forms-left">
-		                		
-		                		<div class="form-group totalPaidDiv" style="display: none;">
-		        		      		<label  for="txtPayPenalty">ប្រាក់ពិន័យ $ </label><span> </span>
-		        		        	<input type="text" class="form-control text-right" id="txtPayPenalty" placeholder="Enter loan amount" name="txtPayPenalty" autocomplete="off" />
-		        		    	</div>
-		                        
-		                	</div>
-		                	<div class="col-xs-3 padding-forms-right">
-		                		<div class="form-group totalPaidDiv" style="display: none;">
-		                		<label  for="txtTotalPaid" > ប្រាក់បានបង់សរុប</label><span> </span>
-		        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtTotalPaid" placeholder="Enter loan amount" name="txtTotalPaid" autocomplete="off" />
-		                		</div>
-		                    </div>
-		                    <div class="col-xs-3 padding-forms-right">
-		                        <div class="form-group totalPaidDiv" style="display: none">
-		        		      		<label  for="txtTotalLeft" > ប្រាក់ដើមនៅសល់</label><span> </span>
-		        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtTotalLeft" placeholder="Enter loan amount" name="txtTotalLeft" autocomplete="off" />
-		        		    	</div>
-		                    </div>
-		                    <div class="col-xs-3 padding-forms-right">
-		        		    	<div class="form-group">
-		        		      		<label  for="txtRealPayAmt" > ប្រាក់ត្រូវបង់សរុប</label><span> </span>
-		        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtRealPayAmt" placeholder="Enter loan amount" name="txtRealPayAmt" autocomplete="off" />
-		        		    	</div>
-		                    </div>
-					    	
-		                </div>
-		                
-		                <div class="col-xs-12 row totalPaidDiv" style="padding:0px;display: none">
-		                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
-		                		<span><b>ប្រវត្តិនៃការបង់ប្រាក់</b></span>
-		                    	<div class="box-body table-responsive fix-header-tbl" style="height: 160px;padding: 0px;">
-		        				  <table class="table table-hover" id="tblPayment" >
-		        				    <thead>  
-		            					<tr>
-		            					  <th> </th>
-		            					  <th>ថ្ងៃបង់ប្រាក់ </th>
-			        					  <th>អ្នកទទួលប្រាក់ </th>
-			        					  <th>វីធីបង់ប្រាក់</th>
-			        					  <th class="text-right">ប្រាក់ពិន័យ $ </th>
-			        					  <th class="text-right">បញ្ចុះ%</th>
-			        					  <th class="text-right">ប្រាក់បង់ % </th>
-			        					  <th class="text-right"  >ប្រាក់បង់ $</th>
-			        					  <!-- <th class="text-right"  >បញ្ចុះតំលៃ $</th> 
-			        					  <th class="text-right"  style="padding-right: 25px;">ប្រាក់បង់សរុប</th>
-		            					</tr>
-		        					</thead>
-		        					<tbody>
-		        					   
-		        					</tbody>
-		        					
-		        				  </table>
-		        				</div> 	
-		                	</div>
-		    				 
-		                </div>
-		                -->
+		              
 		        	</div>
 		        	<div class="modal-footer" >
 			            <input type="hidden" value="" id="statusID" name="statusID" />
@@ -459,13 +330,33 @@
 			    </div>
 			    <!--installment  --> 
 			    <div id="divInstallmentView" class="tab-pane fade">
-			         
+			         <div class="col-xs-12 row" style="padding:0px;">
+	                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;" id="tblInstallmentEditDiv">
+	                		<span><b>កំណត់តារាងបង់ប្រាក់</b></span>
+	                    	<div class="box-body table-responsive fix-header-tbl" style="height: 185px;padding: 0px;">
+	        				  <table class="table table-hover" id="tblInstallmentEdit" >
+	        				    <thead>  
+	            					<tr>
+	            					  <th>ល.រ</th>
+	            					  <th class="text-center">ថ្ងៃត្រូវបង់</th>
+	            					  <th class="text-center">ភាគរយ%</th>
+	            					  <th class="text-right">បញ្ចុះ $</th>
+	            					  <th class="text-right">ប្រាក់ដើម $</th>
+		        					  <th class="text-right">ប្រាក់ការ $</th>
+		        					  <th class="text-right" ​>ប្រាក់បង់សរុប $</th>
+		        					  <th class="text-right" style="padding-right: 25px;">ប្រាក់ដើមនៅសល់ $</th>
+		        					  
+	            					</tr>
+	        					</thead>
+	        					<tbody>
+	        					   
+	        					</tbody>
+	        					
+	        				  </table>
+	        				</div> 	
+	                	</div>
+	                </div>
 			    	
-	                <div class="modal-footer" >
-	                	<button type="button" style="display: none" class="btn btn-danger btn-sm" id="btnUpdateInstallment"><i class="fa fa-refresh" aria-hidden="true"></i> កែប្រែ ទិន្ន័យបង់រំលស់</button>
-			            <button type="button" class="btn btn-primary btn-sm" id="btnSaveInstallment"><i class="fa fa-check" aria-hidden="true"></i> រក្សាទុក ទិន្ន័យបង់រំលស់</button>
-			            <button data-i18ncd="btn_close" type="button" class="btn btn-default btn-sm" id="btnClose">Close</button>
-			        </div>
 			    </div>
 		    </div>           
             <!-- end modal body  -->
