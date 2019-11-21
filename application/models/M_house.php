@@ -182,7 +182,7 @@
 		        $this->db->where('tbl_product.pro_code', $dataSrch['srch_all']);
 		    }
 		    
-		    
+		    $this->db->group_by('pro_id'); 
 		    $this->db->order_by("pro_id", "desc");
 		    return $this->db->get('tbl_product',$dataSrch['limit'],$dataSrch['offset'])->result();
 		}
@@ -193,12 +193,10 @@
 		    $this->db->from('tbl_product');
 		    $this->db->join('tbl_category','tbl_category.cat_id = tbl_product.cat_id');
 		    $this->db->join('tbl_branch','tbl_branch.bra_id = tbl_product.bra_id');
-		    $this->db->join('tbl_commission_setting','tbl_commission_setting.bra_id = tbl_product.bra_id');
-		    $this->db->join('tbl_commission_setting_detail','tbl_commission_setting_detail.comset_id = tbl_commission_setting.comset_id and tbl_commission_setting_detail.cat_id = tbl_product.cat_id');
-		    //$this->db->join('tbl_commission_setting_detail catSetting','catSetting.cat_id = tbl_product.cat_id');
+		    //$this->db->join('tbl_commission_setting','tbl_commission_setting.bra_id = tbl_product.bra_id');
+		    //$this->db->join('tbl_commission_setting_detail','tbl_commission_setting_detail.comset_id = tbl_commission_setting.comset_id and tbl_commission_setting_detail.cat_id = tbl_product.cat_id');
 		    $this->db->where('tbl_product.com_id', $_SESSION['comId']);
 		    $this->db->where('tbl_product.useYn', 'Y');
-		    $this->db->where('tbl_commission_setting.useYn', 'Y');
 		    //$this->db->where('tbl_commission_setting.useYn', 'Y');
 		    
 		    if($dataSrch['pro_id'] != null && $dataSrch['pro_id'] != ""){

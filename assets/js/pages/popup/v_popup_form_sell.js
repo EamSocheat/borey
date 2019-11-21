@@ -353,7 +353,7 @@ var _thisPage = {
 				$("#divInstallmentView").addClass("in");
 				$("#divInstallmentView").addClass("active");
 				
-				
+				setEditInstallment();
 				
 			});
 			
@@ -1611,5 +1611,48 @@ function saveInstallment(sell_id,str){
 			console.log(data);
 			parent.stock.comm.alertMsg($.i18n.prop("msg_err"));
         }
+	});
+	
+}
+
+
+
+function setEditInstallment(){
+	$('#tblInstallmentEditDiv tbody tr').html("")
+	
+	var instRecord = $('#tblInstallment tbody tr');
+	instRecord.each(function(i){
+		var instData = {};
+		var tblTr   = $(this);
+		var inst_num  = tblTr.find("td.inst_num").html();
+		var inst_date  = tblTr.find("td.inst_date").html();
+		var inst_amt_principle  = tblTr.find("td.inst_amt_principle").html();
+		var inst_amt_interest  = tblTr.find("td.inst_amt_interest").html();
+		var inst_amt_balance = tblTr.find("td.inst_amt_balance").html();
+		var inst_amt_pay = tblTr.find("td.inst_amt_pay​").html();
+		
+		
+		var loan_amount  = $(this).attr("data-loan-amount");
+		var first_inst_date  = $(this).attr("data-first-inst-date");
+		var inst_period  = $(this).attr("data-peroid");
+		var interest_rate  = $(this).attr("data-interest-rate");
+		var instType  = $(this).attr("data-inst-type");
+		var instPayPer  = $(this).attr("data-inst-per-pay");
+		var instDisPer  = $(this).attr("data-inst-dis-per");
+		var instDisPay  = $(this).attr("data-inst-dis-pay");
+		
+		//
+		var html = "<tr data-inst-type='"+instType+"' data-inst-dis-per='"+instDisPer+"' data-inst-dis-pay='"+instDisPay+"' data-inst-per-pay='"+instPayPer+"'  data-loan-amount='"+loan_amount+"' data-interest-rate='"+interest_rate+"' data-peroid='"+inst_period+"' data-first-inst-date='"+first_inst_date+"'>";
+		html += "<td class='inst_num cur-pointer'>"+inst_num+"</td>";
+		html += "<td class='inst_date cur-pointer text-center'>"+inst_date+"</td>";
+		html += "<td class='inst_pay_per cur-pointer text-center'>-</td>";
+		html += "<td class='inst_dis_amt cur-pointer text-right'>0$</td>";
+        html += "<td class='inst_amt_principle cur-pointer text-right'>"+inst_amt_principle+"$</td>";
+        html += "<td class='inst_amt_interest cur-pointer text-right'>"+inst_amt_interest+"$</td>";
+        html += "<td class='inst_amt_pay​ cur-pointer text-right' >"+inst_amt_pay+"$</td>";
+        html += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+inst_amt_balance+"$</td>";
+        html += "</tr>";
+        $("#tblInstallmentEditDiv tbody").append(html);
+        //
 	});
 }
