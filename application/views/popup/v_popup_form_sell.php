@@ -330,10 +330,44 @@
 			    </div>
 			    <!--installment  --> 
 			    <div id="divInstallmentView" class="tab-pane fade">
+			    	 <div class="col-xs-12 row" style="padding:0px;">
+			    	 	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
+			    	 		<table style="width:100%" class="table">
+		                			<colgroup>
+										<col width="17%">
+										<col width="2%">
+										<col width="15%">
+										<col width="17%">
+										<col width="2%">
+										<col width="15%">
+										<col width="15%">
+										<col width="2%">
+										<col width="17%">
+									</colgroup>
+								  	<tr >
+								    	<th style="border:none;">ប្រាក់ទូទាត់​ជាមុន %</th>
+								    	<th style="border:none;">៖</th>
+								    	<td style="border:none;" id="txtPayPerEdit"></td>
+								    	<th style="border:none;" >ប្រាក់ទូទាត់​ជាមុន $</th>
+								    	<th style="border:none;" >៖</th>
+								    	<td  style="border:none;" id="txtPayAmtEdit"></td>
+								    	<th style="border:none;" >ប្រាក់នៅសល់ $</th>
+								    	<th style="border:none;" >៖</th>
+								    	<td  style="border:none;" id="txtPayLeftAmtEdit"></td>
+								  	</tr>
+								  	<tr>
+								    	
+								  	</tr>
+								  	<tr>
+								    	
+								  	</tr>
+								</table>
+						</div>
+			    	 </div>
 			         <div class="col-xs-12 row" style="padding:0px;">
 	                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;" id="tblInstallmentEditDiv">
 	                		<span><b>កំណត់តារាងបង់ប្រាក់</b></span>
-	                    	<div class="box-body table-responsive fix-header-tbl" style="height: 185px;padding: 0px;">
+	                    	<div class="box-body table-responsive fix-header-tbl" style="height: 700px;padding: 0px;">
 	        				  <table class="table table-hover" id="tblInstallmentEdit" >
 	        				    <thead>  
 	            					<tr>
