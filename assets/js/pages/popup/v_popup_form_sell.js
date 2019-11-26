@@ -364,14 +364,12 @@ var _thisPage = {
 			
 			//
 			$("#tblInstallmentEdit").on('keyup', ".pay-amt-prin-edit", function (e) {
-				console.log("yes");
 				var instRecord = $('#tblInstallmentEdit tbody tr');
 				instRecord.each(function(i){
 					var amountLeft= 0;
 					if(i==0){
 						amountLeft = parseFloat($("#pro_price").val().replace(/,/g,"")) -  parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle').html().replace("$","").replace(/,/g,""));
 					}else{
-						console.log($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').length+"::::length input");
 						if ($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').length == 1) {
 							amountLeft = parseFloat($('#tblInstallmentEdit tbody tr:eq('+(i-1)+') td.inst_amt_balance').html().replace("$","").replace(/,/g,"")) -  parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').val().replace("$","").replace(/,/g,""));
 						}else{
@@ -1651,6 +1649,8 @@ function setEditInstallment(){
 	
 	var instRecord = $('#tblInstallment tbody tr');
 	var totalPaidAdv=0;
+	var checkBooked="";
+	var tdStyle="";
 	instRecord.each(function(i){
 		var instData = {};
 		var tblTr   = $(this);
@@ -1675,11 +1675,18 @@ function setEditInstallment(){
 		inst_pay_per = inst_pay_per.replace("%", "");
 		var htmlPayPer = inst_pay_per;
 		var htmlPrinAmt =inst_amt_principle;
-		if(!isNaN(inst_pay_per) ){
-			htmlPayPer = "<input type='text' style='width:70px;margin: 0 auto;' class='form-control text-right input-sm pay-per-edit' autocomplete='off' value='"+inst_pay_per.replace("%", "")+"' />";
-			htmlPrinAmt = "<input type='text' style='width:100px;margin: 0 auto;'  class='form-control text-right input-sm pay-amt-prin-edit' autocomplete='off' value='"+htmlPrinAmt.replace("$", "")+"' />";
+		
+		if(instType == "BOOK"){
+			checkBooked="<span style='margin-right: -42px;margin-left: 10px;'>បង្គ្រប់</span>";
+			tdStyle='style="display: flex;"';
+		}
+		if(instType == "ADV"){
+			inst_pay_per = instPayPer;
+			htmlPayPer = checkBooked+"<input type='text' style='width:60px;margin: 0 auto;' class='form-control text-right input-sm pay-per-edit' autocomplete='off' value='"+inst_pay_per.replace("%", "")+"' />";
+			htmlPrinAmt = "<input type='text' style='width:90px;margin: 0 auto;'  class='form-control text-right input-sm pay-amt-prin-edit' autocomplete='off' value='"+htmlPrinAmt.replace("$", "")+"' />";
+			checkBooked ="";
 		}else{
-			if(instType == "ADV" || instType =="LEFT"){
+			if(instType =="LEFT"){
 				htmlPayPer=htmlPayPer+"%";
 			}
 		}
@@ -1691,7 +1698,13 @@ function setEditInstallment(){
 		var html = "<tr data-inst-type='"+instType+"' data-inst-dis-per='"+instDisPer+"' data-inst-dis-pay='"+instDisPay+"' data-inst-per-pay='"+instPayPer+"'  data-loan-amount='"+loan_amount+"' data-interest-rate='"+interest_rate+"' data-peroid='"+inst_period+"' data-first-inst-date='"+first_inst_date+"'>";
 		html += "<td class='inst_num cur-pointer'>"+inst_num+"</td>";
 		html += "<td class='inst_date cur-pointer text-center'>"+inst_date+"</td>";
-		html += "<td class='inst_pay_per cur-pointer text-center'>"+htmlPayPer+"</td>";
+		if(instType == "ADV"){
+			html += "<td class='inst_pay_per cur-pointer text-center' "+tdStyle+">"+htmlPayPer+"</td>";
+			tdStyle="";
+		}else{
+			html += "<td class='inst_pay_per cur-pointer text-center'>"+htmlPayPer+"</td>";
+		}
+		
 		html += "<td class='inst_dis_amt cur-pointer text-right'>"+inst_dis_amt+"</td>";
         html += "<td class='inst_amt_principle cur-pointer text-right'>"+htmlPrinAmt+"</td>";
         html += "<td class='inst_amt_interest cur-pointer text-right'>"+inst_amt_interest+"</td>";
@@ -1699,7 +1712,6 @@ function setEditInstallment(){
         html += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+inst_amt_balance.replace("$", "")+"</td>";
         html += "</tr>";
         $("#tblInstallmentEditDiv tbody").append(html);
-        
         
         stock.comm.inputCurrencyByClass("#tblInstallmentEditDiv",".input-sm")
         //
