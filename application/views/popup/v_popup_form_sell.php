@@ -364,6 +364,12 @@
 								</table>
 						</div>
 			    	 </div>
+			    	 <div class="col-xs-12 row" style="padding:0px;text-align: right; margin-top: -15px;">
+			    	 	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;">
+			    	 		<button  type="button" class="btn btn-default btn-xs" id="btnCancel"><i class="fa fa-arrow-left" aria-hidden="true"></i> បោះបង់</button>
+				    	 	<button type="button" class="btn btn-primary btn-xs" id="btnReady"><i class="fa fa-check" aria-hidden="true"></i> កែប្រែរួចរាល់</button>
+			           </div>
+			    	 </div>
 			         <div class="col-xs-12 row" style="padding:0px;">
 	                	<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;" id="tblInstallmentEditDiv">
 	                		<span><b>កំណត់តារាងបង់ប្រាក់</b></span>
