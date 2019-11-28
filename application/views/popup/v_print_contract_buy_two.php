@@ -354,7 +354,7 @@
 		
 		<div style="margin-top: -10px;margin-left: 40px">
 			<p style="font-size: 15px;">
-				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះ  ដែលមានដីទទឹង<?php echo $OUT_REC[0]->pro_land_width;?>m x បណ្តោយ<?php echo $OUT_REC[0]->pro_land_height;?>m និងផ្ទះទំហំសរុប<?php echo $OUT_REC[0]->pro_area ;?>m<sup>2</sup> ដែលមានទទឹង<?php echo floatval($OUT_REC[0]->pro_width);?>m បណ្ដោយ<?php echo floatval($OUT_REC[0]->pro_length);?>m ផ្ទះលេខ<?php echo $OUT_REC[0]->pro_code;?> ប្រភេទ<?php echo $OUT_REC[0]->cat_nm_kh;?> ស្ថិតនៅក្នុងគម្រោងទីតាំងរបស់<b>ភាគី”ក”</b> ជិតផ្លូវ ២១៧ ភូមិព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនជាមួយកិច្ចសន្យានេះ (<b>ភាគី“ក”</b> រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមភាពជាក់ស្ដែង)
+				<b>ភាគី”ក”</b> យល់ព្រមលក់ ហើយ<b>ភាគី”ខ”</b>យល់ព្រមទិញពី<b>ភាគី”ក”</b> នូវផ្ទះ  ដែលមានទំហំសរុប<?php echo $OUT_REC[0]->pro_area ;?>m<sup>2</sup> ដែលមានទទឹង<?php echo floatval($OUT_REC[0]->pro_width);?>m បណ្ដោយ<?php echo floatval($OUT_REC[0]->pro_length);?>m ផ្ទះលេខ<?php echo $OUT_REC[0]->pro_code;?> ប្រភេទ<?php echo $OUT_REC[0]->cat_nm_kh;?> ស្ថិតនៅក្នុងគម្រោងទីតាំងរបស់<b>ភាគី”ក”</b> ជិតផ្លូវ ២១៧ ភូមិព្រែកជ្រៃ សង្កាត់ស្ពានថ្ម ខណ្ឌដង្កោ រាជធានីភ្នំពេញ ។ តាមប្លង់គោលភ្ជាប់ជូនជាមួយកិច្ចសន្យានេះ (<b>ភាគី“ក”</b> រក្សាសិទ្ធិកែប្រែប្លង់គោលតាមភាពជាក់ស្ដែង)
 			</p>
 		</div>
 		

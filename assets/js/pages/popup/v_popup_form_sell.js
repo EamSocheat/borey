@@ -396,9 +396,9 @@ var _thisPage = {
 			
 			//
 			$("#btnCancel").click(function(e){
-				stock.comm.confirmMsg("តើអ្នកប្រាកដជាចង់បោះបង់?");
-				$("#btnConfirmOk").unbind().click(function(e){
-					$("#mdlConfirm").modal('hide');
+				parent.stock.comm.confirmMsg("តើអ្នកប្រាកដជាចង់ចាកចេញមែនឬទេ?");
+				parent.$("#btnConfirmOk").unbind().click(function(e){
+					parent.$("#mdlConfirm").modal('hide');
 
 					$("#divInstallmentView").removeClass("in");
 					$("#divInstallmentView").removeClass("active");
@@ -411,6 +411,11 @@ var _thisPage = {
 			
 			//
 			$("#btnReady").click(function(e){
+				if( parseInt($("#tblInstallmentEdit tbody tr:eq("+($("#tblInstallmentEdit tbody tr").length -1)+") td.inst_amt_balance").html().replace(/,/g,"")) !=0 ){
+					parent.stock.comm.alertMsg("កំណត់តារាងបង់ប្រាក់មិនត្រឹមត្រូវទេ សូមពិនិត្យម្តងទៀត!!!");
+					$("#tblInstallmentEdit tbody tr:eq("+($("#tblInstallmentEdit tbody tr").length -1)+") td.inst_amt_balance").css("color","red");
+					return;
+				}
 				readyEditInstallment();
 				
 				$("#divInstallmentView").removeClass("in");
@@ -1697,7 +1702,7 @@ function saveInstallment(sell_id,str){
 
 
 function setEditInstallment(){
-	$('#tblInstallmentEditDiv tbody tr').html("")
+	$('#tblInstallmentEdit tbody').html("")
 	$("#txtPayPerEdit").html($("#txtPayPer").val() +" %");
 	$("#txtPayAmtEdit").html($("#txtPayCash").val() +" $");
 	
@@ -1706,7 +1711,6 @@ function setEditInstallment(){
 	var checkBooked="";
 	var tdStyle="";
 	instRecord.each(function(i){
-		console.log(i);
 		var instData = {};
 		var tblTr   = $(this);
 		var inst_num  = tblTr.find("td.inst_num").html();
@@ -1769,9 +1773,9 @@ function setEditInstallment(){
         html += "<td class='inst_amt_pay cur-pointer text-right' >"+inst_amt_pay.replace("$", "")+"</td>";
         html += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+inst_amt_balance.replace("$", "")+"</td>";
         html += "</tr>";
-        $("#tblInstallmentEditDiv tbody").append(html);
+        $("#tblInstallmentEdit tbody").append(html);
         
-        stock.comm.inputCurrencyByClass("#tblInstallmentEditDiv",".input-sm")
+        stock.comm.inputCurrencyByClass("#tblInstallmentEdit",".input-sm")
         //
 	});
 	
@@ -1782,11 +1786,11 @@ function setEditInstallment(){
 
 
 function readyEditInstallment(){
-	$('#tblInstallment tbody tr').html("")
+	$('#tblInstallment tbody').html("")
 	$("#txtPayPerEdit").html($("#txtPayPer").val() +" %");
 	$("#txtPayAmtEdit").html($("#txtPayCash").val() +" $");
 	
-	var instRecord = $('#tblInstallmentEditDiv tbody tr');
+	var instRecord = $('#tblInstallmentEdit tbody tr');
 	var totalPaidAdv=0;
 	var checkBooked="";
 	var tdStyle="";
