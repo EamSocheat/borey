@@ -356,37 +356,94 @@ var _thisPage = {
 				setEditInstallment();
 				
 			});
+		
+			//
+			$("#tblInstallmentEdit").on('keyup', ".pay-amt-prin-edit", function (e) {
+				//
+				sumBalanceEdit();
+				//
+				if($(this).closest("tr").attr("data-inst-type") == "ADV"){
+					var payAdvAmt = parseFloat($(this).val().replace(/,/g,""));
+					if($(this).closest("tr").find("td.inst_num").html() == "2" && $("#tblInstallmentEdit tbody tr:eq(0)").attr("data-inst-type") == "BOOK"){
+						var bookAmt = $("#tblInstallmentEdit tbody tr:eq(0)").find("td.inst_amt_principle").html().replace("$","");
+						bookAmt = bookAmt.replace(/,/g,"");
+						payAdvAmt = payAdvAmt + parseFloat(bookAmt);
+					}
+					var perAdvPer=(payAdvAmt * 100) / parseFloat($("#pro_price").val().replace(/,/g,""));
+					$(this).closest("tr").find("td input.pay-per-edit").val(perAdvPer.toFixed(2));
+				}
+				
+		    });
 			
 			//
 			$("#tblInstallmentEdit").on('keyup', ".pay-per-edit", function (e) {
 				$(this).closest("tr").attr("data-inst-per-pay",$(this).val());
-		    });
+				
+				//
+				var payAdvPer = parseFloat($(this).val().replace(/,/g,""));
+				var payAdvAmt = parseFloat($("#pro_price").val().replace(/,/g,"")) * (payAdvPer /100);
+				
+				if($(this).closest("tr").find("td.inst_num").html() == "2" && $("#tblInstallmentEdit tbody tr:eq(0)").attr("data-inst-type") == "BOOK"){
+					var bookAmt = $("#tblInstallmentEdit tbody tr:eq(0)").find("td.inst_amt_principle").html().replace("$","");
+					bookAmt = bookAmt.replace(/,/g,"");
+					payAdvAmt = payAdvAmt - parseFloat(bookAmt);
+				}
+				$(this).closest("tr").find("td input.pay-amt-prin-edit").val(payAdvAmt.toFixed(2));
+				//
+				sumBalanceEdit();
+				//
+			});
 			
 			//
-			$("#tblInstallmentEdit").on('keyup', ".pay-amt-prin-edit", function (e) {
-				console.log("yes");
-				var instRecord = $('#tblInstallmentEdit tbody tr');
-				instRecord.each(function(i){
-					var amountLeft= 0;
-					if(i==0){
-						amountLeft = parseFloat($("#pro_price").val().replace(/,/g,"")) -  parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle').html().replace("$","").replace(/,/g,""));
-					}else{
-						console.log($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').length+"::::length input");
-						if ($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').length == 1) {
-							amountLeft = parseFloat($('#tblInstallmentEdit tbody tr:eq('+(i-1)+') td.inst_amt_balance').html().replace("$","").replace(/,/g,"")) -  parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').val().replace("$","").replace(/,/g,""));
-						}else{
-							amountLeft = parseFloat($('#tblInstallmentEdit tbody tr:eq('+(i-1)+') td.inst_amt_balance').html().replace("$","").replace(/,/g,"")) -  parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle').html().replace("$","").replace(/,/g,""));
-						}
-						
-					}
-					$(this).closest("table").find("tr td.inst_amt_balance").eq(i).html(amountLeft);
-					
+			$("#btnCancel").click(function(e){
+				parent.stock.comm.confirmMsg("តើអ្នកប្រាកដជាចង់ចាកចេញមែនឬទេ?");
+				parent.$("#btnConfirmOk").unbind().click(function(e){
+					parent.$("#mdlConfirm").modal('hide');
+
+					$("#divInstallmentView").removeClass("in");
+					$("#divInstallmentView").removeClass("active");
+					//
+					$("#divSellView").addClass("in");
+					$("#divSellView").addClass("active");
 				});
 				
-		    });
+			});
+			
+			//
+			$("#btnReady").click(function(e){
+				if( parseInt($("#tblInstallmentEdit tbody tr:eq("+($("#tblInstallmentEdit tbody tr").length -1)+") td.inst_amt_balance").html().replace(/,/g,"")) !=0 ){
+					parent.stock.comm.alertMsg("កំណត់តារាងបង់ប្រាក់មិនត្រឹមត្រូវទេ សូមពិនិត្យម្តងទៀត!!!");
+					$("#tblInstallmentEdit tbody tr:eq("+($("#tblInstallmentEdit tbody tr").length -1)+") td.inst_amt_balance").css("color","red");
+					return;
+				}
+				readyEditInstallment();
+				
+				$("#divInstallmentView").removeClass("in");
+				$("#divInstallmentView").removeClass("active");
+				//
+				$("#divSellView").addClass("in");
+				$("#divSellView").addClass("active");
+			});
 		}
 };
 
+function sumBalanceEdit(){
+	var instRecord = $('#tblInstallmentEdit tbody tr');
+	instRecord.each(function(i){
+		var amountLeft= 0;
+		if(i==0){
+			amountLeft = parseFloat($("#pro_price").val().replace(/,/g,"")) -  parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle').html().replace("$","").replace(/,/g,""));
+		}else{
+			if ($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').length == 1) {
+				amountLeft = parseFloat($('#tblInstallmentEdit tbody tr:eq('+(i-1)+') td.inst_amt_balance').html().replace("$","").replace(/,/g,"")) -  parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').val().replace("$","").replace(/,/g,""));
+			}else{
+				amountLeft = parseFloat($('#tblInstallmentEdit tbody tr:eq('+(i-1)+') td.inst_amt_balance').html().replace("$","").replace(/,/g,"")) -  parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle').html().replace("$","").replace(/,/g,""));
+			}
+			
+		}
+		$(this).closest("table").find("tr td.inst_amt_balance").eq(i).html(amountLeft.toFixed(2));
+	});
+}
 
 function getContractInfo(cont_code){
 	if(cont_code == "" || cont_code == null){
@@ -1002,7 +1059,7 @@ function getInstallmentData(){
 					html += "<td class='inst_dis_amt cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_dis_amt"])+"$</td>";
 					html += "<td class='inst_amt_principle cur-pointer text-right' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_principle"])+"$</td>";
 			        html += "<td class='inst_amt_interest cur-pointer text-right'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_interest"])+"$</td>";
-			        html += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_pay"])+"$</td>";
+			        html += "<td class='inst_amt_pay cur-pointer text-right' >"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_pay"])+"$</td>";
 			        html += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+stock.comm.formatCurrency(res.OUT_REC[i]["inst_amt_balance"])+"$</td>";
 			        html += "<td class=' cur-pointer text-right'  style='padding-right: 15px;' >"+statusPay+"</td>";
 			        html += "</tr>";
@@ -1334,7 +1391,7 @@ function calculatePaySchedule(){
 		htmlBooked += "<td class='inst_dis_amt cur-pointer text-right'>0$</td>";
 		htmlBooked += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(parseFloat($("#txtBookingAmt").val().replace(/,/g,'')).toFixed(2))+"$</td>";
 		htmlBooked += "<td class='inst_amt_interest cur-pointer text-right'>0$</td>";
-		htmlBooked += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(parseFloat($("#txtBookingAmt").val().replace(/,/g,'')).toFixed(2))+"$</td>";
+		htmlBooked += "<td class='inst_amt_pay cur-pointer text-right' >"+stock.comm.formatCurrency(parseFloat($("#txtBookingAmt").val().replace(/,/g,'')).toFixed(2))+"$</td>";
 		htmlBooked += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+ stock.comm.formatCurrency(leftAmountToPay)+"$</td>";
 		htmlBooked += "</tr>";
         
@@ -1396,7 +1453,7 @@ function calculatePaySchedule(){
 		html += "<td class='inst_dis_amt cur-pointer text-right'>"+(disCountCash==0 ? disCountCash : stock.comm.formatCurrency(disCountCash))+"$</td>";
         html += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(principleAmount.toFixed(2))+"$</td>";
         html += "<td class='inst_amt_interest cur-pointer text-right'>0$</td>";
-        html += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(principleAmount.toFixed(2))+"$</td>";
+        html += "<td class='inst_amt_pay cur-pointer text-right' >"+stock.comm.formatCurrency(principleAmount.toFixed(2))+"$</td>";
         html += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+stock.comm.formatCurrency(leftAmountToPay2.toFixed(2))+"$</td>";
         html += "</tr>";
         $("#tblInstallment tbody").append(html);
@@ -1424,7 +1481,7 @@ function calculatePaySchedule(){
 		    		htmlLeft += "<td class='inst_dis_amt cur-pointer text-right'>0$</td>";
 		    		htmlLeft += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(leftAmountToPay2.toFixed(2))+"$</td>";
 		    		htmlLeft += "<td class='inst_amt_interest cur-pointer text-right'>0$</td>";
-		    		htmlLeft += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(leftAmountToPay2.toFixed(2))+"$</td>";
+		    		htmlLeft += "<td class='inst_amt_pay cur-pointer text-right' >"+stock.comm.formatCurrency(leftAmountToPay2.toFixed(2))+"$</td>";
 		    		htmlLeft += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>0$</td>";
 		    		
 		    		htmlLeft += "</tr>";
@@ -1549,7 +1606,7 @@ function calculateInstallment(newDate,noTbl){
 		html += "<td class='inst_dis_amt cur-pointer text-right'>0$</td>";
         html += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(principleAmount.toFixed(2))+"$</td>";
         html += "<td class='inst_amt_interest cur-pointer text-right'>"+stock.comm.formatCurrency(interestAmount.toFixed(2))+"$</td>";
-        html += "<td class='inst_amt_pay​ cur-pointer text-right' >"+stock.comm.formatCurrency(emi.toFixed(2))+"$</td>";
+        html += "<td class='inst_amt_pay cur-pointer text-right' >"+stock.comm.formatCurrency(emi.toFixed(2))+"$</td>";
         html += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+stock.comm.formatCurrency(balanceAmount.toFixed(2))+"$</td>";
         html += "</tr>";
         $("#tblInstallment tbody").append(html);
@@ -1573,7 +1630,7 @@ function saveInstallment(sell_id,str){
 		var inst_amt_principle  = tblTr.find("td.inst_amt_principle").html().replace(/,/g,"");
 		var inst_amt_interest  = tblTr.find("td.inst_amt_interest").html().replace(/,/g,"");
 		var inst_amt_balance = tblTr.find("td.inst_amt_balance").html().replace(/,/g,"");
-		var inst_amt_pay = tblTr.find("td.inst_amt_pay​").html().replace(/,/g,"");
+		var inst_amt_pay = tblTr.find("td.inst_amt_pay").html().replace(/,/g,"");
 		var loan_amount  = $(this).attr("data-loan-amount");
 		var first_inst_date  = $(this).attr("data-first-inst-date");
 		var inst_period  = $(this).attr("data-peroid");
@@ -1645,12 +1702,14 @@ function saveInstallment(sell_id,str){
 
 
 function setEditInstallment(){
-	$('#tblInstallmentEditDiv tbody tr').html("")
+	$('#tblInstallmentEdit tbody').html("")
 	$("#txtPayPerEdit").html($("#txtPayPer").val() +" %");
 	$("#txtPayAmtEdit").html($("#txtPayCash").val() +" $");
 	
 	var instRecord = $('#tblInstallment tbody tr');
 	var totalPaidAdv=0;
+	var checkBooked="";
+	var tdStyle="";
 	instRecord.each(function(i){
 		var instData = {};
 		var tblTr   = $(this);
@@ -1659,7 +1718,7 @@ function setEditInstallment(){
 		var inst_amt_principle  = tblTr.find("td.inst_amt_principle").html().replace(/,/g,"");
 		var inst_amt_interest  = tblTr.find("td.inst_amt_interest").html().replace(/,/g,"");
 		var inst_amt_balance = tblTr.find("td.inst_amt_balance").html().replace(/,/g,"");
-		var inst_amt_pay = tblTr.find("td.inst_amt_pay​").html().replace(/,/g,"");
+		var inst_amt_pay = tblTr.find("td.inst_amt_pay").html().replace(/,/g,"");
 		var inst_pay_per = tblTr.find("td.inst_pay_per").html().replace(/,/g,"");
 		var inst_dis_amt = tblTr.find("td.inst_dis_amt").html().replace(/,/g,"");
 		
@@ -1675,11 +1734,21 @@ function setEditInstallment(){
 		inst_pay_per = inst_pay_per.replace("%", "");
 		var htmlPayPer = inst_pay_per;
 		var htmlPrinAmt =inst_amt_principle;
-		if(!isNaN(inst_pay_per) ){
-			htmlPayPer = "<input type='text' style='width:70px;margin: 0 auto;' class='form-control text-right input-sm pay-per-edit' autocomplete='off' value='"+inst_pay_per.replace("%", "")+"' />";
-			htmlPrinAmt = "<input type='text' style='width:100px;margin: 0 auto;'  class='form-control text-right input-sm pay-amt-prin-edit' autocomplete='off' value='"+htmlPrinAmt.replace("$", "")+"' />";
+		
+		if(instType == "BOOK"){
+			checkBooked="<span style='margin-right: -42px;margin-left: 10px;'>បង្គ្រប់</span>";
+			tdStyle='style="display: flex;"';
+		}
+		if(instType == "ADV" || instType == "LOAN"){
+			inst_pay_per = instPayPer;
+			if(instType == "ADV"){
+				htmlPayPer = checkBooked+"<input type='text' style='width:60px;margin: 0 auto;' class='form-control text-right input-sm pay-per-edit' autocomplete='off' value='"+inst_pay_per.replace("%", "")+"' />";
+					
+			}
+			htmlPrinAmt = "<input type='text' style='width:90px;margin: 0 auto;'  class='form-control text-right input-sm pay-amt-prin-edit' autocomplete='off' value='"+htmlPrinAmt.replace("$", "")+"' />";
+			checkBooked ="";
 		}else{
-			if(instType == "ADV" || instType =="LEFT"){
+			if(instType =="LEFT"){
 				htmlPayPer=htmlPayPer+"%";
 			}
 		}
@@ -1691,20 +1760,103 @@ function setEditInstallment(){
 		var html = "<tr data-inst-type='"+instType+"' data-inst-dis-per='"+instDisPer+"' data-inst-dis-pay='"+instDisPay+"' data-inst-per-pay='"+instPayPer+"'  data-loan-amount='"+loan_amount+"' data-interest-rate='"+interest_rate+"' data-peroid='"+inst_period+"' data-first-inst-date='"+first_inst_date+"'>";
 		html += "<td class='inst_num cur-pointer'>"+inst_num+"</td>";
 		html += "<td class='inst_date cur-pointer text-center'>"+inst_date+"</td>";
-		html += "<td class='inst_pay_per cur-pointer text-center'>"+htmlPayPer+"</td>";
+		if(instType == "ADV"){
+			html += "<td class='inst_pay_per cur-pointer text-center' "+tdStyle+">"+htmlPayPer+"</td>";
+			tdStyle="";
+		}else{
+			html += "<td class='inst_pay_per cur-pointer text-center'>"+htmlPayPer+"</td>";
+		}
+		
 		html += "<td class='inst_dis_amt cur-pointer text-right'>"+inst_dis_amt+"</td>";
         html += "<td class='inst_amt_principle cur-pointer text-right'>"+htmlPrinAmt+"</td>";
         html += "<td class='inst_amt_interest cur-pointer text-right'>"+inst_amt_interest+"</td>";
-        html += "<td class='inst_amt_pay​ cur-pointer text-right' >"+inst_amt_pay.replace("$", "")+"</td>";
+        html += "<td class='inst_amt_pay cur-pointer text-right' >"+inst_amt_pay.replace("$", "")+"</td>";
         html += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+inst_amt_balance.replace("$", "")+"</td>";
         html += "</tr>";
-        $("#tblInstallmentEditDiv tbody").append(html);
+        $("#tblInstallmentEdit tbody").append(html);
         
-        
-        stock.comm.inputCurrencyByClass("#tblInstallmentEditDiv",".input-sm")
+        stock.comm.inputCurrencyByClass("#tblInstallmentEdit",".input-sm")
         //
 	});
 	
 	var leftAmt= parseFloat($("#pro_price").val().replace(/,/g,"")) - totalPaidAdv;
 	$("#txtPayLeftAmtEdit").html(stock.comm.formatCurrency(leftAmt.toFixed(2))+" $");
+}
+
+
+
+function readyEditInstallment(){
+	$('#tblInstallment tbody').html("")
+	$("#txtPayPerEdit").html($("#txtPayPer").val() +" %");
+	$("#txtPayAmtEdit").html($("#txtPayCash").val() +" $");
+	
+	var instRecord = $('#tblInstallmentEdit tbody tr');
+	var totalPaidAdv=0;
+	var checkBooked="";
+	var tdStyle="";
+	instRecord.each(function(i){
+		var instData = {};
+		var tblTr   = $(this);
+		var inst_num  = tblTr.find("td.inst_num").html();
+		var inst_date  = tblTr.find("td.inst_date").html();
+		var inst_amt_principle  = tblTr.find("td.inst_amt_principle").html().replace(/,/g,"");
+		//
+		if(tblTr.find("td.inst_amt_principle input").length == 1){
+			inst_amt_principle = tblTr.find("td.inst_amt_principle input").val().replace(/,/g,"");
+		}
+		//
+		var inst_amt_interest  = tblTr.find("td.inst_amt_interest").html().replace(/,/g,"");
+		var inst_amt_balance = tblTr.find("td.inst_amt_balance").html().replace(/,/g,"");
+		var inst_amt_pay = tblTr.find("td.inst_amt_pay").html().replace(/,/g,"");
+		var inst_pay_per = tblTr.find("td.inst_pay_per").html().replace(/,/g,"");
+		var inst_dis_amt = tblTr.find("td.inst_dis_amt").html().replace(/,/g,"");
+		
+		var loan_amount  = $(this).attr("data-loan-amount");
+		var first_inst_date  = $(this).attr("data-first-inst-date");
+		var inst_period  = $(this).attr("data-peroid");
+		var interest_rate  = $(this).attr("data-interest-rate");
+		var instType  = $(this).attr("data-inst-type");
+		var instPayPer  = $(this).attr("data-inst-per-pay");
+		var instDisPer  = $(this).attr("data-inst-dis-per");
+		var instDisPay  = $(this).attr("data-inst-dis-pay");
+		
+		inst_pay_per = inst_pay_per.replace("%", "");
+		var htmlPayPer = inst_pay_per;
+		var htmlPrinAmt =inst_amt_principle;
+		
+		if(instType == "BOOK"){
+			checkBooked="បង្គ្រប់";
+		}
+		if(instType == "ADV" || instType == "LOAN"){
+			inst_pay_per = instPayPer;
+			if(instType == "ADV"){
+				htmlPayPer = checkBooked+inst_pay_per+"%";
+					
+			}
+			htmlPrinAmt =htmlPrinAmt;
+			checkBooked ="";
+		}else{
+			if(instType =="LEFT"){
+				htmlPayPer=htmlPayPer+"%";
+			}
+		}
+		//
+		var html = "<tr data-inst-type='"+instType+"' data-inst-dis-per='"+instDisPer+"' data-inst-dis-pay='"+instDisPay+"' data-inst-per-pay='"+instPayPer+"'  data-loan-amount='"+loan_amount+"' data-interest-rate='"+interest_rate+"' data-peroid='"+inst_period+"' data-first-inst-date='"+first_inst_date+"'>";
+		html += "<td class='inst_num cur-pointer'>"+inst_num+"</td>";
+		html += "<td class='inst_date cur-pointer text-center'>"+inst_date+"</td>";
+		
+		html += "<td class='inst_pay_per cur-pointer text-center'>"+htmlPayPer+"</td>";
+		
+		
+		html += "<td class='inst_dis_amt cur-pointer text-right'>"+inst_dis_amt+"</td>";
+        html += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(htmlPrinAmt.replace("$", ""))+"$</td>";
+        html += "<td class='inst_amt_interest cur-pointer text-right'>"+inst_amt_interest+"</td>";
+        html += "<td class='inst_amt_pay cur-pointer text-right' >"+stock.comm.formatCurrency(inst_amt_pay.replace("$", ""))+"$</td>";
+        html += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+stock.comm.formatCurrency(inst_amt_balance.replace("$", ""))+"$</td>";
+        html += "</tr>";
+        $("#tblInstallment tbody").append(html);
+        
+        //
+	});
+	
 }
