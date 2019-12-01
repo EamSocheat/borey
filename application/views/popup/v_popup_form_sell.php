@@ -377,6 +377,7 @@
 	        				  <table class="table table-hover" id="tblInstallmentEdit" >
 	        				    <thead>  
 	            					<tr>
+	            					  <th></th>
 	            					  <th>ល.រ</th>
 	            					  <th class="text-center">ថ្ងៃត្រូវបង់</th>
 	            					  <th class="text-center">ភាគរយ%</th>

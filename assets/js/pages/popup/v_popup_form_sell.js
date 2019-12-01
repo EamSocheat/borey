@@ -362,7 +362,7 @@ var _thisPage = {
 				//
 				sumBalanceEdit();
 				//
-				if($(this).closest("tr").attr("data-inst-type") == "ADV"){
+				if($(this).closest("tr").attr("data-inst-type") == "ADV" || $(this).closest("tr").attr("data-inst-type") == "LOAN"){
 					var payAdvAmt = parseFloat($(this).val().replace(/,/g,""));
 					if($(this).closest("tr").find("td.inst_num").html() == "2" && $("#tblInstallmentEdit tbody tr:eq(0)").attr("data-inst-type") == "BOOK"){
 						var bookAmt = $("#tblInstallmentEdit tbody tr:eq(0)").find("td.inst_amt_principle").html().replace("$","");
@@ -370,7 +370,18 @@ var _thisPage = {
 						payAdvAmt = payAdvAmt + parseFloat(bookAmt);
 					}
 					var perAdvPer=(payAdvAmt * 100) / parseFloat($("#pro_price").val().replace(/,/g,""));
+					var inputVal=$(this).val().replace(/,/g,"");
 					$(this).closest("tr").find("td input.pay-per-edit").val(perAdvPer.toFixed(2));
+					$(this).closest("tr").find("td.inst_amt_pay").html(inputVal);
+					
+					if($(this).closest("tr").find('td.chk_box input[type="checkbox"]:checked').length >= 1){
+						var chkVal = $('#tblInstallmentEdit tbody tr td.chk_box input[type="checkbox"]:checked');
+						chkVal.each(function(i){
+							$(this).closest("tr").find("td input.pay-per-edit").val(perAdvPer.toFixed(2));
+							$(this).closest("tr").find("td.inst_amt_pay").html(inputVal);
+							$(this).closest("tr").find("td input.pay-amt-prin-edit").val(inputVal);
+						});
+					}
 				}
 				
 		    });
@@ -389,6 +400,19 @@ var _thisPage = {
 					payAdvAmt = payAdvAmt - parseFloat(bookAmt);
 				}
 				$(this).closest("tr").find("td input.pay-amt-prin-edit").val(payAdvAmt.toFixed(2));
+				$(this).closest("tr").find("td.inst_amt_pay").html(payAdvAmt.toFixed(2));
+				
+				var inputVal=$(this).val().replace(/,/g,"");
+				if($(this).closest("tr").find('td.chk_box input[type="checkbox"]:checked').length >= 1){
+					var chkVal = $('#tblInstallmentEdit tbody tr td.chk_box input[type="checkbox"]:checked');
+					chkVal.each(function(i){
+						$(this).closest("tr").find("td input.pay-per-edit").val(inputVal);
+						$(this).closest("tr").find("td input.pay-amt-prin-edit").val(payAdvAmt.toFixed(2));
+						$(this).closest("tr").find("td.inst_amt_pay").html(payAdvAmt.toFixed(2));
+					});	
+				}
+				
+				
 				//
 				sumBalanceEdit();
 				//
@@ -1734,19 +1758,20 @@ function setEditInstallment(){
 		inst_pay_per = inst_pay_per.replace("%", "");
 		var htmlPayPer = inst_pay_per;
 		var htmlPrinAmt =inst_amt_principle;
-		
+		var isSameData="";
 		if(instType == "BOOK"){
-			checkBooked="<span style='margin-right: -42px;margin-left: 10px;'>បង្គ្រប់</span>";
-			tdStyle='style="display: flex;"';
+			checkBooked="<span style='margin-left: 10px;'>បង្គ្រប់</span>";
 		}
 		if(instType == "ADV" || instType == "LOAN"){
 			inst_pay_per = instPayPer;
 			if(instType == "ADV"){
-				htmlPayPer = checkBooked+"<input type='text' style='width:60px;margin: 0 auto;' class='form-control text-right input-sm pay-per-edit' autocomplete='off' value='"+inst_pay_per.replace("%", "")+"' />";
-					
+				htmlPayPer = checkBooked+"<input type='text' style='width:60px;' class='form-control text-right input-sm pay-per-edit' autocomplete='off' value='"+inst_pay_per.replace("%", "")+"' />";
+				
 			}
 			htmlPrinAmt = "<input type='text' style='width:90px;margin: 0 auto;'  class='form-control text-right input-sm pay-amt-prin-edit' autocomplete='off' value='"+htmlPrinAmt.replace("$", "")+"' />";
-			checkBooked ="";
+			checkBooked ="<span style='margin-left: 45px;'></span>";
+			tdStyle='style="display: flex;"';
+			isSameData = '<input class="cur-pointer is-same-data" checked="checked" type="checkbox">';
 		}else{
 			if(instType =="LEFT"){
 				htmlPayPer=htmlPayPer+"%";
@@ -1758,6 +1783,7 @@ function setEditInstallment(){
 		
 		//
 		var html = "<tr data-inst-type='"+instType+"' data-inst-dis-per='"+instDisPer+"' data-inst-dis-pay='"+instDisPay+"' data-inst-per-pay='"+instPayPer+"'  data-loan-amount='"+loan_amount+"' data-interest-rate='"+interest_rate+"' data-peroid='"+inst_period+"' data-first-inst-date='"+first_inst_date+"'>";
+		html += '<td class="chk_box">'+isSameData+'</td>';
 		html += "<td class='inst_num cur-pointer'>"+inst_num+"</td>";
 		html += "<td class='inst_date cur-pointer text-center'>"+inst_date+"</td>";
 		if(instType == "ADV"){

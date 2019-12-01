@@ -132,7 +132,6 @@ var _thisPage = {
 				});
 
 				delObj["delObj"] = delArr;
-				console.log(delObj);
 				deleteDataArr(delObj);
 			});
 		});
