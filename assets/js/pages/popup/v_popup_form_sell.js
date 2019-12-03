@@ -380,6 +380,7 @@ var _thisPage = {
 							$(this).closest("tr").find("td input.pay-per-edit").val(perAdvPer.toFixed(2));
 							$(this).closest("tr").find("td.inst_amt_pay").html(inputVal);
 							$(this).closest("tr").find("td input.pay-amt-prin-edit").val(inputVal);
+							$(this).closest("tr").attr("data-inst-per-pay",perAdvPer.toFixed(2));
 						});
 					}
 				}
@@ -409,6 +410,7 @@ var _thisPage = {
 						$(this).closest("tr").find("td input.pay-per-edit").val(inputVal);
 						$(this).closest("tr").find("td input.pay-amt-prin-edit").val(payAdvAmt.toFixed(2));
 						$(this).closest("tr").find("td.inst_amt_pay").html(payAdvAmt.toFixed(2));
+						$(this).closest("tr").attr("data-inst-per-pay",inputVal);
 					});	
 				}
 				
@@ -1090,7 +1092,7 @@ function getInstallmentData(){
 			        $("#tblInstallment tbody").append(html);
 			        
 				}
-				$("#txtPayPer").val(stock.comm.formatCurrency(advPerPay));
+				$("#txtPayPer").val(stock.comm.formatCurrency(advPerPay.toFixed(2)));
 				$("#txtPayTime").val(stock.comm.formatCurrency(advTimePay));
 				$("#totalPayInterest").html("$ "+stock.comm.formatCurrency(totalPayInterest.toFixed(2)));
 				$("#totalPayInstallment").html("$ "+stock.comm.formatCurrency( (totalPayInstallment+instLoanAmount).toFixed(2)));
@@ -1759,6 +1761,7 @@ function setEditInstallment(){
 		var htmlPayPer = inst_pay_per;
 		var htmlPrinAmt =inst_amt_principle;
 		var isSameData="";
+
 		if(instType == "BOOK"){
 			checkBooked="<span style='margin-left: 10px;'>បង្គ្រប់</span>";
 		}

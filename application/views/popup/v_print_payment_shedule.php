@@ -214,31 +214,31 @@
     							//echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
     						}
     					?>
-    					<td class="text-right"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($OUT_REC[$i]->inst_amt_principle);?></td>
+    					<td class="text-right"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($OUT_REC[$i]->inst_amt_principle,2);?></td>
     					
     						<?php 
     							if($OUT_REC[$i]->inst_amt_interest =="0"){
     								echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
     							}else{
-    								echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>".number_format($OUT_REC[$i]->inst_amt_interest)."</td>";
+    								echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>".number_format($OUT_REC[$i]->inst_amt_interest,2)."</td>";
     							}
     						?>
     					
-    					<td class="text-right"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($OUT_REC[$i]->inst_amt_pay);?></td>
+    					<td class="text-right"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($OUT_REC[$i]->inst_amt_pay,2);?></td>
     					<td class="text-right"><span style='float: left; margin-left: 5px;'>$</span><?php 
 							if($OUT_REC[$i]->inst_type=="LEFT"){
     							echo "-";
     						}else{
-    							echo number_format($OUT_REC[$i]->inst_amt_balance);
+    							echo number_format($OUT_REC[$i]->inst_amt_balance,2);
     						}
     					?></td>
     				</tr>
 				<?php }?>
 				<tr>
 					<td colspan="3" class="text-center" style="font-weight: bold">សរុប</td>
-					<td class="text-right" style="font-weight: bold"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($totalPrinciple);?></td>
-					<td class="text-right" style="font-weight: bold"><?php echo $totalInterest == 0 ? "<span style='float: left; margin-left: 5px;'>$</span>-" : "<span style='float: left; margin-left: 5px;'>$</span>".number_format($totalInterest);?></td>
-					<td class="text-right" style="font-weight: bold"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($totalPayAmount);?></td>
+					<td class="text-right" style="font-weight: bold"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($totalPrinciple);?>.00</td>
+					<td class="text-right" style="font-weight: bold"><?php echo $totalInterest == 0 ? "<span style='float: left; margin-left: 5px;'>$</span>-" : "<span style='float: left; margin-left: 5px;'>$</span>".number_format($totalInterest).".00";?></td>
+					<td class="text-right" style="font-weight: bold"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($totalPayAmount);?>.00</td>
 					<td></td>
 				</tr>	
 			</table>
