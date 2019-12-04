@@ -145,10 +145,10 @@
 					<span class="with-200 block-dis ">ប្រភេទកិច្ចសន្យា</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo $OUT_REC[0]->con_type_nm_kh;?></span>
 				</div>
 				<div>
-					<span class="with-200 block-dis ">ប្រាក់ដើមបានបង់សរុប</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format( floatval($OUT_REC[0]->paid_principle)+floatval($OUT_REC[0]->inst_dis_amt)+ floatval($OUT_REC[0]->inst_amt_pay));?></span>
+					<span class="with-200 block-dis ">ប្រាក់ដើមបានបង់សរុប</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format( floatval($OUT_REC[0]->paid_principle)+floatval($OUT_REC[0]->inst_dis_amt)+ floatval($OUT_REC[0]->inst_amt_pay),2);?></span>
 				</div>
 				<div>	
-					<span class="with-200 block-dis ">ប្រាក់ដើមនៅសល់</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format(floatval($OUT_REC[0]->inst_amt_balance)) ?></span>
+					<span class="with-200 block-dis ">ប្រាក់ដើមនៅសល់</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format(floatval($OUT_REC[0]->inst_amt_balance),2) ?></span>
 				</div>
 				<div style="display: flex;">
 					<div style="width: 120px;display: inline-block;">
@@ -165,19 +165,19 @@
 			</div>
 			<div style="width: 50%">
 				<div>
-					<span class="with-200 block-dis ">ថ្ងៃត្រូវបង់</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo date('d-m-Y',strtotime($OUT_REC[0]->inst_date));?></span>
+					<span class="with-200 block-dis ">ថ្ងៃត្រូវបង់</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo date('d-m-Y',strtotime($OUT_REC[0]->inst_date),2);?></span>
 				</div>
 				<div>
-					<span class="with-200 block-dis ">ប្រាក់ត្រូវបង់</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format((floatval($OUT_REC[0]->inst_dis_amt)+ floatval($OUT_REC[0]->inst_amt_pay)));?></span>
+					<span class="with-200 block-dis ">ប្រាក់ត្រូវបង់</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format((floatval($OUT_REC[0]->inst_dis_amt)+ floatval($OUT_REC[0]->inst_amt_pay)),2);?></span>
 				</div>
 				<div>
-					<span class="with-200 block-dis ">បន្ថែមដើម</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->inst_dis_amt);?></span>
+					<span class="with-200 block-dis ">បន្ថែមដើម</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->inst_dis_amt,2);?></span>
 				</div>
 				<div>	
-					<span class="with-200 block-dis ">ប្រាក់ពិន័យ</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->inst_paid_penalty);?></span>
+					<span class="with-200 block-dis ">ប្រាក់ពិន័យ</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->inst_paid_penalty,2);?></span>
 				</div>
 				<div>	
-					<span class="with-200 block-dis ">ប្រាក់ត្រូវបង់សរុប</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format( floatval($OUT_REC[0]->inst_paid_penalty) + floatval($OUT_REC[0]->inst_total_paid_amount)) ;?></span>
+					<span class="with-200 block-dis ">ប្រាក់ត្រូវបង់សរុប</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format( floatval($OUT_REC[0]->inst_paid_penalty) + floatval($OUT_REC[0]->inst_total_paid_amount),2) ;?></span>
 				</div>
 			</div>
 		</div>
@@ -205,11 +205,11 @@
 						?>
 						 
 					 </td>
-					<td>$<?php echo number_format( floatval($OUT_REC[0]->inst_paid_penalty) + floatval($OUT_REC[0]->inst_total_paid_amount));?></td>
+					<td>$<?php echo number_format( floatval($OUT_REC[0]->inst_paid_penalty) + floatval($OUT_REC[0]->inst_total_paid_amount),2);?></td>
 				</tr>
 				<tr>
 					<td colspan="3" style="text-align: right;border: none;">ចំនួនសរុបបានបង់</td>
-					<td colspan="3">$<?php echo number_format( floatval($OUT_REC[0]->inst_paid_penalty) + floatval($OUT_REC[0]->inst_total_paid_amount));?></td>
+					<td colspan="3">$<?php echo number_format( floatval($OUT_REC[0]->inst_paid_penalty) + floatval($OUT_REC[0]->inst_total_paid_amount),2);?></td>
 				</tr>
 				<!-- 
 				<tr>
