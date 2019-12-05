@@ -145,10 +145,10 @@
 					<span class="with-200 block-dis ">ប្រភេទកិច្ចសន្យា</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo $OUT_REC[0]->con_type_nm_kh;?></span>
 				</div>
 				<div>
-					<span class="with-200 block-dis ">ប្រាក់ដើមបានបង់សរុប</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->con_total_price);?></span>
+					<span class="with-200 block-dis ">ប្រាក់ដើមបានបង់សរុប</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->con_total_price,2);?></span>
 				</div>
 				<div>	
-					<span class="with-200 block-dis ">ប្រាក់ដើមនៅសល់</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format((floatval($OUT_REC[0]->pro_book_price) - floatval($OUT_REC[0]->con_total_price))) ?></span>
+					<span class="with-200 block-dis ">ប្រាក់ដើមនៅសល់</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format((floatval($OUT_REC[0]->pro_book_price) - floatval($OUT_REC[0]->con_total_price)),2) ?></span>
 				</div>
 				<div style="display: flex;">
 					<div style="width: 120px;display: inline-block;">
@@ -168,7 +168,7 @@
 					<span class="with-200 block-dis ">ថ្ងៃត្រូវបង់</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo date('d-m-Y',strtotime($OUT_REC[0]->con_date));?></span>
 				</div>
 				<div>
-					<span class="with-200 block-dis ">ប្រាក់ត្រូវបង់</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->con_total_price);?></span>
+					<span class="with-200 block-dis ">ប្រាក់ត្រូវបង់</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->con_total_price,2);?></span>
 				</div>
 				<div>
 					<span class="with-200 block-dis ">បន្ថែមដើម</span><span class="with-15 block-dis">:</span><span class="block-dis">$0.00</span>
@@ -177,7 +177,7 @@
 					<span class="with-200 block-dis ">ប្រាក់ពិន័យ</span><span class="with-15 block-dis">:</span><span class="block-dis">$0.00</span>
 				</div>
 				<div>	
-					<span class="with-200 block-dis ">ប្រាក់ត្រូវបង់សរុប</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->con_total_price);?></span>
+					<span class="with-200 block-dis ">ប្រាក់ត្រូវបង់សរុប</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format($OUT_REC[0]->con_total_price,2);?></span>
 				</div>
 			</div>
 		</div>
@@ -193,11 +193,11 @@
 					<td style="text-align: center">1</td>
 					<td style="text-align: center"><?php echo $OUT_REC[0]->met_nm_kh;?></td>
 					<td style="text-align: center">បង់កក់ទ្រនាប់ដៃ</td>
-					<td>$<?php echo number_format($OUT_REC[0]->con_total_price);?></td>
+					<td>$<?php echo number_format($OUT_REC[0]->con_total_price,2);?></td>
 				</tr>
 				<tr>
 					<td colspan="3" style="text-align: right;border: none;">ចំនួនសរុបបានបង់</td>
-					<td colspan="3">$<?php echo number_format($OUT_REC[0]->con_total_price);?></td>
+					<td colspan="3">$<?php echo number_format($OUT_REC[0]->con_total_price,2);?></td>
 				</tr>
 				
 				

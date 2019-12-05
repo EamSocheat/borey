@@ -165,7 +165,7 @@
 			</div>
 			<div style="width: 50%">
 				<div>
-					<span class="with-200 block-dis ">ថ្ងៃត្រូវបង់</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo date('d-m-Y',strtotime($OUT_REC[0]->inst_date),2);?></span>
+					<span class="with-200 block-dis ">ថ្ងៃត្រូវបង់</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo date('d-m-Y',strtotime($OUT_REC[0]->inst_date));?></span>
 				</div>
 				<div>
 					<span class="with-200 block-dis ">ប្រាក់ត្រូវបង់</span><span class="with-15 block-dis">:</span><span class="block-dis">$<?php echo number_format((floatval($OUT_REC[0]->inst_dis_amt)+ floatval($OUT_REC[0]->inst_amt_pay)),2);?></span>
