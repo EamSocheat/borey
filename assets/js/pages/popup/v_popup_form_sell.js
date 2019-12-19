@@ -458,7 +458,13 @@ function sumBalanceEdit(){
 	instRecord.each(function(i){
 		var amountLeft= 0;
 		if(i==0){
-			amountLeft = parseFloat($("#pro_price").val().replace(/,/g,"")) -  parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle').html().replace("$","").replace(/,/g,""));
+			var amtPrint=0;
+			if ($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').length == 1) {
+				amtPrint = parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').val().replace("$","").replace(/,/g,""));
+			}else{
+				amtPrint = parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle').html().replace("$","").replace(/,/g,""));
+			}
+			amountLeft = parseFloat($("#pro_price").val().replace(/,/g,"")) -  amtPrint;
 		}else{
 			if ($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').length == 1) {
 				amountLeft = parseFloat($('#tblInstallmentEdit tbody tr:eq('+(i-1)+') td.inst_amt_balance').html().replace("$","").replace(/,/g,"")) -  parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').val().replace("$","").replace(/,/g,""));
@@ -1761,10 +1767,15 @@ function setEditInstallment(){
 		var htmlPayPer = inst_pay_per;
 		var htmlPrinAmt =inst_amt_principle;
 		var isSameData="";
-
-		if(instType == "BOOK"){
-			checkBooked="<span style='margin-left: 10px;'>បង្គ្រប់</span>";
+		
+		if(i==0){
+			if(instType == "BOOK"){
+				checkBooked="<span style='margin-left: 10px;'>បង្គ្រប់</span>";
+			}else if(instType == "ADV" || instType == "LOAN"){
+				checkBooked ="<span style='margin-left: 45px;'></span>";
+			}
 		}
+		
 		if(instType == "ADV" || instType == "LOAN"){
 			inst_pay_per = instPayPer;
 			if(instType == "ADV"){
