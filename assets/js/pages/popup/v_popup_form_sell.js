@@ -343,6 +343,7 @@ var _thisPage = {
 				    $(".div_installment").hide();
 				    $("#txt_com_inst_yn").val("N");
 				}
+				parent.$("#msgErr").hide();
 			});
 			
 			//
@@ -465,6 +466,10 @@ function sumBalanceEdit(){
 				amtPrint = parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle').html().replace("$","").replace(/,/g,""));
 			}
 			amountLeft = parseFloat($("#pro_price").val().replace(/,/g,"")) -  amtPrint;
+			//
+			var disAmount = parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_dis_amt').html().replace("$","").replace(/,/g,""));
+			amountLeft = amountLeft - disAmount;
+			//
 		}else{
 			if ($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').length == 1) {
 				amountLeft = parseFloat($('#tblInstallmentEdit tbody tr:eq('+(i-1)+') td.inst_amt_balance').html().replace("$","").replace(/,/g,"")) -  parseFloat($('#tblInstallmentEdit tbody tr:eq('+i+') td.inst_amt_principle input').val().replace("$","").replace(/,/g,""));
@@ -473,6 +478,7 @@ function sumBalanceEdit(){
 			}
 			
 		}
+		
 		$(this).closest("table").find("tr td.inst_amt_balance").eq(i).html(amountLeft.toFixed(2));
 	});
 }
@@ -1354,6 +1360,13 @@ function stringDate(str){
 }
 
 function calculatePaySchedule(){	
+	if($("#cboConType").val()=="" || $("#cboConType").val()== null ){
+		parent.$("#msgErr").html("សូមជ្រើសរើសប្រភេទកិច្ចសន្យា!!!");
+		parent.$("#msgErr").show();
+		$("#cboConType").focus();
+		return;
+	}
+	
 	if($("#txtPayPer").val()=="" || $("#txtPayPer").val().replace(/,/g,'') > 100){
 		parent.$("#msgErr").html("សូមបញ្ចូល  ប្រាក់ទូទាត់​ជាមុន %!!!");
 		parent.$("#msgErr").show();
@@ -1785,7 +1798,17 @@ function setEditInstallment(){
 			htmlPrinAmt = "<input type='text' style='width:90px;margin: 0 auto;'  class='form-control text-right input-sm pay-amt-prin-edit' autocomplete='off' value='"+htmlPrinAmt.replace("$", "")+"' />";
 			checkBooked ="<span style='margin-left: 45px;'></span>";
 			tdStyle='style="display: flex;"';
-			isSameData = '<input class="cur-pointer is-same-data" checked="checked" type="checkbox">';
+			if(inst_dis_amt.replace("$", "") != "0"){
+				isSameData = '<input class="cur-pointer is-same-data" disabled="disabled" type="checkbox">';
+			}else{
+				if(i==0){
+					isSameData = '<input class="cur-pointer is-same-data" type="checkbox">';
+				}else{
+					isSameData = '<input class="cur-pointer is-same-data" checked="checked" type="checkbox">';
+				}
+				
+			}
+			
 		}else{
 			if(instType =="LEFT"){
 				htmlPayPer=htmlPayPer+"%";
