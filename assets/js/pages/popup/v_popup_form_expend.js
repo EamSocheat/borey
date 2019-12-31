@@ -113,7 +113,12 @@ var _thisPage = {
 				parent.stock.comm.confirmMsg($.i18n.prop("msg_sure_del"));
 				parent.$("#btnConfirmOk").unbind().click(function(e){
 					parent.$("#mdlConfirm").modal('hide');
-
+					chkVal.closest("tr").remove();
+					var itemNo = parseInt(chkVal.closest("tr").find("td.exp-no").html());
+					for(var i=(itemNo-1);i<$("#tblExpendItem tbody tr").length;i++){
+						$("#tblExpendItem tbody tr:eq("+i+")").find("td.exp-no").html(itemNo);
+						itemNo+=1;
+					}
 				});
 				//$("#tblExpendItem tbody").append(html);
 			});
