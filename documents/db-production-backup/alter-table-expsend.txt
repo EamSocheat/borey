@@ -1,0 +1,20 @@
+alter table tbl_expend
+add COLUMN exp_qty double;
+
+alter table tbl_expend
+add COLUMN exp_unit_price double;
+
+alter table tbl_expend
+add COLUMN exp_req_date date;
+
+alter table tbl_expend
+add COLUMN exp_qty_khr double;
+
+alter table tbl_expend
+add COLUMN exp_unit_price_khr double;
+
+alter table tbl_expend
+add COLUMN exp_total_price_khr double;
+
+alter table tbl_expend
+add COLUMN exp_inv_no varchar(20);

@@ -82,6 +82,41 @@ var _thisPage = {
 			$("#dobIcon").click(function(){
 				$(this).next().focus();
 			});
+			
+			//
+			//
+			$("#btnPlus").click(function(){
+				var html="";
+				html+="<tr>";
+					html+="	<td class='text-center chk-box'><input type='checkbox' /></td>";
+					html+="	<td class='text-center exp-no'>"+($("#tblExpendItem tbody tr").length+1)+"</td>";
+					html+="	<td class='text-center exp-des'><input type='text' style='width:100%;' class='form-control input-sm' autocomplete='off'/> </td>";
+					html+="	<td class='text-center exp-qty-khr'><input type='text' style='width:100%;' class='form-control input-sm' autocomplete='off'/></td>";
+					html+="	<td class='text-center exp-unit-price-khr'><input type='text' style='width:100%;' class='form-control text-right input-sm' autocomplete='off'/> </td>";
+					html+="	<td class='text-center exp-total-price-khr'></td>";
+					html+="	<td class='text-center exp-qty'><input type='text' style='width:100%;' class='form-control input-sm' autocomplete='off'/> </td>";
+					html+="	<td class='text-center exp-unit-price'><input type='text' style='width:100%;' class='form-control text-right input-sm' autocomplete='off'/> </td>";
+					html+="	<td class='text-center exp-total-price'></td>";
+				html+="</tr>";
+				$("#tblExpendItem tbody").append(html);
+			});
+			
+			
+			$("#btnMinus").click(function(){
+				var html="";
+				var chkVal = $('#tblExpendItem tbody tr td.chk-box input[type="checkbox"]:checked');
+
+				if(chkVal.length <= 0){
+					parent.stock.comm.alertMsg($.i18n.prop("msg_con_del"));
+					return;
+				}
+				parent.stock.comm.confirmMsg($.i18n.prop("msg_sure_del"));
+				parent.$("#btnConfirmOk").unbind().click(function(e){
+					parent.$("#mdlConfirm").modal('hide');
+
+				});
+				//$("#tblExpendItem tbody").append(html);
+			});
 		}
 };
 

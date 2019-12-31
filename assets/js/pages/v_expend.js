@@ -69,9 +69,9 @@ var _thisPage = {
 			$("#loading").show();
 			var controllerNm = "PopupFormExpend";
 			var option = {};
-			option["height"] = "630px";
+			option["height"] = "730px";
 
-			stock.comm.openPopUpForm(controllerNm, option, null, "modal-md");
+			stock.comm.openPopUpForm(controllerNm, option, null, "modal-lg");
 		});
 
 		//
@@ -253,8 +253,8 @@ function editData(exp_id){
 
 	var controllerNm = "PopupFormExpend";
 	var option = {};
-	option["height"] = "630px";
-	stock.comm.openPopUpForm(controllerNm,option, data,"modal-md");
+	option["height"] = "730px";
+	stock.comm.openPopUpForm(controllerNm,option, data,"modal-lg");
 }
 
 /**
