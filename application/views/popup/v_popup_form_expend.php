@@ -92,7 +92,7 @@
 						<div class="col-xs-4 padding-forms-left">
 							<div class="form-group">
                               <label for="txtInvNo">លេខ​វិ​ក័​យ​ប័ត្រ </label>
-                              <input type="text" class="form-control" id="txtInvNo" name="txtInvNo" required="required" autocomplete="off" />
+                              <input type="text" class="form-control" id="txtInvNo" name="txtInvNo" autocomplete="off" />
                             </div>
 						</div>
                 		<div class="col-xs-6 padding-forms-right">
@@ -149,11 +149,11 @@
 	        							<td class="text-center chk-box"></td>
 	        							<td class="text-center exp-no">1</td>
 	        							<td class="text-center exp-des"><input type='text' style='width:100%;' class='form-control input-sm' autocomplete='off'/> </td>
-	        							<td class="text-center exp-qty-khr"><input type='text' style='width:100%;' class='form-control input-sm' autocomplete='off'/></td>
-	        							<td class="text-center exp-unit-price-khr"><input type='text' style='width:100%;' class='form-control text-right input-sm' autocomplete='off'/> </td>
+	        							<td class="text-center exp-qty-khr"><input type='text' style='width:100%;' class='form-control input-sm input-sm-num' autocomplete='off'/></td>
+	        							<td class="text-center exp-unit-price-khr"><input type='text' style='width:100%;' class='form-control text-right input-sm input-sm-num' autocomplete='off'/> </td>
 	        							<td class="text-center exp-total-price-khr"></td>
-	        							<td class="text-center exp-qty"><input type='text' style='width:100%;' class='form-control input-sm' autocomplete='off'/> </td>
-	        							<td class="text-center exp-unit-price"><input type='text' style='width:100%;' class='form-control text-right input-sm' autocomplete='off'/> </td>
+	        							<td class="text-center exp-qty"><input type='text' style='width:100%;' class='form-control input-sm input-sm-num' autocomplete='off'/> </td>
+	        							<td class="text-center exp-unit-price"><input type='text' style='width:100%;' class='form-control text-right input-sm input-sm-num' autocomplete='off'/> </td>
 	        							<td class="text-center exp-total-price"></td>
 	        						</tr>
 	        					   

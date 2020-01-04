@@ -38,7 +38,23 @@ var _thisPage = {
 				format: "dd-mm-yyyy",
 			});
 			$("#txtExpendDate").inputmask();
+			
+			$("#txtRequestDate").datepicker({
+				language: (getCookie("lang") == "kh" ? "kh" : "en"),
+				weekStart: true,
+		        todayBtn:  true,
+				autoclose: true,
+				todayHighlight: 1,
+				forceParse: 0,
+				sideBySide: true,
+				format: "dd-mm-yyyy",
+			});
+			$("#txtRequestDate").inputmask();
+			
+			
 			stock.comm.inputCurrency("txtTotalExp");
+			
+			stock.comm.inputCurrencyByClass("#tblExpendItem",".input-sm-num");
 		},
 		event : function(){
 			$("#btnClose,#btnExit").click(function(e){
@@ -71,6 +87,10 @@ var _thisPage = {
 			});
 			//
 			$("#btnPopupSupplier").click(function(e){
+				$("#txtSuppNm").val("");
+				$("#txtSuppPhone").val("");
+				$("#cboSupYn").prop("checked",false);
+				
 				var data  = "parentId=ifameStockForm";
 					data += "&dataSrch="+$("#txtSuppNm").val();
 				var controllerNm = "PopupSelectSupplier";
@@ -91,14 +111,15 @@ var _thisPage = {
 					html+="	<td class='text-center chk-box'><input type='checkbox' /></td>";
 					html+="	<td class='text-center exp-no'>"+($("#tblExpendItem tbody tr").length+1)+"</td>";
 					html+="	<td class='text-center exp-des'><input type='text' style='width:100%;' class='form-control input-sm' autocomplete='off'/> </td>";
-					html+="	<td class='text-center exp-qty-khr'><input type='text' style='width:100%;' class='form-control input-sm' autocomplete='off'/></td>";
-					html+="	<td class='text-center exp-unit-price-khr'><input type='text' style='width:100%;' class='form-control text-right input-sm' autocomplete='off'/> </td>";
+					html+="	<td class='text-center exp-qty-khr'><input type='text' style='width:100%;' class='form-control input-sm input-sm-num' autocomplete='off'/></td>";
+					html+="	<td class='text-center exp-unit-price-khr'><input type='text' style='width:100%;' class='form-control text-right input-sm input-sm-num' autocomplete='off'/> </td>";
 					html+="	<td class='text-center exp-total-price-khr'></td>";
-					html+="	<td class='text-center exp-qty'><input type='text' style='width:100%;' class='form-control input-sm' autocomplete='off'/> </td>";
-					html+="	<td class='text-center exp-unit-price'><input type='text' style='width:100%;' class='form-control text-right input-sm' autocomplete='off'/> </td>";
+					html+="	<td class='text-center exp-qty'><input type='text' style='width:100%;' class='form-control input-sm input-sm-num' autocomplete='off'/> </td>";
+					html+="	<td class='text-center exp-unit-price'><input type='text' style='width:100%;' class='form-control text-right input-sm input-sm-num' autocomplete='off'/> </td>";
 					html+="	<td class='text-center exp-total-price'></td>";
 				html+="</tr>";
 				$("#tblExpendItem tbody").append(html);
+				stock.comm.inputCurrencyByClass("#tblExpendItem",".input-sm-num");
 			});
 			
 			
@@ -122,26 +143,148 @@ var _thisPage = {
 				});
 				//$("#tblExpendItem tbody").append(html);
 			});
+			
+			
+			//
+			$("#tblExpendItem").on('keyup', "td.exp-qty-khr input", function (e) {
+				var totalAmount= calculateTotalAmount($(this).val(),$(this).closest("tr").find("td.exp-unit-price-khr input").val());
+				$(this).closest("tr").find("td.exp-total-price-khr").html(stock.comm.formatCurrency(totalAmount)+" ៛");
+			});
+			//
+			$("#tblExpendItem").on('keyup', "td.exp-unit-price-khr input", function (e) {
+				var totalAmount= calculateTotalAmount($(this).val(),$(this).closest("tr").find("td.exp-qty-khr input").val());
+				$(this).closest("tr").find("td.exp-total-price-khr").html(stock.comm.formatCurrency(totalAmount)+" ៛");
+			});
+			
+			//
+			$("#tblExpendItem").on('keyup', "td.exp-qty input", function (e) {
+				var totalAmount= calculateTotalAmount($(this).val(),$(this).closest("tr").find("td.exp-unit-price input").val());
+				$(this).closest("tr").find("td.exp-total-price").html(stock.comm.formatCurrency(totalAmount)+" $");
+			});
+			//
+			$("#tblExpendItem").on('keyup', "td.exp-unit-price input", function (e) {
+				var totalAmount= calculateTotalAmount($(this).val(),$(this).closest("tr").find("td.exp-qty input").val());
+				$(this).closest("tr").find("td.exp-total-price").html(stock.comm.formatCurrency(totalAmount)+" $");
+			});
+			
+			//
+			$("#tblExpendItem").on('keyup', "td.exp-des input", function (e) {
+				parent.$("#msgErr").html("");
+				parent.$("#msgErr").hide();
+			});
+			
+			//
+			$("#cboSupYn").click(function(){
+				if ($(this).is(':checked')) {
+					$("#txtSuppNm").val("None");
+					$("#txtSuppPhone").val("None");
+				}else{
+					$("#txtSuppNm").val("");
+					$("#txtSuppPhone").val("");
+				}
+				
+				$("#txtSuppIdVal").val("");
+			});
+			
 		}
 };
 
+function calculateTotalAmount(val1,val2){
+	parent.$("#msgErr").html("");
+	parent.$("#msgErr").hide();
+	
+	if(stock.comm.isEmpty(val1)){
+		val1=0;
+	}
+	if(stock.comm.isEmpty(val2)){
+		val2=0;
+	}
+	var totalAmount = parseFloat(val1)*parseFloat(val2);
+	totalAmount = totalAmount.toFixed(2);
+	return totalAmount;
+}
 
 function saveData(str){
 	$("#expId").appendTo("#frmExpend");
     parent.$("#loading").show();
     if($("#txtSuppNm").val() == "" || $("#txtSuppIdVal").val() == ""){
-		top.stock.comm.alertMsg($.i18n.prop("msg_choose_sup"));
-		parent.$("#loading").hide();
-		return;
+    	if(!$(this).is(':checked')){
+    		top.stock.comm.alertMsg($.i18n.prop("msg_choose_sup"));
+    		parent.$("#loading").hide();
+    		return;
+    	}
 	}
-
+    var requireCheck="";
+    var eqRequire=0;
+    var itemTableCheck=$("#tblExpendItem tbody tr");
+    for(var i=0; i<itemTableCheck.length;i++){
+    	if(stock.comm.isEmpty($(this).find("td.exp-des input").val()) || stock.comm.isEmpty($(this).find("td.exp-qty-khr input").val()) || 
+    			stock.comm.isEmpty($(this).find("td.exp-unit-price-khr input").val()) || stock.comm.isEmpty($(this).find("td.exp-qty input").val()) ||
+    			stock.comm.isEmpty($(this).find("td.exp-unit-price input").val())){
+    		requireCheck = "true";
+    		eqRequire=i;
+    		break;
+    	}
+	}
+    if(!stock.comm.isEmpty(requireCheck)){
+    	$("#tblExpendItem tbody tr:eq("+eqRequire+") td input").css("border","1px solid red");
+    	parent.$("#loading").hide();
+    	
+    	parent.$("#msgErr").html("សូមពិនិត្យទិន្ន័យអោយបានត្រឹមត្រូវ!!!");
+		parent.$("#msgErr").show();
+		
+    	return;
+    }
+    
 	$.ajax({
 		type : "POST",
-		url  : $("#base_url").val() +"Expend/save",
+		url  : $("#base_url").val() +"Expend/uploadImageExpend",
 		data : new FormData($("#frmExpend")[0]),
 		cache: false,
         contentType: false,
         processData: false,
+        async: false,
+		success: function(res) {
+			saveDataAfterUploadImage(res,str);
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg($.i18n.prop("msg_err"));
+        }
+	});
+}
+
+
+function saveDataAfterUploadImage(image_path,str){
+	var itemDescArr=[];
+	var itemQtyKhrArr=[];
+	var itemUnitPriceKhrArr=[];
+	var itemTotalPriceKhrArr=[];
+	var itemQtyArr=[];
+	var itemUnitPriceArr=[];
+	var itemTotalPriceArr=[];
+	
+	var itemTable=$("#tblExpendItem tbody tr");
+	itemTable.each(function(i){
+		itemDescArr.push($(this).find("td.exp-des input").val());
+		itemQtyKhrArr.push($(this).find("td.exp-qty-khr input").val());
+		itemUnitPriceKhrArr.push($(this).find("td.exp-unit-price-khr input").val());
+		itemTotalPriceKhrArr.push($(this).find("td.exp-total-price-khr").html().replace(/,/g,""));
+		itemQtyArr.push($(this).find("td.exp-qty input").val());
+		itemUnitPriceArr.push($(this).find("td.exp-unit-price input").val());
+		itemTotalPriceArr.push($(this).find("td.exp-total-price").html().replace(/,/g,""));
+	});
+    
+    $.ajax({
+		type : "POST",
+		url  : $("#base_url").val() +"Expend/save",
+		data : $("#frmExpend").serialize()+"&itemDescArr="+itemDescArr+
+										"&itemQtyKhrArr="+itemQtyKhrArr+
+										"&itemUnitPriceKhrArr="+itemUnitPriceKhrArr+
+										"&itemTotalPriceKhrArr="+itemTotalPriceKhrArr+
+										"&itemQtyArr="+itemQtyArr+
+										"&itemUnitPriceArr="+itemUnitPriceArr+
+										"&itemTotalPriceArr="+itemTotalPriceArr,
 		success: function(res) {
 		    parent.$("#loading").hide();
 			if(res =="OK"){
@@ -161,6 +304,8 @@ function saveData(str){
 
 				    parent.stock.comm.closePopUpForm("PopupFormExpend", callbackFunction);
 				}
+			}else{
+				console.log("Error::::::::::"+res);
 			}
 		},
 		error : function(data) {

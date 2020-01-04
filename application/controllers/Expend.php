@@ -47,31 +47,38 @@ class Expend extends CI_Controller {
 		$data["OUT_REC_CNT"] = $this->M_expend->countExpend($dataSrch);
 		echo json_encode($data);
 	}
-
+    
+	public function uploadImageExpend(){
+	    $expPhoto = "";
+	    if(!empty($_FILES['fileExpPhoto']['name'])){
+	        $expPhoto = $this->M_common->uploadImage($_FILES['fileExpPhoto'],'fileExpPhoto','./upload/borey/expend','/borey/expend/');
+	    }else{
+	        $expPhoto = $this->input->post('expImgPath');
+	    }
+	    echo $expPhoto;
+	}
 	public function save(){
 		if(!$this->M_check_user->check()){
 			redirect('/Login');
 		}
 
-		$expPhoto = ""; $expStaffId = "";
-		if(!empty($_FILES['fileExpPhoto']['name'])){
-			$expPhoto = $this->M_common->uploadImage($_FILES['fileExpPhoto'],'fileExpPhoto','./upload/borey/expend','/borey/expend/');
-		}else{
-			$expPhoto = $this->input->post('expImgPath');
-		}
-
+	    $expStaffId = "";
+		
 		if($this->input->post('cboStaffPay') == '0'){
 			$expStaffId = $_SESSION['usrId'];
 		}else{
 			$expStaffId = $this->input->post('cboStaffPay');
 		}
-
+    
+		$itemArr = explode(",",$this->input->post('itemArr'));
+		
 		$data = array(
-			/* 'bra_id' 		=> $this->input->post('txtBraId'),
-             'pos_id' 		=> $this->input->post('txtPosId'), */
+			//'bra_id' 		=> $this->input->post('txtBraId'),
+            //'pos_id' 		=> $this->input->post('txtPosId'), 
 			'exp_total_price'		=> str_replace(",","",$this->input->post('txtTotalExp')),
 			'exp_date'		=> date('Y-m-d',strtotime($this->input->post('txtExpendDate'))),
-			'exp_des'		=> $this->input->post('txtDesc'),
+			//'exp_des'		=> $this->input->post('txtDesc'),
+		    'exp_des'		=> $itemArr[0],
 			'exp_image'		=> $expPhoto,
 			'sta_id'		=> $expStaffId,
 			'sup_id'		=> $this->input->post('txtSuppIdVal'),
@@ -93,7 +100,7 @@ class Expend extends CI_Controller {
 			$this->M_expend->insert($data);
 		}
 
-		echo 'OK';
+		echo 'OK'.$itemArr[0]->expDes.'A';
 	}
 
 

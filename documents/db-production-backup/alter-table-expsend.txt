@@ -18,3 +18,7 @@ add COLUMN exp_total_price_khr double;
 
 alter table tbl_expend
 add COLUMN exp_inv_no varchar(20);
+
+alter table tbl_expend
+add COLUMN exp_item_no int;
+
