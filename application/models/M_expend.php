@@ -11,7 +11,7 @@ class M_expend extends CI_Model{
 		$this->db->select('*');
 		//$this->db->from('tbl_expend');
 		$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_expend.sta_id');
-		$this->db->join('tbl_supplier','tbl_supplier.sup_id = tbl_expend.sup_id');
+		$this->db->join('tbl_supplier','tbl_supplier.sup_id = tbl_expend.sup_id', 'left');
 		$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_expend.bra_id');
 		$this->db->where('tbl_expend.com_id', $_SESSION['comId']);
 		$this->db->where('tbl_expend.useYn', 'Y');
@@ -80,7 +80,7 @@ class M_expend extends CI_Model{
 		$this->db->select('count(exp_id) as total_rec');
 		$this->db->from('tbl_expend');
 		$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_expend.sta_id');
-		$this->db->join('tbl_supplier','tbl_supplier.sup_id = tbl_expend.sup_id');
+		$this->db->join('tbl_supplier','tbl_supplier.sup_id = tbl_expend.sup_id', 'left');
 		$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_expend.bra_id');
 		$this->db->where('tbl_expend.com_id', $_SESSION['comId']);
 		$this->db->where('tbl_expend.useYn', 'Y');

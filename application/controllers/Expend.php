@@ -69,38 +69,55 @@ class Expend extends CI_Controller {
 		}else{
 			$expStaffId = $this->input->post('cboStaffPay');
 		}
-    
-		$itemArr = explode(",",$this->input->post('itemArr'));
+		$expPhoto = $this->input->post('expImage');
+		$itemDescArr = explode(",",$this->input->post('itemDescArr'));
+		$itemQtyKhrArr = explode(",",$this->input->post('itemQtyKhrArr'));
+		$itemUnitPriceKhrArr = explode(",",$this->input->post('itemUnitPriceKhrArr'));
+		$itemTotalPriceKhrArr = explode(",",$this->input->post('itemTotalPriceKhrArr'));
+		$itemQtyArr = explode(",",$this->input->post('itemQtyArr'));
+		$itemUnitPriceArr = explode(",",$this->input->post('itemUnitPriceArr'));
+		$itemTotalPriceArr = explode(",",$this->input->post('itemTotalPriceArr'));
+		$itemNoArr = explode(",",$this->input->post('itemNoArr'));
 		
-		$data = array(
-			//'bra_id' 		=> $this->input->post('txtBraId'),
-            //'pos_id' 		=> $this->input->post('txtPosId'), 
-			'exp_total_price'		=> str_replace(",","",$this->input->post('txtTotalExp')),
-			'exp_date'		=> date('Y-m-d',strtotime($this->input->post('txtExpendDate'))),
-			//'exp_des'		=> $this->input->post('txtDesc'),
-		    'exp_des'		=> $itemArr[0],
-			'exp_image'		=> $expPhoto,
-			'sta_id'		=> $expStaffId,
-			'sup_id'		=> $this->input->post('txtSuppIdVal'),
-			'bra_id'		=> $this->input->post('projectNm'),
-			'useYn'			=> "Y",
-			'com_id'		=> $_SESSION['comId']
-		);
-
-		if($this->input->post('expId') != null && $this->input->post('expId') != ""){
-			//update data
-			$data['exp_id'] = $this->input->post('expId');
-			$data['upUsr'] = $_SESSION['usrId'];
-			$data['upDt'] = date('Y-m-d H:i:s');
-			$this->M_expend->update($data);
-		}else{
-			//insert data
-			$data['regUsr'] = $_SESSION['usrId'];
-			$data['regDt'] = date('Y-m-d H:i:s');
-			$this->M_expend->insert($data);
+		for($i=0; $i<sizeof($itemDescArr);$i++){
+		    $data = array(
+		        'exp_total_price'		=> str_replace(",","",$this->input->post('txtTotalExp')),
+		        'exp_date'		=> date('Y-m-d',strtotime($this->input->post('txtExpendDate'))),
+		        'exp_req_date'		=> date('Y-m-d',strtotime($this->input->post('txtRequestDate'))),
+		        //'exp_des'		=> $this->input->post('txtDesc'),
+		        'exp_des'		=> $itemDescArr[$i],
+		        'exp_qty_khr'		=> $itemQtyKhrArr[$i],
+		        'exp_unit_price_khr'		=> $itemUnitPriceKhrArr[$i],
+		        'exp_total_price_khr'		=> $itemTotalPriceKhrArr[$i],
+		        'exp_qty'		=> $itemQtyArr[$i],
+		        'exp_unit_price'		=> $itemUnitPriceArr[$i],
+		        'exp_total_price'		=> $itemTotalPriceArr[$i],
+		        'exp_item_no'		=> $itemNoArr[$i],
+		        'exp_inv_no'		=> $this->input->post('txtInvNo'),
+		        'exp_image'		=> $expPhoto,
+		        'sta_id'		=> $expStaffId,
+		        'sup_id'		=> $this->input->post('txtSuppIdVal'),
+		        'bra_id'		=> $this->input->post('projectNm'),
+		        'useYn'			=> "Y",
+		        'com_id'		=> $_SESSION['comId']
+		    );
+		    
+		    if($this->input->post('expId') != null && $this->input->post('expId') != ""){
+		        //update data
+		        $data['exp_id'] = $this->input->post('expId');
+		        $data['upUsr'] = $_SESSION['usrId'];
+		        $data['upDt'] = date('Y-m-d H:i:s');
+		        $this->M_expend->update($data);
+		    }else{
+		        //insert data
+		        $data['regUsr'] = $_SESSION['usrId'];
+		        $data['regDt'] = date('Y-m-d H:i:s');
+		        $this->M_expend->insert($data);
+		    }
 		}
+		
 
-		echo 'OK'.$itemArr[0]->expDes.'A';
+		echo 'OK';
 	}
 
 

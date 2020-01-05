@@ -149,28 +149,73 @@ var _thisPage = {
 			$("#tblExpendItem").on('keyup', "td.exp-qty-khr input", function (e) {
 				var totalAmount= calculateTotalAmount($(this).val(),$(this).closest("tr").find("td.exp-unit-price-khr input").val());
 				$(this).closest("tr").find("td.exp-total-price-khr").html(stock.comm.formatCurrency(totalAmount)+" ៛");
+				$(this).closest("tr").find(" td input").css("border","1px solid #d2d6de");
+				
+				//
+				if(!stock.comm.isEmpty($(this).val())){
+					$(this).closest("tr").find("td.exp-qty input").attr("disabled","disabled");
+					$(this).closest("tr").find("td.exp-unit-price input").attr("disabled","disabled");
+				}else if(stock.comm.isEmpty($(this).val()) && stock.comm.isEmpty($(this).closest("tr").find("td.exp-unit-price-khr input").val())){
+					$(this).closest("tr").find("td.exp-qty input").attr("disabled",false);
+					$(this).closest("tr").find("td.exp-unit-price input").attr("disabled",false);
+				}
+				//
 			});
 			//
 			$("#tblExpendItem").on('keyup', "td.exp-unit-price-khr input", function (e) {
 				var totalAmount= calculateTotalAmount($(this).val(),$(this).closest("tr").find("td.exp-qty-khr input").val());
 				$(this).closest("tr").find("td.exp-total-price-khr").html(stock.comm.formatCurrency(totalAmount)+" ៛");
+				$(this).closest("tr").find(" td input").css("border","1px solid #d2d6de");
+				
+				//
+				if(!stock.comm.isEmpty($(this).val())){
+					$(this).closest("tr").find("td.exp-qty input").attr("disabled","disabled");
+					$(this).closest("tr").find("td.exp-unit-price input").attr("disabled","disabled");
+				}else if(stock.comm.isEmpty($(this).val()) && stock.comm.isEmpty($(this).closest("tr").find("td.exp-qty-khr input").val())){
+					$(this).closest("tr").find("td.exp-qty input").attr("disabled",false);
+					$(this).closest("tr").find("td.exp-unit-price input").attr("disabled",false);
+				}
+				//
 			});
 			
 			//
 			$("#tblExpendItem").on('keyup', "td.exp-qty input", function (e) {
 				var totalAmount= calculateTotalAmount($(this).val(),$(this).closest("tr").find("td.exp-unit-price input").val());
 				$(this).closest("tr").find("td.exp-total-price").html(stock.comm.formatCurrency(totalAmount)+" $");
+				$(this).closest("tr").find(" td input").css("border","1px solid #d2d6de");
+				
+				//
+				if(!stock.comm.isEmpty($(this).val())){
+					$(this).closest("tr").find("td.exp-qty-khr input").attr("disabled","disabled");
+					$(this).closest("tr").find("td.exp-unit-price-khr input").attr("disabled","disabled");
+				}else if(stock.comm.isEmpty($(this).val()) && stock.comm.isEmpty($(this).closest("tr").find("td.exp-unit-price input").val())){
+					$(this).closest("tr").find("td.exp-qty-khr input").attr("disabled",false);
+					$(this).closest("tr").find("td.exp-unit-price-khr input").attr("disabled",false);
+				}
+				//
 			});
 			//
 			$("#tblExpendItem").on('keyup', "td.exp-unit-price input", function (e) {
 				var totalAmount= calculateTotalAmount($(this).val(),$(this).closest("tr").find("td.exp-qty input").val());
 				$(this).closest("tr").find("td.exp-total-price").html(stock.comm.formatCurrency(totalAmount)+" $");
+				$(this).closest("tr").find(" td input").css("border","1px solid #d2d6de");
+				
+				//
+				if(!stock.comm.isEmpty($(this).val())){
+					$(this).closest("tr").find("td.exp-qty-khr input").attr("disabled","disabled");
+					$(this).closest("tr").find("td.exp-unit-price-khr input").attr("disabled","disabled");
+				}else if(stock.comm.isEmpty($(this).val()) && stock.comm.isEmpty($(this).closest("tr").find("td.exp-qty input").val())){
+					$(this).closest("tr").find("td.exp-qty-khr input").attr("disabled",false);
+					$(this).closest("tr").find("td.exp-unit-price-khr input").attr("disabled",false);
+				}
+				//
 			});
 			
 			//
 			$("#tblExpendItem").on('keyup', "td.exp-des input", function (e) {
 				parent.$("#msgErr").html("");
 				parent.$("#msgErr").hide();
+				$(this).closest("tr").find(" td input").css("border","1px solid #d2d6de");
 			});
 			
 			//
@@ -205,10 +250,11 @@ function calculateTotalAmount(val1,val2){
 }
 
 function saveData(str){
+	
 	$("#expId").appendTo("#frmExpend");
     parent.$("#loading").show();
     if($("#txtSuppNm").val() == "" || $("#txtSuppIdVal").val() == ""){
-    	if(!$(this).is(':checked')){
+    	if(!$("#cboSupYn").is(':checked')){
     		top.stock.comm.alertMsg($.i18n.prop("msg_choose_sup"));
     		parent.$("#loading").hide();
     		return;
@@ -218,15 +264,15 @@ function saveData(str){
     var eqRequire=0;
     var itemTableCheck=$("#tblExpendItem tbody tr");
     for(var i=0; i<itemTableCheck.length;i++){
-    	if(stock.comm.isEmpty($(this).find("td.exp-des input").val()) || stock.comm.isEmpty($(this).find("td.exp-qty-khr input").val()) || 
-    			stock.comm.isEmpty($(this).find("td.exp-unit-price-khr input").val()) || stock.comm.isEmpty($(this).find("td.exp-qty input").val()) ||
-    			stock.comm.isEmpty($(this).find("td.exp-unit-price input").val())){
+    	console.log($("#tblExpendItem tbody tr:eq("+i+")").find("td.exp-des input").val()+":::::::::");
+    	if(stock.comm.isEmpty($("#tblExpendItem tbody tr:eq("+i+")").find("td.exp-des input").val())){
     		requireCheck = "true";
     		eqRequire=i;
     		break;
     	}
 	}
-    if(!stock.comm.isEmpty(requireCheck)){
+    console.log($("#tblExpendItem tbody tr:eq(0)").find("td.exp-des input").val()+":::::::::");
+    if(requireCheck == "true"){
     	$("#tblExpendItem tbody tr:eq("+eqRequire+") td input").css("border","1px solid red");
     	parent.$("#loading").hide();
     	
@@ -263,6 +309,7 @@ function saveDataAfterUploadImage(image_path,str){
 	var itemQtyArr=[];
 	var itemUnitPriceArr=[];
 	var itemTotalPriceArr=[];
+	var itemNoArr=[];
 	
 	var itemTable=$("#tblExpendItem tbody tr");
 	itemTable.each(function(i){
@@ -273,6 +320,7 @@ function saveDataAfterUploadImage(image_path,str){
 		itemQtyArr.push($(this).find("td.exp-qty input").val());
 		itemUnitPriceArr.push($(this).find("td.exp-unit-price input").val());
 		itemTotalPriceArr.push($(this).find("td.exp-total-price").html().replace(/,/g,""));
+		itemNoArr.push($(this).find("td.exp-no").html().replace(/,/g,""));
 	});
     
     $.ajax({
@@ -284,7 +332,9 @@ function saveDataAfterUploadImage(image_path,str){
 										"&itemTotalPriceKhrArr="+itemTotalPriceKhrArr+
 										"&itemQtyArr="+itemQtyArr+
 										"&itemUnitPriceArr="+itemUnitPriceArr+
-										"&itemTotalPriceArr="+itemTotalPriceArr,
+										"&itemTotalPriceArr="+itemTotalPriceArr+
+										"&itemNoArr="+itemNoArr+
+										"&expImage="+image_path,
 		success: function(res) {
 		    parent.$("#loading").hide();
 			if(res =="OK"){
@@ -327,25 +377,46 @@ function getDataEdit(exp_id){
 			if(res.OUT_REC != null && res.OUT_REC.length > 0){
 			    $("#txtSuppIdVal").val(res.OUT_REC[0]["sup_id"]);
 
-			    if(res.OUT_REC[0]["sup_nm_kh"] != "" && res.OUT_REC[0]["sup_nm_kh"] != null){
-					$("#txtSuppNm").val(res.OUT_REC[0]["sup_nm_kh"]);
-					$("#txtSuppNmVal").val(res.OUT_REC[0]["sup_nm_kh"]);
-				}else{
-					$("#txtSuppNm").val(res.OUT_REC[0]["sup_nm"]);
-					$("#txtSuppNmVal").val(res.OUT_REC[0]["sup_nm"]);
-				}
-
+			    
+				$("#txtSuppNm").val(res.OUT_REC[0]["sup_nm_kh"]);
+				$("#txtSuppNmVal").val(res.OUT_REC[0]["sup_nm_kh"]);
+			
+			    $("#txtInvNo").val(res.OUT_REC[0]["exp_inv_no"]);
+			    
 			    $("#txtSuppPhone").val(res.OUT_REC[0]["sup_phone"]);
 			    $("#txtSuppPhoneVal").val(res.OUT_REC[0]["sup_phone"]);
 				$("#projectNm option[value='"+res.OUT_REC[0]["bra_id"]+"']").attr("selected","selected");
 				$("#txtExpendDate").val(stock.comm.formatDateWithoutTime(res.OUT_REC[0]["exp_date"]));
+				$("#txtRequestDate").val(stock.comm.formatDateWithoutTime(res.OUT_REC[0]["exp_req_date"]));
 				$("#cboStaffPay option[value='"+res.OUT_REC[0]["sta_id"]+"']").attr("selected","selected");
-			    $("#txtTotalExp").val(stock.comm.formatCurrency(res.OUT_REC[0]["exp_total_price"]));
-			    $("#txtTotalExp").attr("readonly", true);
+			    //$("#txtTotalExp").val(stock.comm.formatCurrency(res.OUT_REC[0]["exp_total_price"]));
+			    //$("#txtTotalExp").attr("readonly", true);
 				$("#txtDesc").val(res.OUT_REC[0]["exp_des"]);
 			    if(res.OUT_REC[0]["exp_image"] != null && res.OUT_REC[0]["exp_image"] != ""){
 			    	$("#expendImgView").attr("src", $("#base_url").val()+"upload"+res.OUT_REC[0]["exp_image"]);
 			    	$("#expImgPath").val(res.OUT_REC[0]["exp_image"]);
+			    }
+			    if(res.OUT_REC[0]["sup_nm_kh"] == "" || res.OUT_REC[0]["sup_nm_kh"] == null || res.OUT_REC[0]["sup_nm_kh"] == "null"){
+			    	$("#cboSupYn").attr("checked","checked");
+			    	$("#txtSuppNm").val("None");
+					$("#txtSuppPhone").val("None");
+				}
+			    $("#btnMinus,#btnPlus").hide();
+			    
+			    $("#tblExpendItem tbody tr td input").remove();
+			    
+			    $("#tblExpendItem tbody tr:eq(0)").find("td.exp-no").html(res.OUT_REC[0]["exp_item_no"]);
+			    $("#tblExpendItem tbody tr:eq(0)").find("td.exp-des").html(res.OUT_REC[0]["exp_des"]);
+			    
+			    if(res.OUT_REC[0]["exp_total_price_khr"] > 0){
+			    	$("#tblExpendItem tbody tr:eq(0)").find("td.exp-qty-khr").html(res.OUT_REC[0]["exp_qty_khr"]);
+				    $("#tblExpendItem tbody tr:eq(0)").find("td.exp-unit-price-khr").html(stock.comm.formatCurrency(res.OUT_REC[0]["exp_unit_price_khr"])+" ៛");
+				    $("#tblExpendItem tbody tr:eq(0)").find("td.exp-total-price-khr").html(stock.comm.formatCurrency(res.OUT_REC[0]["exp_total_price_khr"])+" ៛");
+					    
+			    }else{
+			    	$("#tblExpendItem tbody tr:eq(0)").find("td.exp-qty").html(res.OUT_REC[0]["exp_qty"]);
+				    $("#tblExpendItem tbody tr:eq(0)").find("td.exp-unit-price").html(stock.comm.formatCurrency(res.OUT_REC[0]["exp_unit_price"])+" $");
+				    $("#tblExpendItem tbody tr:eq(0)").find("td.exp-total-price").html(stock.comm.formatCurrency(res.OUT_REC[0]["exp_total_price"])+" $");
 			    }
 			}else{
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
