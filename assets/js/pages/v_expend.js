@@ -176,7 +176,7 @@ function getData(page_no){
 			$("#tblExpend tbody").html("");
 			var strHmtl	 = "";
 			var strTotal = "";
-			var totalAmt = 0;
+			var totalAmt = 0,totalAmtKhr = 0;
 			var supNmKh  = "";
 			var staNmKh  = "";
 
@@ -205,9 +205,17 @@ function getData(page_no){
 
 					strHmtl += '<tr data-id="'+res.OUT_REC[i]["exp_id"]+'" class="cur-pointer" ondblclick="editData('+res.OUT_REC[i]['exp_id']+')">';
 					strHmtl += '	<td class="chk_box"><input type="checkbox" /></td>';
-					strHmtl += '	<td><div>'+supNmKh+'</div></td>';
-					strHmtl += '	<td><div style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["exp_total_price"])+'</div></td>';
-					strHmtl += '	<td><div style="text-align: center">'+res.OUT_REC[i]["bra_nm_kh"]+'</div></td>';
+					strHmtl += '	<td><div>'+res.OUT_REC[i]["bra_nm_kh"]+'</div></td>';
+					strHmtl += '	<td><div>'+nullToNone(supNmKh)+'</div></td>';
+					strHmtl += '	<td><div>'+nullToNone(res.OUT_REC[i]["exp_inv_no"])+'</div></td>';
+					strHmtl += '	<td><div>'+res.OUT_REC[i]["exp_des"]+'</div></td>';
+					strHmtl += '	<td><div style="text-align: right">'+zeroToEmpty(res.OUT_REC[i]["exp_qty_khr"])+'</div></td>';
+					strHmtl += '	<td><div style="text-align: right">'+zeroToEmpty(res.OUT_REC[i]["exp_unit_price_khr"])+'</div></td>';
+					strHmtl += '	<td><div style="text-align: right">'+zeroToEmpty(res.OUT_REC[i]["exp_total_price_khr"])+'</div></td>';
+					strHmtl += '	<td><div style="text-align: right">'+zeroToEmpty(res.OUT_REC[i]["exp_qty"])+'</div></td>';
+					strHmtl += '	<td><div style="text-align: right">'+zeroToEmpty(res.OUT_REC[i]["exp_unit_price"])+'</div></td>';
+					strHmtl += '	<td><div style="text-align: right">'+zeroToEmpty(res.OUT_REC[i]["exp_total_price"])+'</div></td>';
+					strHmtl += '	<td><div style="text-align: center">'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["exp_req_date"])+'</div></td>';
 					strHmtl += '	<td><div style="text-align: center">'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["exp_date"])+'</div></td>';
 					strHmtl += '	<td><div>'+staNmKh+'</div></td>';
 					strHmtl += '	<td class="text-center">';
@@ -217,12 +225,16 @@ function getData(page_no){
 					strHmtl += '	</td>';
 					strHmtl += '</tr>';
 
-					totalAmt += Number(res.OUT_REC[i]["exp_total_price"]);
+					totalAmt += parseFloat(res.OUT_REC[i]["exp_total_price"]);
+					totalAmtKhr +=parseFloat(res.OUT_REC[i]["exp_total_price_khr"]);
 				}
 
 				strTotal +='<tr class="total">';
-				strTotal +='	<td class="" colspan="2" style="text-align: right;">ថ្លៃចំណាយសរុប: </td>';
-				strTotal +='	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalAmt.toFixed(2))+'</b></td>';
+				strTotal +='	<td class="" colspan="2" style="text-align: right;"><b>ថ្លៃចំណាយសរុប:</b> </td>';
+				strTotal +='	<td class="" colspan="3" style="text-align: right;"></td>';
+				strTotal +='	<td class="" colspan="3"  style="text-align: right;"><b>(៛) '+stock.comm.formatCurrency(totalAmtKhr.toFixed(2))+'</b></td>';
+				strTotal +='	<td class="" colspan="3" style="text-align: right;"><b>($) '+stock.comm.formatCurrency(totalAmt.toFixed(2))+'</b></td>';
+				strTotal +='	<td class="" colspan="4" style="text-align: right;"></td>';
 				strTotal +='</tr>';
 
 				$("#tblExpend tbody").append(strHmtl);
@@ -245,6 +257,21 @@ function getData(page_no){
 			stock.comm.alertMsg($.i18n.prop("msg_err"));
 		}
 	});
+}
+
+function nullToNone(val){
+	if(val =="" || val=="null" || val == null){
+		val="None";
+	}
+	return val;
+}
+function zeroToEmpty(val){
+	if(val ==0 || val =="0" || val =="" || val=="null" || val == null){
+		val="";
+	}else{
+		val = stock.comm.formatCurrency(val);
+	}
+	return val;
 }
 
 function editData(exp_id){

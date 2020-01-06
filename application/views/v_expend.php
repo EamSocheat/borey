@@ -72,14 +72,14 @@
 												</div>
 												<div class="col-sm-6 col-md-6 col-lg-6" style="display: inline-flex;">
 													<div class="input-group date" style="width: 100%;">
-														<label for="txtSrchExpendSD" class="control-label" data-i18ncd="lb_expend_start" style="margin-bottom: 7px;display: table-caption;">ថ្ងៃចាប់ផ្ដើមការចំណាយ</label>
+														<label for="txtSrchExpendSD" class="control-label" data-i18ncd="lb_expend_start" style="margin-bottom: 7px;display: table-caption;">ថ្ងៃចំណាយ</label>
 														<div class="input-group-addon" id="txtSrchExpendSDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;padding: 5px 11px;">
 															<i class="fa fa-calendar"></i>
 														</div>
 														<input type="text" class="form-control input-sm pull-left date-pick" id="txtSrchExpendSD" name="txtSrchExpendSD" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="បញ្ជូល ថ្ងៃចាប់ផ្ដើមការបង់លុយ" style="font-size: 12px;width: 80%;">
 													</div>
 													<div class="input-group date" style="margin-top: 26px;width: 100%;">
-														<label for="txtSrchExpendED" class="control-label" data-i18ncd="lb_expend_end" style="margin-bottom: 7px;display: none;">ថ្ងៃចាប់ផ្ដើមការចំណាយ</label>
+														<label for="txtSrchExpendED" class="control-label" data-i18ncd="lb_expend_end" style="margin-bottom: 7px;display: none;">ថ្ងៃចំណាយ</label>
 														<div class="input-group-addon " id="txtSrchExpendEDIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
 															<i class="fa fa-calendar"></i>
 														</div>
@@ -143,16 +143,24 @@
 
 
 							<div class="box-body table-responsive">
-								<table class="table table-hover" id="tblExpend">
+								<table class="table table-bordered table-hover" id="tblExpend">
+								    
 									<colgroup>
 										<col style="width:5px;">
+										<col style="width:130px;">
 										<col style="width:150px;">
-										<col style="width:150px;">
-										<col style="width:150px;">
+										<col style="width:110px;">
+										<col style="width:200px;">
+										<col style="width:20px;">
+										<col style="width:120px;">
+										<col style="width:120px;">
+										<col style="width:20px;">
+										<col style="width:120px;">
+										<col style="width:120px;">
 										<col style="width:100px;">
-										<col style="width:100px">
-										<col style="width:5px;">
+										<col style="width:100px;">
 									</colgroup>
+									<!--
 									<thead>
 									<tr>
 										<th><input type="checkbox" id="chkAllBox" style="display: none;"></th>
@@ -164,6 +172,35 @@
 										<th style="text-align: center;" data-i18ncd="lb_action">Action</th>
 									</tr>
 									</thead>
+									-->
+									<thead>  
+    	            					<tr>
+    	            					  <th rowspan="2"><input type="checkbox" id="chkAllBox" style="display: none;"></th>
+    	            					  <th rowspan="2">គម្រោង</th>
+    	            					  <th rowspan="2"> អ្នកផ្គត់ផ្គង់</th>
+    	            					  <th rowspan="2">លេខ​វិ​ក័​យ​ប័ត្រ</th>
+    	            					  
+    	            					  <th rowspan="2">បរិយាយ</th>
+    	            					  <th colspan="3" class="text-center">តម្លៃប្រាក់រៀល (៛)</th>
+    	            					  <th colspan="3" class="text-center">តម្លៃជាដុល្លារ ($)</th>
+    	            					  <th rowspan="2" style="text-align: center">ថ្ងៃស្នើសុំ​ </th>
+    	            					  <th rowspan="2" style="text-align: center">ថ្ងៃចំណាយ </th>
+    	            					  <th rowspan="2">អ្នកទូទាត់ </th>
+    	            					  <th rowspan="2"> </th>
+    	            					</tr>
+    	            					<tr>
+    	            					 
+    	            					  <th class="text-right">បរិមាណ</th>
+    	            					  <th class="text-right">តម្លៃក្នុង១ឯកតា</th>
+    	            					  <th class="text-right">សរុប</th>
+    	            					  
+    	            					  <th class="text-right">បរិមាណ</th>
+    	            					  <th class="text-right">តម្លៃក្នុង១ឯកតា </th>
+    	            					  <th class="text-right">សរុប </th>
+    	            					  
+    	            					</tr>
+    	            					
+    	        					</thead>
 									<tbody>
 										<!--<tr>
 											<td><input type='checkbox'></td>
