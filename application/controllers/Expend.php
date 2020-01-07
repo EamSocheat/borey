@@ -198,5 +198,101 @@ class Expend extends CI_Controller {
 //		return explode("-",$input_date)[2]."-".explode("-",$input_date)[1]."-".explode("-",$input_date)[0];
 		return $output_date;
 	}
+	
+	
+	
+    function download_excel(){
+        $object = new PHPExcel();
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("គម្រោង", "អ្នកផ្គត់ផ្គង់", "លេខ​វិ​ក័​យ​ប័ត្រ", "បរិយាយ"," ", "តម្លៃប្រាក់រៀល (៛)"," ", " ", "តម្លៃជាដុល្លារ ($)"," ","ថ្ងៃស្នើសុំ​","ថ្ងៃចំណាយ","អ្នកទូទាត់");
+		$table_columns2 = array(" ", " ", " ", " ","បរិមាណ", "តម្លៃក្នុង១ឯកតា", "សរុប", "បរិមាណ", "តម្លៃក្នុង១ឯកតា", "សរុប", " "," "," ");
+        $column = 0;
+
+        /**
+         * get header
+         */
+        foreach($table_columns as $field){
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+                        
+            /**
+             * set auto width foreach column size
+             */
+            // foreach (range($field, $object->getActiveSheet()->getHighestDataColumn()) as $col) {
+                // $object->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+            // }
+        }
+		
+		// $column = 0;
+		// foreach($table_columns2 as $field){
+            // $object->getActiveSheet()->setCellValueByColumnAndRow($column, 2, $field);
+            // $column++;
+                        
+            // /**
+             // * set auto width foreach column size
+             // */
+            // foreach (range($field, $object->getActiveSheet()->getHighestDataColumn()) as $col) {
+                // $object->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+            // }
+        // }
+
+        /**
+         * set style to header
+         */
+        $styleArray = array(
+            //'font' => array('bold' => true,'color' => array('rgb' => 'FF0000'),),
+			'font' => array('bold' => true,),
+            'alignment' => array('horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,),
+            'fill' => array(
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('rgb' => 'B2B2B2')
+            ),
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN,
+                    'color' => array('rgb' => 'DDDDDD'),),
+                'top' => array(
+                    'style' => \PHPExcel_Style_Border::BORDER_THIN,),
+                /*'fill' => array(
+                    'type' => \PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
+                    'rotation' => 90,
+                    'startcolor' => array('argb' => 'FFA0A0A0',),'endcolor' => array('argb' => '333333',),),*/
+            ),
+        );
+        $object->getActiveSheet()->getStyle('A1:I1')->applyFromArray($styleArray);
+        $object->getDefaultStyle()->getFont()->setName('Khmer OS Battambang');
+        
+        /**
+         * retrieve data from table database
+         */
+        // $dataSrch = array(
+            // 'payIdArray' => $this->input->post("payIdArray")
+        // );
+        // $contract_data = $this->M_payment->selectPaymentData($dataSrch);
+
+        // /**
+         // * match header and data
+         // */
+        // // $excel_row = 2;
+        // foreach($contract_data as $row){
+            // $curr = $row->pay_loan_int_type;
+            // $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->pay_no);
+            // $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->con_no);
+            // $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $this->commaAmt($row->pay_usr_amount_calculate).$this->addCurrncy($row->pay_cur_id,$row->pay_usr_amount_calculate));
+            // $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $this->commaAmt($row->pay_loan).$this->addCurrncy($curr,$row->pay_loan));
+            // $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $this->commaAmt($row->pay_int).$this->addCurrncy($curr,$row->pay_int));
+            // $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $this->commaAmt($row->pay_loan+$row->pay_int).$this->addCurrncy($curr,$row->pay_loan+$row->pay_int));
+            // $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $this->commaAmt($row->con_principle).$this->addCurrncy($curr,$row->con_principle));
+            // $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->pay_date);
+            // $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->cus_nm);
+            // $excel_row++;
+        // }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Payment_'.date('Y/m/d').'.xls"');
+        $object_writer->save('php://output');
+    }
 
 }

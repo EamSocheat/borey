@@ -243,7 +243,7 @@ function getData(page_no){
 			}else{
 				$("#chkAllBox").hide();
 				$("#tblExpend tbody").html("");
-				$("#tblExpend tbody").append("<tr><td colspan='9' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+				$("#tblExpend tbody").append("<tr><td colspan='15' style='    text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 				//--pagination
 				stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 			}
