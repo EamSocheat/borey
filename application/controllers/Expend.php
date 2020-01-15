@@ -219,30 +219,30 @@ class Expend extends CI_Controller {
             /**
              * set auto width foreach column size
              */
-            // foreach (range($field, $object->getActiveSheet()->getHighestDataColumn()) as $col) {
-                // $object->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
-            // }
+            foreach (range($field, $object->getActiveSheet()->getHighestDataColumn()) as $col) {
+               	$object->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+            }
         }
 		
-		// $column = 0;
-		// foreach($table_columns2 as $field){
-            // $object->getActiveSheet()->setCellValueByColumnAndRow($column, 2, $field);
-            // $column++;
+		$column = 0;
+		foreach($table_columns2 as $field){
+           	$object->getActiveSheet()->setCellValueByColumnAndRow($column, 2, $field);
+            $column++;
                         
-            // /**
-             // * set auto width foreach column size
-             // */
-            // foreach (range($field, $object->getActiveSheet()->getHighestDataColumn()) as $col) {
-                // $object->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
-            // }
-        // }
+            /**
+             * set auto width foreach column size
+             */
+           	foreach (range($field, $object->getActiveSheet()->getHighestDataColumn()) as $col) {
+                $object->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+            }
+        }
 
         /**
          * set style to header
          */
         $styleArray = array(
             //'font' => array('bold' => true,'color' => array('rgb' => 'FF0000'),),
-			'font' => array('bold' => true,),
+			'font' => array('bold' => true,'name'=>'Khmer OS Battambang','size'),
             'alignment' => array('horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,),
             'fill' => array(
                 'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -260,7 +260,14 @@ class Expend extends CI_Controller {
                     'startcolor' => array('argb' => 'FFA0A0A0',),'endcolor' => array('argb' => '333333',),),*/
             ),
         );
-        $object->getActiveSheet()->getStyle('A1:I1')->applyFromArray($styleArray);
+        $object->getActiveSheet()->getStyle('A1:M1')->applyFromArray($styleArray);
+        $object->getActiveSheet()->getCellByColumnAndRow(4,2)->getStyle('A1:M1')->applyFromArray($styleArray);
+        $object->getActiveSheet()->getCellByColumnAndRow(5,2)->getStyle('A1:M1')->applyFromArray($styleArray);
+        $object->getActiveSheet()->getCellByColumnAndRow(6,2)->getStyle('A1:M1')->applyFromArray($styleArray);
+        $object->getActiveSheet()->getCellByColumnAndRow(7,2)->getStyle('A1:M1')->applyFromArray($styleArray);
+        $object->getActiveSheet()->getCellByColumnAndRow(8,2)->getStyle('A1:M1')->applyFromArray($styleArray);
+        $object->getActiveSheet()->getCellByColumnAndRow(9,2)->getStyle('A1:M1')->applyFromArray($styleArray);
+        
         $object->getDefaultStyle()->getFont()->setName('Khmer OS Battambang');
         
         /**
