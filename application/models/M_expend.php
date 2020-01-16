@@ -70,7 +70,12 @@ class M_expend extends CI_Model{
 			}
 
 		}*/
-
+		
+		if($dataSrch['expIdArray'] != null && $dataSrch['expIdArray'] != ""){
+        	$integerIDs = array_map('intval', explode(',', $dataSrch['expIdArray']));
+        	$this->db->where_in('tbl_expend.exp_id', $integerIDs);
+        }
+            
 		$this->db->order_by("exp_id", "desc");
 		return $this->db->get('tbl_expend',$dataSrch['limit'],$dataSrch['offset'])->result();
 	}
