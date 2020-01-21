@@ -44,7 +44,12 @@
                 		
                 		<div class="col-xs-4 padding-forms-right">
                 			<div class="form-group">
-                               	<label for="txtIdentityNmKh" data-i18ncd="lb_identity">Identity</label>
+                               	<!--<label for="txtIdentityNmKh" data-i18ncd="lb_identity">Identity</label>-->
+                               	<select class="form-control input-sm" id="cboIdntType" name="cboIdntType" style="height: 26px;color: blue">
+	                    			<option value="" data-i18ncd="lb_identity" selected>លេខអត្តសញ្ញាណប័ណ្ណ</option>
+			                    	<option value="PN">លិខិតឆ្លងដែនលេខ</option>
+			                 
+			                  </select>
                             	<input type="text" class="form-control" id="txtIdentityNmKh" name="txtIdentityNmKh" required="required" maxlength="15" autocomplete="off" />
                             </div>
                 		</div>

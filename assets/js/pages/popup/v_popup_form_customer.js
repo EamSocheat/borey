@@ -188,7 +188,9 @@ function getDataEdit(cus_id){
 			    	$("#cusImgView").attr("src", $("#base_url").val()+"upload"+res.OUT_REC[0]["cus_photo"]);
 			    	$("#cusImgPath").val(res.OUT_REC[0]["cus_photo"]);
 			    }
-			
+			    if(!stock.comm.isEmpty(res.OUT_REC[0]["cus_idnt_type"])){
+			    	$("#cboIdntType option[value='"+res.OUT_REC[0]["cus_idnt_type"]+"']").attr("selected",true);
+			    }
 			    $("#txtCustomerNm").focus();
 			}else{
 			    stock.comm.alertMsg($.i18n.prop("msg_err"));
