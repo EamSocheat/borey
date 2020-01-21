@@ -1,0 +1,6 @@
+
+update tbl_installment
+set inst_pay_per = 1.68
+WHERE sell_id = 77 
+and inst_num >2
+and inst_type = 'ADV'

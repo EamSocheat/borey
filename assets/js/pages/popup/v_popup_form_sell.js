@@ -1755,6 +1755,7 @@ function setEditInstallment(){
 	var totalPaidAdv=0;
 	var checkBooked="";
 	var tdStyle="";
+	var checkCheckBox="";
 	instRecord.each(function(i){
 		var instData = {};
 		var tblTr   = $(this);
@@ -1784,6 +1785,7 @@ function setEditInstallment(){
 		if(i==0){
 			if(instType == "BOOK"){
 				checkBooked="<span style='margin-left: 10px;'>បង្គ្រប់</span>";
+				checkCheckBox = "Y";
 			}else if(instType == "ADV" || instType == "LOAN"){
 				checkBooked ="<span style='margin-left: 45px;'></span>";
 			}
@@ -1816,6 +1818,12 @@ function setEditInstallment(){
 		}
 		if(instType == "BOOK" || instType == "ADV"){
 			totalPaidAdv+= (parseFloat(inst_dis_amt.replace("$", "")) + parseFloat(inst_amt_principle.replace("$", "")));
+		}
+		//
+		//
+		if(i == 1 && checkCheckBox == "Y"){
+			isSameData ="";
+			checkCheckBox = "";
 		}
 		
 		//

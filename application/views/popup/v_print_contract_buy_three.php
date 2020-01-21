@@ -339,7 +339,9 @@
 		<div style="margin-top: -10px">
 			<p style="font-size: 15px;">
 				ឈ្មោះ <b> <?php echo $OUT_REC[0]->cus_nm_kh;?></b> ភេទ  <?php 	if($OUT_REC[0]->cus_gender=="Male"){echo "ប្រុស";}else if($OUT_REC[0]->cus_gender=="Female"){echo "ស្រី";}?> ជនជាតិខ្មែរ កាន់អត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរលេខ <?php echo $OUT_REC[0]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[0]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[0]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[0]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[0]->cus_addr;?> 
-				 និង ឈ្មោះ <b> <?php echo $OUT_REC[1]->cus_nm_kh;?></b> ភេទ  <?php 	if($OUT_REC[1]->cus_gender=="Male"){echo "ប្រុស";}else if($OUT_REC[1]->cus_gender=="Female"){echo "ស្រី";}?> ជនជាតិខ្មែរ កាន់អត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរលេខ <?php echo $OUT_REC[1]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[1]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[1]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[1]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[1]->cus_addr;?> ជាអ្នកទិញ ហៅកាត់ថា <b>ភាគី“ខ”</b> លេខទូរស័ព្ទទំនាក់ទំនង <?php echo $OUT_REC[0]->cus_phone1; if($OUT_REC[1]->cus_phone1 != null && $OUT_REC[1]->cus_phone1 != $OUT_REC[0]->cus_phone1){ echo ' / '.$OUT_REC[1]->cus_phone1; }?> ។
+				 និង ឈ្មោះ <b> <?php echo $OUT_REC[1]->cus_nm_kh;?></b> ភេទ  <?php 	if($OUT_REC[1]->cus_gender=="Male"){echo "ប្រុស";}else if($OUT_REC[1]->cus_gender=="Female"){echo "ស្រី";}?> ជនជាតិខ្មែរ កាន់អត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរលេខ <?php echo $OUT_REC[1]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[1]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[1]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[1]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[1]->cus_addr;?> 
+				 និង ឈ្មោះ <b> <?php echo $OUT_REC[2]->cus_nm_kh;?></b> ភេទ  <?php 	if($OUT_REC[2]->cus_gender=="Male"){echo "ប្រុស";}else if($OUT_REC[2]->cus_gender=="Female"){echo "ស្រី";}?> ជនជាតិខ្មែរ កាន់លេខលិខិតឆ្លងដែនលេខ <?php echo $OUT_REC[2]->cus_idnt_num;?>  ចុះថ្ងៃទី <?php echo substr($OUT_REC[2]->cus_indt_date,8,2);?> ខែ <?php echo substr($OUT_REC[2]->cus_indt_date,5,2);?> ឆ្នាំ <?php echo substr($OUT_REC[2]->cus_indt_date,0,4);?>  អាស័យដ្ឋាន <?php echo $OUT_REC[2]->cus_addr;?>  
+				 ជាអ្នកទិញ ហៅកាត់ថា <b>ភាគី“ខ”</b> លេខទូរស័ព្ទទំនាក់ទំនង <?php echo $OUT_REC[0]->cus_phone1; if($OUT_REC[1]->cus_phone1 != null && $OUT_REC[1]->cus_phone1 != $OUT_REC[0]->cus_phone1){ echo ' / '.$OUT_REC[1]->cus_phone1; } if($OUT_REC[1]->cus_phone1 != null && $OUT_REC[2]->cus_phone1 != $OUT_REC[0]->cus_phone1){ echo ' / '.$OUT_REC[2]->cus_phone1; }?> ។
 			</p>
 		</div>
 		<div style="text-align: center;margin-top: -10px"><h4>បុព្វកថា</h4></div>
@@ -491,25 +493,25 @@
 			
 		</div>
 		
-		<div style="margin-top: 150px;">
+		<div style="margin-top: 20px;">
 			<br>
 			<table class="tbl-head">
 				<tr>
 					<td style="width: 50%;font-weight: normal;padding-left: 100px;"></td>
-					<td style="width: 50%;font-weight: normal;padding-left: 0px;">រាជធានីភ្នំពេញ ថ្ងៃទី…………ខែ…………ឆ្នាំ………… </td>
+					<td style="width: 50%;font-weight: normal;padding-left: 0px;">រាជធានីភ្នំពេញ ថ្ងៃទី………ខែ………ឆ្នាំ……… </td>
 					
 				</tr>
 				<tr style="height: 50px;">
 					
 				</tr>
 				<tr>
-					<td style="width: 50%;font-weight: normal;padding-left: 100px;">ស្នាមមេដៃស្តាំភាគី(ខ) អ្នកទិញ</td>
-					<td style="width: 50%;font-weight: normal;padding-left: 100px;">ស្នាមមេដៃស្តាំភាគី(ក) អ្នកលក់</td>
+					<td style="width: 50%;font-weight: normal;padding-left: 75px;">ស្នាមមេដៃស្តាំភាគី(ខ) អ្នកទិញ</td>
+					<td style="width: 50%;font-weight: normal;padding-left: 50px;">ស្នាមមេដៃស្តាំភាគី(ក) អ្នកលក់</td>
 					
 				</tr>
 				<tr>
 					<td style="width: 50%;padding-left: 100px;"></td>
-					<td style="width: 50%;padding-left: 70px;"><h4>តំណាងក្រុមហ៊ុន ហ្គាឡាក់ស៊ី១១</h4></td>
+					<td style="width: 50%;padding-left: 30px;"><h4>តំណាងក្រុមហ៊ុន ហ្គាឡាក់ស៊ី១១</h4></td>
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
@@ -525,8 +527,8 @@
 				</tr>
 				
 				<tr>
-					<td style="width: 50%;padding-left: 125px;"><h4><?php echo $OUT_REC[0]->cus_nm_kh;?></h4></td>
-					<td style="width: 50%;padding-left: 125px;"><h4>ហេង ពិសិដ្ឋ</h4></td>
+					<td style="width: 60%;padding-left: 10px;"><h4><?php echo $OUT_REC[0]->cus_nm_kh;?> និង  <?php echo $OUT_REC[1]->cus_nm_kh;?> និង <?php echo $OUT_REC[2]->cus_nm_kh;?></h4></td>
+					<td style="width: 40%;padding-left: 80px;"><h4>ហេង ពិសិដ្ឋ</h4></td>
 				</tr>
 				
 				<!-- 
