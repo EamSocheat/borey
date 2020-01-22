@@ -1,0 +1,20 @@
+select * from tbl_installment 
+where sell_id = 77 and inst_num > 2
+
+--
+update tbl_installment 
+set inst_date = DATE_ADD(inst_date,INTERVAL 1 MONTH)
+where sell_id = 77 and inst_num > 2;
+--
+update tbl_installment 
+set inst_date = DATE_ADD(inst_date,INTERVAL -14 DAY)
+where sell_id = 77 and inst_num > 2;
+
+
+update tbl_installment 
+set inst_first_installment_date = DATE_ADD(inst_first_installment_date,INTERVAL -14 DAY)
+where sell_id = 77 ;
+
+update tbl_installment 
+set inst_date = '2020-02-01'
+where sell_id = 77 and inst_num = 2;

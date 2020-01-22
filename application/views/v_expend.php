@@ -64,7 +64,7 @@
 													<div class="form-group form-inline">
 														<label for="cboStaffPay" class="control-label" data-i18ncd="lb_staff_nm" style="margin-bottom: 7px;display: -webkit-box;">បុគ្គលិក(អ្នកទូទាត់)</label>
 														<!-- <input type="text" class="form-control input-sm" id="txtSrchStaffNm" name="txtSrchStaffNm" placeholder="បុគ្គលិក(អ្នកទូទាត់)" style="width: 100%;">-->
-														<select class="form-control input-sm" id="cboStaff" name="cboStaff" style="font-size: 14px;" onchange="getData()">
+														<select class="form-control input-sm" id="cboStaffPay" name="cboStaffPay" style="font-size: 14px;" onchange="getData()">
 															<option value="" data-i18ncd="lb_project_choose" selected>សូមជ្រើសរើស</option>
 															<option value="0" data-i18ncd="lb_staff_admin">static</option>
 														</select>
