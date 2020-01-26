@@ -76,7 +76,8 @@ class M_expend extends CI_Model{
         	$this->db->where_in('tbl_expend.exp_id', $integerIDs);
         }
             
-		$this->db->order_by("exp_id", "desc");
+		$this->db->order_by("exp_date", "desc");
+		$this->db->order_by("tbl_expend.sta_id", "desc");
 		return $this->db->get('tbl_expend',$dataSrch['limit'],$dataSrch['offset'])->result();
 	}
 

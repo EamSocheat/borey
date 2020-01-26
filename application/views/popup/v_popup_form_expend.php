@@ -95,9 +95,28 @@
                               <input type="text" class="form-control" id="txtInvNo" name="txtInvNo" autocomplete="off" />
                             </div>
 						</div>
-                		<div class="col-xs-6 padding-forms-right">
-                			<div class="image" >
-								<img id="expendImgView" src="<?php echo base_url('assets\image\default-image.jpg')?>" class="cur-pointer" style="width:150px;height: 90px;" alt="User Image">
+						<div class="col-xs-4 padding-forms-right">
+							<div class="form-group">
+                              <label for="txtVoNo">លេខប័ណ្ណ </label>
+                              <input type="text" class="form-control" id="txtVoNo" name="txtVoNo" autocomplete="off" />
+                            </div>
+						</div>
+						<div class="col-xs-4 padding-forms-right">
+							<div class="form-group">
+                              <label for="cboReqStaff">អ្នកស្នើសុំ</label><label style="color: red;font-weight: bold;"><input type="checkbox" id="cboReqStaffYn" name="cboReqStaffYn" style="margin-left: 15px;color: red">None</label>
+                              <select class="form-control" id="cboReqStaff" name="cboReqStaff" style="font-size: 14px;" >
+									<option value=""  selected>សូមជ្រើសរើស</option>
+							  </select>
+                            </div>
+						</div>
+                		
+                	</div>
+                	
+                	<div class="col-xs-12 row" style="padding:0px;">
+						
+                		<div class="col-xs-12 padding-forms-left">
+                			<div class="image" style="text-align: right;margin-right: -20px;">
+								<img id="expendImgView" src="<?php echo base_url('assets\image\default-image.jpg')?>" class="cur-pointer" style="width:185px;height: 90px;" alt="User Image">
 								<input type="hidden" class="form-control" id="expImgPath" name="expImgPath">
 								<button  type="button" class="btn btn-info btn-xs" id="btnSelectPhoto"><i class="fa fa-image" aria-hidden="true"></i> <span data-i18ncd="lb_select_img">Select Image</span></button>
 								<input type="file" style="display: none" class="form-control" accept="image/*"  id="fileExpPhoto" name="fileExpPhoto" autocomplete="off" />
@@ -112,7 +131,7 @@
                 		<div class="col-xs-12 " style="padding-right: 0px;padding-left: 35px;" id="tblExpendItemDiv">
 	                		<span><b>បរិយាយការចំណាយ </b></span>
 	                		<br>
-	                    	<div class="box-body" style="height: 300px;padding: 0px;overflow-y: scroll;">
+	                    	<div class="box-body" style="height: 220px;padding: 0px;overflow-y: scroll;">
 	        				  <table class="table table-bordered" id="tblExpendItem" >
 	        				  	<col width="5">
   								<col width="10">

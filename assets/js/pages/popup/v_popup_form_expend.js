@@ -231,6 +231,21 @@ var _thisPage = {
 				$("#txtSuppIdVal").val("");
 			});
 			
+			//
+			$("#cboReqStaffYn").click(function(){
+				if ($(this).is(':checked')) {
+					$("#cboReqStaff").val("");
+				}
+			});
+			
+			//
+			$("#cboReqStaff").change(function(){
+				if ($(this).val() != "") {
+					$("#cboReqStaffYn").prop("checked",false);
+				}else{
+					$("#cboReqStaffYn").prop("checked",true);
+				}
+			});
 		}
 };
 
@@ -260,18 +275,24 @@ function saveData(str){
     		return;
     	}
 	}
+    if($("#cboReqStaff").val() == "" || $("cboReqStaff").val() == ""){
+    	if(!$("#cboReqStaffYn").is(':checked')){
+    		top.stock.comm.alertMsg("សូមជ្រើសរើស អ្នកស្នើសុំ!!!");
+    		parent.$("#loading").hide();
+    		return;
+    	}
+	}
     var requireCheck="";
     var eqRequire=0;
     var itemTableCheck=$("#tblExpendItem tbody tr");
     for(var i=0; i<itemTableCheck.length;i++){
-    	console.log($("#tblExpendItem tbody tr:eq("+i+")").find("td.exp-des input").val()+":::::::::");
     	if(stock.comm.isEmpty($("#tblExpendItem tbody tr:eq("+i+")").find("td.exp-des input").val())){
     		requireCheck = "true";
     		eqRequire=i;
     		break;
     	}
 	}
-    console.log($("#tblExpendItem tbody tr:eq(0)").find("td.exp-des input").val()+":::::::::");
+    
     if(requireCheck == "true"){
     	$("#tblExpendItem tbody tr:eq("+eqRequire+") td input").css("border","1px solid red");
     	parent.$("#loading").hide();
@@ -401,6 +422,16 @@ function getDataEdit(exp_id){
 			    	$("#txtSuppNm").val("None");
 					$("#txtSuppPhone").val("None");
 				}
+			    
+			    $("#txtVoNo").val(res.OUT_REC[0]["exp_voucher_no"]);
+			    if(res.OUT_REC[0]["exp_req_staff_id"] == "0" || res.OUT_REC[0]["exp_req_staff_id"] == "" || res.OUT_REC[0]["exp_req_staff_id"] == null || res.OUT_REC[0]["exp_req_staff_id"] == "null"){
+			    	$("#cboReqStaffYn").attr("checked","checked");
+			    	$("#cboReqStaff").text("");
+			    
+				}else{
+					$("#cboReqStaff").val(res.OUT_REC[0]["exp_req_staff_id"]);
+				}
+			    
 			    $("#btnMinus,#btnPlus").hide();
 			    
 			    $("#tblExpendItem tbody tr td input").remove();
@@ -458,6 +489,7 @@ function filtStaffCombo(){
 			//strHtml += '<option value="0" data-i18ncd="lb_staff_admin">Admin</option>';
 		var staffStr = "";
 		$("#cboStaffPay").empty();
+		$("#cboReqStaff").empty();
 		for(var i = 0; i < Staff_REC.length; i++){
 			if(Staff_REC[i]["sta_nm_kh"] != "" && Staff_REC[i]["sta_nm_kh"] != null){
 				staffStr = Staff_REC[i]["sta_nm_kh"];
@@ -467,6 +499,7 @@ function filtStaffCombo(){
 			strHtml += '<option value="'+Staff_REC[i]["sta_id"]+'">'+staffStr+'</option>';
 		}
 		$("#cboStaffPay").html(strHtml);
+		$("#cboReqStaff").html(strHtml);
 	}
 }
 

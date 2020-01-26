@@ -1,0 +1,4 @@
+alter TABLE tbl_expend
+add column exp_req_staff_id int;
+alter TABLE tbl_expend
+add column exp_voucher_no varchar(50);

@@ -84,6 +84,8 @@ class Expend extends CI_Controller {
 		        'exp_total_price'		=> str_replace(",","",$this->input->post('txtTotalExp')),
 		        'exp_date'		=> date('Y-m-d',strtotime($this->input->post('txtExpendDate'))),
 		        'exp_req_date'		=> date('Y-m-d',strtotime($this->input->post('txtRequestDate'))),
+		        'exp_req_staff_id'		=> $this->input->post('cboReqStaff'),
+		        'exp_voucher_no'		=> $this->input->post('txtVoNo'),
 		        //'exp_des'		=> $this->input->post('txtDesc'),
 		        'exp_des'		=> $itemDescArr[$i],
 		        'exp_qty_khr'		=> $itemQtyKhrArr[$i],
