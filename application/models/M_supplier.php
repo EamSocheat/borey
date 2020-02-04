@@ -33,7 +33,7 @@
 				$this->db->group_end();
 			}
         	
-        	$this->db->order_by("com_id", "sup_des");
+        	$this->db->order_by("sup_id", "desc");
         	return $this->db->get('tbl_supplier',$dataSrch['limit'],$dataSrch['offset'])->result();
 		}
 

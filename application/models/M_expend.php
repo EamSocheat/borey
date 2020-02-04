@@ -104,7 +104,7 @@ class M_expend extends CI_Model{
 		}
 
 		if($dataSrch['sta_nm'] != null && $dataSrch['sta_nm'] != ""){
-			$this->db->like('tbl_staff.sta_nm', $dataSrch['sta_nm']);
+			$this->db->like('tbl_staff.sta_id', $dataSrch['sta_nm']);
 		}
 
 		if($dataSrch['srch_all'] != null && $dataSrch['srch_all'] != ""){

@@ -125,23 +125,15 @@ var _thisPage = {
 		});
 
 		$("#btnDownExcel").click(function(e){
+			$("#loading").show();
 			e.preventDefault();
-			var chkVal = $('#tblExpend tbody tr td.chk_box input[type="checkbox"]:checked');
-
-			if(chkVal.length <= 0){
-				stock.comm.alertMsg($.i18n.prop("msg_down_excel"));
-				return;
-			}
-
-			var objArr = [];
-			chkVal.each(function(i){
-				var tblTr   = $(this).parent().parent();
-				var data_id = tblTr.attr("data-id");
-				objArr.push(Number(data_id));
+			
+			$(".box-search .box-body").slideDown(500,function(){
+				$(".box-search .box-header i").removeClass("fa-search-plus");
+				$(".box-search .box-header i").addClass("fa-search-minus");
 			});
-
-			$("#expId").val(objArr);
-			$("#btnExcel").submit();
+			getDataExcel();
+			
 		});
 	}
 };
@@ -259,6 +251,44 @@ function getData(page_no){
 	});
 }
 
+
+
+function getDataExcel(page_no){
+	//$("#loading").show();
+	var dat = {};
+	//searching
+	dat["suppNm"]	= $("#cboSupNm option:selected").val();
+	dat["expPro"]	= $("#projectNm option:selected").val();
+	dat["expSta"] 	= $("#cboStaffPay option:selected").val();
+	dat["txtSrchExpendSD"]	= $("#txtSrchExpendSD").val();
+	dat["txtSrchExpendED"]	= $("#txtSrchExpendED").val();
+
+	$("#loading").show();
+	$.ajax({
+		type: "POST",
+		url : $("#base_url").val() +"Expend/getExpendExcel",
+		data: dat,
+		dataType: "json",
+		success	: function(res) {
+			if(res.OUT_REC != null && res.OUT_REC.length >0){
+				var objArr = [];
+				for(var i = 0; i < res.OUT_REC.length; i++){
+					objArr.push(Number(res.OUT_REC[i]['exp_id']));
+				}
+				$("#expId").val(objArr);
+				$("#btnExcel").submit();
+			}else{
+				stock.comm.alertMsg($.i18n.prop("msg_err"));
+			}
+			$("#loading").hide();
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg($.i18n.prop("msg_err"));
+		}
+	});
+}
+
 function nullToNone(val){
 	if(val =="" || val=="null" || val == null){
 		val="None";
@@ -301,7 +331,7 @@ function deleteDataArr(dataArr){
 				stock.comm.alertMsg($.i18n.prop("msg_err_del"));
 				return;
 			}
-			$("#loading").hide();
+			//$("#loading").hide();
 		},
 		error : function(data) {
 			console.log(data);
@@ -372,10 +402,11 @@ function filtStaffCombo(){
 
 
 function downloadExcel(dataRec){
+
 	$.ajax({
 		type: "POST",
 		url : $("#base_url").val() +"Expend/download_excel",
-		data: dataRec,
+		data: dat,
 		contentType: "application/vnd.ms-excel",
 		dataType: "json",
 		cache: false,
@@ -387,6 +418,7 @@ function downloadExcel(dataRec){
 			stock.comm.alertMsg($.i18n.prop("msg_err"));
 		}
 	});
+	
 }
 
 /**

@@ -32,7 +32,7 @@
             		<div class="col-xs-6 padding-forms-left">
             			<div class="form-group">
                           <label for="phoneNum" data-i18ncd="lb_phone">Phone Number</label>
-                          <input type="text" class="form-control" id="phoneNum" name="phoneNum" required="required" style="border-radius:5px;">
+                          <input type="text" class="form-control" id="phoneNum" name="phoneNum" style="border-radius:5px;">
                         </div>
             		</div>
             		<div class="col-xs-6 padding-forms-right">
@@ -46,7 +46,7 @@
             		<div class="col-xs-12 padding-forms-left">
             			<div class="form-group">
                           <label for="suppAddr" data-i18ncd="lb_addr">Address</label>
-                          <input type="text" class="form-control" id="suppAddr" name="suppAddr" required="required" style="border-radius:5px;">
+                          <input type="text" class="form-control" id="suppAddr" name="suppAddr" style="border-radius:5px;">
                         </div>
             		</div>
             	</div>

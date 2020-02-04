@@ -53,7 +53,7 @@ var _thisPage = {
 							html += '	<td><div>'+null2Void(v.sup_phone)+'</div></td>';
 							html += '	<td><div>'+null2Void(v.sup_email)+'</div></td>';
 							html += '	<td><div>'+null2Void(v.sup_addr)+'</div></td>';
-							html += '	<td><div>'+null2Void(v.sup_des)+'</div></td>';
+							html += '	<td><div>'+null2Void(v.sup_id)+'</div></td>';
 							html += '	<td><div>'+(null2Void(v.regDt)).substr(0,10)+'</div></td>';
 							html += '	<td class="text-center">';
 							html += '		<button onclick="_thisPage.editData('+v.sup_id+')" type="button" class="btn btn-primary btn-xs">';

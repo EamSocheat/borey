@@ -48,6 +48,23 @@ class Expend extends CI_Controller {
 		echo json_encode($data);
 	}
     
+	public function getExpendExcel(){
+	    if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	    
+	    $dataSrch = array(
+	        'limit' 		=> 1000000,
+	        'offset' 		=> 0,
+	        'sup_nm' 		=> $this->input->post('suppNm'),
+	        'bra_nm' 		=> $this->input->post('expPro'),
+	        'sta_nm'		=> $this->input->post('expSta'),
+	        'txtSrchExpendSD' 	=> $this->reOrderDate($this->input->post('txtSrchExpendSD')),
+	        'txtSrchExpendED'	=> $this->reOrderDate($this->input->post('txtSrchExpendED'))
+	    );
+	    $data["OUT_REC"] = $this->M_expend->selectExpend($dataSrch);
+	    echo json_encode($data);
+	}
 	public function uploadImageExpend(){
 	    $expPhoto = "";
 	    if(!empty($_FILES['fileExpPhoto']['name'])){
@@ -290,15 +307,17 @@ class Expend extends CI_Controller {
         $object->getActiveSheet()->setCellValueByColumnAndRow(5, 3, "របាយការណ៍ការចំណាយ");
         /**
          * retrieve data from table database
-         */
+        */
         $dataSrch = array(
             'expIdArray' => $this->input->post("expIdArray")
         );
         $expend_data = $this->M_expend->selectExpend($dataSrch);
-
-        // /**
-         // * match header and data
-         // */
+        
+        
+        
+        /**
+        * match header and data
+        */
 		$style_font_bold = array(
 		    'font' => array('bold' => true,),
 		    'borders' => array(
@@ -423,8 +442,10 @@ class Expend extends CI_Controller {
         
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="Payment_'.date('Y/m/d').'.xls"');
+        header('Content-Disposition: attachment;filename="របាយការណ៍ចំណាយ_'.date('Y/m/d').'.xls"');
         $object_writer->save('php://output');
+        exit;
+        echo 'OK';
     }
 
 }
