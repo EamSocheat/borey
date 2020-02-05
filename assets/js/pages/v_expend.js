@@ -127,6 +127,8 @@ var _thisPage = {
 		$("#btnDownExcel").click(function(e){
 			$("#loading").show();
 			e.preventDefault();
+			$("#expSchDateStart").val($("#txtSrchExpendSD").val());
+			$("#expSchDateEnd").val($("#txtSrchExpendED").val());
 			
 			$(".box-search .box-body").slideDown(500,function(){
 				$(".box-search .box-header i").removeClass("fa-search-plus");
