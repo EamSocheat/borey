@@ -8,9 +8,10 @@ class M_expend extends CI_Model{
 
 	function selectExpend($dataSrch){
 
-		$this->db->select('*');
+		$this->db->select('tblSta1.sta_nm as exp_req_staff_nm, tbl_expend.*,tbl_staff.*,tbl_supplier.*,tbl_branch.*');
 		//$this->db->from('tbl_expend');
 		$this->db->join('tbl_staff','tbl_staff.sta_id = tbl_expend.sta_id');
+		$this->db->join('tbl_staff tblSta1','tblSta1.sta_id = tbl_expend.exp_req_staff_id', 'left');
 		$this->db->join('tbl_supplier','tbl_supplier.sup_id = tbl_expend.sup_id', 'left');
 		$this->db->join('tbl_branch','tbl_branch.bra_id = tbl_expend.bra_id');
 		$this->db->where('tbl_expend.com_id', $_SESSION['comId']);

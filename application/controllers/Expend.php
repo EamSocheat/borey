@@ -224,8 +224,8 @@ class Expend extends CI_Controller {
         $object = new PHPExcel();
         $object->setActiveSheetIndex(0);
 
-        $table_columns = array("ល.រ","គម្រោង", "អ្នកផ្គត់ផ្គង់", "លេខ​វិ​ក័​យ​ប័ត្រ", "បរិយាយ"," ", "តម្លៃប្រាក់រៀល (៛)"," ", " ", "តម្លៃជាដុល្លារ ($)"," ","ថ្ងៃស្នើសុំ​","ថ្ងៃចំណាយ","អ្នកទូទាត់");
-		$table_columns2 = array(" "," ", " ", " ", "វិ​ក័​យ​ប័ត្រ","បរិមាណ", "តម្លៃក្នុង១ឯកតា", "សរុប", "បរិមាណ", "តម្លៃក្នុង១ឯកតា", "សរុប", " "," "," ");
+        $table_columns = array("ល.រ","គម្រោង", "អ្នកផ្គត់ផ្គង់", "លេខ​វិ​ក័​យ​ប័ត្រ", "បរិយាយ"," ", "តម្លៃប្រាក់រៀល (៛)"," ", " ", "តម្លៃជាដុល្លារ ($)"," ","លេខប័ណ្ណ","អ្នកស្នើសុំ","ថ្ងៃស្នើសុំ​","ថ្ងៃចំណាយ","អ្នកទូទាត់");
+		$table_columns2 = array(" "," ", " ", " ", "វិ​ក័​យ​ប័ត្រ","បរិមាណ", "តម្លៃក្នុង១ឯកតា", "សរុប", "បរិមាណ", "តម្លៃក្នុង១ឯកតា", "សរុប", " "," "," "," "," ");
         $column = 0;
 
         /**
@@ -285,6 +285,8 @@ class Expend extends CI_Controller {
         $object->getActiveSheet()->mergeCells('L5:L6');
         $object->getActiveSheet()->mergeCells('M5:M6');
         $object->getActiveSheet()->mergeCells('N5:N6');
+        $object->getActiveSheet()->mergeCells('O5:O6');
+        $object->getActiveSheet()->mergeCells('P5:P6');
         $object->getActiveSheet()->setCellValueByColumnAndRow(1, 5, "គម្រោង");
 		$object->getActiveSheet()->setCellValueByColumnAndRow(2, 5, "អ្នកផ្គត់ផ្គង់");
 		$object->getActiveSheet()->setCellValueByColumnAndRow(3, 5, "​វិ​ក័​យ​ប័ត្រ");
@@ -295,11 +297,11 @@ class Expend extends CI_Controller {
     	foreach(range('A2','N2') as $columnID) {
 		    $object->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
 		}*/
-		$object->getActiveSheet()->getStyle('A1:N1')->applyFromArray($styleFont);
-		$object->getActiveSheet()->getStyle('A2:N2')->applyFromArray($styleFont);
-		$object->getActiveSheet()->getStyle('A3:N3')->applyFromArray($styleFont);
-        $object->getActiveSheet()->getStyle('A5:N5')->applyFromArray($styleArray);
-        $object->getActiveSheet()->getStyle('A6:N6')->applyFromArray($styleArray);
+		$object->getActiveSheet()->getStyle('A1:P1')->applyFromArray($styleFont);
+		$object->getActiveSheet()->getStyle('A2:P2')->applyFromArray($styleFont);
+		$object->getActiveSheet()->getStyle('A3:P3')->applyFromArray($styleFont);
+        $object->getActiveSheet()->getStyle('A5:P5')->applyFromArray($styleArray);
+        $object->getActiveSheet()->getStyle('A6:P6')->applyFromArray($styleArray);
         $object->getDefaultStyle()->getFont()->setName('Khmer OS Siemreap');
         $object->getDefaultStyle()->getFont()->setSize('9px');
         $object->getActiveSheet()->setCellValueByColumnAndRow(5, 1, "បុរីហ្គាឡាក់ស៊ី១១");
@@ -359,7 +361,7 @@ class Expend extends CI_Controller {
         foreach($expend_data as $row){
         	//
         	$object->getActiveSheet()->getStyle('A'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_center);
-        	$object->getActiveSheet()->getStyle('L'.$excel_row.':N'.$excel_row)->applyFromArray($style_border_center);
+        	$object->getActiveSheet()->getStyle('L'.$excel_row.':P'.$excel_row)->applyFromArray($style_border_center);
         	$object->getActiveSheet()->getStyle('F'.$excel_row.':F'.$excel_row)->applyFromArray($style_border_center);
         	$object->getActiveSheet()->getStyle('I'.$excel_row.':I'.$excel_row)->applyFromArray($style_border_center);
         	$object->getActiveSheet()->getStyle('G'.$excel_row.':H'.$excel_row)->applyFromArray($style_border_right);
@@ -379,9 +381,11 @@ class Expend extends CI_Controller {
             $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, ($row->exp_qty == 0 ? "" : $row->exp_qty));
             $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, ($row->exp_unit_price == 0 ? "" : $row->exp_unit_price));
             $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row,($row->exp_total_price == 0 ? "" : $row->exp_total_price));
-            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, date('d/m/Y',strtotime($row->exp_req_date)));
-            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, date('d/m/Y',strtotime($row->exp_date)));
-            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->sta_nm_kh);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, ($row->exp_voucher_no == null ? "None" : $row->exp_voucher_no));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, ($row->exp_req_staff_nm == null ? "None" : $row->exp_req_staff_nm));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, date('d/m/Y',strtotime($row->exp_req_date)));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(14, $excel_row, date('d/m/Y',strtotime($row->exp_date)));
+            $object->getActiveSheet()->setCellValueByColumnAndRow(15, $excel_row, $row->sta_nm_kh);
             $excel_row++;
             $noItem++;
             $totalExpendUsd+= floatval($row->exp_total_price);
@@ -393,14 +397,14 @@ class Expend extends CI_Controller {
         $object->getActiveSheet()->getStyle('H'.$excel_row.':H'.$excel_row)->applyFromArray($style_font_bold);
         $object->getActiveSheet()->getStyle('K'.$excel_row.':K'.$excel_row)->applyFromArray($style_font_bold);
         $object->getActiveSheet()->getStyle('I'.$excel_row.':J'.$excel_row)->applyFromArray($style_border_center);
-        $object->getActiveSheet()->getStyle('L'.$excel_row.':N'.$excel_row)->applyFromArray($style_border_center);
+        $object->getActiveSheet()->getStyle('L'.$excel_row.':P'.$excel_row)->applyFromArray($style_border_center);
         $object->getActiveSheet()->getStyle('J'.$excel_row.':K'.$excel_row)->getNumberFormat()->setFormatCode("_(\"$\"* #,##0.00_);_(\"$\"* \(#,##0.00\);_(\"$\"* \"-\"??_);_(@_)");
         $object->getActiveSheet()->getStyle('G'.$excel_row.':H'.$excel_row)->getNumberFormat()->setFormatCode("_(\"៛\"* #,##0.00_);_(\"$\"* \(#,##0.00\);_(\"$\"* \"-\"??_);_(@_)");
         
         $object->getActiveSheet()->mergeCells('A'.$excel_row.':G'.$excel_row);
         $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "ថ្លៃចំណាយសរុប");
         $object->getActiveSheet()->mergeCells('I'.$excel_row.':J'.$excel_row);
-        $object->getActiveSheet()->mergeCells('L'.$excel_row.':N'.$excel_row);
+        $object->getActiveSheet()->mergeCells('L'.$excel_row.':P'.$excel_row);
         $object->getActiveSheet()->getStyle('A'.$excel_row.':G'.$excel_row)->applyFromArray($style_font_bold);
         
         $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $totalExpendKhr);
@@ -413,13 +417,15 @@ class Expend extends CI_Controller {
         $object->getActiveSheet()->getColumnDimension('E')->setWidth(35);
         $object->getActiveSheet()->getColumnDimension('F')->setWidth(7);
         $object->getActiveSheet()->getColumnDimension('G')->setWidth(15);
-        $object->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+        $object->getActiveSheet()->getColumnDimension('H')->setWidth(20);
         $object->getActiveSheet()->getColumnDimension('I')->setWidth(7);
         $object->getActiveSheet()->getColumnDimension('J')->setWidth(15);
-        $object->getActiveSheet()->getColumnDimension('K')->setWidth(15);
+        $object->getActiveSheet()->getColumnDimension('K')->setWidth(20);
         $object->getActiveSheet()->getColumnDimension('L')->setWidth(15);
         $object->getActiveSheet()->getColumnDimension('M')->setWidth(15);
         $object->getActiveSheet()->getColumnDimension('N')->setWidth(15);
+        $object->getActiveSheet()->getColumnDimension('O')->setWidth(15);
+        $object->getActiveSheet()->getColumnDimension('P')->setWidth(15);
         
         $gdImage = imagecreatefrompng(base_url('/upload/fix/galaxy11-logo.png'));
         // Add a drawing to the worksheetecho date('H:i:s') . " Add a drawing to the worksheet\n";
