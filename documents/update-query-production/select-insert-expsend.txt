@@ -1,0 +1,7 @@
+insert into tbl_expend(exp_req_date, exp_inv_no, sup_id,exp_des,exp_qty_khr,exp_unit_price_khr,exp_total_price_khr,
+			exp_qty,exp_unit_price,exp_total_price,sta_id,exp_date,
+			regDt,regUsr,com_id,bra_id,exp_item_no,useYn,upDt,upUsr)
+select req_date,inv_no,sup_id,des,qty_khr,unit_price_khr,total_price_khr,
+			qty,unit_price,total_price,staff_id,paid_date,
+			now(),'2','1','1','1','Y',now(),'2'
+	from tbl_excel_exp;

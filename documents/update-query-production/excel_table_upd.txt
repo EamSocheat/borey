@@ -1,0 +1,14 @@
+create table tbl_excel_exp
+(req_date date,
+inv_no varchar(50),
+sup_id int,
+des text,
+qty_khr double,
+unit_price_khr double,
+total_price_khr double,
+qty double,
+unit_price double,
+total_price double,
+paid_date date,
+staff_id int
+);
