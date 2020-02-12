@@ -1,0 +1,24 @@
+select pro_code,tbl_sell.sell_id,seller_id,sta_nm_kh from tbl_sell
+inner join tbl_sell_detail on tbl_sell_detail.sell_id = tbl_sell.sell_id
+inner join tbl_staff on tbl_staff.sta_id = tbl_sell.seller_id
+inner join tbl_product on tbl_product.pro_id = tbl_sell_detail.pro_id
+where pro_code in('VV1','V2','BB13','A16','A17','VV23/24','V25')
+group by tbl_sell.sell_id;
+
+--
+update tbl_sell
+set seller_id = 8
+where sell_id in (66,67,62); 
+---
+update tbl_sell
+set seller_id = asfasdad
+where sell_id in (21,22);
+--
+update tbl_sell
+set seller_id = asfasdad
+where sell_id in (76);
+
+
+update tbl_sell
+set seller_id = asfasdad
+where sell_id in (VV23/24);

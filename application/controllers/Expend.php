@@ -445,6 +445,8 @@ class Expend extends CI_Controller {
                 $excel_row++;
                 $noItem =1;
                 $totalExpendUsdAll = $totalExpendUsdAll+$totalAll;
+                $totalAll=0;
+                $totalExpendUsd=0;
             }
             
             
@@ -527,6 +529,8 @@ class Expend extends CI_Controller {
                 
                 $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $totalAll);
                 $totalExpendUsdAll = $totalExpendUsdAll+$totalAll;
+                $totalAll=0;
+                $totalExpendUsd=0;
             }
         
         }
