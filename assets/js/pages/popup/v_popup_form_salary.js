@@ -239,7 +239,7 @@ function selectSupplierCallback(data){
 
 
 function filtStaffCombo(){
-	var Staff_REC = stock.comm.callDataCombo("Staff","getStaff");
+	var Staff_REC = stock.comm.callDataCombo("Staff","getStaffData");
 
 	if(!stock.comm.isEmpty(Staff_REC)){
 		var strHtml  = '<option value="" data-i18ncd="lb_project_choose">សូមជ្រើសរើស</option>';

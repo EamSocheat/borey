@@ -144,23 +144,26 @@
 							</div>
 
 
-							<div class="box-body table-responsive">
-								<table class="table table-bordered table-hover" id="tblExpend">
+							<div class="box-body" style="overflow-x:auto;">
+								<table class="table table-bordered table-hover" id="tblExpend" style="width: 2100px;">
 								    
 									<colgroup>
 										<col style="width:5px;">
+										<col style="width:5px;">
 										<col style="width:130px;">
 										<col style="width:150px;">
-										<col style="width:110px;">
-										<col style="width:200px;">
+										<col style="width:150px;">
+										<col style="width:400px;">
 										<col style="width:20px;">
 										<col style="width:120px;">
 										<col style="width:120px;">
 										<col style="width:20px;">
 										<col style="width:120px;">
+										<col style="width:100px;">
 										<col style="width:120px;">
-										<col style="width:100px;">
-										<col style="width:100px;">
+										<col style="width:120px;">
+										<col style="width:120px;">
+										<col style="width:120px;">
 									</colgroup>
 									<!--
 									<thead>
@@ -178,6 +181,7 @@
 									<thead>  
     	            					<tr>
     	            					  <th rowspan="2"><input type="checkbox" id="chkAllBox" style="display: none;"></th>
+    	            					  <th rowspan="2"> </th>
     	            					  <th rowspan="2">គម្រោង</th>
     	            					  <th rowspan="2"> អ្នកផ្គត់ផ្គង់</th>
     	            					  <th rowspan="2">លេខ​វិ​ក័​យ​ប័ត្រ</th>
@@ -185,10 +189,12 @@
     	            					  <th rowspan="2">បរិយាយ</th>
     	            					  <th colspan="3" class="text-center">តម្លៃប្រាក់រៀល (៛)</th>
     	            					  <th colspan="3" class="text-center">តម្លៃជាដុល្លារ ($)</th>
+    	            					  <th rowspan="2">លេខប័ណ្ណ </th>
+    	            					  <th rowspan="2">អ្នកស្នើសុំ​ </th>
     	            					  <th rowspan="2" style="text-align: center">ថ្ងៃស្នើសុំ​ </th>
     	            					  <th rowspan="2" style="text-align: center">ថ្ងៃចំណាយ </th>
     	            					  <th rowspan="2">អ្នកទូទាត់ </th>
-    	            					  <th rowspan="2"> </th>
+    	            					  
     	            					</tr>
     	            					<tr>
     	            					 

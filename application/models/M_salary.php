@@ -51,7 +51,7 @@
 				$this->db->group_end();
 			}*/
 
-			$this->db->order_by("sal_id", "desc");
+			$this->db->order_by("sal_month", "desc");
 			return $this->db->get('tbl_salary',$dataSrch['limit'],$dataSrch['offset'])->result();
 		}
 
