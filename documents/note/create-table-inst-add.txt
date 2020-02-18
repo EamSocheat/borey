@@ -1,0 +1,13 @@
+create TABLE tbl_inst_add(
+    inst_num int,
+	inst_date date,
+    inst_day_num int,
+    inst_amt_pay double,
+    inst_amt_principle double,
+    inst_amt_interest double,
+    inst_amt_balance double,
+    inst_loan_amount double,
+    inst_period_month int,
+    inst_interest_rate double,
+    sell_id int
+);
