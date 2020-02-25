@@ -1,0 +1,1 @@
+delete FROM `tbl_installment` WHERE inst_amt_balance = 0 and sell_id in(56,81,82,83);
