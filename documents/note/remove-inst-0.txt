@@ -1,1 +1,9 @@
-delete FROM `tbl_installment` WHERE inst_amt_balance = 0 and sell_id in(56,81,82,83);
+delete FROM `tbl_installment` WHERE inst_amt_balance = 0 and inst_id in(1364,1360,1357,1038);
+
+
+---
+
+update tbl_sell set con_type_id = 1
+where sell_id =56;
+update tbl_sell set sell_inst_yn = 'Y'
+where sell_id =56;
