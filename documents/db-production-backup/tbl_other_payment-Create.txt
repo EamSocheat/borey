@@ -1,0 +1,30 @@
+CREATE TABLE tbl_other_payment (
+		oth_pay_id	int NOT NULL AUTO_INCREMENT, 
+		oth_pay_des text,
+		oth_pay_date date,
+		oth_pay_amt double,
+		oth_pay_inv_code varchar(10),
+		oth_pay_tran_id varchar(20),
+		rec_id int,
+		met_id int,
+		sell_id int,
+		regDt	datetime,
+		upDt	datetime,
+		useYn	varchar(1),
+		regUsr	int,
+		upUsr	int,
+		com_id	int,
+		PRIMARY KEY(oth_pay_id) 
+);
+
+
+-----insert menu
+INSERT INTO `tbl_menu`(`menu_nm`, `menu_nm_kh`, `regDt`, `menu_icon_nm`, `menu_order`, `menu_group`) VALUES ('Other Payment','បង់ប្រាក់ សេវាបន្ថែម',now(),'fa fa-money',18,3);
+
+INSERT INTO `tbl_menu_company`(`menu_id`, `com_id`, `upDt`, `regDt`, `useYn`) VALUES (20,1,now(),now(),'Y');
+
+INSERT INTO `tbl_menu_user`(`menu_id`, `usr_id`, `upDt`, `regDt`, `useYn`) VALUES (20,2,now(),now(),'Y');
+INSERT INTO `tbl_menu_user`(`menu_id`, `usr_id`, `upDt`, `regDt`, `useYn`) VALUES (20,3,now(),now(),'Y');
+INSERT INTO `tbl_menu_user`(`menu_id`, `usr_id`, `upDt`, `regDt`, `useYn`) VALUES (20,4,now(),now(),'Y');
+INSERT INTO `tbl_menu_user`(`menu_id`, `usr_id`, `upDt`, `regDt`, `useYn`) VALUES (20,5,now(),now(),'Y');
+INSERT INTO `tbl_menu_user`(`menu_id`, `usr_id`, `upDt`, `regDt`, `useYn`) VALUES (20,6,now(),now(),'Y');

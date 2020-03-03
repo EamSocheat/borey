@@ -72,4 +72,17 @@
 			return $this->db->get()->result();
 		}
 		
+		
+		public function selectInvoiceNoOtherPayment(){
+		    $this->db->select('*');
+		    $this->db->from('tbl_setting_configure');
+		    $this->db->where("set_conf_code","INV_OTH");
+		    return $this->db->get()->result();
+		}
+		public function updateInvoiceNoOtherPayment($data){
+		    $this->db->where('com_id', $_SESSION['comId']);
+		    $this->db->where('set_conf_code', "INV_OTH");
+		    $this->db->update('tbl_setting_configure', $data);
+		}
+		
     }
