@@ -406,8 +406,5 @@
             $this->db->update('tbl_installment_payment', $data);
         }
         
-        public function insertOtherPayment($data){
-            $this->db->insert('tbl_other_payment',$data);
-            return $this->db->insert_id();
-        }
+       
     }

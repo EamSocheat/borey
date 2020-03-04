@@ -13,6 +13,7 @@ class OtherPayment extends CI_Controller{
         $this->load->model('M_salary');
         $this->load->model('M_common');
         $this->load->model('M_installment');
+        $this->load->model('M_other_payment');
     }
 
 	public function index(){
@@ -67,23 +68,21 @@ class OtherPayment extends CI_Controller{
         
         $id = $this->M_common->selectInvoiceNoOtherPayment();
         $code_id = $id[0]->set_conf_value;
+        $data['set_conf_value'] = (intval($id[0]->set_conf_value) + 1);
+        $this->M_common->updateInvoiceNoOtherPayment($data);
+        
         $max_id = (string)$code_id;
         $zero   = '';
         for($i = strlen($max_id); $i <= 5; $i++){
             $zero = '0'.$zero;
         }
         $dataPay['oth_pay_inv_code']  = $zero.$max_id;
-        $this->M_installment->insertOtherPayment($dataPay);
+        $this->M_other_payment->insertOtherPayment($dataPay);
         $data =array();
-        $data['set_conf_value'] = (intval($id[0]->set_conf_value) + 1);
-        $this->M_common->updateInvoiceNoOtherPayment($data);
+        
         echo $id;
 	}
 
-	public function getBranchType(){
-		$data["OUT_REC"] = $this->M_branch->selectBrandType();
-		echo json_encode($data);
-	}
 
 	public function delete(){
 		if(!$this->M_check_user->check()){
