@@ -100,10 +100,8 @@ class OtherPayment extends CI_Controller{
             $zero = '0'.$zero;
         }
         $dataPay['oth_pay_inv_code']  = $zero.$max_id;
-        $this->M_other_payment->insertOtherPayment($dataPay);
-        $data =array();
-        
-        echo $id;
+        $idInsert = $this->M_other_payment->insertOtherPayment($dataPay);
+        echo $idInsert;
 	}
 
 
@@ -116,13 +114,13 @@ class OtherPayment extends CI_Controller{
 		$cntDel = 0;
 		for($i=0; $i<sizeof($delObj); $i++){
 			$data = array(
-				'sal_id'	=> $delObj[$i]['salId'],
+				'oth_pay_id'	=> $delObj[$i]['oth_pay_id'],
 				'useYn'		=> "N",
 				'com_id'	=> $_SESSION['comId'],
 				'upDt'		=> date('Y-m-d H:i:s'),
 				'upUsr'		=> $_SESSION['usrId']
 			);
-			$this->M_salary->update($data);
+			$this->M_other_payment->update($data);
 			$cntDel+=1;
 		}
 		echo $cntDel;

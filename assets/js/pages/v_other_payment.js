@@ -85,7 +85,7 @@ var _thisPage = {
 			}
 			var tblTr = chkVal.parent().parent();
 			var braId = tblTr.attr("data-id");
-			editData(braId);
+			printData(braId);
 		});
 
 		//
@@ -107,12 +107,11 @@ var _thisPage = {
 					var delData = {};
 					var tblTr   = $(this).parent().parent().parent();
 					var data_id = tblTr.attr("data-id");
-					delData["salId"] = data_id;
+					delData["oth_pay_id"] = data_id;
 					delArr.push(delData);
 				});
 
 				delObj["delObj"] = delArr;
-				console.log(delObj);
 				deleteDataArr(delObj);
 			});
 		});
@@ -189,7 +188,7 @@ function getData(page_no){
 			    		cusNm += " & "+res.OUT_REC[i]["cus_nm_kh3"];
 			    	}
 					
-					strHtml += '<tr data-id="'+res.OUT_REC[i]["oth_pay_id"]+'" class="cur-pointer" ondblclick="editData('+res.OUT_REC[i]['oth_pay_id']+')">';
+					strHtml += '<tr data-id="'+res.OUT_REC[i]["oth_pay_id"]+'" class="cur-pointer" ondblclick="printData('+res.OUT_REC[i]['oth_pay_id']+')">';
 					strHtml += '	<td class="chk_box"><div class="" style="width: 10px;"><input type="checkbox"></div></td>';
 					strHtml += '	<td><div class="">'+res.OUT_REC[i]["oth_pay_inv_code"]+'</div></td>';
 					strHtml += '	<td><div class="">'+res.OUT_REC[i]["pro_code"]+'</div></td>';
@@ -201,7 +200,7 @@ function getData(page_no){
 					strHtml += '	<td><div class="" >'+res.OUT_REC[i]["oth_pay_tran_id"]+'</div></td>';
 					strHtml += '	<td><div class="" >'+res.OUT_REC[i]["oth_pay_des"]+'</div></td>';
 					strHtml += '	<td class="text-center">';
-					strHtml += '		<button type="button" class="btn btn-primary btn-xs" onclick="editData('+res.OUT_REC[i]["oth_pay_id"]+')">';
+					strHtml += '		<button type="button" class="btn btn-primary btn-xs" onclick="printData('+res.OUT_REC[i]["oth_pay_id"]+')">';
 					strHtml += '			<i class="fa fa-print" aria-hidden="true"></i>';
 					strHtml += '		</button>';
 					strHtml += '	</td>';
@@ -252,14 +251,36 @@ function convertStatusToLetter(salStatus){
 	return statusLetter;
 }
 
-function editData(oth_pay_id){
-	var data = "id="+oth_pay_id;
-	data += "&action=U";
-
-	var controllerNm = "PopupFormOtherPayment";
-	var option = {};
-	option["height"] = "510px";
-	stock.comm.openPopUpForm(controllerNm, option, data, "modal-lg");
+function printData(oth_pay_id){
+	var data = {};
+	var dataArr = [];
+	data["base_url"] = $("#base_url").val();
+	data["oth_pay_id"] = oth_pay_id ;
+	dataArr.push(data);
+	var datObj={};
+	datObj["printData"] = dataArr;
+	$.ajax({
+		type: "POST",
+		url: $("#base_url").val() +"PrintInv/printInvOtherPayment",
+		data: datObj,
+		async: false,
+		success: function(res) {
+			if(res != "" && res != null){
+				var newWin=parent.window.open('','Print-Window');
+				newWin.document.open();
+				newWin.document.write(res);
+				newWin.document.close();
+				newWin.focus();
+				//newWin.print();
+				setTimeout(function(){ newWin.print();newWin.close();}, 200);
+			}
+			
+		},
+		error : function(data) {
+			console.log(data);
+			stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
+        }
+	});
 }
 
 /**
@@ -268,7 +289,7 @@ function editData(oth_pay_id){
 function deleteDataArr(dataArr){
 	$.ajax({
 		type: "POST",
-		url : $("#base_url").val() +"Salary/delete",
+		url : $("#base_url").val() +"OtherPayment/delete",
 		data: dataArr,
 		dataType: 'json',
 		success: function(res) {
@@ -358,6 +379,6 @@ function resetFormSearch(){
 /**
  *
  */
-function popupSalaryCallback(){
+function popupOtherPaymentCallback(){
 	getData(_pageNo);
 }

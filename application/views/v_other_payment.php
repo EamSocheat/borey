@@ -4,13 +4,13 @@
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
-			<i class="fa fa-university"></i> <span data-i18ncd="lb_salary">Salary</span>
+			<i class="fa fa-money"></i> <span >បង់ប្រាក់ សេវាបន្ថែម</span>
 			<small data-i18ncd="lb_information">Information</small>
 		</h1>
 
 		<ol class="breadcrumb">
 			<li><a href="Dashboard"><i class="fa fa-dashboard"></i> <span data-i18ncd="lb_dashbord">Dashboard</span></a></li>
-			<li class="active" data-i18ncd="lb_salary">Salary</li>
+			<li class="active" >បង់ប្រាក់ សេវាបន្ថែម</li>
 		</ol>
 	</section>
 
@@ -119,7 +119,7 @@
 									<col style="width:50px;">
 									<col style="width:50px;">
 									<col style="width:50px;">
-									<col style="width:70px;">
+									<col style="width:90px;">
 									<col style="width:50px">
 									<col style="width:10px;">
 								</colgroup>

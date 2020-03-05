@@ -117,7 +117,7 @@ function saveData(str){
 				if(str == "new"){
 				    clearForm();
 				}else{					
-				    parent.stock.comm.closePopUpForm("PopupFormOtherPayment",parent.popupInstallmentPaymentCallback);
+				    parent.stock.comm.closePopUpForm("PopupFormOtherPayment",parent.popupOtherPaymentCallback);
 				}
 			}
 		},
@@ -244,15 +244,13 @@ function printInv(con_id){
 	var data = {};
 	var dataArr = [];
 	data["base_url"] = $("#base_url").val();
-	data["inst_paid_id"] = con_id ;
+	data["oth_pay_id"] = con_id ;
 	dataArr.push(data);
 	var datObj={};
 	datObj["printData"] = dataArr;
-	//console.log(datObj);
-	//return;
 	$.ajax({
 		type: "POST",
-		url: $("#base_url").val() +"PrintInv/printInvPayment",
+		url: $("#base_url").val() +"PrintInv/printInvOtherPayment",
 		data: datObj,
 		async: false,
 		success: function(res) {
@@ -264,7 +262,6 @@ function printInv(con_id){
 				newWin.focus();
 				//newWin.print();
 				setTimeout(function(){ newWin.print();newWin.close();}, 200);
-				parent.stock.comm.closePopUpForm("PopupFormOtherPayment",parent.popupInstallmentPaymentCallback);
 			}
 			
 		},
@@ -273,7 +270,6 @@ function printInv(con_id){
 			stock.comm.alertMsg("ប្រព័ន្ធដំណើរការ មិនប្រក្រតី សូមភ្ជាប់ម្តងទៀត");
         }
 	});
-	
 	
 }
 

@@ -13,6 +13,8 @@ class PrintInv extends CI_Controller {
 		$this->load->model('M_common');
 		$this->load->model('M_sell');
 		$this->load->model('M_installment');
+		$this->load->model('M_other_payment');
+		
 	}
 	public function index(){
 	    
@@ -139,5 +141,21 @@ class PrintInv extends CI_Controller {
 	    $dataPrint["OUT_REC"] = $this->M_sell->selectSellDataDetail($dataSrch);
 	    $dataPrint["ADV_TOTAL"] = $this->M_sell->selectSumAdvPayPer($dataSrch);
 	    return $this->load->view('popup/v_print_contract_buy_three',$dataPrint);
+	}
+	
+	
+	public function printInvOtherPayment(){
+	    
+	    if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	    $dataPrint["printData"] = $this->input->post('printData');
+	    $data = $this->input->post('printData');
+	    $dataSrch = array(
+	        'oth_pay_id'        => $data[0]["oth_pay_id"]
+	    );
+	    
+	    $dataPrint["OUT_REC"] = $this->M_other_payment->selectOtherPaymentDataPrint($dataSrch);
+	    return $this->load->view('popup/v_print_inv_other_payment',$dataPrint);
 	}
 }   
