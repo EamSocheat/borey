@@ -1,4 +1,4 @@
-CREATE TABLE tbl_other_payment (
+﻿CREATE TABLE tbl_other_payment (
 		oth_pay_id	int NOT NULL AUTO_INCREMENT, 
 		oth_pay_des text,
 		oth_pay_date date,
@@ -42,3 +42,6 @@ CREATE TABLE tbl_setting_configure (
 );
 
 INSERT INTO `tbl_setting_configure`(`set_conf_code`, `set_conf_des`, `set_conf_value`, `regDt`, `regUsr`, `com_id`) VALUES ("INV_OTH","Invoice No Other Payment",1,now(),2,1);
+
+alter table tbl_other_payment
+add COLUMN oth_pay_num varchar(10);

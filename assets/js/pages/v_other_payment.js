@@ -13,24 +13,29 @@ var _thisPage = {
 	onload : function(){
 		getData();
 		stock.comm.checkAllTblChk("chkAllBox","tblSalary","chk_box");
-
-		$('#txtSalMonth').datepicker({
-			language: (getCookie("lang") == "kh" ? "kh" : "en"),
-			format: "mm-yyyy",
-			viewMode: "months",
-			autoclose: true,
-			minViewMode: "months"
-		});
-		$("#txtSalMonth").inputmask();
+		getDataSell();
 		
-		$('#txtSalMonthEnd').datepicker({
-			language: (getCookie("lang") == "kh" ? "kh" : "en"),
-			format: "mm-yyyy",
-			viewMode: "months",
+		$('#txtOtherPayDate').datepicker({
+			language: "kh",
+			weekStart: true,
 			autoclose: true,
-			minViewMode: "months"
+			todayHighlight: 1,
+			minView: 2,
+			sideBySide: true,
+			format: "dd-mm-yyyy",
 		});
-		$("#txtSalMonthEnd").inputmask();
+		$("#txtOtherPayDate").inputmask();
+		
+		$('#txtOtherPayDateEnd').datepicker({
+			language: "kh",
+			weekStart: true,
+			autoclose: true,
+			todayHighlight: 1,
+			minView: 2,
+			sideBySide: true,
+			format: "dd-mm-yyyy",
+		});
+		$("#txtOtherPayDateEnd").inputmask();
 		
 		
 		
@@ -148,22 +153,20 @@ function getData(page_no){
 		pageNo = page_no;
 	}
 	var dat = {};
-	var salMonth = $("#txtSalMonth").val();
-	var salMonthEnd = $("#txtSalMonthEnd").val();
+	
 	//paging
 	dat["perPage"] = $("#perPage").val();
 	dat["offset"]  = parseInt($("#perPage").val())  * ( pageNo - 1);
 
 	// search
-	dat["staffId"]		= $("#staffNm option:selected").val();
-	dat["salStatus"]	= $("#cboStatus option:selected").val();
-	dat["salMonth"]		= (salMonth != "" ? salMonth.split("-")[1]+"-"+salMonth.split("-")[0] : "");
-	dat["salMonthEnd"]		= (salMonthEnd != "" ? salMonthEnd.split("-")[1]+"-"+salMonthEnd.split("-")[0] : "");
+	dat["proCode"]		= $("#cboProCodeSrch option:selected").val();
+	dat["payDate"]		= $("#txtOtherPayDate").val();
+	dat["payDateEnd"]		= $("#txtOtherPayDateEnd").val();
 	
 	$("#loading").show();
 	$.ajax({
 		type: "POST",
-		url : $("#base_url").val() +"Salary/getSalary",
+		url : $("#base_url").val() +"OtherPayment/getOtherPayment",
 		data: dat,
 		dataType: "json",
 		success	: function(res) {
@@ -173,33 +176,45 @@ function getData(page_no){
 			if(res.OUT_REC != null && res.OUT_REC.length >0){
 				$("#chkAllBox").show();
 				var strHtml = "", strTotal = "";
-				var totalSalaryAmt = 0, totalSalary = 0;
+				var totalSalaryAmt = 0;
+				
 
 				for(var i = 0; i < res.OUT_REC.length; i++){
-					totalSalary = parseFloat(res.OUT_REC[i]["sal_amt"]) + parseFloat(res.OUT_REC[i]["sal_comm"]) + parseFloat(res.OUT_REC[i]["sal_overtime"]);
-
-					strHtml += '<tr data-id="'+res.OUT_REC[i]["sal_id"]+'" class="cur-pointer" ondblclick="editData('+res.OUT_REC[i]['sal_id']+')">';
+				
+					var cusNm =res.OUT_REC[i]["cus_nm_kh"];
+			    	if(res.OUT_REC[i]["cus_nm_kh2"] != "" && res.OUT_REC[i]["cus_nm_kh2"] != null){
+			    		cusNm += " & "+res.OUT_REC[i]["cus_nm_kh2"];
+			    	}
+			    	if(res.OUT_REC[i]["cus_nm_kh3"] != "" && res.OUT_REC[i]["cus_nm_kh3"] != null){
+			    		cusNm += " & "+res.OUT_REC[i]["cus_nm_kh3"];
+			    	}
+					
+					strHtml += '<tr data-id="'+res.OUT_REC[i]["oth_pay_id"]+'" class="cur-pointer" ondblclick="editData('+res.OUT_REC[i]['oth_pay_id']+')">';
 					strHtml += '	<td class="chk_box"><div class="" style="width: 10px;"><input type="checkbox"></div></td>';
-					strHtml += '	<td><div class="">'+stock.comm.formatDateWithoutTime(res.OUT_REC[i]["sal_month"]).substr(3,10)+'</div></td>';
-					strHtml += '	<td><div class="" >'+res.OUT_REC[i]["sta_nm_kh"]+'</div></td>';
-					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sal_amt"])+'$</div></td>';
-					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sal_comm"])+'$</div></td>';
-					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["sal_overtime"])+'$</div></td>';
-					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(totalSalary)+'$</div></td>';
-					strHtml += '	<td><div class="" style="text-align: center">'+convertStatusToLetter(res.OUT_REC[i]["sal_status"])+'</div></td>';
+					strHtml += '	<td><div class="">'+res.OUT_REC[i]["oth_pay_inv_code"]+'</div></td>';
+					strHtml += '	<td><div class="">'+res.OUT_REC[i]["pro_code"]+'</div></td>';
+					strHtml += '	<td><div class="" >'+cusNm+'</div></td>';
+					strHtml += '	<td><div class="" >'+moment(res.OUT_REC[i]["oth_pay_date"], "YYYY-MM-DD").format("DD-MM-YYYY")+'</div></td>';
+					strHtml += '	<td><div class="" style="">'+res.OUT_REC[i]["sta_nm_kh"]+'</div></td>';
+					strHtml += '	<td><div class="" style="text-align: right">'+stock.comm.formatCurrency(res.OUT_REC[i]["oth_pay_amt"])+' $</div></td>';
+					strHtml += '	<td><div class="" >'+res.OUT_REC[i]["met_nm_kh"]+'</div></td>';
+					strHtml += '	<td><div class="" >'+res.OUT_REC[i]["oth_pay_tran_id"]+'</div></td>';
+					strHtml += '	<td><div class="" >'+res.OUT_REC[i]["oth_pay_des"]+'</div></td>';
 					strHtml += '	<td class="text-center">';
-					strHtml += '		<button type="button" class="btn btn-primary btn-xs" onclick="editData('+res.OUT_REC[i]["sal_id"]+')">';
-					strHtml += '			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
+					strHtml += '		<button type="button" class="btn btn-primary btn-xs" onclick="editData('+res.OUT_REC[i]["oth_pay_id"]+')">';
+					strHtml += '			<i class="fa fa-print" aria-hidden="true"></i>';
 					strHtml += '		</button>';
 					strHtml += '	</td>';
 					strHtml += '</tr>';
 
-					totalSalaryAmt += parseFloat(totalSalary);
+					totalSalaryAmt += parseFloat(res.OUT_REC[i]["oth_pay_amt"]);
 				}
 
 				strTotal += '<tr class="total">';
-				strTotal += '	<td class="" colspan="6" style="text-align: right;font-weight: 600;">សរុបប្រាក់ខែបុគ្គលិក: </td>';
+				strTotal += '	<td class="" colspan="6" style="text-align: right;font-weight: 600;">សរុបប្រាក់បានបង់: </td>';
 				strTotal += '	<td class="" style="text-align: right;"><b>'+stock.comm.formatCurrency(totalSalaryAmt.toFixed(2))+'$</b></td>';
+				strTotal += '	<td class="" style="text-align: right;"></td>';
+				strTotal += '	<td class="" style="text-align: right;"></td>';
 				strTotal += '	<td class="" style="text-align: right;"></td>';
 				strTotal += '	<td class="" style="text-align: right;"></td>';
 				strTotal += '</tr>';
@@ -210,7 +225,7 @@ function getData(page_no){
 			}else{
 				$("#chkAllBox").hide();
 				$("#tblSalary tbody").html("");
-				$("#tblSalary tbody").append("<tr><td colspan='9' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
+				$("#tblSalary tbody").append("<tr><td colspan='10' style='text-align: center;'>"+$.i18n.prop("lb_no_data")+"</td></tr>");
 				//--pagination
 				stock.comm.renderPaging("paging",$("#perPage").val(),0,pageNo);
 			}
@@ -237,8 +252,8 @@ function convertStatusToLetter(salStatus){
 	return statusLetter;
 }
 
-function editData(sal_id){
-	var data = "id="+sal_id;
+function editData(oth_pay_id){
+	var data = "id="+oth_pay_id;
 	data += "&action=U";
 
 	var controllerNm = "PopupFormOtherPayment";
@@ -294,14 +309,50 @@ function filtStaffCombo(){
 	}
 }
 
+
+
+
+function getDataSell(){
+	
+	$.ajax({
+		type: "POST",
+		url : $("#base_url").val() +"Sell/getSell",
+		//data: dat,
+		dataType: "json",
+		async: false,
+		success: function(res) {
+			if(res.OUT_REC != null && res.OUT_REC.length >0){
+				$("#cboProCodeSrch option").remove();
+				$("#cboProCodeSrch").append("<option value=''></option>");
+				
+			    for(var i=0; i<res.OUT_REC.length;i++){
+			    	var cusNm =res.OUT_REC[i]["cus_nm_kh"];
+			    	if(res.OUT_REC[i]["cus_nm_kh2"] != "" && res.OUT_REC[i]["cus_nm_kh2"] != null){
+			    		cusNm += " & "+res.OUT_REC[i]["cus_nm_kh2"];
+			    	}
+			    	if(res.OUT_REC[i]["cus_nm_kh3"] != "" && res.OUT_REC[i]["cus_nm_kh3"] != null){
+			    		cusNm += " & "+res.OUT_REC[i]["cus_nm_kh3"];
+			    	}
+			    	$("#cboProCodeSrch").append("<option data-cus='"+cusNm+"' value='"+res.OUT_REC[i]["sell_id"]+"'>"+res.OUT_REC[i]["pro_code"]+"</option>")
+			    	
+			    }
+			}
+		},
+		error : function(data) {
+		    console.log(data);
+            stock.comm.alertMsg($.i18n.prop("msg_err"));
+            $("#loading").hide();
+        }
+	});
+}
+
 /**
  *
  */
 function resetFormSearch(){
-	$("#staffNm option:eq(0)").attr("selected", true);
-	$("#cboStatus option:eq(0)").attr("selected", true);
-	$("#txtSalMonth").val("");
-	$("#txtSalMonthEnd").val("");
+	$("#cboProCodeSrch option:eq(0)").attr("selected", true);
+	$("#txtOtherPayDate").val("");
+	$("#txtOtherPayDateEnd").val("");
 }
 
 /**

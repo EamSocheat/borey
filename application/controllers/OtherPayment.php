@@ -28,26 +28,49 @@ class OtherPayment extends CI_Controller{
 		$this->load->view('v_other_payment',$data);
 	}
 
-	public function getSalary(){
+	public function getOtherPayment(){
 		if(!$this->M_check_user->check()){
 			redirect('/Login');
 		}
+		
+		$startDate = $this->input->post('payDate');
+        $endDate   = $this->input->post('payDateEnd');
+        
+        if($startDate != null || $startDate != ""){
+            $startDate = date('Y-m-d',strtotime($startDate));
+        }
+
+        if($endDate != null || $endDate != ""){
+            $endDate = date('Y-m-d',strtotime($endDate));
+        }
 
 		$dataSrch = array(
 			'limit' 		=> $this->input->post('perPage'),
 			'offset' 		=> $this->input->post('offset'),
-			'sal_id' 		=> $this->input->post('salId'),
+			'pro_code' 		=> $this->input->post('proCode'),
 			'sta_id'		=> $this->input->post('staffId'),
-			'sal_status'	=> $this->input->post('salStatus'),
-			'sal_month'		=> $this->input->post('salMonth'),
-			'sal_month_end'		=> $this->input->post('salMonthEnd')
+			'pay_date'		=> $startDate,
+			'pay_date_end'		=> $endDate
 		);
-		$data["OUT_REC"] 	 = $this->M_salary->selectSalary($dataSrch);
-		$data["OUT_REC_CNT"] = $this->M_salary->countSalary($dataSrch);
+		$data["OUT_REC"] 	 = $this->M_other_payment->selectOtherPaymentData($dataSrch);
+		$data["OUT_REC_CNT"] = $this->M_other_payment->countOtherPaymentData($dataSrch);
 		echo json_encode($data);
 	}
 
 	public function saveOtherPayment(){ 
+		
+		$paynum = $this->M_other_payment->selectOtherPaymentNum($this->input->post('cboProCode'));
+		$paynum = $paynum[0]->oth_pay_num;
+		if($paynum == null || $paynum =="" || $paynum =="null"){
+			$paynum=0;
+		}
+		$newNum = intval($paynum) + 1;
+		$zeroNew   = '';
+        for($i = strlen($max_id); $i <= 5; $i++){
+            $zeroNew = '0'.$zeroNew;
+        }
+		$newNum = $zeroNew.$newNum;
+		
         $dataPay = array(
             'oth_pay_date'  	=> date('Y-m-d H:i:s',strtotime($this->input->post('txtPayDate'))),
             'oth_pay_des' 		=> $this->input->post('txtDesc'),
@@ -56,8 +79,8 @@ class OtherPayment extends CI_Controller{
             'rec_id'        => $this->input->post('cboReceiver'),
             'oth_pay_amt'        => $this->input->post('txtPayAmt'),
             'oth_pay_tran_id'        =>$this->input->post('txtTran'),
-            'sell_id'        	=> $this->input->post('cboProCode')
-            
+            'sell_id'        	=> $this->input->post('cboProCode'),
+        	'oth_pay_num'        	=>$newNum
         );
         
         //insert data
