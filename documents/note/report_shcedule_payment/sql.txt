@@ -1,0 +1,10 @@
+INSERT INTO `tbl_menu`(`menu_nm`, `menu_nm_kh`, `regDt`, `menu_icon_nm`, `menu_order`, `menu_group`) VALUES ('Payment Schedule','របាយការណ៏ បង់ប្រាក់',now(),'fa fa-download',19,3);
+INSERT INTO `tbl_menu_company`(`menu_id`, `com_id`, `upDt`, `regDt`, `useYn`) VALUES (21,1,now(),now(),'Y');
+
+
+
+INSERT INTO `tbl_menu_user`(`menu_id`, `usr_id`, `upDt`, `regDt`, `useYn`) VALUES (21,2,now(),now(),'Y');
+INSERT INTO `tbl_menu_user`(`menu_id`, `usr_id`, `upDt`, `regDt`, `useYn`) VALUES (21,3,now(),now(),'Y');
+INSERT INTO `tbl_menu_user`(`menu_id`, `usr_id`, `upDt`, `regDt`, `useYn`) VALUES (21,4,now(),now(),'Y');
+INSERT INTO `tbl_menu_user`(`menu_id`, `usr_id`, `upDt`, `regDt`, `useYn`) VALUES (21,5,now(),now(),'Y');
+INSERT INTO `tbl_menu_user`(`menu_id`, `usr_id`, `upDt`, `regDt`, `useYn`) VALUES (21,6,now(),now(),'Y');

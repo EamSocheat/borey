@@ -114,7 +114,7 @@
 										<!-- <button type="button" id="btnEdit" class="btn btn-primary btn-sm" style="margin-right: 5px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span data-i18ncd="btn_edit">Edit</span></button> -->
 										<button type="button" id="btnAddNew" class="btn btn-default btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> <span data-i18ncd="btn_add_new">Add New</span></button>
 										<button type="button" id="btnDownExcel" class="btn btn-success btn-sm" style="margin-left: 7px;"><i class="fa fa-file-excel-o" aria-hidden="true"></i> <span>ទាញយក Excel</span></button>
-										<div style="margin-left: 5px;display: none;">-->
+										<div style="margin-left: 5px;display: none;">
 											<form method="post" action="<?php echo base_url(); ?>Expend/download_excel" id="btnExcel">
 												<input type="submit" value="Submit">
 												<input type="hidden" name="expIdArray" class="btn btn-success" value="" id="expId" />

@@ -406,5 +406,41 @@
             $this->db->update('tbl_installment_payment', $data);
         }
         
-       
+        
+        public function selectAllPayment($dataSrch){
+            $this->db->select('tbl_installment.*,tbl_sell.*,tbl_sell_detail.*,tbl_contract_type.*,tbl_product.*,
+                                (select tbl_customer.cus_nm_kh from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=1 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_nm_kh,
+                                    (select tbl_customer.cus_nm_kh from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=2 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_nm_kh2,
+                                    (select tbl_customer.cus_nm_kh from tbl_sell_customer inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id  where sell_cus_order=3 and tbl_sell_customer.sell_id=tbl_sell.sell_id ) as cus_nm_kh3');
+            $this->db->from('tbl_installment');
+            $this->db->join('tbl_sell','tbl_sell.sell_id = tbl_installment.sell_id ');
+            $this->db->join('tbl_sell_detail','tbl_sell_detail.sell_id = tbl_sell.sell_id ');
+            
+            $this->db->join('tbl_installment_payment','tbl_installment_payment.inst_id = tbl_installment.inst_id',"left");
+            //$this->db->join('tbl_customer','tbl_customer.cus_id = tbl_sell.cus_id');
+            $this->db->join('tbl_contract_type','tbl_contract_type.con_type_id = tbl_sell.con_type_id');
+            $this->db->join('tbl_product','tbl_product.pro_id = tbl_sell_detail.pro_id');
+            $this->db->join('tbl_category','tbl_category.cat_id = tbl_product.cat_id');
+            $this->db->where('tbl_installment.com_id', $_SESSION['comId']);
+            $this->db->where('tbl_installment.useYn', 'Y');
+            $this->db->where('tbl_sell.useYn', 'Y');
+            $this->db->where('tbl_installment.inst_type !=', 'BOOK');
+            
+            if(($dataSrch['start_date'] != null && $dataSrch['start_date'] != "")
+                && ($dataSrch['end_date'] != null && $dataSrch['end_date'] != "")){
+                    $this->db->where('tbl_installment.inst_date >=', date('Y-m-d', strtotime($dataSrch['start_date'])));
+                    $this->db->where('tbl_installment.inst_date <=', date('Y-m-d', strtotime($dataSrch['end_date'])));
+            }else{
+                if($dataSrch['start_date'] != null && $dataSrch['start_date'] != ""){
+                    $this->db->where('tbl_installment.inst_date >=', date('Y-m-d', strtotime($dataSrch['start_date'])));
+                }
+                if($dataSrch['end_date'] != null && $dataSrch['end_date'] != ""){
+                    $this->db->where('tbl_installment.inst_date <=', date('Y-m-d', strtotime($dataSrch['end_date'])));
+                }
+            }
+            
+            $this->db->order_by("tbl_installment.sell_id", "desc");
+            return $this->db->get()->result();
+        }
+        
     }
