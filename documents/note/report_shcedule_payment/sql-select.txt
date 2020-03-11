@@ -1,0 +1,6 @@
+select pro_sell_price,pro_data.pro_id, pro_data.pro_code from (select pro_id,pro_code from tbl_product) pro_data
+inner join (select tbl_product.pro_id, pro_sell_price from tbl_sell
+           	inner join tbl_sell_detail on tbl_sell_detail.sell_id = tbl_sell.sell_id
+            inner join tbl_product on tbl_product.pro_id = tbl_sell_detail.pro_id 
+           ) sell_data 
+on pro_data.pro_id = sell_data.pro_id
