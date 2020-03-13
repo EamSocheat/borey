@@ -1,6 +1,34 @@
-select pro_sell_price,pro_data.pro_id, pro_data.pro_code from (select pro_id,pro_code from tbl_product) pro_data
-inner join (select tbl_product.pro_id, pro_sell_price from tbl_sell
+select pro_sell_price
+	,pro_data.pro_id
+	,pro_data.pro_code
+    ,sell_data.con_type_nm_kh
+    /*,sell_data.pro_sell_price*/
+    ,(case 
+    	when (COALESCE(sell_data.pro_sell_price, '') = '')
+        	then  book_data.con_total_price
+        else sell_data.pro_sell_price
+     end) as sell_price 
+from (select pro_id,pro_code from tbl_product where useYn ='Y') pro_data
+left join (select tbl_product.pro_id
+           	,pro_sell_price
+           	,con_type_nm_kh 
+           	from tbl_sell
            	inner join tbl_sell_detail on tbl_sell_detail.sell_id = tbl_sell.sell_id
-            inner join tbl_product on tbl_product.pro_id = tbl_sell_detail.pro_id 
+            inner join tbl_product on tbl_product.pro_id = tbl_sell_detail.pro_id
+            inner join tbl_contract_type on tbl_contract_type.con_type_id = tbl_sell.con_type_id
+            left join tbl_contract on tbl_contract.con_id = tbl_sell.con_id
+            inner join tbl_installment on tbl_installment.sell_id = tbl_sell.sell_id and tbl_installment.useYn = 'Y' /*and con_date BETWEEN '' and ''*/
+            left join tbl_installment_payment on tbl_installment_payment.inst_id = tbl_installment.inst_id and tbl_installment_payment.useYn = 'Y' and tbl_installment_payment.inst_paid_yn = 'Y' /*and con_date BETWEEN '' and ''*/
+            where tbl_sell.useYn ='Y'
+           /*and con_date BETWEEN '' and ''*/
            ) sell_data 
 on pro_data.pro_id = sell_data.pro_id
+left join (select tbl_contract_detail.pro_id
+           ,con_total_price 
+           from tbl_contract 
+           inner join tbl_contract_detail on tbl_contract_detail.con_id = tbl_contract.con_id
+           where tbl_contract.useYn = 'Y'
+           and con_sta != 'C'
+           /*and con_date BETWEEN '' and ''*/
+          )book_data
+on pro_data.pro_id = book_data.pro_id
