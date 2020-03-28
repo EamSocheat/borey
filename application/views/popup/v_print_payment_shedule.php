@@ -226,7 +226,7 @@
     					
     					<td class="text-right"><span style='float: left; margin-left: 5px;'>$</span><?php echo number_format($OUT_REC[$i]->inst_amt_pay,2);?></td>
     					<td class="text-right"><span style='float: left; margin-left: 5px;'>$</span><?php 
-							if($OUT_REC[$i]->inst_type=="LEFT"){
+							if($OUT_REC[$i]->inst_amt_balance == null || intval($OUT_REC[$i]->inst_amt_balance) == 0){
     							echo "-";
     						}else{
     							echo number_format($OUT_REC[$i]->inst_amt_balance,2);

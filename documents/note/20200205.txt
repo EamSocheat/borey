@@ -1,2 +1,4 @@
 supplier 
 + Expsend
+
+delete  from tbl_expend

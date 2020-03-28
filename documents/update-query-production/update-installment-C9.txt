@@ -1,0 +1,83 @@
+update tbl_installment
+set inst_amt_pay = 660 
+,inst_amt_principle = 660
+,inst_pay_per = 0.71
+where sell_id = 53
+and inst_num BETWEEN 5 and 17;
+
+update tbl_installment
+set inst_amt_pay = 4488 
+,inst_amt_principle = 4488
+,inst_pay_per = 4.83
+where sell_id = 53
+and inst_num =18;
+
+update tbl_installment
+set inst_amt_balance = 77438
+where sell_id = 53
+and inst_num = 5;
+
+update tbl_installment
+set inst_amt_balance = 76778
+where sell_id = 53
+and inst_num = 6;
+
+update tbl_installment
+set inst_amt_balance = 76118
+where sell_id = 53
+and inst_num = 7;
+
+update tbl_installment
+set inst_amt_balance = 75458
+where sell_id = 53
+and inst_num = 8;
+
+update tbl_installment
+set inst_amt_balance = 74798
+where sell_id = 53
+and inst_num = 9;
+
+update tbl_installment
+set inst_amt_balance = 74138
+where sell_id = 53
+and inst_num = 10;
+
+update tbl_installment
+set inst_amt_balance = 73478
+where sell_id = 53
+and inst_num = 11;
+
+update tbl_installment
+set inst_amt_balance = 72818
+where sell_id = 53
+and inst_num = 12;
+
+update tbl_installment
+set inst_amt_balance = 72158
+where sell_id = 53
+and inst_num = 13;
+
+update tbl_installment
+set inst_amt_balance = 71498
+where sell_id = 53
+and inst_num = 14;
+
+update tbl_installment
+set inst_amt_balance = 70838
+where sell_id = 53
+and inst_num = 15;
+
+update tbl_installment
+set inst_amt_balance = 70178
+where sell_id = 53
+and inst_num = 16;
+
+update tbl_installment
+set inst_amt_balance = 69518
+where sell_id = 53
+and inst_num = 17;
+
+update tbl_installment
+set inst_amt_balance = 65030
+where sell_id = 53
+and inst_num = 18;

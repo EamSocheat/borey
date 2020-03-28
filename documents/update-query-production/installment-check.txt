@@ -1,0 +1,1 @@
+select tbl_installment.* from tbl_sell inner join tbl_installment on tbl_installment.sell_id = tbl_sell.sell_id where tbl_sell.sell_id = 95

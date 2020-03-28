@@ -1,0 +1,37 @@
+update tbl_installment
+set inst_num = (inst_num + 1)
+,inst_date = DATE_ADD(inst_date,INTERVAL 1 MONTH)
+where sell_id = 44
+and inst_num BETWEEN 12 and 18;
+
+
+update tbl_installment
+set inst_amt_pay = 2000 
+,inst_amt_principle = 2000
+where sell_id = 44
+and inst_num BETWEEN 10 and 11;
+
+update tbl_installment
+set inst_amt_balance = 41080
+where sell_id = 44
+and inst_num = 10;
+
+update tbl_installment
+set inst_amt_balance = 39080
+where sell_id = 44
+and inst_num = 11;
+
+update tbl_installment
+set inst_amt_pay = 2786.67 
+,inst_amt_principle = 2786.67
+,inst_amt_balance =  36293.33 
+where sell_id = 44
+and inst_num = 12;
+
+update tbl_installment
+set inst_amt_pay = 2786.67 
+,inst_amt_principle = 2786.67
+,inst_amt_balance =  33506.67 
+where sell_id = 44
+and inst_num = 13;
+
