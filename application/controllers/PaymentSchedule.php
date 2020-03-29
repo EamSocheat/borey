@@ -60,11 +60,17 @@ class PaymentSchedule extends CI_Controller{
 	        'start_date'        => $startDate,
 	        'end_date'        => $endDate,
 	    );
-	    $data["OUT_REC"] = $this->M_installment->selectAllPayment($dataSrch);
-	    $productData = $this->M_house->selectHouseExcel(null);
+	    $paymentSchedule = $this->M_installment->selectPaymentScheduleByMonth($dataSrch);
 	    $object = new PHPExcel();
 	    $object->setActiveSheetIndex(0);
-	    $table_columns = array('ល.រ','លេខកូដ' ,);
+	    $table_columns = array('ល.រ','លេខកូដ​dsfddsggfgf' ,);
+	    
+	    /**
+	     * get header
+	     */
+	    $table_columns = array("ល.រ","គម្រោង", "អ្នកផ្គត់ផ្គង់", "លេខ​វិ​ក័​យ​ប័ត្រ", "បរិយាយ"," ", "តម្លៃប្រាក់រៀល (៛)"," ", "តម្លៃជាដុល្លារ ($)"," ","លេខប័ណ្ណ","អ្នកស្នើសុំ","ថ្ងៃស្នើសុំ​","ថ្ងៃចំណាយ","អ្នកទូទាត់");
+	    $table_columns2 = array(" "," ", " ", " ", " ","បរិមាណ", "តម្លៃក្នុង១ឯកតា",  "បរិមាណ", "តម្លៃក្នុង១ឯកតា",  " "," "," "," "," ");
+	    $column = 0;
 	    
 	    /**
 	     * get header
@@ -74,15 +80,31 @@ class PaymentSchedule extends CI_Controller{
 	        $column++;
 	        
 	    }
-	    $excel_row = 6;
+	    
+	    $column = 0;
+	    foreach($table_columns2 as $field){
+	        $object->getActiveSheet()->setCellValueByColumnAndRow($column, 6, $field);
+	        $column++;
+	        
+	    }
+	    
+	    
+	    $excel_row = 7;
 	    $noItem=1;
-	    foreach($productData as $row){
+	    foreach($paymentSchedule as $row){
 	        $colNum=0;
 	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $noItem);
+			$colNum++;
+	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $row->bra_nm_kh);
 	        $colNum++;
 	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $row->pro_code);
 	        $colNum++;
-	        
+	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $row->cus_name);
+	        $colNum++;
+	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $row->con_type_nm_kh);
+	        $colNum++;
+	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $row->sell_price);
+	        $colNum++;
 	        
 	        //
 	        $excel_row++;
