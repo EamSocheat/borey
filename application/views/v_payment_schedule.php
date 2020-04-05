@@ -28,7 +28,7 @@
 							<div class="box box-solid box-search2">
 								<div class="box-header with-border">
 									<i class="fa fa-search-plus" aria-hidden="true"></i>
-									<h3 class="box-title">តាមដានការបង់ប្រាក់ប្រចាំខែរបស់អតិថិជន</h3>
+									<h3 class="box-title">តាមដានការបង់ប្រាក់របស់អតិថិជនប្រចាំខែ</h3>
 								</div>
 								<!-- /.box-header -->
 								<div class="box-body" style="display: block;">

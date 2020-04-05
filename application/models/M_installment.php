@@ -423,17 +423,20 @@
                                 	then  cus_book_data.cus_nm
                                 else cus_sell_data.cus_nm
                              end) as cus_name
-                            ,sell_data.inst_amt_pay
-                            ,sell_data.inst_date
+                            ,inst_data.inst_amt_pay
+                            ,inst_data.inst_date
                         	,inst_pay_data.inst_total_paid_amount
                             ,inst_pay_data.inst_paid_des
                             ,inst_pay_data.inst_paid_date
+                            ,inst_pay_data.inst_paid_code
                             ,other_pay.other_pay_amount
                             ,other_pay.other_pay_des
                             ,other_pay.other_pay_date
+                            ,other_pay.oth_pay_inv_code
                             ,book_data.con_total_price as book_amount
                             ,book_data.con_des as book_des
                             ,book_data.con_date
+                            ,book_data.con_code
                             ,pro_data.bra_nm_kh
                         from (select pro_id
                                 ,pro_code
@@ -446,26 +449,37 @@
                                    ,tbl_sell.sell_id	
                                    ,pro_sell_price
                                    	,con_type_nm_kh
-                                    ,inst_amt_pay
                                    ,DATE_FORMAT(sell_date, '%d/%m/%Y') as sell_date
-                                   ,DATE_FORMAT(inst_date, '%d/%m/%Y') as inst_date
                                    	from tbl_sell
                                    	inner join tbl_sell_detail on tbl_sell_detail.sell_id = tbl_sell.sell_id
                                     inner join tbl_product on tbl_product.pro_id = tbl_sell_detail.pro_id
                                     inner join tbl_contract_type on tbl_contract_type.con_type_id = tbl_sell.con_type_id
-                                    left join tbl_installment on tbl_installment.sell_id = tbl_sell.sell_id and tbl_installment.useYn = 'Y' and inst_date BETWEEN '2020-03-01' and '2020-03-31'
                                     where tbl_sell.useYn ='Y'
                                    ) sell_data 
                         on pro_data.pro_id = sell_data.pro_id
                         left join (select tbl_sell.sell_id
+                                   ,sum(inst_amt_pay) as inst_amt_pay
+                                   ,GROUP_CONCAT(DATE_FORMAT(inst_date, '%d/%m/%Y') SEPARATOR ' & ') as inst_date
+                                	from tbl_sell
+                                   	inner join tbl_sell_detail on tbl_sell_detail.sell_id = tbl_sell.sell_id
+                                    left join tbl_installment on tbl_installment.sell_id = tbl_sell.sell_id and tbl_installment.useYn = 'Y' 
+                                    where tbl_sell.useYn ='Y'
+                                    and tbl_installment.inst_type != 'BOOK'
+                                    and inst_date BETWEEN '2020-03-01' and '2020-03-31'
+                        			GROUP BY sell_id
+                                   ) inst_data 
+                        on sell_data.sell_id = inst_data.sell_id 
+                        left join (select tbl_sell.sell_id
                                    ,sum(inst_total_paid_amount) as inst_total_paid_amount
                                    ,GROUP_CONCAT(inst_paid_des SEPARATOR ' & ') as inst_paid_des
                                    ,GROUP_CONCAT(DATE_FORMAT(inst_paid_date, '%d/%m/%Y') SEPARATOR ' & ') as inst_paid_date
-                                   	from tbl_sell
+                                   ,GROUP_CONCAT(inst_paid_code SEPARATOR ' & ') as inst_paid_code
+                                	from tbl_sell
                                    	inner join tbl_sell_detail on tbl_sell_detail.sell_id = tbl_sell.sell_id
                                     left join tbl_installment on tbl_installment.sell_id = tbl_sell.sell_id and tbl_installment.useYn = 'Y'
                                     left join tbl_installment_payment on tbl_installment_payment.inst_id = tbl_installment.inst_id and tbl_installment_payment.useYn = 'Y' and tbl_installment_payment.inst_paid_yn = 'Y' and inst_paid_date BETWEEN '2020-03-01' and '2020-03-31'
                                     where tbl_sell.useYn ='Y'
+                                    and tbl_installment.inst_type != 'BOOK'
                         			GROUP BY sell_id
                                    ) inst_pay_data 
                         on sell_data.sell_id = inst_pay_data.sell_id 
@@ -475,6 +489,7 @@
                                    ,tbl_contract_detail.pro_book_price
                                    ,tbl_contract.con_des
                                    ,DATE_FORMAT(con_date, '%d/%m/%Y') as con_date
+                                   ,con_code
                                    from tbl_contract 
                                    inner join tbl_contract_detail on tbl_contract_detail.con_id = tbl_contract.con_id
                                    where tbl_contract.useYn = 'Y'
@@ -485,7 +500,8 @@
                         Left join (select sell_id 
                                    ,sum(oth_pay_amt) as other_pay_amount
                                    ,GROUP_CONCAT(oth_pay_des SEPARATOR ' & ') as other_pay_des
-                                   ,GROUP_CONCAT(DATE_FORMAT(oth_pay_date, '%d/%m/%Y') SEPARATOR '-') as other_pay_date 
+                                   ,GROUP_CONCAT(DATE_FORMAT(oth_pay_date, '%d/%m/%Y') SEPARATOR '-') as other_pay_date
+                                   ,GROUP_CONCAT( oth_pay_inv_code SEPARATOR ' & ') as oth_pay_inv_code
                                    from tbl_other_payment
                                    where tbl_other_payment.useYn = 'Y'
                                    GROUP BY sell_id
