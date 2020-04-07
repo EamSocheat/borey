@@ -159,17 +159,33 @@ class PaymentSchedule extends CI_Controller{
 	        ),
         );
 		
+		$styleBold = array(
+
+            'font' => array('bold' => true,'name'=>'Khmer OS Siemreap',),
+        );
+		
 		
 		$object->getActiveSheet()->getStyle('A5:R5')->applyFromArray($style_header);
         $object->getActiveSheet()->getStyle('A6:R6')->applyFromArray($style_header);
 	    
 	    $excel_row = 7;
 	    $noItem=1;
+		$totalHousePrice=0;
+		$totalBookPrice=0;
+		$totalInstPrice=0;
+		$totalInstPaidPrice=0;
+		$totalOtherPayPrice=0;
 	    foreach($paymentSchedule as $row){
 			//
 			$object->getDefaultStyle()->getFont()->setName('Khmer OS Siemreap');
 			$object->getDefaultStyle()->getFont()->setSize('10px');
 			//
+			
+			$totalHousePrice 		= $totalHousePrice + floatval($row->sell_price);
+			$totalBookPrice 		= $totalBookPrice + floatval($row->book_amount);
+			$totalInstPrice 		= $totalInstPrice + floatval($row->inst_amt_pay);
+			$totalInstPaidPrice 	= $totalInstPaidPrice + floatval($row->inst_total_paid_amount);
+			$totalOtherPayPrice 	= $totalOtherPayPrice + floatval($row->other_pay_amount);
 			
 	        $colNum=0;
 	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $noItem);
@@ -235,6 +251,86 @@ class PaymentSchedule extends CI_Controller{
 	        //
 	    }
 		
+		
+		$colNum=0;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "សរុប");
+		$colNum = $colNum+5;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $totalHousePrice);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->con_date);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$totalBookPrice);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->con_code);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->inst_date);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$totalInstPrice);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->inst_paid_date);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$totalInstPaidPrice);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->inst_paid_code);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->other_pay_date);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$totalOtherPayPrice);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->other_pay_des);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->oth_pay_inv_code);
+		$colNum++;
+		
+		$object->getActiveSheet()->mergeCells('A'.$excel_row.':E'.$excel_row);
+		$object->getActiveSheet()->getStyle('A'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_center);
+		$object->getActiveSheet()->getStyle('A'.$excel_row.':E'.$excel_row)->applyFromArray($styleBold);
+		$object->getActiveSheet()->getStyle('F'.$excel_row.':R'.$excel_row)->applyFromArray($style_border_right);
+		$object->getActiveSheet()->getStyle('F'.$excel_row.':R'.$excel_row)->applyFromArray($styleBold);
+		$object->getActiveSheet()->getStyle('F'.$excel_row.':R'.$excel_row)->getNumberFormat()->setFormatCode("_(\"$\"* #,##0.00_);_(\"$\"* \(#,##0.00\);_(\"$\"* \"-\"??_);_(@_)");
+		$excel_row++;
+
+		//		
+		$excel_row++;
+		$colNum=2;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "សំគាល់");
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "ចំនួន");
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "ភាគរយ%");
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_center);
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':E'.$excel_row)->applyFromArray($styleBold);
+		
+		$excel_row++;
+		$colNum=2;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "ផ្ទះលក់");
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, 2);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, 3);
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_center);
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':C'.$excel_row)->applyFromArray($styleBold);
+		
+		$excel_row++;
+		$colNum=2;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "ផ្ទះនៅសល់");
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, 2);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, 3);
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_center);
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':C'.$excel_row)->applyFromArray($styleBold);
+		
+		$excel_row++;
+		$colNum=2;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "ផ្ទះសរុប");
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, 2);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, 3);
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_center);
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':C'.$excel_row)->applyFromArray($styleBold);
+		//
 		//style
 		
 		$object->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
