@@ -56,9 +56,7 @@
 												<div style="margin-left: 5px;display: none;">
         											<form method="post" action="<?php echo base_url(); ?>PaymentSchedule/getPayment" id="btnExcelPaymentSchByMonth">
         												<input type="submit" value="Submit">
-        												<input type="hidden" name="expIdArray" class="btn btn-success" value="" id="expId" />
-        												<input type="hidden" name="expSchDateStart" class="btn btn-success" value="" id="expSchDateStart" />
-        												<input type="hidden" name="expSchDateEnd" class="btn btn-success" value="" id="expSchDateEnd" />
+        												<input type="hidden" name="payMonth" value="" id="payMonth" />
         											</form>
         										</div>
 											</div>

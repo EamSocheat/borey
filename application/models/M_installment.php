@@ -438,9 +438,11 @@
                             ,book_data.con_date
                             ,book_data.con_code
                             ,pro_data.bra_nm_kh
+                            ,pro_data.pro_status
                         from (select pro_id
                                 ,pro_code
                                 ,bra_nm_kh
+                                ,pro_status
                                 from tbl_product 
                                 inner join tbl_branch on tbl_branch.bra_id = tbl_product.bra_id
                                 where tbl_product.useYn ='Y'
@@ -465,7 +467,7 @@
                                     left join tbl_installment on tbl_installment.sell_id = tbl_sell.sell_id and tbl_installment.useYn = 'Y' 
                                     where tbl_sell.useYn ='Y'
                                     and tbl_installment.inst_type != 'BOOK'
-                                    and inst_date BETWEEN '2020-03-01' and '2020-03-31'
+                                    and inst_date BETWEEN '".$dataSrch['start_date']."' and '".$dataSrch['end_date']."'
                         			GROUP BY sell_id
                                    ) inst_data 
                         on sell_data.sell_id = inst_data.sell_id 
@@ -477,7 +479,7 @@
                                 	from tbl_sell
                                    	inner join tbl_sell_detail on tbl_sell_detail.sell_id = tbl_sell.sell_id
                                     left join tbl_installment on tbl_installment.sell_id = tbl_sell.sell_id and tbl_installment.useYn = 'Y'
-                                    left join tbl_installment_payment on tbl_installment_payment.inst_id = tbl_installment.inst_id and tbl_installment_payment.useYn = 'Y' and tbl_installment_payment.inst_paid_yn = 'Y' and inst_paid_date BETWEEN '2020-03-01' and '2020-03-31'
+                                    left join tbl_installment_payment on tbl_installment_payment.inst_id = tbl_installment.inst_id and tbl_installment_payment.useYn = 'Y' and tbl_installment_payment.inst_paid_yn = 'Y' and inst_paid_date BETWEEN '".$dataSrch['start_date']."' and '".$dataSrch['end_date']."'
                                     where tbl_sell.useYn ='Y'
                                     and tbl_installment.inst_type != 'BOOK'
                         			GROUP BY sell_id
@@ -494,7 +496,7 @@
                                    inner join tbl_contract_detail on tbl_contract_detail.con_id = tbl_contract.con_id
                                    where tbl_contract.useYn = 'Y'
                                    and con_sta != 'C'
-                                   and con_date BETWEEN '2020-03-01' and '2020-03-31'
+                                   and con_date BETWEEN '".$dataSrch['start_date']."' and '".$dataSrch['end_date']."'
                                   ) book_data
                         on pro_data.pro_id = book_data.pro_id
                         Left join (select sell_id 

@@ -97,6 +97,7 @@ var _thisPage = {
 
 function getDataPaymentByMonth(){
 	$("#loading").show();
+	$("#payMonth").val($("#txtPayMonth").val());
 	$("#btnExcelPaymentSchByMonth").submit();
 	$("#loading").hide();
 	/*var dat = {};

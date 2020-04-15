@@ -175,7 +175,16 @@ class PaymentSchedule extends CI_Controller{
 		$totalInstPrice=0;
 		$totalInstPaidPrice=0;
 		$totalOtherPayPrice=0;
+		$totalHouse=0;
+		$totalHouseSold=0;
+		$totalHouseFree=0;
 	    foreach($paymentSchedule as $row){
+	        $totalHouse+=1;
+	        if($row->pro_status == 'S'){
+	            $totalHouseSold+=1;
+	        }else{
+	            $totalHouseFree+=1;
+	        }
 			//
 			$object->getDefaultStyle()->getFont()->setName('Khmer OS Siemreap');
 			$object->getDefaultStyle()->getFont()->setSize('10px');
@@ -305,9 +314,10 @@ class PaymentSchedule extends CI_Controller{
 		$colNum=2;
 		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "ផ្ទះលក់");
 		$colNum++;
-		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, 2);
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $totalHouseSold);
 		$colNum++;
-		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, 3);
+		$houseSoldPer = ceil(($totalHouseSold*100) / $totalHouse);
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $houseSoldPer."%");
 		$object->getActiveSheet()->getStyle('C'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_center);
 		$object->getActiveSheet()->getStyle('C'.$excel_row.':C'.$excel_row)->applyFromArray($styleBold);
 		
@@ -315,9 +325,10 @@ class PaymentSchedule extends CI_Controller{
 		$colNum=2;
 		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "ផ្ទះនៅសល់");
 		$colNum++;
-		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, 2);
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $totalHouseFree);
 		$colNum++;
-		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, 3);
+		$houseFreePer = 100 - $houseSoldPer;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $houseFreePer."%");
 		$object->getActiveSheet()->getStyle('C'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_center);
 		$object->getActiveSheet()->getStyle('C'.$excel_row.':C'.$excel_row)->applyFromArray($styleBold);
 		
@@ -325,9 +336,9 @@ class PaymentSchedule extends CI_Controller{
 		$colNum=2;
 		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "ផ្ទះសរុប");
 		$colNum++;
-		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, 2);
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $totalHouse);
 		$colNum++;
-		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, 3);
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "100%");
 		$object->getActiveSheet()->getStyle('C'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_center);
 		$object->getActiveSheet()->getStyle('C'.$excel_row.':C'.$excel_row)->applyFromArray($styleBold);
 		//
@@ -369,12 +380,36 @@ class PaymentSchedule extends CI_Controller{
 		$object->getActiveSheet()->setCellValueByColumnAndRow(6, 5, "ប្រាក់កក់");
 		$object->getActiveSheet()->setCellValueByColumnAndRow(9, 5, "បង់ផ្ទះ");
 		
+		
+		//approve....
+		$excel_row=$excel_row+1;
+		$excel_row=$excel_row+1;
+		$object->getActiveSheet()->getStyle('A'.$excel_row.':R'.$excel_row)->applyFromArray($styleBold);
+		$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, "Prepared By");
+		$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, "Checked By");
+		//$object->getActiveSheet()->mergeCells('H'.$excel_row.':I'.$excel_row);
+		$object->getActiveSheet()->setCellValueByColumnAndRow(16, $excel_row, "Acknowledge by");
+		
+		
+		$excel_row=$excel_row+1;
+		$excel_row=$excel_row+1;
+		$excel_row=$excel_row+1;
+		$excel_row=$excel_row+1;
+		$excel_row=$excel_row+1;
+		$excel_row=$excel_row+1;
+		$object->getActiveSheet()->getStyle('A'.$excel_row.':R'.$excel_row)->applyFromArray($styleBold);
+		$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, "_______________________");
+		$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, "_______________________");
+		//$object->getActiveSheet()->mergeCells('H'.$excel_row.':I'.$excel_row);
+		$object->getActiveSheet()->setCellValueByColumnAndRow(16, $excel_row, "_________________________");
+		//
+		
 		//
 	    $object->getDefaultStyle()->getFont()->setName('Khmer OS Siemreap');
 	    $object->getDefaultStyle()->getFont()->setSize('10px');
 	    $object->getActiveSheet()->setCellValueByColumnAndRow(8, 1, "បុរីហ្គាឡាក់ស៊ី១១");
 	    $object->getActiveSheet()->setCellValueByColumnAndRow(8, 2, "BOREY GALAXY 11");
-	    $object->getActiveSheet()->setCellValueByColumnAndRow(8, 3, "តាមដានការបង់ប្រាក់របស់អតិថិជនប្រចាំខែ( ".$titleSearchDate.")");
+	    $object->getActiveSheet()->setCellValueByColumnAndRow(8, 3, "តាមដានការបង់ប្រាក់របស់អតិថិជនប្រចាំខែ( ".$payMonth.")");
 		
 	    $object->getActiveSheet()->getProtection()->setSheet(true);
 	    $object->getActiveSheet()->getProtection()->setSort(true);
@@ -385,7 +420,7 @@ class PaymentSchedule extends CI_Controller{
 	    
 	    $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 	    header('Content-Type: application/vnd.ms-excel');
-	    header('Content-Disposition: attachment;filename="តាមដានការបង់ប្រាក់ប្រចាំខែរបស់អតិថិជន.xls"');
+	    header('Content-Disposition: attachment;filename="តាមដានការបង់ប្រាក់របស់អតិថិជនប្រចាំខែ( "'.$payMonth.'").xls"');
 	    $object_writer->save('php://output');
 	    
 	    //$data["OUT_REC"] = $this->M_installment->selectAllPayment($dataSrch);
