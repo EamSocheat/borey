@@ -1,0 +1,37 @@
+update tbl_installment
+set inst_pay_per = 9.39
+,inst_amt_pay = 8725
+,inst_amt_principle = 8725
+where sell_id = 42
+and inst_num = 19;
+
+
+update tbl_installment
+set inst_amt_pay = 500
+,inst_amt_principle = 500
+,inst_amt_balance = 82755
+,inst_pay_per = 0.54
+where sell_id = 42
+and inst_num = 8;
+
+update tbl_installment
+set inst_amt_pay = 500
+,inst_amt_principle = 500
+,inst_amt_balance = 82255
+,inst_pay_per = 0.54
+where sell_id = 42
+and inst_num = 9;
+
+update tbl_installment
+set inst_amt_pay = 500
+,inst_amt_principle = 500
+,inst_amt_balance = 81755
+,inst_pay_per = 0.54
+where sell_id = 42
+and inst_num = 10;
+
+
+update tbl_installment
+set inst_amt_balance = (inst_amt_balance + 1500)
+where sell_id = 42
+and inst_num between 11 AND 18;
