@@ -165,7 +165,7 @@ var _thisPage = {
 							html += 	'<i class="fa fa-plus" aria-hidden="true"></i> បង់ប្រាក់</button>';
 							html += '</td>';*/
 					        html += "</tr>";
-					        total_inst_dis_amt += parseFloat(res.OUT_REC[i]["inst_dis_amt"]);
+					        total_inst_dis_amt += parseFloat(nullToZero(res.OUT_REC[i]["inst_dis_amt"]));
 					        total_inst_amt_principle += parseFloat(res.OUT_REC[i]["inst_amt_principle"]);
 					        total_inst_amt_interest += parseFloat(res.OUT_REC[i]["inst_amt_interest"]);
 					        total_inst_amt_pay += parseFloat(res.OUT_REC[i]["inst_amt_pay"]);
@@ -443,3 +443,11 @@ function resetFormSearch(){
     $("#txtSrchInstPaidCode").val("");
 }
 
+function nullToZero(val){
+		if(val == "null" || val ==null || val == "" || val == "NULL"){
+			return 0;
+		}else{
+			return val;
+		}
+		
+	};

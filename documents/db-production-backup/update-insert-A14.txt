@@ -1,0 +1,31 @@
+update tbl_installment 
+set inst_amt_pay = 2509
+,inst_amt_principle = 2509
+,inst_amt_balance = (inst_amt_balance + 2507.67)
+where 
+sell_id = 25
+and inst_num BETWEEN 11 and 13;
+
+
+
+update tbl_installment 
+set inst_amt_balance = (inst_amt_balance + 7523)
+where 
+sell_id = 25
+and inst_num BETWEEN 14 and 22;
+
+
+
+insert into tbl_installment(inst_num ,inst_date ,inst_day_num ,inst_amt_pay ,inst_amt_principle ,inst_amt_interest ,inst_amt_balance ,inst_loan_amount ,inst_period_month ,inst_interest_rate ,sell_id,
+			inst_type,inst_paid_yn,regDt,regUsr,com_id,useYn)
+select 23 ,'2021-04-15' ,inst_day_num ,7523,7523,inst_amt_interest ,0,inst_loan_amount ,inst_period_month ,inst_interest_rate ,25,
+			'LOAN','N',now(),'2','1','Y'
+	from tbl_installment where sell_id = 25 and inst_num = 22;
+
+
+
+update tbl_installment 
+set inst_amt_balance = 57690.98
+where 
+sell_id = 25
+and inst_num = 11 ;
