@@ -7,8 +7,6 @@ $(document).ready(function(){
 var _thisPage = {
 		onload : function(){
 			this.event();
-			stock.comm.todayDate("#txtSrchContSD","-");
-			stock.comm.todayDate("#txtSrchContED","-");
 		
 			this.loadData();
 			stock.comm.checkAllTblChk("chkAllBox","tblInstallment","chk_box");
@@ -27,29 +25,29 @@ var _thisPage = {
 			});
 			$("#txtPayMonth").inputmask();
 			
-			$('#txtSrchContSD').datepicker({
+			$('#txtStartMonth').val("06-2019");
+			$('#txtStartMonth').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
-				weekStart: true,
-		        todayBtn:  true,
+				format: "mm-yyyy",
+				viewMode: "months",
 				autoclose: true,
-				todayHighlight: 1,
-				forceParse: 0,
-				sideBySide: true,
-				format: "dd-mm-yyyy",
+				minViewMode: "months"
 		    });
-			$("#txtSrchContSD").inputmask();
-
-			$('#txtSrchContED').datepicker({
+			$("#txtStartMonth").inputmask();
+			
+			$('#txtEndMonth').val(paymonth);
+			$('#txtEndMonth').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
-				weekStart: true,
-		        todayBtn:  true,
+				format: "mm-yyyy",
+				viewMode: "months",
 				autoclose: true,
-				todayHighlight: 1,
-				forceParse: 0,
-				sideBySide: true,
-				format: "dd-mm-yyyy",
+				minViewMode: "months"
 		    });
-			$("#txtSrchContED").inputmask();
+			$("#txtEndMonth").inputmask();
+			
+			
+			
+			
 			
 			$('#txtSrchContSDExp').datepicker({
 				language: (getCookie("lang") == "kh" ? "kh" : "en"),
