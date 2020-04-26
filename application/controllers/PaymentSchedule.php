@@ -52,7 +52,7 @@ class PaymentSchedule extends CI_Controller{
 	    $endDate = null;
 	    if($payMonth != null || $payMonth != ""){
 	        $startDate =  date('Y-m-d',strtotime('01-'.$payMonth));
-	        $endDate   = date('Y-m-d',strtotime('31-'.$payMonth));
+	        $endDate   = date('Y-m-t',strtotime('01-'.$payMonth));
 	        
 	    }
 	    

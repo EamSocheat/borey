@@ -506,6 +506,7 @@
                                    ,GROUP_CONCAT( oth_pay_inv_code SEPARATOR ' & ') as oth_pay_inv_code
                                    from tbl_other_payment
                                    where tbl_other_payment.useYn = 'Y'
+                                   and oth_pay_date BETWEEN '".$dataSrch['start_date']."' and '".$dataSrch['end_date']."'
                                    GROUP BY sell_id
                         		  ) other_pay
                         on sell_data.sell_id = other_pay.sell_id
