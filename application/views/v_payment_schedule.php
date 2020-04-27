@@ -97,17 +97,16 @@
 								<div class="box-body" style="display: block;">
 									<div class="row" >
 										<div class="col-sm-12 col-md-12 col-lg-12 row" style="">
-											
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
 												<div class="input-group date" style="">
 													<label for="txtSrchContSD" class="control-label" style="margin-bottom: 7px;display: table-caption;">ខែចាប់ផ្តើម</label>
 													<div class="input-group-addon" id="txtStartMonthIcon" style="border-top-left-radius: 5px;border-bottom-left-radius: 5px;padding: 5px 11px;">
 														<i class="fa fa-calendar"></i>
 													</div>
-													<input type="text" style="width: 100%" class="form-control pull-left date-pick input-sm" id="txtStartMonth" name="txtStartMonth" required="required" data-inputmask="'alias': 'mm-yyyy'" data-mask="" placeholder="" style="font-size: 12px;width: 60%;">
+													<input type="text" style="width: 100%" class="form-control pull-left date-pick input-sm" id="txtStartMonth" name="txtStartMonth" disabled="disabled" data-inputmask="'alias': 'mm-yyyy'" data-mask="" placeholder="" style="font-size: 12px;width: 60%;">
 												</div>
 											</div>
-											
+											<!--
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
 												<div class="input-group date" style="">
 													<label for="txtSrchContSD" class="control-label" style="margin-bottom: 7px;display: table-caption;">ខែបញ្ចប់</label>
@@ -117,13 +116,13 @@
 													<input type="text" style="width: 100%" class="form-control pull-left date-pick input-sm" id="txtEndMonth" name="txtEndMonth" required="required" data-inputmask="'alias': 'mm-yyyy'" data-mask="" placeholder="" style="font-size: 12px;width: 60%;">
 												</div>
 											</div>
-											
+											-->
 											<div class="col-sm-4 col-md-4 col-lg-4" style="">
 												<div class="form-group form-inline" style="    margin-top: 27px;">
 													<button id="btnPaymentSchedule" type="button" class="btn btn-success btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i> <span>ទាញយក Excel</span></button>
 												</div>
 												<div style="margin-left: 5px;display: none;">
-        											<form method="post" action="<?php echo base_url(); ?>PaymentSchedule/getAllPayment" id="btnExcelPaymentSchedule">
+        											<form method="post" action="<?php echo base_url(); ?>PaymentSchedule/getAllInstallmentPayment" id="btnExcelPaymentSchedule">
         												<input type="submit" value="Submit">
         												<input type="hidden" name="startMonth" value="" id="startMonth" />
         												<input type="hidden" name="endMonth" value="" id="endMonth" />
