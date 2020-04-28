@@ -89,6 +89,10 @@ var _thisPage = {
 				getDataPaymentByMonth();
 			});			
 			
+			
+			$("#btnGetInstallmentPayment").click(function(e){
+				getDataAllInstallmentPayment();
+			});		
 		}
 }
 
@@ -128,6 +132,13 @@ function getDataPaymentByMonth(){
 			stock.comm.alertMsg($.i18n.prop("msg_err"));
 		}
 	});*/
+}
+
+
+function getDataAllInstallmentPayment(){
+	$("#loading").show();
+	$("#btnExcelInstallmentPayment").submit();
+	$("#loading").hide();
 }
 
 

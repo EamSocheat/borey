@@ -447,7 +447,7 @@ class PaymentSchedule extends CI_Controller{
 	        'start_date'        => $startDate,
 	        'end_date'        => $endDate,
 	    );
-	    $paymentSchedule = $this->M_installment->selectPaymentScheduleByMonth($dataSrch);
+	    $paymentSchedule = $this->M_installment->selectProductSold($dataSrch);
 	    $object = new PHPExcel();
 	    $object->setActiveSheetIndex(0);
 	    $table_columns = array('ល.រ','លេខកូដ​dsfddsggfgf' ,);
@@ -465,13 +465,23 @@ class PaymentSchedule extends CI_Controller{
 	    $objDrawing->setCoordinates('F1');
 	    $objDrawing->setWorksheet($object->getActiveSheet());
 		
+		$maxIntDate = $this->M_installment->selectMaxInstDate();
+		$d1 = new DateTime("2019-06-01");
+		$d2 = new DateTime($maxIntDate[0]->inst_date."-01");
+		$monthCount = $d1->diff($d2)->m + ($d1->diff($d2)->y*12);
 	    /**
 	     * get header
 	     */
 	    $table_columns = array("ល.រ","គម្រោង", "លេខផ្ទះ", "ឈ្មោះអតិថិជន",  "ប្រភេទកិច្ចសន្យា","តំលៃលក់"," ","ប្រាក់កក់"," "," ","បង់ផ្ទះ"," "," "," ", "បង់សេវាបន្ថែម"," "," ");
+		
 	    $table_columns2 = array(" "," ", " ", " "," ", " ","ថ្ងៃបានបង់", "ប្រាក់បានបង់",  "លេខ​វិ​ក័​យ​ប័ត្រ", "ថ្ងៃត្រូវបង់", "ប្រាក់ត្រូវបង់","ថ្ងៃបានបង់", "ប្រាក់បានបង់", "លេខ​វិ​ក័​យ​ប័ត្រ","ថ្ងៃបានបង់", "ប្រាក់បានបង់","សេវាបន្ថែម","លេខ​វិ​ក័​យ​ប័ត្រ");
 	    $column = 0;
 	    
+		for($k=0;$k<$monthCount;$k++){
+			
+			array_push($table_columns,$k.":newaaaaa".$monthCount);
+		}
+		
 	    /**
 	     * get header
 	     */
@@ -489,7 +499,7 @@ class PaymentSchedule extends CI_Controller{
 	    }
 		
 		$style_header = array(
-		    'font' => array('bold' => true,'name'=>'Khmer OS Siemreap','size'=>'10px'),
+		    'font' => array('bold' => true,'name'=>'Khmer OS Siemreap','size'=>10),
             'alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,),
             'fill' => array(
                 'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -501,11 +511,11 @@ class PaymentSchedule extends CI_Controller{
                 'top' => array(
                     'style' => PHPExcel_Style_Border::BORDER_THIN,),
                 
-            ),
+            )
 		);
 		$styleTitle = array(
 
-            'font' => array('bold' => true,'name'=>'Khmer OS Siemreap','size'=>'10px'),
+            'font' => array('bold' => true,'name'=>'Khmer OS Siemreap','size'=>10),
             'alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,),
        
         );
@@ -555,6 +565,7 @@ class PaymentSchedule extends CI_Controller{
 		$object->getActiveSheet()->getStyle('A5:R5')->applyFromArray($style_header);
         $object->getActiveSheet()->getStyle('A6:R6')->applyFromArray($style_header);
 	    
+	
 	    $excel_row = 7;
 	    $noItem=1;
 		$totalHousePrice=0;
@@ -574,7 +585,7 @@ class PaymentSchedule extends CI_Controller{
 	        }
 			//
 			$object->getDefaultStyle()->getFont()->setName('Khmer OS Siemreap');
-			$object->getDefaultStyle()->getFont()->setSize('10px');
+			$object->getDefaultStyle()->getFont()->setSize(10);
 			//
 			
 			$totalHousePrice 		= $totalHousePrice + floatval($row->sell_price);
@@ -595,32 +606,9 @@ class PaymentSchedule extends CI_Controller{
 	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $row->con_type_nm_kh);
 	        $colNum++;
 	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $row->sell_price);
-	        $colNum++;
-			$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->con_date);
-	        $colNum++;
-			$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->book_amount);
-	        $colNum++;
-			$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->con_code);
-	        $colNum++;
-			$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->inst_date);
-	        $colNum++;
-	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->inst_amt_pay);
-	        $colNum++;
-			$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->inst_paid_date);
-	        $colNum++;
-			$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->inst_total_paid_amount);
-	        $colNum++;
-			$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->inst_paid_code);
-	        $colNum++;
-			$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->other_pay_date);
-	        $colNum++;
-			$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->other_pay_amount);
-	        $colNum++;
-			$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->other_pay_des);
-	        $colNum++;
-			$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->oth_pay_inv_code);
-	        $colNum++;
+	        
 			//
+			
 			$object->getActiveSheet()->getStyle('A'.$excel_row.':C'.$excel_row)->applyFromArray($style_border_center);
 			$object->getActiveSheet()->getStyle('D'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_left);
 			$object->getActiveSheet()->getStyle('F'.$excel_row.':F'.$excel_row)->applyFromArray($style_border_right);
@@ -641,6 +629,7 @@ class PaymentSchedule extends CI_Controller{
 			$object->getActiveSheet()->getStyle('P'.$excel_row.':P'.$excel_row)->getNumberFormat()->setFormatCode("_(\"$\"* #,##0.00_);_(\"$\"* \(#,##0.00\);_(\"$\"* \"-\"??_);_(@_)");
 			$object->getActiveSheet()->getStyle('Q'.$excel_row.':Q'.$excel_row)->applyFromArray($style_border_center);
 			$object->getActiveSheet()->getStyle('R'.$excel_row.':R'.$excel_row)->applyFromArray($style_border_center);
+			
 			//
 	        $excel_row++;
 	        $noItem++;
@@ -764,6 +753,7 @@ class PaymentSchedule extends CI_Controller{
 		$object->getActiveSheet()->getStyle('A1:R1')->applyFromArray($styleTitle);
 		$object->getActiveSheet()->getStyle('A2:R2')->applyFromArray($styleTitle);
 		$object->getActiveSheet()->getStyle('A3:R3')->applyFromArray($styleTitle);
+		
 		$object->getActiveSheet()->setCellValueByColumnAndRow(6, 5, "ប្រាក់កក់");
 		$object->getActiveSheet()->setCellValueByColumnAndRow(9, 5, "បង់ផ្ទះ");
 		
@@ -793,10 +783,10 @@ class PaymentSchedule extends CI_Controller{
 		
 		//
 	    $object->getDefaultStyle()->getFont()->setName('Khmer OS Siemreap');
-	    $object->getDefaultStyle()->getFont()->setSize('10px');
+	    $object->getDefaultStyle()->getFont()->setSize(10);
 	    $object->getActiveSheet()->setCellValueByColumnAndRow(8, 1, "បុរីហ្គាឡាក់ស៊ី១១");
 	    $object->getActiveSheet()->setCellValueByColumnAndRow(8, 2, "BOREY GALAXY 11");
-	    $object->getActiveSheet()->setCellValueByColumnAndRow(8, 3, "តាមដានការបង់ប្រាក់របស់អតិថិជនប្រចាំខែ( ".$payMonth.")");
+	    $object->getActiveSheet()->setCellValueByColumnAndRow(8, 3, "តារាងបង់ប្រាក់របស់អតិថិជនសរុប( 'Master Plan')");
 		
 	    $object->getActiveSheet()->getProtection()->setSheet(true);
 	    $object->getActiveSheet()->getProtection()->setSort(true);
@@ -805,9 +795,15 @@ class PaymentSchedule extends CI_Controller{
 	    
 	    $object->getActiveSheet()->getProtection()->setPassword('password123');
 	    
-	    $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
-	    header('Content-Type: application/vnd.ms-excel');
-	    header('Content-Disposition: attachment;filename="តាមដានការបង់ប្រាក់របស់អតិថិជនប្រចាំខែ( "'.$payMonth.'").xls"');
+		$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="ReporteParticipantes.xlsx"');
+		header('Cache-Control: max-age=0');
+		
+		 
+	    // $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+	    // header('Content-Type: application/vnd.ms-excel');
+	    // header('Content-Disposition: attachment;filename="តារាងបង់ប្រាក់របស់អតិថិជនសរុប( "Master Plan").xls"');
 	    $object_writer->save('php://output');
 	    
 	    //$data["OUT_REC"] = $this->M_installment->selectAllPayment($dataSrch);

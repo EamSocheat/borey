@@ -119,10 +119,10 @@
 											-->
 											<div class="col-sm-4 col-md-4 col-lg-4" style="">
 												<div class="form-group form-inline" style="    margin-top: 27px;">
-													<button id="btnPaymentSchedule" type="button" class="btn btn-success btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i> <span>ទាញយក Excel</span></button>
+													<button id="btnGetInstallmentPayment" type="button" class="btn btn-success btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i> <span>ទាញយក Excel</span></button>
 												</div>
 												<div style="margin-left: 5px;display: none;">
-        											<form method="post" action="<?php echo base_url(); ?>PaymentSchedule/getAllInstallmentPayment" id="btnExcelPaymentSchedule">
+        											<form method="post" action="<?php echo base_url(); ?>PaymentSchedule/getAllInstallmentPayment" id="btnExcelInstallmentPayment">
         												<input type="submit" value="Submit">
         												<input type="hidden" name="startMonth" value="" id="startMonth" />
         												<input type="hidden" name="endMonth" value="" id="endMonth" />
