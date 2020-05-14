@@ -1,0 +1,21 @@
+update tbl_installment
+set inst_date = DATE_ADD(inst_date,INTERVAL 14 DAY)
+where sell_id = 96
+and inst_num BETWEEN 2 and 19;
+
+update tbl_installment 
+set inst_first_installment_date = '2020-05-15'
+where sell_id = 96;
+
+
+update tbl_installment
+set inst_amt_balance = (inst_amt_balance - 106267)
+,inst_num = (inst_num + 1)
+where sell_id = 96
+and inst_num BETWEEN 13 and 18;
+
+update tbl_installment
+set inst_date ='2021-03-15'
+,inst_amt_balance = 15171
+,inst_num = 13
+where inst_id = 1958;

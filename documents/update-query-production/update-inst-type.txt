@@ -1,0 +1,1 @@
+update tbl_installment set inst_type = 'ADV' ,inst_pay_per = 70 where inst_id in( 1958,1977);

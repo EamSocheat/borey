@@ -1,33 +1,29 @@
 update tbl_installment
-set inst_amt_pay = 11550
-,inst_amt_principle = 11550
-where sell_id = 10
+set inst_amt_pay = 2669
+,inst_amt_principle = 2669
+,inst_pay_per = 2.93
+where sell_id = 61
 and inst_num = 19;
 
 
 update tbl_installment
-set inst_amt_pay = 2310
-,inst_amt_principle = 2310
-,inst_amt_balance = 39270
-where sell_id = 10
-and inst_num = 11;
+set inst_amt_pay = 669
+,inst_amt_principle = 669
+,inst_amt_balance = 81675
+,inst_pay_per = 0.73
+where sell_id = 61
+and inst_num = 6;
 
 update tbl_installment
-set inst_amt_pay = 2310
-,inst_amt_principle = 2310
-,inst_amt_balance = 36960
-where sell_id = 10
-and inst_num = 12;
-
-update tbl_installment
-set inst_amt_pay = 2310
-,inst_amt_principle = 2310
-,inst_amt_balance = 34650
-where sell_id = 10
-and inst_num = 13;
+set inst_amt_pay = 669
+,inst_amt_principle = 669
+,inst_amt_balance = 81006
+,inst_pay_per = 0.73
+where sell_id = 61
+and inst_num = 7;
 
 
 update tbl_installment
-set inst_amt_balance = (inst_amt_balance + 6930)
-where sell_id = 10
-and inst_num between 14 AND 18;
+set inst_amt_balance = (inst_amt_balance + 1336)
+where sell_id = 61
+and inst_num between 8 AND 18;

@@ -1,0 +1,41 @@
+
+update tbl_installment
+set inst_amt_balance = (inst_amt_balance - 118111)
+,inst_num = (inst_num + 1)
+where sell_id = 102
+and inst_num >= 13;
+
+update tbl_installment
+set inst_amt_balance = 132174
+,inst_num = 13
+,inst_type = 'ADV'
+where inst_id = 2035
+and sell_id = 102 ;
+
+update tbl_installment
+set inst_amt_balance = (inst_amt_balance - 118111)
+where inst_id = 2035
+and sell_id = 102 ;
+
+update tbl_installment
+set inst_amt_balance = (inst_amt_balance + 2812)
+where inst_id = 2035
+and sell_id = 102 ;
+
+
+update tbl_installment
+set inst_amt_balance = (inst_amt_balance - 112847)
+,inst_num = (inst_num + 1)
+where sell_id = 103
+and inst_num >= 13;
+
+update tbl_installment
+set inst_amt_balance = 16119
+,inst_num = 13
+,inst_type = 'ADV'
+where inst_id = 2054
+and sell_id = 103 ;
+---
+update tbl_installment
+set inst_date = '2021-03-15'
+where inst_id in( 2054,2035);
