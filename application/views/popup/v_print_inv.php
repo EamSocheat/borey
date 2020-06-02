@@ -118,7 +118,7 @@
     					
     				</div>
     				<div>	
-    					<span class="with-150 block-dis ">លេខទូរស័ព្ទ</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo $OUT_REC[0]->cus_phone1; if($OUT_REC[1]->cus_phone1 != null && $OUT_REC[1]->cus_phone1 != $OUT_REC[0]->cus_phone){ echo ' / '.$OUT_REC[1]->cus_phone1; }  if($OUT_REC[1]->cus_phone2 != null && $OUT_REC[1]->cus_phone2 != $OUT_REC[0]->cus_phone){ echo ' / '.$OUT_REC[1]->cus_phone2; }?></span>
+    					<span class="with-150 block-dis ">លេខទូរស័ព្ទ</span><span class="with-15 block-dis">:</span><span class="block-dis"><?php echo $OUT_REC[0]->cus_phone1; if($OUT_REC[1]->cus_phone1 != null && $OUT_REC[1]->cus_phone1 != $OUT_REC[0]->cus_phone){ echo ' / '.$OUT_REC[1]->cus_phone1; }  /*if($OUT_REC[1]->cus_phone2 != null && $OUT_REC[1]->cus_phone2 != $OUT_REC[0]->cus_phone){ echo ' / '.$OUT_REC[1]->cus_phone2; }*/?></span>
     				</div>
     				<div style="display: flex;">
     					<div style="width: 90px;display: inline-block;">
@@ -215,14 +215,16 @@
 				</tr>
 				<tr>
 					<td></td>
+					<td>&#9733; ប្រាក់ដែលបានបង់រួច មិនអាចដកវិញបានទេ</td>
+				</tr>
+				<tr>
+					<td></td>
 					<td>&#9733; អាចបង់នៅការិយាល័យផ្ទាល់ ឫបង់តាមរយះធានាគា ABA <br>&#10004; Account Name: Heng Piseth & Mean Tong <br> &#10004; Account Number: 000935494</td>
 				</tr>
 				<tr>
 					<td></td><td></td>
 				</tr>
-				<tr>
-					
-				</tr>
+				
 				
 			</table>
 		</div>

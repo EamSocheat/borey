@@ -210,7 +210,12 @@
     							//echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
     							$totalInterest += floatval($OUT_REC[$i]->inst_amt_interest);
     						}else if($OUT_REC[$i]->inst_type=="LEFT"){
-    						    echo "<td class='text-center'>".$OUT_REC[$i]->con_type_nm_kh.$OUT_REC[$i]->inst_pay_per."%</td>";
+								if($OUT_REC[0]->sell_date > '2020-05-27'){
+									echo "<td class='text-center'>".$OUT_REC[$i]->inst_pay_per."%</td>";
+								}else{
+									echo "<td class='text-center'>".$OUT_REC[$i]->con_type_nm_kh.$OUT_REC[$i]->inst_pay_per."%</td>";
+								}
+    						    
     							//echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
     						}
     					?>
