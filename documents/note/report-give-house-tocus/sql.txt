@@ -1,0 +1,80 @@
+select sell_data.sell_id 
+                        	,pro_sell_price
+                        	,pro_data.pro_id
+                        	,pro_data.pro_code
+                            ,sell_data.con_type_nm_kh
+                            ,(case 
+                            	when (COALESCE(sell_data.pro_sell_price, '') = '')
+                                	then  book_data.pro_book_price
+                                else sell_data.pro_sell_price
+                             end) as sell_price
+                            ,(case 
+                            	when (COALESCE(sell_data.pro_sell_price, '') = '')
+                                	then  cus_book_data.cus_nm
+                                else cus_sell_data.cus_nm
+                             end) as cus_name
+                            ,sell_data.pro_sell_time_build
+                            ,(case 
+                            	when (COALESCE(sell_data.sell_des, '') = '')
+                                	then  book_data.con_des
+                                else sell_data.sell_des
+                             end) as sell_des
+                            ,sell_data.sell_date
+                            ,book_data.con_total_price as book_amount
+                            ,book_data.con_des as book_des
+                            ,book_data.con_date
+                            ,book_data.con_code
+                            ,pro_data.bra_nm_kh
+                            ,pro_data.pro_status
+                        from (select pro_id
+                                ,pro_code
+                                ,bra_nm_kh
+                                ,pro_status
+                                from tbl_product 
+                                inner join tbl_branch on tbl_branch.bra_id = tbl_product.bra_id
+                                where tbl_product.useYn ='Y'
+                                ) pro_data
+                        left join (select tbl_product.pro_id
+                                   ,tbl_sell.sell_id	
+                                   ,pro_sell_price
+                                   	,con_type_nm_kh
+                                   ,DATE_FORMAT(sell_date, '%d/%m/%Y') as sell_date
+                                   ,pro_sell_time_build
+                                   ,sell_des
+                                   	from tbl_sell
+                                   	inner join tbl_sell_detail on tbl_sell_detail.sell_id = tbl_sell.sell_id
+                                    inner join tbl_product on tbl_product.pro_id = tbl_sell_detail.pro_id
+                                    inner join tbl_contract_type on tbl_contract_type.con_type_id = tbl_sell.con_type_id
+                                    where tbl_sell.useYn ='Y'
+                                   ) sell_data 
+                        on pro_data.pro_id = sell_data.pro_id
+                        left join (select tbl_contract_detail.pro_id
+                                   ,tbl_contract.con_id
+                                   ,con_total_price
+                                   ,tbl_contract_detail.pro_book_price
+                                   ,tbl_contract.con_des
+                                   ,DATE_FORMAT(con_date, '%d/%m/%Y') as con_date
+                                   ,con_code
+                                   from tbl_contract 
+                                   inner join tbl_contract_detail on tbl_contract_detail.con_id = tbl_contract.con_id
+                                   where tbl_contract.useYn = 'Y'
+                                   and con_sta != 'C'
+                                  ) book_data
+                        on pro_data.pro_id = book_data.pro_id
+                        Left join (select sell_id 
+                                   ,GROUP_CONCAT(cus_nm_kh SEPARATOR ' & ') as cus_nm
+                                   from tbl_sell_customer
+                                   inner join tbl_customer on tbl_customer.cus_id = tbl_sell_customer.cus_id
+                                   where tbl_sell_customer.useYn = 'Y'
+                                   GROUP BY sell_id
+                        		  ) cus_sell_data
+                        on sell_data.sell_id = cus_sell_data.sell_id
+                        Left join (select con_id 
+                                   ,GROUP_CONCAT(cus_nm_kh SEPARATOR ' & ') as cus_nm
+                                   from tbl_contract_customer
+                                   inner join tbl_customer on tbl_customer.cus_id = tbl_contract_customer.cus_id
+                                   where tbl_contract_customer.useYn = 'Y'
+                                   GROUP BY con_id
+                        		  ) cus_book_data
+                        on book_data.con_id = cus_book_data.con_id
+                        order by pro_data.pro_code asc

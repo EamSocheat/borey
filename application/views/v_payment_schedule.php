@@ -20,7 +20,7 @@
 		<div class="row">
 			<!-- main col -->
 			<section class="">
-				<div class="col-xs-12">
+				<div class="col-md-6">
 					<div class="box">
 						<!-- box-header -->
 						<div class="box-header">
@@ -35,7 +35,7 @@
 									<div class="row" >
 										<div class="col-sm-12 col-md-12 col-lg-12 row" style="">
 											
-											<div class="col-sm-2 col-md-2 col-lg-2" style="
+											<div class="col-sm-4 col-md-4 col-lg-4" style="
 												">
 												<div class="input-group date" style="
 													">
@@ -76,7 +76,98 @@
 						<!-- /.box-header -->
 						
 					</div>
+					</div>
+				
 				</div>
+				<div class = "col-md-6">
+				<!-- box-2 -->
+				<div class="box">
+					<!-- box-header -->
+					<div class="box-header">
+						
+							<div class="box box-solid box-search2">
+								<div class="box-header with-border">
+									<i class="fa fa-search-plus" aria-hidden="true"></i>
+									<h3 class="box-title">របាយការណ៏ប្រគល់ផ្ទះទៅអតិថិជន</h3>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body" style="display: block;">
+									<div class="row" >
+										<div class="col-sm-12 col-md-12 col-lg-12 row" style="">
+									
+											<div class="col-sm-4 col-md-4 col-lg-4" style="">
+												<div class="form-group form-inline" style="    margin-top: 27px;">
+													<button id="btnGetContractInfo" type="button" class="btn btn-success btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i> <span>ទាញយក Excel</span></button>
+												</div>
+												<div style="margin-left: 5px;display: none;">
+													<form method="post" action="<?php echo base_url(); ?>PaymentSchedule/getContractInfo" id="btnExcelContractInfo">
+														<input type="submit" value="Submit">
+													</form>
+												</div>
+											</div>
+											
+										<!-- 
+										<div class="col-sm-12 col-md-12 col-lg-12 row">
+											
+										</div>
+										 -->
+									</div>
+									
+								</div>
+								<!-- /.box-body -->
+							</div>
+							
+						</div>
+						<!-- /.box-header -->
+					</div>
+					
+				</div>
+				</div>
+				<div class = "col-md-6">
+				<!-- box-2 -->
+				<div class="box">
+					<!-- box-header -->
+					<div class="box-header">
+						
+							<div class="box box-solid box-search2">
+								<div class="box-header with-border">
+									<i class="fa fa-search-plus" aria-hidden="true"></i>
+									<h3 class="box-title">តារាងបង់ប្រាក់របស់អតិថិជន</h3>
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body" style="display: block;">
+									<div class="row" >
+										<div class="col-sm-12 col-md-12 col-lg-12 row" style="">
+									
+											<div class="col-sm-4 col-md-4 col-lg-4" style="">
+												<div class="form-group form-inline" style="    margin-top: 27px;">
+													<button id="btnGetSellPaymentInfo" type="button" class="btn btn-success btn-sm"><i class="fa fa-file-excel-o" aria-hidden="true"></i> <span>ទាញយក Excel</span></button>
+												</div>
+												<div style="margin-left: 5px;display: none;">
+													<form method="post" action="<?php echo base_url(); ?>PaymentSchedule/getSellPaymentInfo" id="btnExcelSellPaymentInfo">
+														<input type="submit" value="Submit">
+													</form>
+												</div>
+											</div>
+											
+										<!-- 
+										<div class="col-sm-12 col-md-12 col-lg-12 row">
+											
+										</div>
+										 -->
+									</div>
+									
+								</div>
+								<!-- /.box-body -->
+							</div>
+							
+						</div>
+						<!-- /.box-header -->
+					</div>
+					
+				</div>
+				</div>
+				
 			</section>
 			<!-- main col -->
 		</div>

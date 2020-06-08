@@ -90,10 +90,30 @@ var _thisPage = {
 			$("#btnGetPaymentSchByMonth").click(function(e){
 				getDataPaymentByMonth();
 			});			
+			//
+			//
+			$("#btnGetContractInfo").click(function(e){
+				getDataContract();
+			});
 			
+			//
+			$("#btnGetSellPaymentInfo").click(function(e){
+				getDataSellPayment();
+			});
 		}
 }
 
+function getDataSellPayment(){
+	$("#loading").show();
+	$("#btnExcelSellPaymentInfo").submit();
+	$("#loading").hide();
+}
+
+function getDataContract(){
+	$("#loading").show();
+	$("#btnExcelContractInfo").submit();
+	$("#loading").hide();
+}
 
 function getDataPaymentByMonth(){
 	$("#loading").show();

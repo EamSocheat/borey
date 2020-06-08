@@ -428,7 +428,293 @@ class PaymentSchedule extends CI_Controller{
 	    //echo json_encode($data);
 	}
 	
+	public function getContractInfo(){
+		if(!$this->M_check_user->check()){
+	        redirect('/Login');
+	    }
+	   
+	    $payMonth = $this->input->post('payMonth');
+	    $startDate = null;
+	    $endDate = null;
+	    if($payMonth != null || $payMonth != ""){
+	        $startDate =  date('Y-m-d',strtotime('01-'.$payMonth));
+	        $endDate   = date('Y-m-t',strtotime('01-'.$payMonth));
+	        
+	    }
+	    
+	    $dataSrch = array(
+	        'start_date'        => $startDate,
+	        'end_date'        => $endDate,
+	    );
+	    $paymentSchedule = $this->M_installment->selectContractInfo($dataSrch);
+	    $object = new PHPExcel();
+	    $object->setActiveSheetIndex(0);
+	    
+		
+		$gdImage = imagecreatefrompng(base_url('/upload/fix/galaxy11-logo.png'));
+	    // Add a drawing to the worksheetecho date('H:i:s') . " Add a drawing to the worksheet\n";
+	    $objDrawing = new PHPExcel_Worksheet_MemoryDrawing();
+	    $objDrawing->setName('Sample image');
+	    $objDrawing->setDescription('Sample image');
+	    $objDrawing->setImageResource($gdImage);
+	    $objDrawing->setRenderingFunction(PHPExcel_Worksheet_MemoryDrawing::RENDERING_PNG);
+	    $objDrawing->setMimeType(PHPExcel_Worksheet_MemoryDrawing::MIMETYPE_DEFAULT);
+	    $objDrawing->setHeight(30);
+	    $objDrawing->setCoordinates('E1');
+	    $objDrawing->setWorksheet($object->getActiveSheet());
+		
+	    /**
+	     * get header
+	     */
+	    $table_columns = array("ល.រ","គម្រោង", "លេខផ្ទះ", "ឈ្មោះអតិថិជន",  " រយៈពេលសាងសង់ ","ថ្ងៃចាប់ផ្តើមកក់","ថ្ងៃចុះកិច្ចសន្យា","ថ្ងៃប្រគល់ផ្ទះ","ថែមជូន");
+	    $column = 0;
+	    
+	    /**
+	     * get header
+	     */
+	    foreach($table_columns as $field){
+	        $object->getActiveSheet()->setCellValueByColumnAndRow($column, 5, $field);
+	        $column++;
+	        
+	    }
+	    
+		$style_header = array(
+		    'font' => array('bold' => true,'name'=>'Khmer OS Siemreap','size'=>'10px'),
+            'alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,),
+            'fill' => array(
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('rgb' => 'f8e9ba')
+            ),
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN),
+                'top' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN,),
+                
+            ),
+		);
+		$styleTitle = array(
+
+            'font' => array('bold' => true,'name'=>'Khmer OS Siemreap','size'=>'10px'),
+            'alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,),
+       
+        );
+		
+		$style_border_center = array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN),
+                'top' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN)
+            ),
+            'alignment' => array(
+	            'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+	        ),
+        );
+        
+         $style_border_right = array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN),
+                'top' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN)
+            ),
+            'alignment' => array(
+	            'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+	        ),
+        );
+		
+		$style_border_left = array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN),
+                'top' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN)
+            ),
+            'alignment' => array(
+	            'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+	        ),
+        );
+		
+		$styleBold = array(
+
+            'font' => array('bold' => true,'name'=>'Khmer OS Siemreap',),
+        );
+		
+		$styleBoldCenter = array(
+
+            'font' => array('bold' => true,'name'=>'Khmer OS Siemreap',),
+			'alignment' => array(
+	            'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+	        ),
+        );
+		$object->getActiveSheet()->getStyle('A5:I5')->applyFromArray($style_header);
+	    
+	    $excel_row = 6;
+	    $noItem=1;
+		$totalHousePrice=0;
+		$totalBookPrice=0;
+		$totalInstPrice=0;
+		$totalInstPaidPrice=0;
+		$totalOtherPayPrice=0;
+		$totalHouse=0;
+		$totalHouseSold=0;
+		$totalHouseFree=0;
+	    foreach($paymentSchedule as $row){
+	        $totalHouse+=1;
+	        if($row->pro_status == 'S'){
+	            $totalHouseSold+=1;
+	        }else{
+	            $totalHouseFree+=1;
+	        }
+			//
+			$object->getDefaultStyle()->getFont()->setName('Khmer OS Siemreap');
+			$object->getDefaultStyle()->getFont()->setSize('10px');
+			//
+			
+	        $colNum=0;
+	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $noItem);
+			$colNum++;
+	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $row->bra_nm_kh);
+	        $colNum++;
+	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $row->pro_code);
+	        $colNum++;
+	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $row->cus_name);
+	        $colNum++;
+			$month_build="";
+			if($row->sell_date_org != null && $row->sell_date_org != "" ){
+				$month_build=$row->pro_sell_time_build." ខែ";
+			}
+	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $month_build);
+	        $colNum++;
+	        $object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $row->con_date);
+	        $colNum++;
+			$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,$row->sell_date);
+	        $colNum++;
+			if($row->sell_date_org == null || $row->sell_date_org == "" ){
+				$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,"");
+			}else{
+				$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,date('d-m-Y', strtotime("+".intval($row->pro_sell_time_build)." months", strtotime($row->sell_date_org))));
+			}
+	        $colNum++;
+			$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row,rtrim($row->sell_des," "));
+	        $colNum++;
+			//
+			$object->getActiveSheet()->getStyle('A'.$excel_row.':C'.$excel_row)->applyFromArray($style_border_center);
+			$object->getActiveSheet()->getStyle('D'.$excel_row.':D'.$excel_row)->applyFromArray($style_border_left);
+			$object->getActiveSheet()->getStyle('E'.$excel_row.':H'.$excel_row)->applyFromArray($style_border_center);
+			$object->getActiveSheet()->getStyle('I'.$excel_row.':I'.$excel_row)->applyFromArray($style_border_left);
+			//
+	        $excel_row++;
+	        $noItem++;
+	        //
+	    }
+		
+
+		//		
+		$excel_row++;
+		$colNum=2;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "សំគាល់");
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "ចំនួន");
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "ភាគរយ%");
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_center);
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':E'.$excel_row)->applyFromArray($styleBold);
+		
+		$excel_row++;
+		$colNum=2;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "ផ្ទះលក់");
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $totalHouseSold);
+		$colNum++;
+		$houseSoldPer = ceil(($totalHouseSold*100) / $totalHouse);
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $houseSoldPer."%");
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_center);
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':C'.$excel_row)->applyFromArray($styleBold);
+		
+		$excel_row++;
+		$colNum=2;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "ផ្ទះនៅសល់");
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $totalHouseFree);
+		$colNum++;
+		$houseFreePer = 100 - $houseSoldPer;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $houseFreePer."%");
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_center);
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':C'.$excel_row)->applyFromArray($styleBold);
+		
+		$excel_row++;
+		$colNum=2;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "ផ្ទះសរុប");
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, $totalHouse);
+		$colNum++;
+		$object->getActiveSheet()->setCellValueByColumnAndRow($colNum, $excel_row, "100%");
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':E'.$excel_row)->applyFromArray($style_border_center);
+		$object->getActiveSheet()->getStyle('C'.$excel_row.':C'.$excel_row)->applyFromArray($styleBold);
+		//
+		//style
+		
+		$object->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+        $object->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+        $object->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+        $object->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+        $object->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+        $object->getActiveSheet()->getColumnDimension('F')->setWidth(17);
+        $object->getActiveSheet()->getColumnDimension('G')->setWidth(17);
+        $object->getActiveSheet()->getColumnDimension('H')->setWidth(17);
+		$object->getActiveSheet()->getColumnDimension('I')->setWidth(90);
+		
+		
+		//approve....
+		$excel_row=$excel_row+1;
+		$excel_row=$excel_row+1;
+		$object->getActiveSheet()->getStyle('A'.$excel_row.':R'.$excel_row)->applyFromArray($styleBold);
+		$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, "Prepared By");
+		$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, "Checked By");
+		//$object->getActiveSheet()->mergeCells('H'.$excel_row.':I'.$excel_row);
+		$object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, "Acknowledge by");
+		
+		
+		$excel_row=$excel_row+1;
+		$excel_row=$excel_row+1;
+		$excel_row=$excel_row+1;
+		$excel_row=$excel_row+1;
+		$excel_row=$excel_row+1;
+		$excel_row=$excel_row+1;
+		$object->getActiveSheet()->getStyle('A'.$excel_row.':I'.$excel_row)->applyFromArray($styleBold);
+		$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, "_______________________");
+		$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, "_______________________");
+		//$object->getActiveSheet()->mergeCells('H'.$excel_row.':I'.$excel_row);
+		$object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, "_________________________");
+		//
+		
+		//
+	    $object->getDefaultStyle()->getFont()->setName('Khmer OS Siemreap');
+	    $object->getDefaultStyle()->getFont()->setSize('10px');
+		$object->getActiveSheet()->getStyle('G1:G1')->applyFromArray($styleBoldCenter);
+		$object->getActiveSheet()->getStyle('G2:G2')->applyFromArray($styleBoldCenter);
+		$object->getActiveSheet()->getStyle('G3:G3')->applyFromArray($styleBoldCenter);
+	    $object->getActiveSheet()->setCellValueByColumnAndRow(6, 1, "បុរីហ្គាឡាក់ស៊ី១១");
+	    $object->getActiveSheet()->setCellValueByColumnAndRow(6, 2, "BOREY GALAXY 11");
+	    $object->getActiveSheet()->setCellValueByColumnAndRow(6, 3, "របាយការណ៏ប្រគល់ផ្ទះទៅអតិថិជន");
+		/*
+	    $object->getActiveSheet()->getProtection()->setSheet(true);
+	    $object->getActiveSheet()->getProtection()->setSort(true);
+	    $object->getActiveSheet()->getProtection()->setInsertRows(true);
+	    $object->getActiveSheet()->getProtection()->setFormatCells(true);
+	    $object->getActiveSheet()->getProtection()->setPassword('password123');
+	    */
+	    $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+	    header('Content-Type: application/vnd.ms-excel');
+	    header('Content-Disposition: attachment;filename="តាមដានការបង់ប្រាក់របស់អតិថិជនប្រចាំខែ( "'.$payMonth.'").xls"');
+	    $object_writer->save('php://output');
+	}
 	
+	public function getSellPaymentInfo(){
+		
+	}
 	public function savePayment(){
 	    $max_id = (string)$this->input->post('txtInstNum');
 	    $zero   = '';
