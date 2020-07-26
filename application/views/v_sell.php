@@ -73,13 +73,14 @@
 												</div>
 											</div>
 											
-                                            
+                                            <!-- 
                                             <div class="col-sm-2 col-md-2 col-lg-2" style="">
 												<div class="form-group form-inline">
                                                     <label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_customer" style="margin-bottom: 7px;display: -webkit-box;">អតិថិជន </label>
                                                     <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="អតិថិជន">
                                                 </div>
 											</div>
+											-->
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
 												 <div class="form-group form-inline">
                                                     <label for="txtSrchSeller" class="control-label" style="margin-bottom: 7px;display: -webkit-box;">អ្នកលក់(បុគ្គលិក) </label>

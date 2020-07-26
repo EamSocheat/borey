@@ -1,0 +1,3 @@
+update tbl_installment 
+set inst_date = DATE_ADD(inst_date,INTERVAL 1 MONTH)
+where sell_id = 109 and inst_num > 1;

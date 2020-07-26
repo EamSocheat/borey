@@ -97,14 +97,14 @@
 													<input type="text" class="form-control pull-left date-pick input-sm" id="txtSrchContEDExp" name="txtSrchContEDExp" required="required" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask="" placeholder="áž”áž‰áŸ’áž‡áž¼áž› " style="font-size: 12px;">
 												</div>
 											</div>
-											
+											<!-- 
 											<div class="col-sm-2 col-md-2 col-lg-2" style="">
                                                 <div class="form-group form-inline">
                                                     <label for="txtSrchCusNm" class="control-label" data-i18ncd="lb_customer" style="margin-bottom: 7px;display: -webkit-box;">អតិថិជន </label>
                                                     <input type="text" class="form-control input-sm" id="txtSrchCusNm" placeholder="អតិថិជន">
                                                 </div>
                                             </div>
-											
+											 -->
 										</div>
 										<div class="col-sm-12 col-md-12 col-lg-12">
 											

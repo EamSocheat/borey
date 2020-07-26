@@ -57,7 +57,8 @@ class InstallmentPayment extends CI_Controller{
 	public function savePayment(){
 		$dataValid = array(
 	        'inst_num'        	=> $this->input->post('txtInstNum'),
-			'sell_id'        	=> $this->input->post('txtSellId')
+			'sell_id'        	=> $this->input->post('txtSellId'),
+		    'inst_type'        	=> $this->input->post('txtInstType'),
 	    );
 		$validPay = $this->M_installment->validPayment($dataValid);
 		if( intval($validPay[0]->valid_size) > 0){

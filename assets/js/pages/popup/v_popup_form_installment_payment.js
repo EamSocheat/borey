@@ -167,6 +167,8 @@ function getDataEdit(cont_id){
 			    $("#txtInstNum").val(res.OUT_REC[0]["inst_num"]);
 			    $("#txtSellId").val(res.OUT_REC[0]["sell_id"]);
 			    
+			    $("#txtInstNo").val(res.OUT_REC[0]["inst_num"]);
+			    $("#txtDueDate").val(res.OUT_REC[0]["inst_date"]);
 			    //$("#frmPayment input,#frmPayment textarea,#frmPayment select").prop("disabled",true);
 			}else{
 			    console.log(res);

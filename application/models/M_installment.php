@@ -14,6 +14,7 @@
         	$this->db->where('tbl_installment.useYn', 'Y');
         	$this->db->where('tbl_installment.sell_id', $data['sell_id']);
         	$this->db->where('tbl_installment.inst_num < '.$data['inst_num']);
+        	$this->db->where('tbl_installment.inst_type ',$data['inst_type']);
         	$this->db->where("tbl_installment.inst_paid_yn","N");
         	return $this->db->get()->result();
     	}

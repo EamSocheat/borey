@@ -44,6 +44,30 @@
             			</div>
             		</div>
             	</div>
+            	
+            	<div class="col-xs-12 row" style="padding:0px">
+            		<div class="col-xs-4 padding-forms-left">
+            			<div class="form-group">
+							<label for="txtDueDate" >ថ្ងៃត្រូវបង់</label>
+							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtDueDate" name="txtDueDate" autocomplete="off" />
+						</div>
+            		</div>
+					
+            		<div class="col-xs-4 padding-forms-right">
+                        <div class="form-group">
+							<label for="txtInstNo">លេខរៀង</label>
+							<input style="height: 34px; border-radius: 3px;font-size: 14px;" type="text"  class="form-control input-sm" disabled="disabled" id="txtInstNo" name="txtInstNo" autocomplete="off" />
+            			</div>
+            		</div>
+            		
+            		<div class="col-xs-4 padding-forms-right">
+            			<div class="form-group">
+							<label for="txtInstPayAmt" >ប្រាក់ត្រូវបង់ $</label>
+							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtInstPayAmt" name="txtInstPayAmt" autocomplete="off" />
+							
+						</div>
+            		</div>
+            	</div>
 
             	<!-- second row -->
             	<div class="col-xs-12 row" style="padding:0px">
@@ -68,12 +92,14 @@
             		</div>
             		
             		<div class="col-xs-4 padding-forms-right">
-            			<div class="form-group">
-							<label for="txtInstPayAmt" >ប្រាក់ត្រូវបង់ $</label>
-							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtInstPayAmt" name="txtInstPayAmt" autocomplete="off" />
-							
-						</div>
+            			
+		                <div class="form-group">
+				      		<label  for="txtPenaltyAmt" >ប្រាក់ពិន័យ​ $</label>
+				        	<input type="text" class="form-control" id="txtPenaltyAmt" placeholder="Enter loan amount" name="txtPenaltyAmt" autocomplete="off" required="required" />
+				    	</div>
+			    	
             		</div>
+            		
             	</div>
             	<!-- 3 row -->
                 <div class="col-xs-12 row" style="padding:0px">
@@ -93,14 +119,13 @@
 				    	</div>
 			    	
             		</div>
+                    
                     <div class="col-xs-4 padding-forms-right">
-            			
-		                <div class="form-group">
-				      		<label  for="txtPenaltyAmt" >ប្រាក់ពិន័យ​ $</label>
-				        	<input type="text" class="form-control" id="txtPenaltyAmt" placeholder="Enter loan amount" name="txtPenaltyAmt" autocomplete="off" required="required" />
-				    	</div>
-			    	
-            		</div>
+                       <div class="form-group">
+							<label for="txtTotalPayAmt">ប្រាក់ត្រូវបង់សរុប $</label>
+							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtTotalPayAmt" name="txtTotalPayAmt" autocomplete="off" />
+						</div>
+                    </div>
             		
                 </div>
                 <div class="col-xs-12 row" style="padding:0px">
@@ -112,11 +137,13 @@
                     </div>
                     <div class="col-xs-4 padding-forms-right">
                        <div class="form-group">
-							<label for="txtTotalPayAmt">ប្រាក់ត្រូវបង់សរុប $</label>
-							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtTotalPayAmt" name="txtTotalPayAmt" autocomplete="off" />
+							<label for="txtTotalPayAmt1">ប្រាក់ត្រូវបង់សរុប $</label>
+							<input type="text" style="height: 34px;font-size: 14px;" class="form-control input-sm" disabled="disabled" id="txtTotalPayAmt1" name="txtTotalPayAmt1" autocomplete="off" />
 						</div>
                     </div>
+                    
                 </div>
+                
                
                              
             <!-- end modal body  -->
