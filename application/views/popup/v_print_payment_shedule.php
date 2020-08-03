@@ -201,8 +201,14 @@
     							echo "<td class='text-center'>បង់កក់ទ្រនាប់ដៃ</td>";
     							//echo "<td class='text-right'><span style='float: left; margin-left: 5px;'>$</span>-</td>";
     						}else if($OUT_REC[$i]->inst_type=="ADV"){
-    						    echo "<td class='text-center'>".$bookTrue.$OUT_REC[$i]->inst_pay_per."%</td>";
+    						    $disAmt = "";
+								if($OUT_REC[$i]->inst_dis_amt == "0" || $OUT_REC[$i]->inst_dis_amt == null || $OUT_REC[$i]->inst_dis_amt == "null" || floatval($OUT_REC[$i]->inst_dis_amt) <= 0){
+									$disAmt = "<td class='text-center'>".$bookTrue.$OUT_REC[$i]->inst_pay_per."%</td>";
+								}else{
+									$disAmt = "<td class='text-center'>".$bookTrue.$OUT_REC[$i]->inst_pay_per."% ( បញ្ចុះ $".number_format($OUT_REC[$i]->inst_dis_amt)." )</td>";
+								}
     							//echo "<td class='text-right'>".($OUT_REC[$i]->inst_dis_amt == "0" ? "<span style='float: left; margin-left: 5px;'>$</span>-" : "<span style='float: left; margin-left: 5px;'>$</span>".number_format($OUT_REC[$i]->inst_dis_amt))."</td>";
+								echo $disAmt;
     							$bookTrue="";
     							$totalDiscount += $OUT_REC[$i]->inst_dis_amt;
     						}else if($OUT_REC[$i]->inst_type=="LOAN"){

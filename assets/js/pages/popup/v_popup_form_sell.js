@@ -372,15 +372,16 @@ var _thisPage = {
 					}
 					var perAdvPer=(payAdvAmt * 100) / parseFloat($("#pro_price").val().replace(/,/g,""));
 					var inputVal=$(this).val().replace(/,/g,"");
-					$(this).closest("tr").find("td input.pay-per-edit").val(perAdvPer.toFixed(2));
+					$(this).closest("tr").find("td.inst_pay_per input.pay-per-edit").val(perAdvPer.toFixed(2));
 					$(this).closest("tr").find("td.inst_amt_pay").html(inputVal);
+					$(this).closest("tr").attr("data-inst-per-pay",perAdvPer.toFixed(2));
 					
 					if($(this).closest("tr").find('td.chk_box input[type="checkbox"]:checked').length >= 1){
 						var chkVal = $('#tblInstallmentEdit tbody tr td.chk_box input[type="checkbox"]:checked');
 						chkVal.each(function(i){
-							$(this).closest("tr").find("td input.pay-per-edit").val(perAdvPer.toFixed(2));
+							$(this).closest("tr").find("td.inst_pay_per input.pay-per-edit").val(perAdvPer.toFixed(2));
 							$(this).closest("tr").find("td.inst_amt_pay").html(inputVal);
-							$(this).closest("tr").find("td input.pay-amt-prin-edit").val(inputVal);
+							$(this).closest("tr").find("td.inst_amt_principle input.pay-amt-prin-edit").val(inputVal);
 							$(this).closest("tr").attr("data-inst-per-pay",perAdvPer.toFixed(2));
 						});
 					}
@@ -401,15 +402,15 @@ var _thisPage = {
 					bookAmt = bookAmt.replace(/,/g,"");
 					payAdvAmt = payAdvAmt - parseFloat(bookAmt);
 				}
-				$(this).closest("tr").find("td input.pay-amt-prin-edit").val(payAdvAmt.toFixed(2));
+				$(this).closest("tr").find("td.inst_amt_principle input.pay-amt-prin-edit").val(payAdvAmt.toFixed(2));
 				$(this).closest("tr").find("td.inst_amt_pay").html(payAdvAmt.toFixed(2));
 				
 				var inputVal=$(this).val().replace(/,/g,"");
 				if($(this).closest("tr").find('td.chk_box input[type="checkbox"]:checked').length >= 1){
 					var chkVal = $('#tblInstallmentEdit tbody tr td.chk_box input[type="checkbox"]:checked');
 					chkVal.each(function(i){
-						$(this).closest("tr").find("td input.pay-per-edit").val(inputVal);
-						$(this).closest("tr").find("td input.pay-amt-prin-edit").val(payAdvAmt.toFixed(2));
+						$(this).closest("tr").find("td.inst_pay_per input.pay-per-edit").val(inputVal);
+						$(this).closest("tr").find("td.inst_amt_principle input.pay-amt-prin-edit").val(payAdvAmt.toFixed(2));
 						$(this).closest("tr").find("td.inst_amt_pay").html(payAdvAmt.toFixed(2));
 						$(this).closest("tr").attr("data-inst-per-pay",inputVal);
 					});	
