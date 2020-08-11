@@ -198,8 +198,10 @@
 						      } 
 						      if($OUT_REC[0]->inst_type=="LOAN" && $OUT_REC[0]->con_type_inst_com_yn=="Y"){
 						          echo $OUT_REC[0]->con_type_nm_kh;
-						      }else{
+						      }else if($OUT_REC[0]->inst_pay_per != null){
 						          echo $OUT_REC[0]->inst_pay_per.'%';
+						      }else{
+						          echo $OUT_REC[0]->con_type_nm_kh;
 						      }
 						      
 						?>
