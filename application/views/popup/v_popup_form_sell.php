@@ -212,7 +212,7 @@
 		                </div>
 		                <div class="col-xs-12 row " style="padding:0px;">
 		                	<!--  -->
-				    		<div class="col-xs-4 padding-forms-left div_installment" style="display: none;">
+				    		<div class="col-xs-3 padding-forms-left div_installment" style="display: none;">
 		                        <div class="form-group" >
 		        		      		<label  for="txtTotalLeftInst" > ប្រាក់ដើមនៅសល់</label><span> </span>
 		        		        	<input type="text" disabled="disabled" class="form-control text-right" id="txtTotalLeftInst" placeholder="Enter loan amount" name="txtTotalLeftInst" autocomplete="off" />
@@ -224,17 +224,24 @@
 		        		        	<input type="text" class="form-control text-right" id="txtTotalLeftInstDesc"  placeholder="Enter loan amount" name="txtTotalLeftInstDesc" required="required" />
 		        		    	</div>
 		                    </div> -->
-		                	<div class="col-xs-4 padding-forms-right div_installment" style="display: none;" >
+		                	<div class="col-xs-3 padding-forms-right div_installment" style="display: none;" >
 		                		<div class="form-group">
 		        		      		<label  for="txtInterstRate" > អត្រាការប្រាក់ %(ក្នុងមួយឆ្នាំ) </label><span> </span>
 		        		        	<input type="text"  maxlength="5" class=" form-control text-right" id="txtInterstRate"  placeholder="Enter loan amount" name="txtInterstRate" autocomplete="off" />
 		        		    	</div>
 		                    </div>
-		                    <div class="col-xs-4 padding-forms-right div_installment" style="display: none;">
+		                    <div class="col-xs-3 padding-forms-right div_installment" style="display: none;">
 		                        <div class="form-group">
 		        		      		<label  for="txtPeriod" > រយៈពេលរំលស់(ខែ)</label><span> </span>
 		        		        	<input type="text"   maxlength="3" class=" form-control text-right" id="txtPeriod" placeholder="Enter loan amount" name="txtPeriod" autocomplete="off" />
 		        		    	</div>
+		                    </div>
+		                    <div class="col-xs-3 padding-forms-right div_installment" style="display: none;display: flex;">
+		                       
+		                        	<input type="checkbox" id="cboPercentLoanYn" name="cboPercentLoanYn" class="checkbox">
+		        		      		<label  for="cboPercentLoanYn" style="margin-left: 5px; margin-top: 3px;"> រំលស់ជាភាគរយ %</label><span> </span>
+		        		        	
+		        		    	
 		                    </div>
 		                   <!--  -->
 		                </div>

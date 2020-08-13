@@ -1089,7 +1089,8 @@ function getInstallmentData(){
 						percentPay=checkBooked+res.OUT_REC[i]["inst_pay_per"]+"%";
 						checkBooked="";
 					}else if(res.OUT_REC[i]["inst_type"] =="LEFT"){
-						percentPay ="រំលស់ជាមួយធនាគារ"+res.OUT_REC[i]["inst_pay_per"]+"%";
+						//percentPay ="រំលស់ជាមួយធនាគារ"+res.OUT_REC[i]["inst_pay_per"]+"%";
+						percentPay =""+res.OUT_REC[i]["inst_pay_per"]+"%";
 					}
 					var html = "<tr>";
 					html += "<td class='inst_num cur-pointer '>"+res.OUT_REC[i]["inst_num"]+"</td>";
@@ -1516,7 +1517,61 @@ function calculatePaySchedule(){
 			
 			//
 			if ($("#cboInstYn").prop("checked")) {
-				calculateInstallment(newDate,noTbl);
+				if($("#cboPercentLoanYn").prop("checked")){
+					$("#txtInterstRate").val("0");
+					var loanPerAmt = leftAmountToPay2;
+					for(var z=0; z<parseInt($("#txtPeriod").val()); z++){
+						var instPayAmt = leftAmountToPay2/parseInt($("#txtPeriod").val());
+						var instPayPercent = (100-parseInt($("#txtPayPer").val()))/parseInt($("#txtPeriod").val());
+						
+						var firstInstallmentDate = newDate.replace(/[^0-9]/gi, '');
+						var dd = firstInstallmentDate.substring(0,2);
+						var mm = firstInstallmentDate.substring(2,4);
+						var yyyy = firstInstallmentDate.substring(4,8);
+						
+						_loanAmount = leftAmountToPay2.toFixed(2);
+						_firstInstDate = $("#txtStartInstDate").val();
+						_instPeriod = parseInt($("#txtPeriod").val());
+						_interestRate=0;
+
+						var newDay= dd;
+						var newMonth=parseInt(mm);
+						var newYear = parseInt(yyyy);
+						
+						if(newMonth > 12){
+							newMonth=1;
+							newYear+=1;
+						}
+						newM = newMonth < 10 ? "0"+newMonth : newMonth; 
+						newDate= newDay +"-"+newM +"-"+newYear;
+						newMonth +=1;
+						
+						var balanceAmountPer = loanPerAmt - instPayAmt.toFixed(2) ;
+						if(balanceAmountPer <0){
+							balanceAmountPer=0;
+						}
+						if(z==parseInt($("#txtPeriod").val())){
+							balanceAmount=0;
+						}
+						loanPerAmt = balanceAmountPer;
+						noTbl +=1;
+						var htmlLeft = "<tr data-inst-type='LEFT' data-inst-dis-per='0' data-inst-dis-pay='0' data-inst-per-pay='"+instPayPercent.toFixed(2)+"' data-loan-amount='"+leftAmountToPay2.toFixed(2)+"' data-interest-rate='0' data-peroid='1' data-first-inst-date='"+$("#txtStartInstDate").val()+"'>";
+			    		htmlLeft += "<td class='inst_num cur-pointer '>"+noTbl+"</td>";
+			    		htmlLeft += "<td class='inst_date cur-pointer text-center'>"+newDate+"</td>";
+			    		htmlLeft += "<td class='inst_pay_per cur-pointer text-center'>"+instPayPercent.toFixed(2)+"%</td>";
+			    		htmlLeft += "<td class='inst_dis_amt cur-pointer text-right'>0$</td>";
+			    		htmlLeft += "<td class='inst_amt_principle cur-pointer text-right'>"+stock.comm.formatCurrency(instPayAmt.toFixed(2))+"$</td>";
+			    		htmlLeft += "<td class='inst_amt_interest cur-pointer text-right'>0$</td>";
+			    		htmlLeft += "<td class='inst_amt_pay cur-pointer text-right' >"+stock.comm.formatCurrency(instPayAmt.toFixed(2))+"$</td>";
+			    		htmlLeft += "<td class='inst_amt_balance cur-pointer text-right' style='padding-right: 25px;'>"+balanceAmountPer+"$</td>";
+			    		
+			    		htmlLeft += "</tr>";
+			            $("#tblInstallment tbody").append(htmlLeft);
+					}
+				}else{
+					calculateInstallment(newDate,noTbl);
+				}
+				
 		    }else{
 		    	if(parseInt($("#txtPayPer").val()) != 100 ){
 		    		noTbl+=1;
