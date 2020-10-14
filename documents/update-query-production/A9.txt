@@ -1,0 +1,25 @@
+
+
+update tbl_installment
+set inst_amt_balance = 33750
+,inst_amt_principle = 33750
+,inst_amt_pay = 33750
+,inst_date = '2020-08-14'
+,inst_type  ='LEFT'
+,inst_pay_per = 25
+where sell_id = 20
+and inst_num in(3);
+
+
+update tbl_installment
+set inst_amt_balance = 0
+,inst_amt_principle = 33750
+,inst_amt_pay = 33750
+,inst_date = '2021-06-06'
+,inst_type  ='LEFT'
+,inst_pay_per = 25
+where sell_id = 20
+and inst_num in(4);
+
+delete from tbl_installment
+where sell_id = 20 and inst_num >4;

@@ -1,0 +1,19 @@
+insert into tbl_installment(inst_num ,inst_date ,inst_day_num ,inst_amt_pay ,inst_amt_principle ,inst_amt_interest ,inst_amt_balance ,inst_loan_amount ,inst_period_month ,inst_interest_rate ,sell_id,
+			inst_type,inst_paid_yn,regDt,regUsr,com_id,useYn)
+values (4,'2021-07-11',0,33750,33750,0,0,67500,2,0,86,	'LEFT',	'N',	now(),	2.00,	1.00,	'Y');
+
+
+update tbl_installment
+set inst_amt_balance = 33750
+,inst_amt_principle = 33750
+,inst_amt_pay = 33750
+,inst_date = '2020-08-14'
+,inst_type  ='LEFT'
+where sell_id = 86
+and inst_num = 3;
+
+update tbl_installment
+set inst_first_installment_date = '2019-11-01'
+,inst_pay_per = 25
+where sell_id = 86
+and inst_num in(3,4);
